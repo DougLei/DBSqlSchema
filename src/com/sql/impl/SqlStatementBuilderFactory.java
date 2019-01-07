@@ -1,5 +1,6 @@
-package com.sql;
+package com.sql.impl;
 
+import com.sql.SqlStatementBuilder;
 import com.sql.enums.DatabaseTypeEnum;
 import com.sql.enums.EncodingEnum;
 import com.sql.exception.UnsupportDatabaseType;
@@ -17,7 +18,7 @@ public class SqlStatementBuilderFactory {
 	 * @param databaseType
 	 * @return
 	 */
-	public static SqlStatementBuilder createSqlStatementBuilderInstance(DatabaseTypeEnum databaseType){
+	public SqlStatementBuilder createSqlStatementBuilderInstance(DatabaseTypeEnum databaseType){
 		return createSqlStatementBuilderInstance(databaseType, EncodingEnum.UTF_8);
 	}
 	
@@ -27,7 +28,7 @@ public class SqlStatementBuilderFactory {
 	 * @param encoding
 	 * @return
 	 */
-	public static SqlStatementBuilder createSqlStatementBuilderInstance(DatabaseTypeEnum databaseType, EncodingEnum encoding){
+	public SqlStatementBuilder createSqlStatementBuilderInstance(DatabaseTypeEnum databaseType, EncodingEnum encoding){
 		if(databaseType == null){
 			throw new NullPointerException("创建SqlStatementBuilder实例时，传入的databaseType不能为空");
 		}
