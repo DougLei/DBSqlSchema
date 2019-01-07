@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import com.sql.enums.DatabaseTypeEnum;
-import com.sql.enums.EncodingEnum;
+import com.sql.enums.DatabaseType;
+import com.sql.enums.Encoding;
 import com.sql.util.IOUtil;
 import com.sql.util.StrUtils;
 
@@ -15,14 +15,14 @@ import com.sql.util.StrUtils;
  */
 public abstract class AbstractSqlStatementBuilder implements SqlStatementBuilder{
 
-	protected DatabaseTypeEnum databaseType;
-	protected EncodingEnum encoding;
+	protected DatabaseType databaseType;
+	protected Encoding encoding;
 	protected String jsonConfig;
 	
-	public void setDatabaseType(DatabaseTypeEnum databaseType) {
+	public void setDatabaseType(DatabaseType databaseType) {
 		this.databaseType = databaseType;
 	}
-	public void setEncoding(EncodingEnum encoding) {
+	public void setEncoding(Encoding encoding) {
 		this.encoding = encoding;
 	}
 

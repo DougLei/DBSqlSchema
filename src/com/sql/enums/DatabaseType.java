@@ -4,7 +4,7 @@ package com.sql.enums;
  * 数据库类型枚举对象
  * @author DougLei
  */
-public enum DatabaseTypeEnum {
+public enum DatabaseType {
 	
 	SQLSERVER("sqlserver", "Microsoft SQL Server"),
 	ORACLE("oracle", "Oracle");
@@ -12,7 +12,7 @@ public enum DatabaseTypeEnum {
 	private String databaseType;
 	private String productName;
 	
-	private DatabaseTypeEnum(String databaseType, String productName) {
+	private DatabaseType(String databaseType, String productName) {
 		this.databaseType = databaseType;
 		this.productName = productName;
 	}

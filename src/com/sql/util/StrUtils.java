@@ -2,7 +2,7 @@ package com.sql.util;
 
 import java.io.UnsupportedEncodingException;
 
-import com.sql.enums.EncodingEnum;
+import com.sql.enums.Encoding;
 
 /**
  * 字符串工具类
@@ -42,7 +42,7 @@ public class StrUtils {
 	 * @return
 	 */
 	public static String getStringByByteArray(byte[] byteArray){
-		return getStringByByteArray(byteArray, EncodingEnum.UTF_8);
+		return getStringByByteArray(byteArray, Encoding.UTF_8);
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class StrUtils {
 	 * @param encoding
 	 * @return
 	 */
-	public static String getStringByByteArray(byte[] byteArray, EncodingEnum encoding){
+	public static String getStringByByteArray(byte[] byteArray, Encoding encoding){
 		if(byteArray != null && byteArray.length > 0 && encoding != null){
 			try {
 				return new String(byteArray, encoding.getEncoding());

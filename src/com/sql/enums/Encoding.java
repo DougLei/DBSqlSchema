@@ -4,7 +4,7 @@ package com.sql.enums;
  * 编码格式
  * @author DougLei
  */
-public enum EncodingEnum {
+public enum Encoding {
 	
 	ISO8859_1("iso8859-1"),
 	UTF_8("utf-8"),
@@ -12,7 +12,7 @@ public enum EncodingEnum {
 	GB2312("gb2312");
 	
 	private String encoding;
-	private EncodingEnum(String encoding) {
+	private Encoding(String encoding) {
 		this.encoding = encoding;
 	}
 	public String getEncoding() {
