@@ -23,6 +23,9 @@ class SqlStatementBuilderFactory {
 	final static SqlStatementBuilder createSqlStatementBuilderInstance(DatabaseType databaseType, SqlStatementType sqlStatementType){
 		Map<String, Class<SqlStatementBuilder>> ssb = sqlStatementBuilderMap.get(databaseType.getDatabaseType());
 		Class<SqlStatementBuilder> builderClass = ssb.get(sqlStatementType.getKeyword());
+		if(builderClass == null){
+			throw new NullPointerException("目前不支持["+databaseType.getProductName()+"]数据库，["+sqlStatementType.getKeyword()+"]类型的sql语句进行build操作");
+		}
 		SqlStatementBuilder builder = ReflectUtil.newInstance(builderClass);
 		return builder;
 	}
