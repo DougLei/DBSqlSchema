@@ -1,48 +1,42 @@
 package com.sql.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.sql.SqlStatementBuilder;
 import com.sql.enums.DatabaseType;
-import com.sql.enums.Encoding;
-import com.sql.exception.UnsupportDatabaseType;
-import com.sql.impl.oracle.OracleSqlStatementBuilder;
-import com.sql.impl.sqlserver.SqlServerSqlStatementBuilder;
+import com.sql.enums.SqlStatementType;
+import com.sql.util.ReflectUtil;
 
 /**
- * 
+ * sql语句 builder工厂
  * @author DougLei
  */
-public class SqlStatementBuilderFactory {
+class SqlStatementBuilderFactory {
 	
 	/**
-	 * 
+	 * 创建SqlStatementBuilder实例
 	 * @param databaseType
+	 * @param sqlStatementType
 	 * @return
 	 */
-	public SqlStatementBuilder createSqlStatementBuilderInstance(DatabaseType databaseType){
-		return createSqlStatementBuilderInstance(databaseType, Encoding.UTF_8);
+	final static SqlStatementBuilder createSqlStatementBuilderInstance(DatabaseType databaseType, SqlStatementType sqlStatementType){
+		Map<String, Class<SqlStatementBuilder>> ssb = sqlStatementBuilderMap.get(databaseType.getDatabaseType());
+		Class<SqlStatementBuilder> builderClass = ssb.get(sqlStatementType.getKeyword());
+		SqlStatementBuilder builder = ReflectUtil.newInstance(builderClass);
+		return builder;
 	}
 	
-	/**
-	 * 
-	 * @param databaseType
-	 * @param encoding
-	 * @return
-	 */
-	public SqlStatementBuilder createSqlStatementBuilderInstance(DatabaseType databaseType, Encoding encoding){
-		if(databaseType == null){
-			throw new NullPointerException("创建SqlStatementBuilder实例时，传入的databaseType不能为空");
-		}
-		SqlStatementBuilder builder = null;
-		if(DatabaseType.SQLSERVER == databaseType){
-			builder = new SqlServerSqlStatementBuilder();
-		}else if(DatabaseType.ORACLE == databaseType){
-			builder = new OracleSqlStatementBuilder();
-		}else{
-			throw new UnsupportDatabaseType("创建SqlStatementBuilder实例时，程序暂时不支持" + databaseType.getProductName() + "数据库");
-		}
+	private static final int databaseTypeCount = DatabaseType.values().length;
+	private static final int sqlStatementTypeCount = SqlStatementType.values().length;
+	private static final Map<String, Map<String, Class<SqlStatementBuilder>>> sqlStatementBuilderMap = new HashMap<String, Map<String,Class<SqlStatementBuilder>>>(databaseTypeCount);
+	static{
+		// SQLSERVER
+		Map<String, Class<SqlStatementBuilder>> sqlserverSqlStatementBuilderMap = new HashMap<String, Class<SqlStatementBuilder>>(sqlStatementTypeCount);
+		sqlStatementBuilderMap.put(DatabaseType.SQLSERVER.getDatabaseType(), sqlserverSqlStatementBuilderMap);
 		
-		builder.setDatabaseType(databaseType);
-		builder.setEncoding(encoding);
-		return builder;
+		// ORACLE
+		Map<String, Class<SqlStatementBuilder>> oracleSqlStatementBuilderMap = new HashMap<String, Class<SqlStatementBuilder>>(sqlStatementTypeCount);
+		sqlStatementBuilderMap.put(DatabaseType.ORACLE.getDatabaseType(), oracleSqlStatementBuilderMap);
 	}
 }

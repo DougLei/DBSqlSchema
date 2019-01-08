@@ -1,7 +1,7 @@
 package com.sql.enums;
 
 /**
- * 
+ * sql语句类型
  * @author DougLei
  */
 public enum SqlStatementType {
