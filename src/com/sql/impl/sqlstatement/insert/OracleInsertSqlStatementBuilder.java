@@ -10,5 +10,4 @@ public class OracleInsertSqlStatementBuilder extends InsertSqlStatementBuilder {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

@@ -10,5 +10,4 @@ public class SqlServerInsertSqlStatementBuilder extends InsertSqlStatementBuilde
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
