@@ -8,7 +8,7 @@ import com.sql.impl.sqlstatement.select.SelectSqlStatementBuilder;
  */
 public class SqlServerSelectSqlStatementBuilder extends SelectSqlStatementBuilder {
 
-	protected String buildFinalSql() {
+	protected String buildSql() {
 		return null;
 	}
 }

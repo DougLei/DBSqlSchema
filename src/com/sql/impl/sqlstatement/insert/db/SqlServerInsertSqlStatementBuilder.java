@@ -8,7 +8,7 @@ import com.sql.impl.sqlstatement.insert.InsertSqlStatementBuilder;
  */
 public class SqlServerInsertSqlStatementBuilder extends InsertSqlStatementBuilder {
 
-	protected String buildFinalSql() {
+	protected String buildSql() {
 		// TODO Auto-generated method stub
 		return null;
 	}

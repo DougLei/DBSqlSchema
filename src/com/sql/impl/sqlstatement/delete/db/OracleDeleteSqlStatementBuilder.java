@@ -8,7 +8,7 @@ import com.sql.impl.sqlstatement.delete.DeleteSqlStatementBuilder;
  */
 public class OracleDeleteSqlStatementBuilder extends DeleteSqlStatementBuilder{
 
-	protected String buildFinalSql() {
+	protected String buildSql() {
 		return null;
 	}
 }

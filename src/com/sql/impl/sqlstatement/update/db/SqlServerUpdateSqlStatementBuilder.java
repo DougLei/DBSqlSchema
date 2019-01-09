@@ -8,7 +8,7 @@ import com.sql.impl.sqlstatement.update.UpdateSqlStatementBuilder;
  */
 public class SqlServerUpdateSqlStatementBuilder extends UpdateSqlStatementBuilder {
 
-	protected String buildFinalSql() {
+	protected String buildSql() {
 		return null;
 	}
 }

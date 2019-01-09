@@ -8,7 +8,7 @@ import com.sql.impl.sqlstatement.view.ViewSqlStatementBuilder;
  */
 public class SqlServerViewSqlStatementBuilder extends ViewSqlStatementBuilder {
 
-	protected String buildFinalSql() {
+	protected String buildSql() {
 		return null;
 	}
 }

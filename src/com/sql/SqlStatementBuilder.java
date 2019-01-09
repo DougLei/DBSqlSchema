@@ -14,7 +14,19 @@ public interface SqlStatementBuilder {
 	void setJson(String json);
 	
 	/**
-	 * 创建最终的sql语句
+	 * 获取配置文件中的id值
+	 * @return
+	 */
+	String getId();
+	
+	/**
+	 * 获取配置文件中的name值
+	 * @return
+	 */
+	String getName();
+	
+	/**
+	 * 创建sql语句
 	 * @param json
 	 * @return
 	 */

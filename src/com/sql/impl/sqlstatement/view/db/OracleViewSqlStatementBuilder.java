@@ -8,7 +8,7 @@ import com.sql.impl.sqlstatement.view.ViewSqlStatementBuilder;
  */
 public class OracleViewSqlStatementBuilder extends ViewSqlStatementBuilder {
 
-	protected String buildFinalSql() {
+	protected String buildSql() {
 		return null;
 	}
 }
