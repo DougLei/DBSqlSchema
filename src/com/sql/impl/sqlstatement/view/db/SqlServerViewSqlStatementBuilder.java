@@ -1,14 +1,11 @@
 package com.sql.impl.sqlstatement.view.db;
 
-import com.sql.impl.sqlstatement.view.ViewSqlStatementBuilder;
+import com.sql.impl.sqlstatement.view.ViewSqlStatementBuilderImpl;
 
 /**
  * 
  * @author DougLei
  */
-public class SqlServerViewSqlStatementBuilder extends ViewSqlStatementBuilder {
+public class SqlServerViewSqlStatementBuilder extends ViewSqlStatementBuilderImpl {
 
-	protected String buildSql() {
-		return null;
-	}
 }

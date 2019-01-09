@@ -1,12 +1,12 @@
 package com.sql.impl.sqlstatement.procedure.db;
 
-import com.sql.impl.sqlstatement.procedure.ProcedureSqlStatementBuilder;
+import com.sql.impl.sqlstatement.procedure.ProcedureSqlStatementBuilderImpl;
 
 /**
  * 
  * @author DougLei
  */
-public class SqlServerProcedureSqlStatementBuilder extends ProcedureSqlStatementBuilder {
+public class SqlServerProcedureSqlStatementBuilder extends ProcedureSqlStatementBuilderImpl {
 
 	
 }

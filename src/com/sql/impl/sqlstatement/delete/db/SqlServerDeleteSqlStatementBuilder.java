@@ -1,14 +1,11 @@
 package com.sql.impl.sqlstatement.delete.db;
 
-import com.sql.impl.sqlstatement.delete.DeleteSqlStatementBuilder;
+import com.sql.impl.sqlstatement.delete.DeleteSqlStatementBuilderImpl;
 
 /**
  * 
  * @author DougLei
  */
-public class SqlServerDeleteSqlStatementBuilder extends DeleteSqlStatementBuilder{
+public class SqlServerDeleteSqlStatementBuilder extends DeleteSqlStatementBuilderImpl{
 
-	protected String buildSql() {
-		return null;
-	}
 }

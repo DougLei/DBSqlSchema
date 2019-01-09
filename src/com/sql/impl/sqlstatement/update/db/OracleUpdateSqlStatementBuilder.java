@@ -1,14 +1,11 @@
 package com.sql.impl.sqlstatement.update.db;
 
-import com.sql.impl.sqlstatement.update.UpdateSqlStatementBuilder;
+import com.sql.impl.sqlstatement.update.UpdateSqlStatementBuilderImpl;
 
 /**
  * 
  * @author DougLei
  */
-public class OracleUpdateSqlStatementBuilder extends UpdateSqlStatementBuilder {
+public class OracleUpdateSqlStatementBuilder extends UpdateSqlStatementBuilderImpl {
 
-	protected String buildSql() {
-		return null;
-	}
 }
