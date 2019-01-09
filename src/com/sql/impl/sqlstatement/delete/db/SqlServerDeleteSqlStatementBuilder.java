@@ -1,4 +1,6 @@
-package com.sql.impl.sqlstatement.delete;
+package com.sql.impl.sqlstatement.delete.db;
+
+import com.sql.impl.sqlstatement.delete.DeleteSqlStatementBuilder;
 
 /**
  * 

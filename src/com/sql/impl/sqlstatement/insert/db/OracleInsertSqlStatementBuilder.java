@@ -1,4 +1,6 @@
-package com.sql.impl.sqlstatement.insert;
+package com.sql.impl.sqlstatement.insert.db;
+
+import com.sql.impl.sqlstatement.insert.InsertSqlStatementBuilder;
 
 /**
  * 
