@@ -1,6 +1,5 @@
 package com.sql.impl.statement.select;
 
-import com.sql.exception.DBSqlSchemaException;
 import com.sql.impl.SqlStatementBuilderImpl;
 import com.sql.statement.select.SelectSqlStatementBuilder;
 
@@ -13,7 +12,8 @@ public abstract class SelectSqlStatementBuilderImpl extends SqlStatementBuilderI
 	
 	protected String buildSql() {
 		
-		throw new DBSqlSchemaException("还未实现 =====> SelectSqlStatementBuilderImpl");
-//		return select.toString();
+		
+		
+		return select.toString();
 	}
 }

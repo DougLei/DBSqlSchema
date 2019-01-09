@@ -1,5 +1,6 @@
 package com.sql;
 
+
 /**
  * sql语句 builder
  * @author DougLei
@@ -14,16 +15,22 @@ public interface SqlStatementBuilder {
 	void setJson(String json);
 	
 	/**
-	 * 获取配置文件中的id值
+	 * 获取配置文件的id值
 	 * @return
 	 */
 	String getId();
 	
 	/**
-	 * 获取配置文件中的name值
+	 * 获取配置文件的name值
 	 * @return
 	 */
 	String getName();
+	
+	/**
+	 * 获取配置文件的版本
+	 * @return
+	 */
+	int getVersion();
 	
 	/**
 	 * 创建sql语句

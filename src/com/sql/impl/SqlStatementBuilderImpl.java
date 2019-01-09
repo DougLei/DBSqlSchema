@@ -2,6 +2,7 @@ package com.sql.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementBuilder;
+import com.sql.util.StrUtils;
 
 /**
  * sql语句 builder实现类
@@ -14,33 +15,54 @@ public abstract class SqlStatementBuilderImpl implements SqlStatementBuilder {
 		this.json = JSONObject.parseObject(json);
 	}
 	
-	/**验证json配置内容不能为空*/
-	private void validJsonNotNull(){
-		if(json == null){
-			throw new NullPointerException("配置内容(json)不能为空");
+	private boolean isValidation;
+	/**验证json配置内容信息*/
+	private void validJsonInfo(){
+		if(isValidation){
+			if(json == null){
+				throw new NullPointerException("配置内容(json)不能为空");
+			}
+			if(json.get("id") == null || StrUtils.isEmpty(json.getString("id"))){
+				throw new NullPointerException("配置内容(json)的属性[id]值不能为空");
+			}
+			if(json.get("name") == null || StrUtils.isEmpty(json.getString("name"))){
+				throw new NullPointerException("配置内容(json)的属性[name]值不能为空");
+			}
+			if(json.get("version") == null || json.getIntValue("version") < 0){
+				throw new NullPointerException("配置内容(json)的属性[version]值不能为空");
+			}
+			if(json.get("content") == null || json.getJSONObject("content").size() == 0){
+				throw new NullPointerException("配置内容(json)的属性content值不能为空");
+			}
+			json = json.getJSONObject("content");
+			isValidation = true;
 		}
 	}
 	
 	public String getId() {
-		validJsonNotNull();
-		if(json.get("id") == null){
-			throw new NullPointerException("配置内容(json)的属性id值不能为空");
-		}
+		validJsonInfo();
 		return json.getString("id");
 	}
 
 	public String getName() {
-		validJsonNotNull();
-		if(json.get("name") == null){
-			throw new NullPointerException("配置内容(json)的属性name值不能为空");
-		}
+		validJsonInfo();
 		return json.getString("name");
+	}
+	
+	public int getVersion() {
+		validJsonInfo();
+		return json.getIntValue("version");
 	}
 
 	public String buildSqlStatement() {
-		validJsonNotNull();
+		validJsonInfo();
 		return buildSql();
 	}
+	
+	protected static final char newLine(){
+		return nl;
+	}
+	private static final char nl= '\n';
 	
 	/**
 	 * 创建sql语句
