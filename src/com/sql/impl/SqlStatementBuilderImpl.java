@@ -1,8 +1,5 @@
 package com.sql.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementBuilder;
 import com.sql.SqlStatementInfoBuilder;
@@ -13,7 +10,6 @@ import com.sql.enums.SqlStatementType;
  * @author DougLei
  */
 public abstract class SqlStatementBuilderImpl implements SqlStatementBuilder {
-	protected final Map<String, SqlStatementBuilder> builderMap = new HashMap<String, SqlStatementBuilder>(32);
 	
 	protected SqlStatementInfoBuilder infoBuilder;
 	protected JSONObject json;
