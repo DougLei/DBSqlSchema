@@ -23,6 +23,18 @@ public class StrUtils {
 	}
 	
 	/**
+	 * 是否为空
+	 * @param object
+	 * @return
+	 */
+	public static boolean isEmpty(Object object){
+		if(object == null || "".equals(object.toString().trim())){
+			return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * 是否不为空
 	 * @param str
 	 * @return

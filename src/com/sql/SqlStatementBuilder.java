@@ -1,27 +1,43 @@
 package com.sql;
 
+import com.alibaba.fastjson.JSONObject;
+import com.sql.enums.SqlStatementType;
+
 /**
  * sql语句 builder
  * @author DougLei
  */
 public interface SqlStatementBuilder {
 	
-	/**
-	 * 设置json配置内容
-	 * @param json
-	 * @return
-	 */
-	void setJson(String json);
+	void setSqlStatementInfoBuilder(SqlStatementInfoBuilder infoBuilder);
+	SqlStatementInfoBuilder getSqlStatementInfoBuilder();
 	
 	/**
 	 * 获取json配置内容
 	 * @return
 	 */
-	String getJson();
+	JSONObject getJson();
+	
+	/**
+	 * 获取配置文件id
+	 * @return
+	 */
+	String getId();
+	
+	/**
+	 * 获取配置文件desc
+	 * @return
+	 */
+	String getDescription();
+	
+	/**
+	 * 获取sql语句类型
+	 * @return
+	 */
+	SqlStatementType getSqlStatementType();
 	
 	/**
 	 * 创建sql语句
-	 * @param json
 	 * @return
 	 */
 	String buildSqlStatement();

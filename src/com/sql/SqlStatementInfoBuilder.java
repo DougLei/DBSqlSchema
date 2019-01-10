@@ -2,6 +2,7 @@ package com.sql;
 
 import java.io.File;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sql.enums.DatabaseType;
 import com.sql.enums.SqlStatementType;
 
@@ -22,12 +23,6 @@ public interface SqlStatementInfoBuilder {
 	 * @return
 	 */
 	DatabaseType getDatabaseType();
-	
-	/**
-	 * 设置sql语句类型
-	 * @param sqlStatementType
-	 */
-	SqlStatementInfoBuilder setSqlStatementType(SqlStatementType sqlStatementType);
 	
 	/**
 	 * 获取sql语句类型
@@ -62,12 +57,24 @@ public interface SqlStatementInfoBuilder {
 	 * @return
 	 */
 	SqlStatementInfoBuilder setJson(String json);
+	
+	/**
+	 * 设置json配置内容
+	 * @param json
+	 * @return
+	 */
+	SqlStatementInfoBuilder setJson(JSONObject json);
 
 	/**
 	 * 获取json配置内容
 	 * @return
 	 */
-	String getJson();
+	JSONObject getJson();
+	
+	/**
+	 * 验证数据信息
+	 */
+	void validationInfo();
 	
 	/**
 	 * 对外，build sql语句

@@ -3,7 +3,9 @@ package com.sql.impl;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Arrays;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementBuilder;
 import com.sql.SqlStatementInfoBuilder;
 import com.sql.enums.DatabaseType;
@@ -18,8 +20,9 @@ import com.sql.util.StrUtils;
 public class SqlStatementInfoBuilderImpl implements SqlStatementInfoBuilder{
 
 	protected DatabaseType databaseType;
+	protected JSONObject json;
+	
 	protected SqlStatementType sqlStatementType;
-	protected String json;
 	
 	public DatabaseType getDatabaseType() {
 		return databaseType;
@@ -27,15 +30,11 @@ public class SqlStatementInfoBuilderImpl implements SqlStatementInfoBuilder{
 	public SqlStatementType getSqlStatementType() {
 		return sqlStatementType;
 	}
-	public String getJson() {
+	public JSONObject getJson() {
 		return json;
 	}
 	public SqlStatementInfoBuilder setDatabaseType(DatabaseType databaseType) {
 		this.databaseType = databaseType;
-		return this;
-	}
-	public SqlStatementInfoBuilder setSqlStatementType(SqlStatementType sqlStatementType) {
-		this.sqlStatementType = sqlStatementType;
 		return this;
 	}
 	
@@ -54,18 +53,27 @@ public class SqlStatementInfoBuilderImpl implements SqlStatementInfoBuilder{
 			throw new IllegalArgumentException("["+file.getAbsolutePath()+"]路径下为文件夹对象，非文件对象");
 		}
 		try {
-			json = IOUtil.readerToString(new FileReader(file), file.getName());
+			return setJson(IOUtil.readerToString(new FileReader(file), file.getName()));
 		} catch (FileNotFoundException e) {
 		}
 		return this;
 	}
 	
 	public SqlStatementInfoBuilder setJsonConfig(byte[] byteArray) {
-		json = StrUtils.getStringByByteArray(byteArray);
-		return this;
+		return setJson(StrUtils.getStringByByteArray(byteArray));
 	}
 	
 	public SqlStatementInfoBuilder setJson(String json) {
+		if(StrUtils.isEmpty(json)){
+			throw new NullPointerException("配置内容(json)不能为空");
+		}
+		if(!json.trim().startsWith("{")){
+			throw new NullPointerException("配置内容(json)格式错误，应为json对象");
+		}
+		return setJson(JSONObject.parseObject(json));
+	}
+	
+	public SqlStatementInfoBuilder setJson(JSONObject json) {
 		this.json = json;
 		return this;
 	}
@@ -73,22 +81,35 @@ public class SqlStatementInfoBuilderImpl implements SqlStatementInfoBuilder{
 	public SqlStatementBuilder createSqlStatementBuilder() {
 		validationInfo();
 		SqlStatementBuilder sqlStatementBuilder = SqlStatementBuilderFactory.createSqlStatementBuilderInstance(databaseType, sqlStatementType);
-		sqlStatementBuilder.setJson(json);
+		sqlStatementBuilder.setSqlStatementInfoBuilder(this);
 		return sqlStatementBuilder;
 	}
 	
-	/**
-	 * 验证info
-	 */
-	private void validationInfo() {
-		if(databaseType == null){
-			throw new NullPointerException("数据库类型(databaseType)不能为空");
-		}
-		if(sqlStatementType == null){
-			throw new NullPointerException("sql语句的类型(sqlStatementType)不能为空");
-		}
-		if(StrUtils.isEmpty(json)){
-			throw new NullPointerException("配置内容(json)不能为空");
+	private boolean isValid;
+	public void validationInfo() {
+		if(!isValid){
+			if(databaseType == null){
+				throw new NullPointerException("数据库类型(databaseType)不能为空");
+			}
+			if(json == null || json.size() == 0){
+				throw new NullPointerException("配置内容(json)不能为空");
+			}
+			if(StrUtils.isEmpty(json.get("id"))){
+				throw new NullPointerException("配置内容(json)的属性[id]值不能为空");
+			}
+			if(StrUtils.isEmpty(json.get("type"))){
+				throw new NullPointerException("配置内容(json)的属性[type]值不能为空");
+			}
+			try {
+				this.sqlStatementType = SqlStatementType.valueOf(json.getString("type").trim().toUpperCase());
+			} catch (Exception e) {
+				throw new IllegalArgumentException("配置内容(json)的属性[type]值错误，目前支持的值包括：["+Arrays.toString(SqlStatementType.values())+"]");
+			}
+			JSONObject tmp = json.getJSONObject("content");
+			if(tmp == null || tmp.size() == 0){
+				throw new NullPointerException("配置内容(json)的属性content值不能为空");
+			}
+			isValid = true;
 		}
 	}
 }
