@@ -28,9 +28,6 @@ public abstract class SqlStatementBuilderImpl implements SqlStatementBuilder {
 			if(json.get("name") == null || StrUtils.isEmpty(json.getString("name"))){
 				throw new NullPointerException("配置内容(json)的属性[name]值不能为空");
 			}
-			if(json.get("version") == null || json.getIntValue("version") < 0){
-				throw new NullPointerException("配置内容(json)的属性[version]值不能为空");
-			}
 			if(json.get("content") == null || json.getJSONObject("content").size() == 0){
 				throw new NullPointerException("配置内容(json)的属性content值不能为空");
 			}
@@ -49,11 +46,6 @@ public abstract class SqlStatementBuilderImpl implements SqlStatementBuilder {
 		return json.getString("name");
 	}
 	
-	public int getVersion() {
-		validJsonInfo();
-		return json.getIntValue("version");
-	}
-
 	public String buildSqlStatement() {
 		validJsonInfo();
 		return buildSql();

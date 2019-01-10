@@ -1,10 +1,12 @@
 {
 	"id":"",
 	"name":"",
-	"version":1,
-	"content":{
-		"id":"",
-		"select":{
+	"type":"select",
+	"desc":"",
+	"content":[
+		{
+			"id":"",
+			"type":"",
 			"alias":"",
 			"results":[
 				{
@@ -25,7 +27,6 @@
 					"joinType":"inner",
 					"type":"table",
 					"name":"sys_user",
-				    "selectId":"xxxx,当type=subQuery时,这个属性存储其他select的id,属于引用",
 					"alias":"u",
 					"on":[
 						{
@@ -80,5 +81,6 @@
 				}
 			]
 		}
-	}
+		
+	]
 }

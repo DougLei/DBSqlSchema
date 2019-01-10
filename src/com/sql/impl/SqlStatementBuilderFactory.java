@@ -6,18 +6,6 @@ import java.util.Map;
 import com.sql.SqlStatementBuilder;
 import com.sql.enums.DatabaseType;
 import com.sql.enums.SqlStatementType;
-import com.sql.impl.statement.delete.db.OracleDeleteSqlStatementBuilder;
-import com.sql.impl.statement.delete.db.SqlServerDeleteSqlStatementBuilder;
-import com.sql.impl.statement.insert.db.OracleInsertSqlStatementBuilder;
-import com.sql.impl.statement.insert.db.SqlServerInsertSqlStatementBuilder;
-import com.sql.impl.statement.procedure.db.OracleProcedureSqlStatementBuilder;
-import com.sql.impl.statement.procedure.db.SqlServerProcedureSqlStatementBuilder;
-import com.sql.impl.statement.select.db.OracleSelectSqlStatementBuilder;
-import com.sql.impl.statement.select.db.SqlServerSelectSqlStatementBuilder;
-import com.sql.impl.statement.update.db.OracleUpdateSqlStatementBuilder;
-import com.sql.impl.statement.update.db.SqlServerUpdateSqlStatementBuilder;
-import com.sql.impl.statement.view.db.OracleViewSqlStatementBuilder;
-import com.sql.impl.statement.view.db.SqlServerViewSqlStatementBuilder;
 import com.sql.util.ReflectUtil;
 
 /**
@@ -48,22 +36,10 @@ class SqlStatementBuilderFactory {
 	static{
 		// SQLSERVER
 		Map<String, Class<? extends SqlStatementBuilder>> sqlserverSqlStatementBuilderMap = new HashMap<String, Class<? extends SqlStatementBuilder>>(sqlStatementTypeCount);
-		sqlserverSqlStatementBuilderMap.put(SqlStatementType.SELECT.getKeyword(), SqlServerSelectSqlStatementBuilder.class);
-		sqlserverSqlStatementBuilderMap.put(SqlStatementType.INSERT.getKeyword(), SqlServerInsertSqlStatementBuilder.class);
-		sqlserverSqlStatementBuilderMap.put(SqlStatementType.UPDATE.getKeyword(), SqlServerUpdateSqlStatementBuilder.class);
-		sqlserverSqlStatementBuilderMap.put(SqlStatementType.DELETE.getKeyword(), SqlServerDeleteSqlStatementBuilder.class);
-		sqlserverSqlStatementBuilderMap.put(SqlStatementType.VIEW.getKeyword(), SqlServerViewSqlStatementBuilder.class);
-		sqlserverSqlStatementBuilderMap.put(SqlStatementType.PROCEDURE.getKeyword(), SqlServerProcedureSqlStatementBuilder.class);
 		sqlStatementBuilderMap.put(DatabaseType.SQLSERVER.getDatabaseType(), sqlserverSqlStatementBuilderMap);
 		
 		// ORACLE
 		Map<String, Class<? extends SqlStatementBuilder>> oracleSqlStatementBuilderMap = new HashMap<String, Class<? extends SqlStatementBuilder>>(sqlStatementTypeCount);
-		oracleSqlStatementBuilderMap.put(SqlStatementType.SELECT.getKeyword(), OracleSelectSqlStatementBuilder.class);
-		oracleSqlStatementBuilderMap.put(SqlStatementType.INSERT.getKeyword(), OracleInsertSqlStatementBuilder.class);
-		oracleSqlStatementBuilderMap.put(SqlStatementType.UPDATE.getKeyword(), OracleUpdateSqlStatementBuilder.class);
-		oracleSqlStatementBuilderMap.put(SqlStatementType.DELETE.getKeyword(), OracleDeleteSqlStatementBuilder.class);
-		oracleSqlStatementBuilderMap.put(SqlStatementType.VIEW.getKeyword(), OracleViewSqlStatementBuilder.class);
-		oracleSqlStatementBuilderMap.put(SqlStatementType.PROCEDURE.getKeyword(), OracleProcedureSqlStatementBuilder.class);
 		sqlStatementBuilderMap.put(DatabaseType.ORACLE.getDatabaseType(), oracleSqlStatementBuilderMap);
 	}
 }

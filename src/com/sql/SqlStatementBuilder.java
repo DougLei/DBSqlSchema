@@ -27,12 +27,6 @@ public interface SqlStatementBuilder {
 	String getName();
 	
 	/**
-	 * 获取配置文件的版本
-	 * @return
-	 */
-	int getVersion();
-	
-	/**
 	 * 创建sql语句
 	 * @param json
 	 * @return
