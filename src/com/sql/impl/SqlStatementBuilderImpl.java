@@ -10,6 +10,8 @@ import com.sql.enums.SqlStatementType;
  * @author DougLei
  */
 public abstract class SqlStatementBuilderImpl implements SqlStatementBuilder {
+	protected boolean isBuild;
+	protected String sqlStatement;
 	
 	protected SqlStatementInfoBuilder infoBuilder;
 	protected JSONObject json;
@@ -24,10 +26,10 @@ public abstract class SqlStatementBuilderImpl implements SqlStatementBuilder {
 		this.infoBuilder = infoBuilder;
 		this.json = infoBuilder.getJson();
 		this.sqlStatementType = infoBuilder.getSqlStatementType();
-		
 		this.id = json.getString("id");
 		this.description = json.getString("description");
 		this.content = json.getJSONObject("content");
+		SqlStatementBuilderContext.set(this);
 	}
 	
 	public SqlStatementInfoBuilder getSqlStatementInfoBuilder() {
@@ -46,6 +48,20 @@ public abstract class SqlStatementBuilderImpl implements SqlStatementBuilder {
 		return sqlStatementType;
 	}
 	
+	public String buildSqlStatement() {
+		if(!isBuild && sqlStatement != null){
+			sqlStatement = buildSql();
+			isBuild = true;
+		}
+		return sqlStatement;
+	}
+
+	/**
+	 * 实际build sql语句的方法
+	 * @return
+	 */
+	protected abstract String buildSql();
+
 	protected static final char newline(){
 		return '\n';
 	}

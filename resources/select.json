@@ -45,11 +45,14 @@
 				"valueFunction":{
 					"name":"",
 					"format":""
-				}
+				},
+				"nextLogicOperator":"and"
 			}
 		],
 		"groupBy":[
-			"nike_name"
+			{
+				"columnName":"nike_name"
+			}
 		],
 		"having":[
 			{
