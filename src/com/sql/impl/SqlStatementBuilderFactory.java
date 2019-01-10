@@ -30,16 +30,21 @@ class SqlStatementBuilderFactory {
 		return builder;
 	}
 	
-	private static final int databaseTypeCount = DatabaseType.values().length;
-	private static final int sqlStatementTypeCount = SqlStatementType.values().length;
-	private static final Map<String, Map<String, Class<? extends SqlStatementBuilder>>> sqlStatementBuilderMap = new HashMap<String, Map<String,Class<? extends SqlStatementBuilder>>>(databaseTypeCount);
+	private static final Map<String, Map<String, Class<? extends SqlStatementBuilder>>> sqlStatementBuilderMap = new HashMap<String, Map<String,Class<? extends SqlStatementBuilder>>>(DatabaseType.values().length);
 	static{
+		int sqlStatementTypeCount = SqlStatementType.values().length;
+		
 		// SQLSERVER
 		Map<String, Class<? extends SqlStatementBuilder>> sqlserverSqlStatementBuilderMap = new HashMap<String, Class<? extends SqlStatementBuilder>>(sqlStatementTypeCount);
-		sqlStatementBuilderMap.put(DatabaseType.SQLSERVER.getDatabaseType(), sqlserverSqlStatementBuilderMap);
+		// TODO 添加sqlserver 的各个builder类
 		
 		// ORACLE
 		Map<String, Class<? extends SqlStatementBuilder>> oracleSqlStatementBuilderMap = new HashMap<String, Class<? extends SqlStatementBuilder>>(sqlStatementTypeCount);
+		// TODO 添加oracle 的各个builder类
+		
+		
+		// 将各个builder类添加到缓存集合中
+		sqlStatementBuilderMap.put(DatabaseType.SQLSERVER.getDatabaseType(), sqlserverSqlStatementBuilderMap);
 		sqlStatementBuilderMap.put(DatabaseType.ORACLE.getDatabaseType(), oracleSqlStatementBuilderMap);
 	}
 }

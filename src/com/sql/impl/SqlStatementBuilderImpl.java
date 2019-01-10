@@ -25,25 +25,15 @@ public abstract class SqlStatementBuilderImpl implements SqlStatementBuilder {
 			if(json.get("id") == null || StrUtils.isEmpty(json.getString("id"))){
 				throw new NullPointerException("配置内容(json)的属性[id]值不能为空");
 			}
-			if(json.get("name") == null || StrUtils.isEmpty(json.getString("name"))){
-				throw new NullPointerException("配置内容(json)的属性[name]值不能为空");
+			if(json.get("type") == null || StrUtils.isEmpty(json.getString("type"))){
+				throw new NullPointerException("配置内容(json)的属性[type]值不能为空");
 			}
-			if(json.get("content") == null || json.getJSONObject("content").size() == 0){
+			if(json.get("content") == null || json.getJSONArray("content").size() == 0){
 				throw new NullPointerException("配置内容(json)的属性content值不能为空");
 			}
 			json = json.getJSONObject("content");
 			isValidation = true;
 		}
-	}
-	
-	public String getId() {
-		validJsonInfo();
-		return json.getString("id");
-	}
-
-	public String getName() {
-		validJsonInfo();
-		return json.getString("name");
 	}
 	
 	public String buildSqlStatement() {

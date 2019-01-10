@@ -21,21 +21,32 @@ public class SqlStatementInfoBuilderImpl implements SqlStatementInfoBuilder{
 	protected SqlStatementType sqlStatementType;
 	protected String json;
 	
-	public void setDatabaseType(DatabaseType databaseType) {
+	public DatabaseType getDatabaseType() {
+		return databaseType;
+	}
+	public SqlStatementType getSqlStatementType() {
+		return sqlStatementType;
+	}
+	public String getJson() {
+		return json;
+	}
+	public SqlStatementInfoBuilder setDatabaseType(DatabaseType databaseType) {
 		this.databaseType = databaseType;
+		return this;
 	}
-	public void setSqlStatementType(SqlStatementType sqlStatementType) {
+	public SqlStatementInfoBuilder setSqlStatementType(SqlStatementType sqlStatementType) {
 		this.sqlStatementType = sqlStatementType;
+		return this;
 	}
-
-	public void setJsonConfig(String filePath) {
+	
+	public SqlStatementInfoBuilder setJsonConfig(String filePath) {
 		if(StrUtils.isEmpty(filePath)){
 			throw new NullPointerException("filePath参数不能为空");
 		}
-		setJsonConfig(new File(filePath));
+		return setJsonConfig(new File(filePath));
 	}
 
-	public void setJsonConfig(File file) {
+	public SqlStatementInfoBuilder setJsonConfig(File file) {
 		if(!file.exists()){
 			throw new NullPointerException("不存在路径为["+file.getAbsolutePath()+"]的文件");
 		}
@@ -46,14 +57,17 @@ public class SqlStatementInfoBuilderImpl implements SqlStatementInfoBuilder{
 			json = IOUtil.readerToString(new FileReader(file), file.getName());
 		} catch (FileNotFoundException e) {
 		}
+		return this;
 	}
 	
-	public void setJsonConfig(byte[] byteArray) {
+	public SqlStatementInfoBuilder setJsonConfig(byte[] byteArray) {
 		json = StrUtils.getStringByByteArray(byteArray);
+		return this;
 	}
 	
-	public void setJson(String json) {
+	public SqlStatementInfoBuilder setJson(String json) {
 		this.json = json;
+		return this;
 	}
 	
 	public SqlStatementBuilder createSqlStatementBuilder() {

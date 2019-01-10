@@ -15,41 +15,59 @@ public interface SqlStatementInfoBuilder {
 	 * 设置数据库类型
 	 * @param databaseType
 	 */
-	void setDatabaseType(DatabaseType databaseType);
+	SqlStatementInfoBuilder setDatabaseType(DatabaseType databaseType);
+	
+	/**
+	 * 获取数据库类型
+	 * @return
+	 */
+	DatabaseType getDatabaseType();
 	
 	/**
 	 * 设置sql语句类型
 	 * @param sqlStatementType
 	 */
-	void setSqlStatementType(SqlStatementType sqlStatementType);
+	SqlStatementInfoBuilder setSqlStatementType(SqlStatementType sqlStatementType);
+	
+	/**
+	 * 获取sql语句类型
+	 * @return
+	 */
+	SqlStatementType getSqlStatementType();
 	
 	/**
 	 * 设置json配置文件
 	 * @param filePath
 	 * @return
 	 */
-	void setJsonConfig(String filePath);
+	SqlStatementInfoBuilder setJsonConfig(String filePath);
 	
 	/**
 	 * 设置json配置文件
 	 * @param file
 	 * @return
 	 */
-	void setJsonConfig(File file);
+	SqlStatementInfoBuilder setJsonConfig(File file);
 	
 	/**
 	 * 设置json配置文件
 	 * @param byteArray
 	 * @return
 	 */
-	void setJsonConfig(byte[] byteArray);
+	SqlStatementInfoBuilder setJsonConfig(byte[] byteArray);
 	
 	/**
 	 * 设置json配置内容
 	 * @param json
 	 * @return
 	 */
-	void setJson(String json);
+	SqlStatementInfoBuilder setJson(String json);
+
+	/**
+	 * 获取json配置内容
+	 * @return
+	 */
+	String getJson();
 	
 	/**
 	 * 对外，build sql语句
