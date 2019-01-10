@@ -3,8 +3,7 @@
 	"type":"select",
 	"description":"",
 	"content":{
-		"alias":"",
-		"results":[
+		"resultSet":[
 			{
 				"columnName":"nike_name",
 				"columnFunction":{
@@ -16,7 +15,8 @@
 		],
 		"table":{
 			"type":"table",
-			"name":"sys_user"
+			"name":"sys_user",
+			"alias":""
 		},
 		"join":[
 			{
