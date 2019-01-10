@@ -5,6 +5,18 @@ package com.sql.statement.model.table;
  * @author DougLei
  */
 public enum TableType {
-	TABLE,
-	SUB_QUERY
+	TABLE("table"), // 表
+	SUB_QUERY("subQuery"); // 子查询
+	
+	private String type;
+	private TableType(String type) {
+		this.type = type;
+	}
+	public String getType() {
+		return type;
+	}
+
+	public String toString(){
+		return "{" + type + "}";
+	}
 }

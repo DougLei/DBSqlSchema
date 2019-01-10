@@ -26,7 +26,6 @@ public abstract class SelectSqlStatementBuilderImpl extends SqlStatementBuilderI
 		selectSqlStatement.append(newline());
 		
 		// 查询的列名
-		selectSqlStatement.append(tab());
 		List<ResultSet> resultSetList = getResultSetList();
 		for(int i=0;i<resultSetList.size();i++){
 			selectSqlStatement.append(resultSetList.get(i).setMainTableAlias(table.getAlias()).getSqlStatement());
@@ -37,7 +36,6 @@ public abstract class SelectSqlStatementBuilderImpl extends SqlStatementBuilderI
 		selectSqlStatement.append(newline());
 		
 		// from
-		selectSqlStatement.append(tab(2));
 		selectSqlStatement.append("from ");
 		selectSqlStatement.append(table.getSqlStatement());
 		selectSqlStatement.append(newline());
@@ -46,7 +44,6 @@ public abstract class SelectSqlStatementBuilderImpl extends SqlStatementBuilderI
 		List<Join> joinList = getJoinList();
 		if(joinList != null && joinList.size() > 0){
 			for (Join join : joinList) {
-				selectSqlStatement.append(tab(2));
 				selectSqlStatement.append(join.setMainTableAlias(table.getAlias()).getSqlStatement());
 				selectSqlStatement.append(newline());
 			}

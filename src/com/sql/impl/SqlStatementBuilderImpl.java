@@ -65,17 +65,4 @@ public abstract class SqlStatementBuilderImpl implements SqlStatementBuilder {
 	protected static final char newline(){
 		return '\n';
 	}
-	protected static final char tab(){
-		return '\t';
-	}
-	protected static final String tab(int count){
-		if(count < 1){
-			count = 1;
-		}
-		StringBuilder tab = new StringBuilder(count);
-		for(int i=0;i<count;i++){
-			tab.append('\t');
-		}
-		return tab.toString();
-	}
 }

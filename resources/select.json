@@ -1,5 +1,5 @@
 {
-	"id":"ddd",
+	"id":"testSelect",
 	"type":"select",
 	"description":"",
 	"content":{
@@ -8,7 +8,7 @@
 				"columnName":"nike_name",
 				"columnFunction":{
 					"name":"",
-					"format":""
+					"parameters":[]
 				},
 				"alias":"昵称"
 			}
@@ -38,13 +38,13 @@
 				"columnName":"nike_name",
 				"columnFunction":{
 					"name":"",
-					"format":""
+					"parameters":[]
 				},
 				"operator":"eq",
 				"values":["石磊"],
 				"valueFunction":{
 					"name":"",
-					"format":""
+					"parameters":[]
 				},
 				"nextLogicOperator":"and"
 			}
@@ -59,13 +59,13 @@
 				"columnName":"nike_name",
 				"columnFunction":{
 					"name":"",
-					"format":""
+					"parameters":[]
 				},
 				"operator":"eq",
 				"values":["石磊"],
 				"valueFunction":{
 					"name":"",
-					"format":""
+					"parameters":[]
 				}
 			}
 		],
@@ -74,7 +74,7 @@
 				"columnName":"nike_name",
 				"columnFunction":{
 					"name":"",
-					"format":""
+					"parameters":[]
 				},
 				"sort":"asc"
 			}
