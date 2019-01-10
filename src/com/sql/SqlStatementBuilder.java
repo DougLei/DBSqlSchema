@@ -1,7 +1,5 @@
 package com.sql;
 
-
-
 /**
  * sql语句 builder
  * @author DougLei
