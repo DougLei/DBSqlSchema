@@ -8,7 +8,7 @@ import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.select.model.BasicImpl;
 import com.sql.statement.model.join.Join;
 import com.sql.statement.model.join.JoinType;
-import com.sql.statement.model.join.On;
+import com.sql.statement.model.join.OnGroup;
 import com.sql.statement.model.table.TableType;
 import com.sql.util.StrUtils;
 
@@ -17,25 +17,25 @@ import com.sql.util.StrUtils;
  * @author DougLei
  */
 public class JoinImpl extends BasicImpl implements Join {
-	private StringBuilder sb = new StringBuilder();
 	
 	private JoinType joinType;
 	private TableType tableType;
 	private String tableName;
 	private String alias;
-	private List<On> ons;
+	private List<OnGroup> onGroups;
 	
 	private String subSqlId;
 	private JSONObject subSqlJson;
 	
-	public void addOn(On on) {
-		if(ons == null){
-			ons = new ArrayList<On>();
+	public void addOnGroup(OnGroup onGroup) {
+		if(onGroups == null){
+			onGroups = new ArrayList<OnGroup>();
 		}
-		ons.add(on);
+		onGroups.add(onGroup);
 	}
 	
 	protected String processSqlStatement() {
+		StringBuilder sb = new StringBuilder();
 		sb.append(joinType.getSqlStatement()).append(" ");
 		if(tableType == TableType.TABLE){
 			sb.append(tableName);
@@ -55,13 +55,12 @@ public class JoinImpl extends BasicImpl implements Join {
 		}
 		
 		// 处理on
-		if(ons != null && ons.size() > 0){
+		if(onGroups != null && onGroups.size() > 0){
 			sb.append(" on (");
-			
-			for(int i=0;i<ons.size();i++){
-				sb.append(ons.get(i).getSqlStatement());
-				if(i<ons.size()-1){
-					sb.append(" ").append(ons.get(i).getNextLogicOperator()).append(" ");
+			for(int i=0;i<onGroups.size();i++){
+				sb.append(onGroups.get(i).getSqlStatement());
+				if(i<onGroups.size()-1){
+					sb.append(" ").append(onGroups.get(i).getNextLogicOperator()).append(" ");
 				}
 			}
 			sb.append(")");

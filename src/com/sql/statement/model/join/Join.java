@@ -8,5 +8,5 @@ import com.sql.statement.model.Basic;
  */
 public interface Join extends Basic{
 	
-	void addOn(On on);
+	void addOnGroup(OnGroup onGroup);
 }

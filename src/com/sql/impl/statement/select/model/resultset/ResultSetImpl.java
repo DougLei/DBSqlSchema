@@ -30,7 +30,7 @@ public class ResultSetImpl extends BasicImpl implements ResultSet {
 		return sqlStatement;
 	}
 
-	public void addFunction(String functionName, String... parameters) {
+	public void setFunction(String functionName, String[] parameters) {
 		if(function == null){
 			function = new FunctionImpl(functionName, parameters);
 		}

@@ -9,9 +9,9 @@ import com.sql.statement.model.Basic;
 public interface ResultSet extends Basic{
 	
 	/**
-	 * 添加一个函数
+	 * 设置函数
 	 * @param functionName
 	 * @param parameters
 	 */
-	void addFunction(String functionName, String... parameters);
+	void setFunction(String functionName, String[] parameters);
 }

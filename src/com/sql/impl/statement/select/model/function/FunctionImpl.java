@@ -12,13 +12,15 @@ public class FunctionImpl extends BasicImpl implements Function {
 	private String name;
 	private String[] parameters;
 	
-	public FunctionImpl() {
-	}
+	
+	
 	public FunctionImpl(String name, String[] parameters) {
 		this.name = name;
 		this.parameters = parameters;
 	}
-	
+	public FunctionImpl() {
+	}
+
 	/**
 	 * 函数是否有效，有效则用函数的方式生成sql语句
 	 * @return
@@ -45,5 +47,12 @@ public class FunctionImpl extends BasicImpl implements Function {
 			return function.toString();
 		}
 		return null;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setParameters(String[] parameters) {
+		this.parameters = parameters;
 	}
 }

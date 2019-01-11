@@ -8,5 +8,4 @@ import com.sql.statement.model.Basic;
  * @author DougLei
  */
 public interface Function extends Basic{
-	
 }
