@@ -23,7 +23,7 @@ public class OrderByColumnEntity {
 			sqlStatement = columnName;
 		}
 		if(sqlStatement != null){
-			sqlStatement += sort.getSqlStatement();
+			sqlStatement += " " + sort.getSqlStatement();
 		}
 		return sqlStatement;
 	}

@@ -38,7 +38,7 @@ public class SelectSqlStatementBuilderImpl extends SqlStatementBuilderImpl imple
 	public String buildSql() {
 		Table table = getTable();
 		
-		selectSqlStatement.append(" select ");
+		selectSqlStatement.append("select ");
 		selectSqlStatement.append(newline());
 		
 		// 查询的列名
@@ -52,7 +52,7 @@ public class SelectSqlStatementBuilderImpl extends SqlStatementBuilderImpl imple
 		selectSqlStatement.append(newline());
 		
 		// from
-		selectSqlStatement.append(" from ");
+		selectSqlStatement.append("from ");
 		selectSqlStatement.append(table.getSqlStatement());
 		selectSqlStatement.append(newline());
 		
@@ -68,7 +68,7 @@ public class SelectSqlStatementBuilderImpl extends SqlStatementBuilderImpl imple
 		// where
 		List<WhereGroup> whereGroupList = getWhereGroupList();
 		if(whereGroupList != null && whereGroupList.size() > 0){
-			selectSqlStatement.append(" where ");
+			selectSqlStatement.append("where ");
 			for (WhereGroup whereGroup : whereGroupList) {
 				selectSqlStatement.append(whereGroup.getSqlStatement());
 			}
@@ -78,7 +78,7 @@ public class SelectSqlStatementBuilderImpl extends SqlStatementBuilderImpl imple
 		// group by
 		GroupBy groupBy = getGroupBy();
 		if(groupBy != null){
-			selectSqlStatement.append(" group by ");
+			selectSqlStatement.append("group by ");
 			selectSqlStatement.append(groupBy.getSqlStatement());
 			selectSqlStatement.append(newline());
 		}
@@ -86,7 +86,7 @@ public class SelectSqlStatementBuilderImpl extends SqlStatementBuilderImpl imple
 		// having
 		List<HavingGroup> havingGroupList = getHavingGroupList();
 		if(havingGroupList != null && havingGroupList.size() > 0){
-			selectSqlStatement.append(" having ");
+			selectSqlStatement.append("having ");
 			for(int i=0;i<havingGroupList.size();i++){
 				selectSqlStatement.append(havingGroupList.get(i).getSqlStatement());
 				if(i < havingGroupList.size()-1){
@@ -99,7 +99,7 @@ public class SelectSqlStatementBuilderImpl extends SqlStatementBuilderImpl imple
 		// order by
 		OrderBy orderBy = getOrderBy();
 		if(orderBy != null){
-			selectSqlStatement.append(" order by ");
+			selectSqlStatement.append("order by ");
 			selectSqlStatement.append(orderBy.getSqlStatement());
 			selectSqlStatement.append(newline());
 		}
@@ -129,6 +129,7 @@ public class SelectSqlStatementBuilderImpl extends SqlStatementBuilderImpl imple
 			for(int i=0;i<jsonArray.size();i++){
 				values[i] = jsonArray.getString(i);
 			}
+			return values;
 		}
 		return null;
 	}

@@ -32,13 +32,27 @@
 					{
 						"onGroup":[
 							{
-								"leftColumnName":"",
+								"leftColumnName":"name",
 								"leftFunction":{
 									"name":"",
 									"parameters":[]
 								},
 								"operator":"eq",
-								"rightColumnName":"",
+								"rightColumnName":"nike_name",
+								"rightFunction":{
+									"name":"",
+									"parameters":[]
+								},
+								"nextLogicOperator":"and"
+							},
+							{
+								"leftColumnName":"name",
+								"leftFunction":{
+									"name":"",
+									"parameters":[]
+								},
+								"operator":"eq",
+								"rightColumnName":"nike_name",
 								"rightFunction":{
 									"name":"",
 									"parameters":[]
