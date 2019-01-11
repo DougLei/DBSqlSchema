@@ -14,7 +14,7 @@
 			}
 		],
 		"table":{
-			"type":"table",
+			"type":"sub_query",
 			"name":"sys_user",
 			"subSqlId":"",
 			"subSqlJson":{
@@ -25,7 +25,7 @@
 		"join":[
 			{
 				"type":"inner",
-				"tableType":"sub_query",
+				"tableType":"table",
 				"tableName":"sys_user",
 				"alias":"u",
 				"on":[
