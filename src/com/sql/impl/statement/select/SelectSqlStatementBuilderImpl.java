@@ -171,10 +171,9 @@ public class SelectSqlStatementBuilderImpl extends SqlStatementBuilderImpl imple
 	}
 
 	public List<Join> getJoinList() {
-		List<Join> joinList = null;
 		JSONArray jsonarray = content.getJSONArray("join");
 		if(jsonarray != null && jsonarray.size() > 0){
-			joinList = new ArrayList<Join>(jsonarray.size());
+			List<Join> joinList = new ArrayList<Join>(jsonarray.size());
 			
 			JSONObject json = null;
 			JoinImpl ji = null;
@@ -217,15 +216,15 @@ public class SelectSqlStatementBuilderImpl extends SqlStatementBuilderImpl imple
 				}
 				joinList.add(ji);
 			}
+			return joinList;
 		}
-		return joinList;
+		return null;
 	}
 
 	public List<WhereGroup> getWhereGroupList() {
-		List<WhereGroup> whereGroupList = null;
 		JSONArray jsonarray = content.getJSONArray("where");
 		if(jsonarray != null && jsonarray.size() > 0){
-			whereGroupList = new ArrayList<WhereGroup>(jsonarray.size());
+			List<WhereGroup> whereGroupList = new ArrayList<WhereGroup>(jsonarray.size());
 			
 			JSONObject json = null;
 			WhereGroupImpl whereGroup = null;
@@ -253,30 +252,30 @@ public class SelectSqlStatementBuilderImpl extends SqlStatementBuilderImpl imple
 				}
 				whereGroupList.add(whereGroup);
 			}
+			return whereGroupList;
 		}
-		return whereGroupList;
+		return null;
 	}
 	
 	public GroupBy getGroupBy() {
-		GroupByImpl groupBy = null;
 		JSONArray jsonarray = content.getJSONArray("groupBy");
 		if(jsonarray != null && jsonarray.size() > 0){
-			groupBy = new GroupByImpl();
+			GroupByImpl groupBy = new GroupByImpl();
 			
 			JSONObject json = null;
 			for(int i=0;i<jsonarray.size();i++){
 				json = jsonarray.getJSONObject(i);
 				groupBy.addGroupByColumn(json.getString("columnName"), getFunction(json.getJSONObject("columnFunction")));
 			}
+			return groupBy;
 		}
-		return groupBy;
+		return null;
 	}
 
 	public List<HavingGroup> getHavingGroupList() {
-		List<HavingGroup> havingGroupList = null;
 		JSONArray jsonarray = content.getJSONArray("having");
 		if(jsonarray != null && jsonarray.size() > 0){
-			havingGroupList = new ArrayList<HavingGroup>(jsonarray.size());
+			List<HavingGroup> havingGroupList = new ArrayList<HavingGroup>(jsonarray.size());
 			
 			JSONObject json = null;
 			HavingGroupImpl havingGroup = null;
@@ -304,22 +303,23 @@ public class SelectSqlStatementBuilderImpl extends SqlStatementBuilderImpl imple
 				}
 				havingGroupList.add(havingGroup);
 			}
+			return havingGroupList;
 		}
-		return havingGroupList;
+		return null;
 	}
 
 	public OrderBy getOrderBy() {
-		OrderByImpl orderBy = null;
 		JSONArray jsonarray = content.getJSONArray("orderBy");
 		if(jsonarray != null && jsonarray.size() > 0){
-			orderBy = new OrderByImpl();
+			OrderByImpl orderBy = new OrderByImpl();
 			
 			JSONObject json = null;
 			for(int i=0;i<jsonarray.size();i++){
 				json = jsonarray.getJSONObject(i);
 				orderBy.addOrderByColumn(json.getString("columnName"), getFunction(json.getJSONObject("columnFunction")), json.getString("sort"));
 			}
+			return orderBy;
 		}
-		return orderBy;
+		return null;
 	}
 }
