@@ -8,7 +8,7 @@ import java.util.Arrays;
  */
 public enum TableType {
 	TABLE("table"), // 表
-	SUB_QUERY("subQuery"); // 子查询
+	SUB_QUERY("sub_query"); // 子查询
 	
 	private String type;
 	private TableType(String type) {

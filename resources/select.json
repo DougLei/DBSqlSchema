@@ -25,7 +25,7 @@
 		"join":[
 			{
 				"type":"inner",
-				"tableType":"table",
+				"tableType":"sub_query",
 				"tableName":"sys_user",
 				"alias":"u",
 				"on":[
