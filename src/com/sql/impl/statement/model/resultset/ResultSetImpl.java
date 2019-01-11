@@ -1,7 +1,7 @@
-package com.sql.impl.statement.select.model.resultset;
+package com.sql.impl.statement.model.resultset;
 
-import com.sql.impl.statement.select.model.BasicImpl;
-import com.sql.impl.statement.select.model.function.FunctionImpl;
+import com.sql.impl.statement.model.BasicImpl;
+import com.sql.impl.statement.model.function.FunctionImpl;
 import com.sql.statement.model.function.Function;
 import com.sql.statement.model.resultset.ResultSet;
 import com.sql.util.StrUtils;

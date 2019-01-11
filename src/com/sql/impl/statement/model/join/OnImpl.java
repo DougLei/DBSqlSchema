@@ -1,7 +1,7 @@
-package com.sql.impl.statement.select.model.join;
+package com.sql.impl.statement.model.join;
 
-import com.sql.impl.statement.select.model.BasicImpl;
-import com.sql.impl.statement.select.model.function.FunctionImpl;
+import com.sql.impl.statement.model.BasicImpl;
+import com.sql.impl.statement.model.function.FunctionImpl;
 import com.sql.statement.model.function.Function;
 import com.sql.statement.model.join.On;
 import com.sql.statement.model.where.DataOperatorType;

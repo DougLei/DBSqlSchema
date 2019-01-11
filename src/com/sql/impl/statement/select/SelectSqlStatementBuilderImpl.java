@@ -9,7 +9,7 @@ import com.sql.statement.model.join.Join;
 import com.sql.statement.model.orderby.OrderBy;
 import com.sql.statement.model.resultset.ResultSet;
 import com.sql.statement.model.table.Table;
-import com.sql.statement.model.where.Where;
+import com.sql.statement.model.where.WhereGroup;
 import com.sql.statement.select.SelectSqlStatementBuilder;
 
 /**
@@ -50,11 +50,11 @@ public abstract class SelectSqlStatementBuilderImpl extends SqlStatementBuilderI
 		}
 
 		// where
-		List<Where> whereList = getWhereList();
-		if(whereList != null && whereList.size() > 0){
+		List<WhereGroup> whereGroupList = getWhereGroupList();
+		if(whereGroupList != null && whereGroupList.size() > 0){
 			selectSqlStatement.append(" where ");
-			for (Where where : whereList) {
-				selectSqlStatement.append(where.getSqlStatement());
+			for (WhereGroup whereGroup : whereGroupList) {
+				selectSqlStatement.append(whereGroup.getSqlStatement());
 			}
 			selectSqlStatement.append(newline());
 		}

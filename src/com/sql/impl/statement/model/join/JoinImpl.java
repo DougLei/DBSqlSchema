@@ -1,11 +1,11 @@
-package com.sql.impl.statement.select.model.join;
+package com.sql.impl.statement.model.join;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.statement.select.model.BasicImpl;
+import com.sql.impl.statement.model.BasicImpl;
 import com.sql.statement.model.join.Join;
 import com.sql.statement.model.join.JoinType;
 import com.sql.statement.model.join.OnGroup;

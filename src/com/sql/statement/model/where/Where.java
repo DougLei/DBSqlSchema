@@ -1,7 +1,5 @@
 package com.sql.statement.model.where;
 
-import java.util.List;
-
 import com.sql.statement.model.Basic;
 
 /**
@@ -11,8 +9,8 @@ import com.sql.statement.model.Basic;
 public interface Where extends Basic {
 	
 	/**
-	 * 获取同一组的where语句对象集合
+	 * 获取与下一个条件的逻辑操作符
 	 * @return
 	 */
-	List<Where> getWhereList();
+	String getNextLogicOperator();
 }

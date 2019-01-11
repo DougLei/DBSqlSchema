@@ -34,7 +34,7 @@ public enum DataOperatorType {
 		}
 	}
 	
-	public String getSqlStatement(boolean isInversion, String[] parameters) {
+	public String getSqlStatement(String[] parameters) {
 		if(parameters == null || parameters.length == 0){
 			return sqlStatement;
 		}

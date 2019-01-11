@@ -1,4 +1,4 @@
-package com.sql.impl.statement.select.model;
+package com.sql.impl.statement.model;
 
 import com.sql.statement.model.Basic;
 

@@ -1,6 +1,6 @@
-package com.sql.impl.statement.select.model.function;
+package com.sql.impl.statement.model.function;
 
-import com.sql.impl.statement.select.model.BasicImpl;
+import com.sql.impl.statement.model.BasicImpl;
 import com.sql.statement.model.function.Function;
 import com.sql.util.StrUtils;
 

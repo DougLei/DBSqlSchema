@@ -1,8 +1,8 @@
-package com.sql.impl.statement.select.model.table;
+package com.sql.impl.statement.model.table;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.statement.select.model.BasicImpl;
+import com.sql.impl.statement.model.BasicImpl;
 import com.sql.statement.model.table.Table;
 import com.sql.statement.model.table.TableType;
 import com.sql.util.StrUtils;
