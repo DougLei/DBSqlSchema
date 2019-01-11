@@ -1,7 +1,6 @@
 package com.sql.impl.statement.select.model.join;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
@@ -13,6 +12,10 @@ import com.sql.statement.model.join.On;
 import com.sql.statement.model.table.TableType;
 import com.sql.util.StrUtils;
 
+/**
+ * 
+ * @author DougLei
+ */
 public class JoinImpl extends BasicImpl implements Join {
 	private StringBuilder sb = new StringBuilder();
 	
@@ -32,11 +35,8 @@ public class JoinImpl extends BasicImpl implements Join {
 		ons.add(on);
 	}
 	
-	public void addFunction(String functionName, String... parameters) {
-	}
-
-	protected void processSqlStatement() {
-		sb.append(joinType.toString()).append(" ");
+	protected String processSqlStatement() {
+		sb.append(joinType.getSqlStatement()).append(" ");
 		if(tableType == TableType.TABLE){
 			sb.append(tableName);
 		}else if(tableType == TableType.SUB_QUERY){
@@ -66,22 +66,14 @@ public class JoinImpl extends BasicImpl implements Join {
 			}
 			sb.append(")");
 		}
-		sqlStatement = sb.toString();
+		return sb.toString();
 	}
 	
 	public void setJoinType(String joinType) {
-		try {
-			this.joinType = JoinType.valueOf(joinType.trim().toUpperCase());
-		} catch (Exception e) {
-		}
-		throw new IllegalArgumentException("join节点下的type节点的值["+joinType+"]错误，目前支持的值包括：["+Arrays.toString(JoinType.values())+"]");
+		this.joinType = JoinType.toValue(joinType);
 	}
 	public void setTableType(String tableType) {
-		try {
-			this.tableType = TableType.valueOf(tableType.trim().toUpperCase());
-		} catch (Exception e) {
-			throw new IllegalArgumentException("join节点下的tableType节点的值["+tableType+"]错误，目前支持的值包括：["+Arrays.toString(TableType.values())+"]");
-		}
+		this.tableType = TableType.toValue(tableType);
 	}
 	public void setTableName(String tableName) {
 		this.tableName = tableName;

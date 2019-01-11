@@ -1,7 +1,5 @@
 package com.sql.impl.statement.select.model.table;
 
-import java.util.Arrays;
-
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.select.model.BasicImpl;
@@ -9,6 +7,10 @@ import com.sql.statement.model.table.Table;
 import com.sql.statement.model.table.TableType;
 import com.sql.util.StrUtils;
 
+/**
+ * 
+ * @author DougLei
+ */
 public class TableImpl extends BasicImpl implements Table {
 												
 	private String name;
@@ -18,11 +20,8 @@ public class TableImpl extends BasicImpl implements Table {
 	private String subSqlId;
 	private JSONObject subSqlJson;
 	
-	public void addFunction(String functionName, String... parameters) {
-		// TableImpl暂时没必要实现addFunction方法
-	}
-
-	public void processSqlStatement() {
+	public String processSqlStatement() {
+		String sqlStatement = null;
 		if(tableType == TableType.TABLE){
 			sqlStatement = name;
 		}else if(tableType == TableType.SUB_QUERY){
@@ -38,6 +37,7 @@ public class TableImpl extends BasicImpl implements Table {
 		if(StrUtils.notEmpty(alias)){
 			sqlStatement += " " + alias;
 		}
+		return sqlStatement;
 	}
 
 	public void setName(String name) {
@@ -53,10 +53,6 @@ public class TableImpl extends BasicImpl implements Table {
 		this.alias = alias;
 	}
 	public void setTableType(String tableType) {
-		try {
-			this.tableType = TableType.valueOf(tableType.trim().toUpperCase());
-		} catch (Exception e) {
-			throw new IllegalArgumentException("table节点下的type节点的值["+tableType+"]错误，目前支持的值包括：["+Arrays.toString(TableType.values())+"]");
-		}
+		this.tableType = TableType.toValue(tableType);
 	}
 }

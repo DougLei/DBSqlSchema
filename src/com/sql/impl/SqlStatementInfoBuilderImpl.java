@@ -3,7 +3,6 @@ package com.sql.impl;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Arrays;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementBuilder;
@@ -100,11 +99,8 @@ public class SqlStatementInfoBuilderImpl implements SqlStatementInfoBuilder{
 			if(StrUtils.isEmpty(json.get("type"))){
 				throw new NullPointerException("配置内容(json)的属性[type]值不能为空");
 			}
-			try {
-				this.sqlStatementType = SqlStatementType.valueOf(json.getString("type").trim().toUpperCase());
-			} catch (Exception e) {
-				throw new IllegalArgumentException("配置内容(json)的属性[type]值错误，目前支持的值包括：["+Arrays.toString(SqlStatementType.values())+"]");
-			}
+			this.sqlStatementType = SqlStatementType.toValue(json.getString("type"));
+			
 			JSONObject tmp = json.getJSONObject("content");
 			if(tmp == null || tmp.size() == 0){
 				throw new NullPointerException("配置内容(json)的属性content值不能为空");

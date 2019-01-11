@@ -1,5 +1,7 @@
 package com.sql.enums;
 
+import java.util.Arrays;
+
 /**
  * sql语句类型
  * @author DougLei
@@ -28,6 +30,14 @@ public enum SqlStatementType {
 	}
 	public String getDesc() {
 		return desc;
+	}
+	
+	public static SqlStatementType toValue(String str){
+		try {
+			return SqlStatementType.valueOf(str.trim().toUpperCase());
+		} catch (Exception e) {
+			throw new IllegalArgumentException("值[\""+str+"\"]错误，目前支持的值包括：["+Arrays.toString(SqlStatementType.values())+"]");
+		}
 	}
 
 	public String toString(){

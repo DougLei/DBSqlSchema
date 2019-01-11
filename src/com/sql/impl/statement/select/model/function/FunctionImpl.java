@@ -30,11 +30,7 @@ public class FunctionImpl extends BasicImpl implements Function {
 		return false;
 	}
 
-	public void addFunction(String functionName, String... parameters) {
-		// FunctionImpl暂时没必要实现addFunction方法
-	}
-	
-	protected void processSqlStatement() {
+	protected String processSqlStatement() {
 		if(isValid()){
 			StringBuilder function = new StringBuilder(200);
 			function.append(name).append("(");
@@ -46,7 +42,8 @@ public class FunctionImpl extends BasicImpl implements Function {
 				}
 			}
 			function.append(")");
-			sqlStatement = function.toString();
+			return function.toString();
 		}
+		return null;
 	}
 }

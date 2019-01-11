@@ -11,13 +11,16 @@ public abstract class BasicImpl implements Basic {
 	
 	public String getSqlStatement() {
 		if(sqlStatement == null){
-			processSqlStatement();
+			if((sqlStatement = processSqlStatement()) == null){
+				sqlStatement = "";
+			}
 		}
 		return sqlStatement;
 	}
 	
 	/**
 	 * 处理sql语句
+	 * @return
 	 */
-	protected abstract void processSqlStatement();
+	protected abstract String processSqlStatement();
 }
