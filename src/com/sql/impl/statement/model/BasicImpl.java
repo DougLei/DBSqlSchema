@@ -7,7 +7,7 @@ import com.sql.statement.model.Basic;
  * @author DougLei
  */
 public abstract class BasicImpl implements Basic {
-	protected String sqlStatement;
+	private String sqlStatement;
 	
 	public String getSqlStatement() {
 		if(sqlStatement == null){

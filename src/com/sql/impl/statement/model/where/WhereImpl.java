@@ -70,12 +70,12 @@ public class WhereImpl extends BasicImpl implements Where {
 	}
 	public void setColumnFunction(String functionName, String[] parameters) {
 		if(columnFunction == null){
-			columnFunction = new FunctionImpl(functionName, parameters);
+			columnFunction = FunctionImpl.newInstance(functionName, parameters);
 		}
 	}
 	public void setValueFunction(String functionName, String[] parameters) {
 		if(valueFunction == null){
-			valueFunction = new FunctionImpl(functionName, parameters);
+			valueFunction = FunctionImpl.newInstance(functionName, parameters);
 		}
 	}
 }

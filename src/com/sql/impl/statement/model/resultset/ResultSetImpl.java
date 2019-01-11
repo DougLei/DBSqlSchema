@@ -32,7 +32,7 @@ public class ResultSetImpl extends BasicImpl implements ResultSet {
 
 	public void setFunction(String functionName, String[] parameters) {
 		if(function == null){
-			function = new FunctionImpl(functionName, parameters);
+			function = FunctionImpl.newInstance(functionName, parameters);
 		}
 	}
 }

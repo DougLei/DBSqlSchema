@@ -13,4 +13,8 @@ public class OnGroupImpl extends WhereGroupImpl implements OnGroup {
 	public void addOn(On on) {
 		addWhere(on);
 	}
+	
+	public void setOnGroupCount(int onGroupCount) {
+		setWhereGroupCount(onGroupCount);
+	}
 }

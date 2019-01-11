@@ -12,41 +12,32 @@ public class FunctionImpl extends BasicImpl implements Function {
 	private String name;
 	private String[] parameters;
 	
+	public static Function newInstance(String name, String[] parameters){
+		if(StrUtils.notEmpty(name) && parameters != null && parameters.length > 0){
+			return new FunctionImpl(name, parameters);
+		}
+		return null;
+	}
 	
-	
-	public FunctionImpl(String name, String[] parameters) {
+	private FunctionImpl(String name, String[] parameters) {
 		this.name = name;
 		this.parameters = parameters;
 	}
 	public FunctionImpl() {
 	}
 
-	/**
-	 * 函数是否有效，有效则用函数的方式生成sql语句
-	 * @return
-	 */
-	private boolean isValid(){
-		if(StrUtils.notEmpty(name) && parameters != null && parameters.length > 0){
-			return true;
-		}
-		return false;
-	}
-
 	protected String processSqlStatement() {
-		if(isValid()){
-			StringBuilder function = new StringBuilder(200);
-			function.append(name).append("(");
-			
-			for(int i=0;i<parameters.length;i++){
-				function.append(parameters[i]);
-				if(i<parameters.length-1){
-					function.append(", ");
-				}
+		StringBuilder function = new StringBuilder(200);
+		function.append(name).append("(");
+		
+		for(int i=0;i<parameters.length;i++){
+			function.append(parameters[i]);
+			if(i<parameters.length-1){
+				function.append(", ");
 			}
-			function.append(")");
-			return function.toString();
 		}
-		return null;
+		function.append(")");
+		return function.toString();
 	}
 
 	public void setName(String name) {

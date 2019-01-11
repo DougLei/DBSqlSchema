@@ -70,22 +70,32 @@
 		],
 		"groupBy":[
 			{
-				"columnName":"nike_name"
-			}
-		],
-		"having":[
-			{
 				"columnName":"nike_name",
 				"columnFunction":{
 					"name":"",
 					"parameters":[]
-				},
-				"operator":"eq",
-				"values":["石磊"],
-				"valueFunction":{
-					"name":"",
-					"parameters":[]
 				}
+			}
+		],
+		"having":[
+			{
+				"havingGroup":[
+					{
+						"columnName":"nike_name",
+						"columnFunction":{
+							"name":"",
+							"parameters":[]
+						},
+						"operator":"eq",
+						"values":["石磊"],
+						"valueFunction":{
+							"name":"",
+							"parameters":[]
+						},
+						"nextLogicOperator":"and"
+					}
+				],
+				"nextLogicOperator":"and"
 			}
 		],
 		"orderBy":[

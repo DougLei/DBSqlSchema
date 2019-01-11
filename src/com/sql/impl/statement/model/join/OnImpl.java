@@ -60,12 +60,12 @@ public class OnImpl extends BasicImpl implements On {
 	}
 	public void setLeftFunction(String functionName, String[] parameters) {
 		if(leftFunction == null){
-			leftFunction = new FunctionImpl(functionName, parameters);
+			leftFunction = FunctionImpl.newInstance(functionName, parameters);
 		}
 	}
 	public void setRightFunction(String functionName, String[] parameters) {
 		if(rightFunction == null){
-			rightFunction = new FunctionImpl(functionName, parameters);
+			rightFunction = FunctionImpl.newInstance(functionName, parameters);
 		}
 	}
 }

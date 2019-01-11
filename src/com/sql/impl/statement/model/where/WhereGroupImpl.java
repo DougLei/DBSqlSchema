@@ -34,6 +34,7 @@ public class WhereGroupImpl extends BasicImpl implements WhereGroup {
 			if(whereGroupCount > 1){
 				sb.append(")");
 			}
+			return sb.toString();
 		}
 		return null;
 	}
