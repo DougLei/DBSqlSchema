@@ -1,7 +1,6 @@
 package com.sql.impl.statement.select.model.function;
 
-import java.io.Serializable;
-
+import com.sql.impl.statement.select.model.BasicImpl;
 import com.sql.statement.model.function.Function;
 import com.sql.util.StrUtils;
 
@@ -9,19 +8,15 @@ import com.sql.util.StrUtils;
  * 
  * @author DougLei
  */
-public class FunctionImpl implements Function, Serializable {
-	private static final long serialVersionUID = 5982397732296694795L;
-	
+public class FunctionImpl extends BasicImpl implements Function {
 	private String name;
 	private String[] parameters;
 	
-	public FunctionImpl setName(String name) {
-		this.name = name;
-		return this;
+	public FunctionImpl() {
 	}
-	public FunctionImpl setParameters(String... parameters) {
+	public FunctionImpl(String name, String[] parameters) {
+		this.name = name;
 		this.parameters = parameters;
-		return this;
 	}
 	
 	/**
@@ -35,27 +30,23 @@ public class FunctionImpl implements Function, Serializable {
 		return false;
 	}
 
-	public String getSqlStatement(String mainTableAlias, String columnName, String columnAlias) {
+	public void addFunction(String functionName, String... parameters) {
+		// FunctionImpl暂时没必要实现addFunction方法
+	}
+	
+	protected void processSqlStatement() {
 		if(isValid()){
 			StringBuilder function = new StringBuilder(200);
 			function.append(name).append("(");
 			
 			for(int i=0;i<parameters.length;i++){
-				if(parameters[i].equals(columnName)){
-					function.append(mainTableAlias);
-				}
 				function.append(parameters[i]);
 				if(i<parameters.length-1){
 					function.append(", ");
 				}
 			}
-			
 			function.append(")");
-			if(StrUtils.notEmpty(columnAlias)){
-				function.append(" ").append(columnAlias);
-			}
-			return function.toString();
+			sqlStatement = function.toString();
 		}
-		return null;
 	}
 }

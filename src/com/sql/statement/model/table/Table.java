@@ -8,15 +8,4 @@ import com.sql.statement.model.Basic;
  */
 public interface Table extends Basic{
 
-	/**
-	 * 获取表的类型
-	 * @return
-	 */
-	TableType getTableType();
-
-	/**
-	 * 获取别名
-	 * @return
-	 */
-	String getAlias();
 }

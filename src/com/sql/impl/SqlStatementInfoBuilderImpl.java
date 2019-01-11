@@ -88,7 +88,7 @@ public class SqlStatementInfoBuilderImpl implements SqlStatementInfoBuilder{
 	private boolean isValid;
 	public void validationInfo() {
 		if(!isValid){
-			if(databaseType == null){
+			if(databaseType == null && SqlStatementBuilderContext.getDatabaseType() == null){
 				throw new NullPointerException("数据库类型(databaseType)不能为空");
 			}
 			if(json == null || json.size() == 0){
@@ -109,6 +109,8 @@ public class SqlStatementInfoBuilderImpl implements SqlStatementInfoBuilder{
 			if(tmp == null || tmp.size() == 0){
 				throw new NullPointerException("配置内容(json)的属性content值不能为空");
 			}
+			
+			SqlStatementBuilderContext.setDatabaseType(databaseType);
 			isValid = true;
 		}
 	}

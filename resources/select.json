@@ -20,32 +20,51 @@
 		},
 		"join":[
 			{
-				"joinType":"inner",
-				"type":"table",
+				"type":"inner",
+				"tableType":"table",
 				"name":"sys_user",
 				"alias":"u",
 				"on":[
 					{
-						"joinColumnName":"",
-						"operator":"eq",
-						"columnName":""
+						"onGroup":[
+							{
+								"leftColumnName":"",
+								"leftFunction":{
+									"name":"",
+									"parameters":[]
+								},
+								"operator":"eq",
+								"rightColumnName":"",
+								"rightFunction":{
+									"name":"",
+									"parameters":[]
+								},
+								"nextLogicOperator":"and"
+							}
+						],
+						"nextLogicOperator":"and"
 					}
 				]
 			}
 		],
 		"where":[
 			{
-				"columnName":"nike_name",
-				"columnFunction":{
-					"name":"",
-					"parameters":[]
-				},
-				"operator":"eq",
-				"values":["石磊"],
-				"valueFunction":{
-					"name":"",
-					"parameters":[]
-				},
+				"whereGroup":[
+					{
+						"columnName":"nike_name",
+						"columnFunction":{
+							"name":"",
+							"parameters":[]
+						},
+						"operator":"eq",
+						"values":["石磊"],
+						"valueFunction":{
+							"name":"",
+							"parameters":[]
+						},
+						"nextLogicOperator":"and"
+					}
+				],
 				"nextLogicOperator":"and"
 			}
 		],

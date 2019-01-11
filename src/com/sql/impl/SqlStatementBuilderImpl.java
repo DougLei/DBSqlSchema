@@ -29,7 +29,7 @@ public abstract class SqlStatementBuilderImpl implements SqlStatementBuilder {
 		this.id = json.getString("id");
 		this.description = json.getString("description");
 		this.content = json.getJSONObject("content");
-		SqlStatementBuilderContext.set(this);
+		SqlStatementBuilderContext.setSqlStatementBuilder(this);
 	}
 	
 	public SqlStatementInfoBuilder getSqlStatementInfoBuilder() {

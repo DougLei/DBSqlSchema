@@ -7,12 +7,6 @@ package com.sql.statement.model;
 public interface Basic {
 	
 	/**
-	 * 设置主表的别名
-	 * @param mainTableAlias
-	 */
-	Basic setMainTableAlias(String mainTableAlias);
-	
-	/**
 	 * 添加一个函数
 	 * @param functionName
 	 * @param parameters

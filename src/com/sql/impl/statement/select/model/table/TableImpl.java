@@ -10,6 +10,7 @@ import com.sql.statement.model.table.TableType;
 import com.sql.util.StrUtils;
 
 public class TableImpl extends BasicImpl implements Table {
+												
 	private String name;
 	private String alias;
 	private TableType tableType;
@@ -24,25 +25,21 @@ public class TableImpl extends BasicImpl implements Table {
 	public void processSqlStatement() {
 		if(tableType == TableType.TABLE){
 			sqlStatement = name;
-			if(StrUtils.notEmpty(alias)){
-				sqlStatement += " " + alias;
-			}
 		}else if(tableType == TableType.SUB_QUERY){
+			sqlStatement = "( ";
 			if(StrUtils.notEmpty(subSqlId)){
-				sqlStatement = SqlStatementBuilderContext.buildSqlStatement(subSqlId);
+				sqlStatement += SqlStatementBuilderContext.buildSqlStatement(subSqlId);
 			}else{
 				// TODO 创建一个select xx builder对象实例，build出结果，然后把该builder实例，也放到SqlStatementBuilderContext中去
+				System.out.println(subSqlJson);
 			}
+			sqlStatement += " )";
+		}
+		if(StrUtils.notEmpty(alias)){
+			sqlStatement += " " + alias;
 		}
 	}
 
-	public TableType getTableType() {
-		return tableType;
-	}
-	public String getAlias() {
-		return alias;
-	}
-	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -52,15 +49,14 @@ public class TableImpl extends BasicImpl implements Table {
 	public void setSubSqlJson(JSONObject subSqlJson) {
 		this.subSqlJson = subSqlJson;
 	}
-	public TableImpl setAlias(String alias) {
+	public void setAlias(String alias) {
 		this.alias = alias;
-		return this;
 	}
 	public void setTableType(String tableType) {
 		try {
 			this.tableType = TableType.valueOf(tableType.trim().toUpperCase());
 		} catch (Exception e) {
-			throw new IllegalArgumentException("table节点下的type节点的值错误，目前支持的值包括：["+Arrays.toString(TableType.values())+"]");
+			throw new IllegalArgumentException("table节点下的type节点的值["+tableType+"]错误，目前支持的值包括：["+Arrays.toString(TableType.values())+"]");
 		}
 	}
 }

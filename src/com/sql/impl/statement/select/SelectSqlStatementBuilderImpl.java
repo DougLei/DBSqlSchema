@@ -28,7 +28,7 @@ public abstract class SelectSqlStatementBuilderImpl extends SqlStatementBuilderI
 		// 查询的列名
 		List<ResultSet> resultSetList = getResultSetList();
 		for(int i=0;i<resultSetList.size();i++){
-			selectSqlStatement.append(resultSetList.get(i).setMainTableAlias(table.getAlias()).getSqlStatement());
+			selectSqlStatement.append(resultSetList.get(i).getSqlStatement());
 			if(i < resultSetList.size()-1){
 				selectSqlStatement.append(", ");
 			}
@@ -44,7 +44,7 @@ public abstract class SelectSqlStatementBuilderImpl extends SqlStatementBuilderI
 		List<Join> joinList = getJoinList();
 		if(joinList != null && joinList.size() > 0){
 			for (Join join : joinList) {
-				selectSqlStatement.append(join.setMainTableAlias(table.getAlias()).getSqlStatement());
+				selectSqlStatement.append(join.getSqlStatement());
 				selectSqlStatement.append(newline());
 			}
 		}
@@ -54,7 +54,7 @@ public abstract class SelectSqlStatementBuilderImpl extends SqlStatementBuilderI
 		if(whereList != null && whereList.size() > 0){
 			selectSqlStatement.append(" where ");
 			for (Where where : whereList) {
-				selectSqlStatement.append(where.setMainTableAlias(table.getAlias()).getSqlStatement());
+				selectSqlStatement.append(where.getSqlStatement());
 			}
 			selectSqlStatement.append(newline());
 		}
@@ -64,7 +64,7 @@ public abstract class SelectSqlStatementBuilderImpl extends SqlStatementBuilderI
 		if(groupByList != null && groupByList.size() > 0){
 			selectSqlStatement.append(" group by ");
 			for(int i=0;i<groupByList.size();i++){
-				selectSqlStatement.append(groupByList.get(i).setMainTableAlias(table.getAlias()).getSqlStatement());
+				selectSqlStatement.append(groupByList.get(i).getSqlStatement());
 				if(i < groupByList.size()-1){
 					selectSqlStatement.append(", ");
 				}
@@ -77,7 +77,7 @@ public abstract class SelectSqlStatementBuilderImpl extends SqlStatementBuilderI
 		if(havingList != null && havingList.size() > 0){
 			selectSqlStatement.append(" having ");
 			for(int i=0;i<havingList.size();i++){
-				selectSqlStatement.append(havingList.get(i).setMainTableAlias(table.getAlias()).getSqlStatement());
+				selectSqlStatement.append(havingList.get(i).getSqlStatement());
 				if(i < havingList.size()-1){
 					selectSqlStatement.append(", ");
 				}
@@ -90,7 +90,7 @@ public abstract class SelectSqlStatementBuilderImpl extends SqlStatementBuilderI
 		if(orderByList != null && orderByList.size() > 0){
 			selectSqlStatement.append(" order by ");
 			for(int i=0;i<orderByList.size();i++){
-				selectSqlStatement.append(orderByList.get(i).setMainTableAlias(table.getAlias()).getSqlStatement());
+				selectSqlStatement.append(orderByList.get(i).getSqlStatement());
 				if(i < orderByList.size()-1){
 					selectSqlStatement.append(", ");
 				}
