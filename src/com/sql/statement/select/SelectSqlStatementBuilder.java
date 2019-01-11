@@ -3,7 +3,7 @@ package com.sql.statement.select;
 import java.util.List;
 
 import com.sql.statement.model.groupby.GroupBy;
-import com.sql.statement.model.having.Having;
+import com.sql.statement.model.having.HavingGroup;
 import com.sql.statement.model.join.Join;
 import com.sql.statement.model.orderby.OrderBy;
 import com.sql.statement.model.resultset.ResultSet;
@@ -41,20 +41,20 @@ public interface SelectSqlStatementBuilder {
 	List<WhereGroup> getWhereGroupList();
 	
 	/**
-	 * 获取group by语句对象集合
+	 * 获取group by语句对象
 	 * @return
 	 */
-	List<GroupBy> getGroupByList();
+	GroupBy getGroupBy();
 	
 	/**
 	 * 获取having语句对象集合
 	 * @return
 	 */
-	List<Having> getHavingList();
+	List<HavingGroup> getHavingGroupList();
 	
 	/**
-	 * 获取order by语句对象集合
+	 * 获取order by语句对象
 	 * @return
 	 */
-	List<OrderBy> getOrderByList();
+	OrderBy getOrderBy();
 }

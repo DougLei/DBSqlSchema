@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sql.impl.statement.model.BasicImpl;
-import com.sql.impl.statement.model.function.FunctionImpl;
+import com.sql.statement.model.function.Function;
 import com.sql.statement.model.groupby.GroupBy;
 
 /**
@@ -15,11 +15,11 @@ public class GroupByImpl extends BasicImpl implements GroupBy {
 
 	private List<GroupByColumnEntity> groupByColumnList;
 	
-	public void addGroupByColumn(String columnName, String functionName, String[] parameters){
+	public void addGroupByColumn(String columnName, Function function){
 		if(groupByColumnList == null){
 			groupByColumnList = new ArrayList<GroupByColumnEntity>();
 		}
-		groupByColumnList.add(new GroupByColumnEntity(columnName, FunctionImpl.newInstance(functionName, parameters)));
+		groupByColumnList.add(new GroupByColumnEntity(columnName, function));
 	}
 	
 	protected String processSqlStatement() {

@@ -1,7 +1,6 @@
 package com.sql.impl.statement.model.where;
 
 import com.sql.impl.statement.model.BasicImpl;
-import com.sql.impl.statement.model.function.FunctionImpl;
 import com.sql.statement.model.function.Function;
 import com.sql.statement.model.where.DataOperatorType;
 import com.sql.statement.model.where.LogicOperatorType;
@@ -68,14 +67,14 @@ public class WhereImpl extends BasicImpl implements Where {
 	public void setValues(String[] values) {
 		this.values = values;
 	}
-	public void setColumnFunction(String functionName, String[] parameters) {
+	public void setColumnFunction(Function function) {
 		if(columnFunction == null){
-			columnFunction = FunctionImpl.newInstance(functionName, parameters);
+			columnFunction = function;
 		}
 	}
-	public void setValueFunction(String functionName, String[] parameters) {
+	public void setValueFunction(Function function) {
 		if(valueFunction == null){
-			valueFunction = FunctionImpl.newInstance(functionName, parameters);
+			valueFunction = function;
 		}
 	}
 }

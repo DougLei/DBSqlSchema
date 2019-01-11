@@ -8,10 +8,4 @@ import com.sql.statement.model.Basic;
  */
 public interface ResultSet extends Basic{
 	
-	/**
-	 * 设置函数
-	 * @param functionName
-	 * @param parameters
-	 */
-	void setFunction(String functionName, String[] parameters);
 }

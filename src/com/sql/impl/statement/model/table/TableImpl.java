@@ -1,7 +1,9 @@
 package com.sql.impl.statement.model.table;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
+import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.impl.statement.model.BasicImpl;
 import com.sql.statement.model.table.Table;
 import com.sql.statement.model.table.TableType;
@@ -29,8 +31,9 @@ public class TableImpl extends BasicImpl implements Table {
 			if(StrUtils.notEmpty(subSqlId)){
 				sqlStatement += SqlStatementBuilderContext.buildSqlStatement(subSqlId);
 			}else{
-				// TODO 创建一个select xx builder对象实例，build出结果，然后把该builder实例，也放到SqlStatementBuilderContext中去
-				System.out.println(subSqlJson);
+				SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
+				infoBuilder.setJson(subSqlJson);
+				sqlStatement += infoBuilder.createSqlStatementBuilder().buildSqlStatement();
 			}
 			sqlStatement += " )";
 		}
@@ -49,8 +52,8 @@ public class TableImpl extends BasicImpl implements Table {
 	public void setSubSqlJson(JSONObject subSqlJson) {
 		this.subSqlJson = subSqlJson;
 	}
-	public void setAlias(String alias) {
-		this.alias = alias;
+	public void setAlias(Object alias) {
+		this.alias = StrUtils.isEmpty(alias)?null:alias.toString();
 	}
 	public void setTableType(String tableType) {
 		this.tableType = TableType.toValue(tableType);

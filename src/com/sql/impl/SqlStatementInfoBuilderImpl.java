@@ -79,7 +79,7 @@ public class SqlStatementInfoBuilderImpl implements SqlStatementInfoBuilder{
 	
 	public SqlStatementBuilder createSqlStatementBuilder() {
 		validationInfo();
-		SqlStatementBuilder sqlStatementBuilder = SqlStatementBuilderFactory.createSqlStatementBuilderInstance(databaseType, sqlStatementType);
+		SqlStatementBuilder sqlStatementBuilder = SqlStatementBuilderFactory.createSqlStatementBuilderInstance(sqlStatementType);
 		sqlStatementBuilder.setSqlStatementInfoBuilder(this);
 		return sqlStatementBuilder;
 	}

@@ -1,5 +1,6 @@
 package com.sql.impl;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,6 @@ public class SqlStatementBuilderContext {
 		if(builderMap == null){
 			builderMap = new HashMap<String, SqlStatementBuilder>();
 		}
-		
 		builderMap.put(builder.getId(), builder);
 		localBuilder.set(builderMap);
 	}
@@ -57,7 +57,14 @@ public class SqlStatementBuilderContext {
 	
 	public static void clear(){
 		if(localBuilder.get() != null && localBuilder.get().size() > 0){
-			localBuilder.get().clear();
+			Map<String, SqlStatementBuilder> builders = localBuilder.get();
+			Collection<SqlStatementBuilder> bs = builders.values();
+			for (SqlStatementBuilder sqlStatementBuilder : bs) {
+				if(sqlStatementBuilder != null){
+					sqlStatementBuilder.clear();
+				}
+			}
+			builders.clear();
 		}
 	}
 }

@@ -1,7 +1,6 @@
 package com.sql.impl.statement.model.resultset;
 
 import com.sql.impl.statement.model.BasicImpl;
-import com.sql.impl.statement.model.function.FunctionImpl;
 import com.sql.statement.model.function.Function;
 import com.sql.statement.model.resultset.ResultSet;
 import com.sql.util.StrUtils;
@@ -30,9 +29,15 @@ public class ResultSetImpl extends BasicImpl implements ResultSet {
 		return sqlStatement;
 	}
 
-	public void setFunction(String functionName, String[] parameters) {
+	public void setFunction(Function function) {
 		if(function == null){
-			function = FunctionImpl.newInstance(functionName, parameters);
+			this.function = function;
 		}
+	}
+	public void setColumnName(String columnName) {
+		this.columnName = columnName;
+	}
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 }

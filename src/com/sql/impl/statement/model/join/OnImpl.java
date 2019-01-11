@@ -1,7 +1,6 @@
 package com.sql.impl.statement.model.join;
 
 import com.sql.impl.statement.model.BasicImpl;
-import com.sql.impl.statement.model.function.FunctionImpl;
 import com.sql.statement.model.function.Function;
 import com.sql.statement.model.join.On;
 import com.sql.statement.model.where.DataOperatorType;
@@ -58,14 +57,14 @@ public class OnImpl extends BasicImpl implements On {
 	public void setRightColumnName(String rightColumnName) {
 		this.rightColumnName = rightColumnName;
 	}
-	public void setLeftFunction(String functionName, String[] parameters) {
+	public void setLeftFunction(Function function) {
 		if(leftFunction == null){
-			leftFunction = FunctionImpl.newInstance(functionName, parameters);
+			leftFunction = function;
 		}
 	}
-	public void setRightFunction(String functionName, String[] parameters) {
+	public void setRightFunction(Function function) {
 		if(rightFunction == null){
-			rightFunction = FunctionImpl.newInstance(functionName, parameters);
+			rightFunction = function;
 		}
 	}
 }

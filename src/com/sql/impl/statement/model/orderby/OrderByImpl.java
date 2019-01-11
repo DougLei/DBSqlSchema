@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sql.impl.statement.model.BasicImpl;
-import com.sql.impl.statement.model.function.FunctionImpl;
+import com.sql.statement.model.function.Function;
 import com.sql.statement.model.orderby.OrderBy;
 
 /**
@@ -15,11 +15,11 @@ public class OrderByImpl extends BasicImpl implements OrderBy {
 	
 private List<OrderByColumnEntity> orderByColumnList;
 	
-	public void addOrderByColumn(String columnName, String functionName, String[] parameters, String sort){
+	public void addOrderByColumn(String columnName, Function function, String sort){
 		if(orderByColumnList == null){
 			orderByColumnList = new ArrayList<OrderByColumnEntity>();
 		}
-		orderByColumnList.add(new OrderByColumnEntity(columnName, FunctionImpl.newInstance(functionName, parameters), sort));
+		orderByColumnList.add(new OrderByColumnEntity(columnName, function, sort));
 	}
 	
 	protected String processSqlStatement() {

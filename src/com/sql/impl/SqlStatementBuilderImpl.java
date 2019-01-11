@@ -21,6 +21,15 @@ public abstract class SqlStatementBuilderImpl implements SqlStatementBuilder {
 	protected String description;
 	protected JSONObject content;
 	
+	public void clear(){
+		if(content !=null && content.size() > 0){
+			content.clear();
+		}
+		if(json !=null && json.size() > 0){
+			json.clear();
+		}
+	}
+	
 	public void setSqlStatementInfoBuilder(SqlStatementInfoBuilder infoBuilder) {
 		infoBuilder.validationInfo();
 		this.infoBuilder = infoBuilder;
@@ -49,7 +58,7 @@ public abstract class SqlStatementBuilderImpl implements SqlStatementBuilder {
 	}
 	
 	public String buildSqlStatement() {
-		if(!isBuild && sqlStatement != null){
+		if(!isBuild && sqlStatement == null){
 			sqlStatement = buildSql();
 			isBuild = true;
 		}

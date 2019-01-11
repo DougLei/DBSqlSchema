@@ -16,13 +16,17 @@
 		"table":{
 			"type":"table",
 			"name":"sys_user",
+			"subSqlId":"",
+			"subSqlJson":{
+
+			},
 			"alias":""
 		},
 		"join":[
 			{
 				"type":"inner",
 				"tableType":"table",
-				"name":"sys_user",
+				"tableName":"sys_user",
 				"alias":"u",
 				"on":[
 					{

@@ -41,4 +41,6 @@ public interface SqlStatementBuilder {
 	 * @return
 	 */
 	String buildSqlStatement();
+	
+	void clear();
 }

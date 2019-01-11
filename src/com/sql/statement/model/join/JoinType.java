@@ -7,10 +7,10 @@ import java.util.Arrays;
  * @author DougLei
  */
 public enum JoinType {
-	INNER_JOIN("inner join"),
-	LEFT_JOIN("left join"),
-	RIGHT_JOIN("right join"),
-	FULL_JOIN("full join");
+	INNER("inner join"),
+	LEFT("left join"),
+	RIGHT("right join"),
+	FULL("full join");
 	
 	private String sqlStatement;
 	private JoinType(String sqlStatement) {

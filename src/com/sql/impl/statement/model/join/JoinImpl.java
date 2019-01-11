@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
+import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.impl.statement.model.BasicImpl;
 import com.sql.statement.model.join.Join;
 import com.sql.statement.model.join.JoinType;
@@ -44,8 +46,9 @@ public class JoinImpl extends BasicImpl implements Join {
 			if(StrUtils.notEmpty(subSqlId)){
 				sb.append(SqlStatementBuilderContext.buildSqlStatement(subSqlId));
 			}else{
-				// TODO 创建一个select xx builder对象实例，build出结果，然后把该builder实例，也放到SqlStatementBuilderContext中去
-				System.out.println(subSqlJson);
+				SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
+				infoBuilder.setJson(subSqlJson);
+				sb.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
 			}
 			sb.append(" )");
 		}
