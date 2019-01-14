@@ -5,8 +5,8 @@ import java.util.Map;
 
 import com.sql.SqlStatementBuilder;
 import com.sql.enums.SqlStatementType;
-import com.sql.impl.statement.insert.InsertSqlStatementBuilderImpl;
-import com.sql.impl.statement.select.SelectSqlStatementBuilderImpl;
+import com.sql.impl.statement.basic.insert.InsertSqlStatementBuilderImpl;
+import com.sql.impl.statement.basic.select.SelectSqlStatementBuilderImpl;
 import com.sql.util.ReflectUtil;
 
 /**

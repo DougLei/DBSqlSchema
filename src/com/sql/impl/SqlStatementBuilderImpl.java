@@ -5,8 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementBuilder;
 import com.sql.SqlStatementInfoBuilder;
 import com.sql.enums.SqlStatementType;
-import com.sql.impl.statement.model.function.FunctionImpl;
-import com.sql.statement.model.function.Function;
+import com.sql.impl.statement.basic.model.function.FunctionImpl;
+import com.sql.statement.basic.model.function.Function;
 
 /**
  * sql语句 builder实现类

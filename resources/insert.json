@@ -8,12 +8,11 @@
 			"name"
 		],
 		"values": {
-			"type": "sub_query",
+			"type": "value",
 			"value": [{
-				"value": "'石磊'",
 				"valueFunction": {
-					"name": "",
-					"parameters": []
+					"name": "to_char",
+					"parameters": ["'石磊'", "varchar2(20)"]
 				}
 			}],
 			"subSqlId": "",
