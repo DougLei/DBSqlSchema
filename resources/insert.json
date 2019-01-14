@@ -1,0 +1,133 @@
+{
+	"id": "testInsert",
+	"type": "insert",
+	"description": "",
+	"content": {
+		"tableName": "person",
+		"column": [
+			"name"
+		],
+		"values": {
+			"type": "sub_query",
+			"value": [{
+				"value": "'石磊'",
+				"valueFunction": {
+					"name": "",
+					"parameters": []
+				}
+			}],
+			"subSqlId": "",
+			"subSqlJson": {
+				"id": "testSelect",
+				"type": "select",
+				"description": "",
+				"content": {
+					"resultSet": [{
+						"columnName": "nike_name",
+						"columnFunction": {
+							"name": "",
+							"parameters": []
+						},
+						"alias": "昵称"
+					}],
+					"table": {
+						"type": "table",
+						"name": "sys_user",
+						"subSqlId": "",
+						"subSqlJson": {
+
+						},
+						"alias": ""
+					},
+					"join": [{
+						"type": "inner",
+						"tableType": "table",
+						"tableName": "sys_user",
+						"alias": "u",
+						"on": [{
+							"onGroup": [{
+									"leftColumnName": "name",
+									"leftFunction": {
+										"name": "",
+										"parameters": []
+									},
+									"operator": "eq",
+									"rightColumnName": "nike_name",
+									"rightFunction": {
+										"name": "",
+										"parameters": []
+									},
+									"nextLogicOperator": "and"
+								},
+								{
+									"leftColumnName": "name",
+									"leftFunction": {
+										"name": "",
+										"parameters": []
+									},
+									"operator": "eq",
+									"rightColumnName": "nike_name",
+									"rightFunction": {
+										"name": "",
+										"parameters": []
+									},
+									"nextLogicOperator": "and"
+								}
+							],
+							"nextLogicOperator": "and"
+						}]
+					}],
+					"where": [{
+						"whereGroup": [{
+							"columnName": "nike_name",
+							"columnFunction": {
+								"name": "",
+								"parameters": []
+							},
+							"operator": "eq",
+							"values": ["石磊"],
+							"valueFunction": {
+								"name": "",
+								"parameters": []
+							},
+							"nextLogicOperator": "and"
+						}],
+						"nextLogicOperator": "and"
+					}],
+					"groupBy": [{
+						"columnName": "nike_name",
+						"columnFunction": {
+							"name": "",
+							"parameters": []
+						}
+					}],
+					"having": [{
+						"havingGroup": [{
+							"columnName": "nike_name",
+							"columnFunction": {
+								"name": "",
+								"parameters": []
+							},
+							"operator": "eq",
+							"values": ["石磊"],
+							"valueFunction": {
+								"name": "",
+								"parameters": []
+							},
+							"nextLogicOperator": "and"
+						}],
+						"nextLogicOperator": "and"
+					}],
+					"orderBy": [{
+						"columnName": "nike_name",
+						"columnFunction": {
+							"name": "",
+							"parameters": []
+						},
+						"sort": "asc"
+					}]
+				}
+			}
+		}
+	}
+}

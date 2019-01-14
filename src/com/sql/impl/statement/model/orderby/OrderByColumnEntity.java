@@ -3,6 +3,10 @@ package com.sql.impl.statement.model.orderby;
 import com.sql.statement.model.function.Function;
 import com.sql.statement.model.orderby.Sort;
 
+/**
+ * 
+ * @author DougLei
+ */
 public class OrderByColumnEntity {
 	private String columnName;
 	private Function function;

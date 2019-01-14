@@ -6,7 +6,6 @@ import java.util.List;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderImpl;
-import com.sql.impl.statement.model.function.FunctionImpl;
 import com.sql.impl.statement.model.groupby.GroupByImpl;
 import com.sql.impl.statement.model.having.HavingGroupImpl;
 import com.sql.impl.statement.model.having.HavingImpl;
@@ -18,7 +17,6 @@ import com.sql.impl.statement.model.resultset.ResultSetImpl;
 import com.sql.impl.statement.model.table.TableImpl;
 import com.sql.impl.statement.model.where.WhereGroupImpl;
 import com.sql.impl.statement.model.where.WhereImpl;
-import com.sql.statement.model.function.Function;
 import com.sql.statement.model.groupby.GroupBy;
 import com.sql.statement.model.having.HavingGroup;
 import com.sql.statement.model.join.Join;
@@ -33,7 +31,7 @@ import com.sql.statement.select.SelectSqlStatementBuilder;
  * @author DougLei
  */
 public class SelectSqlStatementBuilderImpl extends SqlStatementBuilderImpl implements SelectSqlStatementBuilder {
-	protected StringBuilder selectSqlStatement = new StringBuilder(8000);
+	protected StringBuilder selectSqlStatement = new StringBuilder(6000);
 	
 	public String buildSql() {
 		Table table = getTable();
@@ -107,21 +105,6 @@ public class SelectSqlStatementBuilderImpl extends SqlStatementBuilderImpl imple
 	}
 
 	// ---------------------------------------------------------------------------------------
-	
-	private Function getFunction(JSONObject function){
-		if(function != null){
-			Object name = function.get("name");
-			JSONArray parameters = function.getJSONArray("parameters");
-			if(name != null && parameters != null && parameters.size() > 0){
-				String[] ps = new String[parameters.size()];
-				for(int i=0;i<parameters.size();i++){
-					ps[i] = parameters.getString(i);
-				}
-				return FunctionImpl.newInstance(name.toString(), ps);
-			}
-		}
-		return null;
-	}
 	
 	private String[] getValues(JSONArray jsonArray) {
 		if(jsonArray != null && jsonArray.size() > 0){

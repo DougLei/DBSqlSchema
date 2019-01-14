@@ -14,7 +14,7 @@
 			}
 		],
 		"table":{
-			"type":"sub_query",
+			"type":"table",
 			"name":"sys_user",
 			"subSqlId":"",
 			"subSqlJson":{

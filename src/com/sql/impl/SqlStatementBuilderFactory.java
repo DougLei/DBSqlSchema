@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.sql.SqlStatementBuilder;
 import com.sql.enums.SqlStatementType;
+import com.sql.impl.statement.insert.InsertSqlStatementBuilderImpl;
 import com.sql.impl.statement.select.SelectSqlStatementBuilderImpl;
 import com.sql.util.ReflectUtil;
 
@@ -32,5 +33,6 @@ class SqlStatementBuilderFactory {
 	private static final Map<String, Class<? extends SqlStatementBuilder>> sqlStatementBuilderMap = new HashMap<String, Class<? extends SqlStatementBuilder>>(SqlStatementType.values().length);
 	static{
 		sqlStatementBuilderMap.put(SqlStatementType.SELECT.getKeyword(), SelectSqlStatementBuilderImpl.class);
+		sqlStatementBuilderMap.put(SqlStatementType.INSERT.getKeyword(), InsertSqlStatementBuilderImpl.class);
 	}
 }
