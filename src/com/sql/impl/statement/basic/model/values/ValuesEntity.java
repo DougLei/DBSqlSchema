@@ -7,8 +7,8 @@ import com.sql.statement.basic.model.function.Function;
  * @author DougLei
  */
 public class ValuesEntity {
-	private String value;
-	private Function function;
+	protected String value;
+	protected Function function;
 	
 	public ValuesEntity(String value, Function function) {
 		this.value = value;

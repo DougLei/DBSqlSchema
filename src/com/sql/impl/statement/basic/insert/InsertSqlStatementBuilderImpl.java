@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sql.impl.SqlStatementBuilderImpl;
+import com.sql.impl.statement.basic.AbstractSqlStatementBuilder;
 import com.sql.impl.statement.basic.model.values.ValuesEntity;
 import com.sql.impl.statement.basic.model.values.ValuesImpl;
 import com.sql.statement.basic.insert.InsertSqlStatementBuilder;
@@ -16,17 +16,12 @@ import com.sql.util.StrUtils;
  * 
  * @author DougLei
  */
-public class InsertSqlStatementBuilderImpl extends SqlStatementBuilderImpl implements InsertSqlStatementBuilder {
+public class InsertSqlStatementBuilderImpl extends AbstractSqlStatementBuilder implements InsertSqlStatementBuilder {
 	protected StringBuilder insertSqlStatement = new StringBuilder(3000);
 	
 	protected String buildSql() {
 		insertSqlStatement.append("insert into ");
-		
-		String tableName = getTableName();
-		if(StrUtils.isEmpty(tableName)){
-			throw new NullPointerException("build insert sql时，tableName属性值不能为空");
-		}
-		insertSqlStatement.append(tableName);
+		insertSqlStatement.append(getTableName());
 		
 		List<String> columnNames = getColumnNames();
 		if(columnNames != null && columnNames.size() > 0){
@@ -54,7 +49,11 @@ public class InsertSqlStatementBuilderImpl extends SqlStatementBuilderImpl imple
 	 * @return
 	 */
 	public String getTableName() {
-		return content.getString("tableName");
+		String tableName = content.getString("tableName");
+		if(StrUtils.isEmpty(tableName)){
+			throw new NullPointerException("build insert sql时，tableName属性值不能为空");
+		}
+		return tableName;
 	}
 	
 	/**

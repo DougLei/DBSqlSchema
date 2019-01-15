@@ -1,5 +1,6 @@
 package com.sql.impl.statement.basic.model.function;
 
+import com.alibaba.fastjson.JSONArray;
 import com.sql.impl.statement.basic.model.BasicImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.util.StrUtils;
@@ -12,8 +13,12 @@ public class FunctionImpl extends BasicImpl implements Function {
 	private String name;
 	private String[] parameters;
 	
-	public static Function newInstance(String name, String[] parameters){
-		if(StrUtils.notEmpty(name) && parameters != null && parameters.length > 0){
+	public static Function newInstance(String name, JSONArray paramJsonarray){
+		if(StrUtils.notEmpty(name) && paramJsonarray!= null && paramJsonarray.size() > 0){
+			String[] parameters = new String[paramJsonarray.size()];
+			for(int i=0;i<paramJsonarray.size();i++){
+				parameters[i] = paramJsonarray.getString(i);
+			}
 			return new FunctionImpl(name, parameters);
 		}
 		return null;

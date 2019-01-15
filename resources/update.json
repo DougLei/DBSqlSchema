@@ -1,6 +1,6 @@
 {
-	"id": "testInsert",
-	"type": "insert",
+	"id": "testUpdate",
+	"type": "update",
 	"description": "",
 	"content": {
 		"tableName": "person",
@@ -10,7 +10,6 @@
 		"values": {
 			"type": "value",
 			"value": [{
-				"value":"",
 				"valueFunction": {
 					"name": "to_char",
 					"parameters": ["'test'", "varchar2(20)"]

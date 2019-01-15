@@ -1,0 +1,37 @@
+{
+	"id": "testDelete",
+	"type": "delete",
+	"description": "",
+	"content": {
+		"tableName": "person",
+		"where":[
+			{
+				"whereGroup":[
+					{
+						"columnName":"nike_name",
+						"columnFunction":{
+							"name":"",
+							"parameters":[]
+						},
+						"operator":"in",
+						"value":{
+							"type":"value",
+							"value":["d"],
+							"valueFunction": [
+								{
+									"name": "to_char",
+									"parameters": ["'test'", "varchar2(20)"]
+								}
+							],
+							"subSqlId": "",
+							"subSqlJson": {
+							}
+						},
+						"nextLogicOperator":"and"
+					}
+				],
+				"nextLogicOperator":"and"
+			}
+		]
+	}
+}

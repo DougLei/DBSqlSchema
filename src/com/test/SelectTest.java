@@ -8,8 +8,5 @@ public class SelectTest {
 		DBSqlStatementBuilder builder = new DBSqlStatementBuilder(DatabaseType.SQLSERVER);
 		String sql = builder.buildSqlStatementByFile("resources/select.json");
 		System.out.println(sql);
-		
-		
-		
 	}
 }
