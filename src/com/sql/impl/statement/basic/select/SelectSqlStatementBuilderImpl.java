@@ -14,7 +14,6 @@ import com.sql.statement.basic.model.join.Join;
 import com.sql.statement.basic.model.orderby.OrderBy;
 import com.sql.statement.basic.model.resultset.ResultSet;
 import com.sql.statement.basic.model.table.Table;
-import com.sql.statement.basic.model.where.WhereGroup;
 import com.sql.statement.basic.select.SelectSqlStatementBuilder;
 
 /**
@@ -55,14 +54,7 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		}
 
 		// where
-		List<WhereGroup> whereGroupList = getWhereGroupList();
-		if(whereGroupList != null && whereGroupList.size() > 0){
-			selectSqlStatement.append("where ");
-			for (WhereGroup whereGroup : whereGroupList) {
-				selectSqlStatement.append(whereGroup.getSqlStatement());
-			}
-			selectSqlStatement.append(newline());
-		}
+		selectSqlStatement.append(getWhereSqlStatement());
 		
 		// group by
 		GroupBy groupBy = getGroupBy();

@@ -49,7 +49,7 @@ public class ValueImpl implements Value {
 			}
 			return sqlStatements;
 		}else if(type == ValueType.SUB_QUERY){
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new StringBuilder(2000);
 			sb.append(" ( ");
 			if(StrUtils.notEmpty(subSqlId)){
 				sb.append(SqlStatementBuilderContext.buildSqlStatement(subSqlId));

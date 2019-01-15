@@ -1,6 +1,13 @@
 package com.sql.impl.statement.basic.update;
 
-import com.sql.impl.SqlStatementBuilderImpl;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.sql.impl.statement.basic.AbstractSqlStatementBuilder;
+import com.sql.impl.statement.basic.model.set.SetImpl;
+import com.sql.statement.basic.model.set.Set;
 import com.sql.statement.basic.update.UpdateSqlStatementBuilder;
 import com.sql.util.StrUtils;
 
@@ -8,38 +15,28 @@ import com.sql.util.StrUtils;
  * 
  * @author DougLei
  */
-public class UpdateSqlStatementBuilderImpl extends SqlStatementBuilderImpl implements UpdateSqlStatementBuilder {
+public class UpdateSqlStatementBuilderImpl extends AbstractSqlStatementBuilder implements UpdateSqlStatementBuilder {
 	protected StringBuilder updateSqlStatement = new StringBuilder(3000);
 	
 	protected String buildSql() {
-		updateSqlStatement.append("insert into ");
+		updateSqlStatement.append("update ");
 		updateSqlStatement.append(getTableName());
 		
-//		List<String> columnNames = getColumnNames();
-//		if(columnNames != null && columnNames.size() > 0){
-//			insertSqlStatement.append("(");
-//			for(int i=0;i<columnNames.size();i++){
-//				insertSqlStatement.append(columnNames.get(i));
-//				if(i<columnNames.size()-1){
-//					insertSqlStatement.append(", ");
-//				}
-//			}
-//			insertSqlStatement.append(")");
-//		}
-//		insertSqlStatement.append(newline());
-//		insertSqlStatement.append("values ");
-//		insertSqlStatement.append(newline());
-//		
-//		Values values = getValues();
-//		insertSqlStatement.append(values.getSqlStatement());
+		List<Set> sets = getSetList();
+		updateSqlStatement.append(newline()).append("set ");
+		for (int i=0;i<sets.size();i++) {
+			updateSqlStatement.append(sets.get(i).getSqlStatement());
+			if(i<sets.size()-1){
+				updateSqlStatement.append(", ");
+			}
+		}
+		
+		// where
+		updateSqlStatement.append(getWhereSqlStatement());
 		
 		return updateSqlStatement.toString();
 	}
 
-	/**
-	 * 获取表名
-	 * @return
-	 */
 	public String getTableName() {
 		String tableName = content.getString("tableName");
 		if(StrUtils.isEmpty(tableName )){
@@ -48,4 +45,26 @@ public class UpdateSqlStatementBuilderImpl extends SqlStatementBuilderImpl imple
 		return tableName;
 	}
 	
+	public List<Set> getSetList() {
+		JSONArray setJsonarray = content.getJSONArray("set");
+		if(setJsonarray == null || setJsonarray.size() == 0){
+			throw new NullPointerException("build update sql时，set属性值不能为空");
+		}
+		List<Set> sets = new ArrayList<Set>(setJsonarray.size());
+		JSONObject json = null;
+		SetImpl set = null;
+		for(int i=0;i<setJsonarray.size();i++){
+			json = setJsonarray.getJSONObject(i);
+			set = new SetImpl();
+			set.setColumnName(json.getString("columnName"));
+			set.setValueType(json.getString("valueType"));
+			set.setValue(json.getString("value"));
+			set.setValueFunction(getFunction(json.getJSONObject("valueFunction")));
+			set.setSubSqlId(json.getString("subSqlId"));
+			set.setSubSqlJson(json.getJSONObject("subSqlJson"));
+			
+			sets.add(set);
+		}
+		return sets;
+	}
 }

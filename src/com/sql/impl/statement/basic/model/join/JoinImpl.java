@@ -37,7 +37,7 @@ public class JoinImpl extends BasicImpl implements Join {
 	}
 	
 	protected String processSqlStatement() {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder(500);
 		sb.append(joinType.getSqlStatement()).append(" ");
 		if(tableType == TableType.TABLE){
 			sb.append(tableName);

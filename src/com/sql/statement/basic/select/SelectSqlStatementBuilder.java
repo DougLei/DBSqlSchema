@@ -8,7 +8,6 @@ import com.sql.statement.basic.model.join.Join;
 import com.sql.statement.basic.model.orderby.OrderBy;
 import com.sql.statement.basic.model.resultset.ResultSet;
 import com.sql.statement.basic.model.table.Table;
-import com.sql.statement.basic.model.where.WhereGroup;
 
 /**
  * select sql语句builder 接口
@@ -35,10 +34,10 @@ public interface SelectSqlStatementBuilder {
 	List<Join> getJoinList();
 	
 	/**
-	 * 获取whereGroup语句对象集合
+	 * 获取where 语句
 	 * @return
 	 */
-	List<WhereGroup> getWhereGroupList();
+	String getWhereSqlStatement();
 	
 	/**
 	 * 获取group by语句对象

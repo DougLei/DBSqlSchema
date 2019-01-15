@@ -1,9 +1,7 @@
 package com.sql.impl.statement.basic.delete;
 
-import java.util.List;
 import com.sql.impl.statement.basic.AbstractSqlStatementBuilder;
 import com.sql.statement.basic.delete.DeleteSqlStatementBuilder;
-import com.sql.statement.basic.model.where.WhereGroup;
 import com.sql.util.StrUtils;
 
 /**
@@ -18,15 +16,8 @@ public class DeleteSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		deleteSqlStatement.append(getTableName());
 		
 		// where
-		List<WhereGroup> whereGroupList = getWhereGroupList();
-		if(whereGroupList != null && whereGroupList.size() > 0){
-			deleteSqlStatement.append(newline());
-			deleteSqlStatement.append("where ");
-			for (WhereGroup whereGroup : whereGroupList) {
-				deleteSqlStatement.append(whereGroup.getSqlStatement());
-			}
-			deleteSqlStatement.append(newline());
-		}
+		deleteSqlStatement.append(getWhereSqlStatement());
+		
 		return deleteSqlStatement.toString();
 	}
 

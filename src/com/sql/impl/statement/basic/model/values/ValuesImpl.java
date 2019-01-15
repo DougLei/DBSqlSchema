@@ -25,7 +25,7 @@ public class ValuesImpl extends BasicImpl implements Values {
 	private JSONObject subSqlJson;
 	
 	protected String processSqlStatement() {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder(800);
 		if(type == ValuesType.VALUE){
 			if(valuesEntities == null || valuesEntities.size() == 0){
 				throw new NullPointerException("build insert sql时，values属性中的value数组属性不能为空");

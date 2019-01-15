@@ -110,7 +110,20 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 		return null;
 	}
 
-	public List<WhereGroup> getWhereGroupList() {
+	public String getWhereSqlStatement(){
+		StringBuilder where = new StringBuilder(3000);
+		List<WhereGroup> whereGroupList = getWhereGroupList();
+		if(whereGroupList != null && whereGroupList.size() > 0){
+			where.append(newline());
+			where.append("where ");
+			for (WhereGroup whereGroup : whereGroupList) {
+				where.append(whereGroup.getSqlStatement());
+			}
+			where.append(newline());
+		}
+		return where.toString();
+	}
+	private List<WhereGroup> getWhereGroupList() {
 		JSONArray jsonarray = content.getJSONArray("where");
 		if(jsonarray != null && jsonarray.size() > 0){
 			List<WhereGroup> whereGroupList = new ArrayList<WhereGroup>(jsonarray.size());

@@ -1,10 +1,5 @@
 package com.sql.statement.basic.delete;
 
-import java.util.List;
-
-import com.sql.statement.basic.model.where.WhereGroup;
-
-
 /**
  * delete sql语句builder 接口
  * @author DougLei
@@ -18,8 +13,8 @@ public interface DeleteSqlStatementBuilder {
 	String getTableName();
 	
 	/**
-	 * 获取whereGroup语句对象集合
+	 * 获取where 语句
 	 * @return
 	 */
-	List<WhereGroup> getWhereGroupList();
+	String getWhereSqlStatement();
 }

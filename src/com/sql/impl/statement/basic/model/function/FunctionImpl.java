@@ -28,7 +28,7 @@ public class FunctionImpl extends BasicImpl implements Function {
 		this.name = name;
 		this.parameters = parameters;
 	}
-	public FunctionImpl() {
+	private FunctionImpl() {
 	}
 
 	protected String processSqlStatement() {
