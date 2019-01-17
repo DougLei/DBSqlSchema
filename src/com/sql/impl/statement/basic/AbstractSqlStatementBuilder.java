@@ -194,6 +194,7 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 			HavingGroupImpl havingGroup = null;
 			JSONArray wheres = null;
 			HavingImpl having = null;
+			ValueImpl value = null;
 			for(int i=0;i<jsonarray.size();i++){
 				json = jsonarray.getJSONObject(i);
 				havingGroup = new HavingGroupImpl();
@@ -209,11 +210,18 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 						having.setDataOperator(json.getString("operator"));
 						having.setNextLogicOperator(json.getString("nextLogicOperator"));
 						
+						json = json.getJSONObject("value");
+						if(json == null || json.size() == 0){
+							throw new DBSqlSchemaException("where 子句中，value属性不能为空");
+						}
+						value = new ValueImpl();
+						value.setType(json.getString("type"));
+						value.setSubSqlId(json.getString("subSqlId"));
+						value.setSubSqlJson(json.getJSONObject("subSqlJson"));
+						value.setValueArray(json.getJSONArray("value"));
+						value.setValueFunctionArray(json.getJSONArray("valueFunction"));
 						
-						
-						
-						
-						
+						having.setValue(value);
 						havingGroup.addHaving(having);
 					}
 				}

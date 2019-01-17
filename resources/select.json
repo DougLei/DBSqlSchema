@@ -75,10 +75,18 @@
 							"parameters":[]
 						},
 						"operator":"eq",
-						"values":["石磊"],
-						"valueFunction":{
-							"name":"",
-							"parameters":[]
+						"value":{
+							"type":"value",
+							"value":["d"],
+							"valueFunction": [
+								{
+									"name": "to_char",
+									"parameters": ["'test'", "varchar2(20)"]
+								}
+							],
+							"subSqlId": "",
+							"subSqlJson": {
+							}
 						},
 						"nextLogicOperator":"and"
 					}
@@ -105,10 +113,18 @@
 							"parameters":[]
 						},
 						"operator":"eq",
-						"values":["石磊"],
-						"valueFunction":{
-							"name":"",
-							"parameters":[]
+						"value":{
+							"type":"value",
+							"value":["d"],
+							"valueFunction": [
+								{
+									"name": "to_char",
+									"parameters": ["'test'", "varchar2(20)"]
+								}
+							],
+							"subSqlId": "",
+							"subSqlJson": {
+							}
 						},
 						"nextLogicOperator":"and"
 					}
