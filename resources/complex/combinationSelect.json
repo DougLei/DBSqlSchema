@@ -1,146 +1,110 @@
 {
-	"id":"testSelect",
-	"type":"combinationSelect",
+	"id":"testSelect1111",
+	"type":"combination_select",
 	"description":"",
 	"content":{
-		"resultSet":[
+		"with":[
 			{
-				"columnName":"nike_name",
-				"columnFunction":{
-					"name":"",
-					"parameters":[]
-				},
-				"alias":"昵称"
-			}
-		],
-		"table":{
-			"type":"table",
-			"name":"sys_user",
-			"subSqlId":"",
-			"subSqlJson":{
-
-			},
-			"alias":""
-		},
-		"join":[
-			{
-				"type":"inner",
-				"tableType":"table",
-				"tableName":"sys_user",
-				"alias":"u",
-				"on":[
+				"alias":"te",
+				"selectSql":[
 					{
-						"onGroup":[
-							{
-								"leftColumnName":"name",
-								"leftFunction":{
-									"name":"",
-									"parameters":[]
-								},
-								"operator":"eq",
-								"rightColumnName":"nike_name",
-								"rightFunction":{
-									"name":"",
-									"parameters":[]
-								},
-								"nextLogicOperator":"and"
-							},
-							{
-								"leftColumnName":"name",
-								"leftFunction":{
-									"name":"",
-									"parameters":[]
-								},
-								"operator":"eq",
-								"rightColumnName":"nike_name",
-								"rightFunction":{
-									"name":"",
-									"parameters":[]
-								},
-								"nextLogicOperator":"and"
+						"selectSqlId":"",
+						"selectSqlJson":{
+							"id":"testSelect1",
+							"type":"select",
+							"description":"",
+							"content":{
+								"resultSet":[
+									{
+										"columnName":"nike_name",
+										"columnFunction":{
+											"name":"",
+											"parameters":[]
+										},
+										"alias":"昵称"
+									}
+								],
+								"table":{
+									"type":"table",
+									"name":"sys_user",
+									"subSqlId":"",
+									"subSqlJson":{
+						
+									},
+									"alias":""
+								}
 							}
-						],
-						"nextLogicOperator":"and"
+						},
+						"unionType":"union_all"
+					},
+					{
+						"selectSqlId":"",
+						"selectSqlJson":{
+							"id":"testSelect3",
+							"type":"select",
+							"description":"",
+							"content":{
+								"resultSet":[
+									{
+										"columnName":"nike_name",
+										"columnFunction":{
+											"name":"",
+											"parameters":[]
+										},
+										"alias":"昵称"
+									}
+								],
+								"table":{
+									"type":"table",
+									"name":"sys_user",
+									"subSqlId":"",
+									"subSqlJson":{
+						
+									},
+									"alias":""
+								}
+							}
+						},
+						"unionType":"union_all"
 					}
 				]
 			}
 		],
-		"where":[
+		"selectSql":[
 			{
-				"whereGroup":[
-					{
-						"columnName":"nike_name",
-						"columnFunction":{
-							"name":"",
-							"parameters":[]
-						},
-						"operator":"eq",
-						"value":{
-							"type":"value",
-							"value":["d"],
-							"valueFunction": [
-								{
-									"name": "to_char",
-									"parameters": ["'test'", "varchar2(20)"]
-								}
-							],
-							"subSqlId": "",
-							"subSqlJson": {
+				"selectSqlId":"",
+				"selectSqlJson":{
+					"id":"testSelect2",
+					"type":"select",
+					"description":"",
+					"content":{
+						"resultSet":[
+							{
+								"columnName":"nike_name",
+								"columnFunction":{
+									"name":"",
+									"parameters":[]
+								},
+								"alias":"昵称"
 							}
-						},
-						"nextLogicOperator":"and"
+						],
+						"table":{
+							"type":"table",
+							"name":"sys_user",
+							"subSqlId":"",
+							"subSqlJson":{
+				
+							},
+							"alias":""
+						}
 					}
-				],
-				"nextLogicOperator":"and"
-			}
-		],
-		"groupBy":[
-			{
-				"columnName":"nike_name",
-				"columnFunction":{
-					"name":"",
-					"parameters":[]
-				}
-			}
-		],
-		"having":[
-			{
-				"havingGroup":[
-					{
-						"columnName":"nike_name",
-						"columnFunction":{
-							"name":"",
-							"parameters":[]
-						},
-						"operator":"eq",
-						"value":{
-							"type":"value",
-							"value":["d"],
-							"valueFunction": [
-								{
-									"name": "to_char",
-									"parameters": ["'test'", "varchar2(20)"]
-								}
-							],
-							"subSqlId": "",
-							"subSqlJson": {
-							}
-						},
-						"nextLogicOperator":"and"
-					}
-				],
-				"nextLogicOperator":"and"
-			}
-		],
-		"orderBy":[
-			{
-				"columnName":"nike_name",
-				"columnFunction":{
-					"name":"",
-					"parameters":[]
 				},
-				"sort":"asc"
+				"unionType":"union_all"
 			}
 		]
 	}
 }
+
+
+
+

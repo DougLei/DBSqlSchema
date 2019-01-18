@@ -13,7 +13,7 @@ public enum SqlStatementType {
 	UPDATE("update"),
 	DELETE("delete"),
 	
-	COMBINATION_SELECT("combinationSelect"),
+	COMBINATION_SELECT("combination_select"),
 	VIEW("view"),
 	PROCEDURE("procedure");
 	
