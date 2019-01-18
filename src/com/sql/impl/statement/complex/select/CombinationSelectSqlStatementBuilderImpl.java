@@ -88,7 +88,6 @@ public class CombinationSelectSqlStatementBuilderImpl extends SqlStatementBuilde
 				}
 				
 				sql.append(toSelectSql(json));
-				sql.append(newline());
 				if(i < array.size()-1){
 					sql.append(UnionType.toValue(json.getString("unionType")).getSqlStatement());
 					sql.append(newline());

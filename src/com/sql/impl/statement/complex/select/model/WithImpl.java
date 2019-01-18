@@ -10,14 +10,14 @@ import com.sql.statement.complex.select.model.With;
 public class WithImpl extends BasicImpl implements With {
 
 	private String alias;
-	private String sqlStatement;
+	private String sqlStatement;// 存储的是处理后的select sql语句，再和alias整合
 	
 	public WithImpl(String alias) {
 		this.alias = alias;
 	}
 
 	protected String processSqlStatement() {
-		return alias + " (" + sqlStatement + ") ";
+		return alias + " as (" + sqlStatement + ") ";
 	}
 
 	public void setSqlStatement(StringBuilder sqlStatement) {
