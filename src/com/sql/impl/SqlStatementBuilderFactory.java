@@ -6,9 +6,10 @@ import java.util.Map;
 import com.sql.SqlStatementBuilder;
 import com.sql.enums.SqlStatementType;
 import com.sql.impl.statement.basic.delete.DeleteSqlStatementBuilderImpl;
-import com.sql.impl.statement.basic.update.UpdateSqlStatementBuilderImpl;
 import com.sql.impl.statement.basic.insert.InsertSqlStatementBuilderImpl;
 import com.sql.impl.statement.basic.select.SelectSqlStatementBuilderImpl;
+import com.sql.impl.statement.basic.update.UpdateSqlStatementBuilderImpl;
+import com.sql.impl.statement.complex.select.CombinationSelectSqlStatementBuilderImpl;
 import com.sql.util.ReflectUtil;
 
 /**
@@ -38,5 +39,7 @@ class SqlStatementBuilderFactory {
 		sqlStatementBuilderMap.put(SqlStatementType.INSERT.getKeyword(), InsertSqlStatementBuilderImpl.class);
 		sqlStatementBuilderMap.put(SqlStatementType.DELETE.getKeyword(), DeleteSqlStatementBuilderImpl.class);
 		sqlStatementBuilderMap.put(SqlStatementType.UPDATE.getKeyword(), UpdateSqlStatementBuilderImpl.class);
+		
+		sqlStatementBuilderMap.put(SqlStatementType.COMBINATION_SELECT.getKeyword(), CombinationSelectSqlStatementBuilderImpl.class);
 	}
 }

@@ -1,6 +1,6 @@
 {
 	"id":"testSelect",
-	"type":"select",
+	"type":"combinationSelect",
 	"description":"",
 	"content":{
 		"resultSet":[
