@@ -10,9 +10,11 @@ import com.sql.impl.statement.basic.delete.DeleteSqlStatementBuilderImpl;
 import com.sql.impl.statement.basic.insert.InsertSqlStatementBuilderImpl;
 import com.sql.impl.statement.basic.select.SelectSqlStatementBuilderImpl;
 import com.sql.impl.statement.basic.update.UpdateSqlStatementBuilderImpl;
+import com.sql.impl.statement.complex.object.procedure.ORACLE_ProcedureSqlStatementBuilderImpl;
+import com.sql.impl.statement.complex.object.procedure.SQLSERVER_ProcedureSqlStatementBuilderImpl;
+import com.sql.impl.statement.complex.object.view.ORACLE_ViewSqlStatementBuilderImpl;
+import com.sql.impl.statement.complex.object.view.SQLSERVER_ViewSqlStatementBuilderImpl;
 import com.sql.impl.statement.complex.select.CombinationSelectSqlStatementBuilderImpl;
-import com.sql.impl.statement.complex.view.ORACLE_ViewSqlStatementBuilderImpl;
-import com.sql.impl.statement.complex.view.SQLSERVER_ViewSqlStatementBuilderImpl;
 import com.sql.util.ReflectUtil;
 
 /**
@@ -57,9 +59,11 @@ class SqlStatementBuilderFactory {
 		// ---------------------------------------------------------------------------------------------------
 		sqlserver.putAll(commonBuilder);
 		sqlserver.put(SqlStatementType.VIEW.getKeyword(), SQLSERVER_ViewSqlStatementBuilderImpl.class);
+		sqlserver.put(SqlStatementType.PROCEDURE.getKeyword(), SQLSERVER_ProcedureSqlStatementBuilderImpl.class);
 		
 		// ---------------------------------------------------------------------------------------------------
 		oracle.putAll(commonBuilder);
 		oracle.put(SqlStatementType.VIEW.getKeyword(), ORACLE_ViewSqlStatementBuilderImpl.class);
+		oracle.put(SqlStatementType.PROCEDURE.getKeyword(), ORACLE_ProcedureSqlStatementBuilderImpl.class);
 	}
 }

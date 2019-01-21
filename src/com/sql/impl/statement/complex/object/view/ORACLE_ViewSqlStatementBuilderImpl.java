@@ -1,4 +1,4 @@
-package com.sql.impl.statement.complex.view;
+package com.sql.impl.statement.complex.object.view;
 
 /**
  * 

@@ -1,11 +1,11 @@
-package com.sql.impl.statement.complex.view;
+package com.sql.impl.statement.complex.object.view;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.SqlStatementBuilderImpl;
 import com.sql.impl.SqlStatementInfoBuilderImpl;
-import com.sql.statement.complex.view.ViewSqlStatementBuilder;
+import com.sql.statement.complex.object.view.ViewSqlStatementBuilder;
 import com.sql.util.StrUtils;
 
 /**

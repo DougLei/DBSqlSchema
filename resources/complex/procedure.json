@@ -1,0 +1,14 @@
+{
+	"id":"viewTest",
+	"type":"procedure",
+	"description":"",
+	"content":{
+		"procedureName":"TEST_VIEW",
+		"isCover":false,
+		"sql":{
+			"sqlId":"",
+			"sqlJson":{
+			}
+		}
+	}
+}
