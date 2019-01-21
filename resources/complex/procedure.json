@@ -3,8 +3,26 @@
 	"type":"procedure",
 	"description":"",
 	"content":{
-		"procedureName":"TEST_VIEW",
+		"procedureName":"TEST_PROCEDURE",
 		"isCover":false,
+		"parameter":[
+			{
+				"name":"name",
+				"dataType":"",
+				"length":"",
+				"inOut":""
+			}
+		],
+
+
+		
+
+
+
+
+
+
+
 		"sql":{
 			"sqlId":"",
 			"sqlJson":{

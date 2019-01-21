@@ -8,7 +8,7 @@ public class SQLSERVER_ViewSqlStatementBuilderImpl extends ViewSqlStatementBuild
 
 	public String coverSqlServerSql(String viewName) {
 		StringBuilder sb = new StringBuilder(200);
-		sb.append("if exists (select name from sysobjects where name = N'").append(viewName).append("')");
+		sb.append("if exists (select name from sysobjects where xtype = 'V' and name = N'").append(viewName).append("')");
 		sb.append(newline());
 		sb.append("drop view ").append(viewName);
 		sb.append(newline());
