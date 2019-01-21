@@ -11,6 +11,7 @@ import com.sql.impl.SqlStatementBuilderImpl;
 import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.impl.statement.complex.select.model.WithImpl;
 import com.sql.statement.complex.select.CombinationSelectSqlStatementBuilder;
+import com.sql.statement.complex.select.UnionType;
 import com.sql.statement.complex.select.model.With;
 import com.sql.util.StrUtils;
 
@@ -22,7 +23,6 @@ public class CombinationSelectSqlStatementBuilderImpl extends SqlStatementBuilde
 	protected StringBuilder combinationSelectSqlStatement = new StringBuilder(8000);
 	
 	protected String buildSql() {
-		
 		List<With> withList = getWithList();
 		if(withList != null){
 			combinationSelectSqlStatement.append("with ");

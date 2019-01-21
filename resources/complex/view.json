@@ -1,0 +1,128 @@
+{
+	"id":"viewTest",
+	"type":"view",
+	"description":"",
+	"content":{
+		"viewName":"TEST_VIEW",
+		"isCover":false,
+		"sql":{
+			"sqlId":"",
+			"sqlJson":{
+				"id":"testSelect1111",
+				"type":"combination_select",
+				"description":"",
+				"content":{
+					"with":[
+						{
+							"alias":"te",
+							"selectSql":[
+								{
+									"selectSqlId":"",
+									"selectSqlJson":{
+										"id":"testSelect1",
+										"type":"select",
+										"description":"",
+										"content":{
+											"resultSet":[
+												{
+													"columnName":"nike_name",
+													"columnFunction":{
+														"name":"",
+														"parameters":[]
+													},
+													"alias":"昵称"
+												}
+											],
+											"table":{
+												"type":"table",
+												"name":"sys_user",
+												"subSqlId":"",
+												"subSqlJson":{
+									
+												},
+												"alias":""
+											}
+										}
+									},
+									"unionType":"union_all"
+								},
+								{
+									"selectSqlId":"",
+									"selectSqlJson":{
+										"id":"testSelect3",
+										"type":"select",
+										"description":"",
+										"content":{
+											"resultSet":[
+												{
+													"columnName":"nike_name",
+													"columnFunction":{
+														"name":"",
+														"parameters":[]
+													},
+													"alias":"昵称"
+												}
+											],
+											"table":{
+												"type":"table",
+												"name":"sys_user",
+												"subSqlId":"",
+												"subSqlJson":{
+									
+												},
+												"alias":""
+											}
+										}
+									},
+									"unionType":"union_all"
+								}
+							]
+						}
+					],
+					"selectSql":[
+						{
+							"selectSqlId":"",
+							"selectSqlJson":{
+								"id":"testSelect2",
+								"type":"select",
+								"description":"",
+								"content":{
+									"resultSet":[
+										{
+											"columnName":"nike_name",
+											"columnFunction":{
+												"name":"",
+												"parameters":[]
+											},
+											"alias":"昵称"
+										}
+									],
+									"table":{
+										"type":"table",
+										"name":"sys_user",
+										"subSqlId":"",
+										"subSqlJson":{
+							
+										},
+										"alias":""
+									}
+								}
+							},
+							"unionType":"union_all"
+						}
+					]
+				}
+			}
+			
+			
+			
+			
+			
+		}
+		
+	}
+}
+
+
+
+
