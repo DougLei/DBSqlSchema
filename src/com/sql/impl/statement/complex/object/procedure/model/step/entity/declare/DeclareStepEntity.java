@@ -1,6 +1,6 @@
-package com.sql.statement.complex.object.procedure.model.step.entity.declare;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.declare;
 
-import com.sql.statement.complex.object.procedure.model.step.StepEntityImpl;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.StepEntityImpl;
 
 /**
  * 

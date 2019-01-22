@@ -1,8 +1,8 @@
-package com.sql.statement.complex.object.procedure.model.step.entityfactory;
+package com.sql.impl.statement.complex.object.procedure.model.step.entityfactory;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.statement.complex.object.procedure.model.step.StepEntity;
-import com.sql.statement.complex.object.procedure.model.step.StepEntityFactory;
+import com.sql.statement.complex.object.procedure.model.step.entity.StepEntity;
+import com.sql.statement.complex.object.procedure.model.step.entityfactory.StepEntityFactory;
 
 /**
  * declare

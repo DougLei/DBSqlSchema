@@ -3,8 +3,8 @@ package com.sql.impl.statement.complex.object.procedure.model.step;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.basic.model.BasicImpl;
 import com.sql.statement.complex.object.procedure.model.step.Step;
-import com.sql.statement.complex.object.procedure.model.step.StepEntity;
 import com.sql.statement.complex.object.procedure.model.step.StepType;
+import com.sql.statement.complex.object.procedure.model.step.entity.StepEntity;
 
 /**
  * 
