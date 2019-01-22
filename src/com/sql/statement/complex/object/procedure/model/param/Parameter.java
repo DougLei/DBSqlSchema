@@ -8,6 +8,7 @@ import com.sql.statement.BasicModel;
  */
 public interface Parameter extends BasicModel{
 
+	String getName();
 	void setName(String name);
 	void setDataType(String dataType);
 	void setLength(int length);

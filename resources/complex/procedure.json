@@ -8,7 +8,7 @@
 		"parameter":[
 			{
 				"name":"name",
-				"dataType":"",
+				"dataType":"str",
 				"length":20,
 				"inOut":""
 			}

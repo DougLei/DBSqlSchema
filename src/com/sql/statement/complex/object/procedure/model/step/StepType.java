@@ -18,6 +18,7 @@ public enum StepType {
 	private StepEntityFactory factory;
 	private StepType(String type, StepEntityFactory factory) {
 		this.type = type;
+		this.factory = factory;
 	}
 
 	public static StepType toValue(String str){

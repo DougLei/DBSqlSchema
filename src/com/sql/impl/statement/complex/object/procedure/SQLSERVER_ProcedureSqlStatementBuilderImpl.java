@@ -28,8 +28,9 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 	protected List<Parameter> getParameterList() {
 		List<Parameter> parameterList = super.getParameterList();
 		if(parameterList != null && parameterList.size() > 0){
-			// TODO 二次处理
-			
+			for (Parameter parameter : parameterList) {
+				parameter.setName("@"+parameter.getName());
+			}
 		}
 		return parameterList;
 	}

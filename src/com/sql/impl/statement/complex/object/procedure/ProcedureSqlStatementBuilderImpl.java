@@ -85,6 +85,7 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 				parameter.setInOut(json.getString("inOut"));
 				parameterList.add(parameter);
 			}
+			return parameterList;
 		}
 		return null;
 	}
