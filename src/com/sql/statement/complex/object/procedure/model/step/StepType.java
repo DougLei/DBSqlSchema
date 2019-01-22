@@ -32,7 +32,7 @@ public enum StepType {
 		return "{" + type + "}";
 	}
 
-	public StepEntity buildStepEntity(JSONObject content) {
-		return factory.buildEntity(content);
+	public StepEntity buildStepEntity(String stepId, JSONObject content) {
+		return factory.buildEntity(stepId, content);
 	}
 }

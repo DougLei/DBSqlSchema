@@ -11,8 +11,9 @@ public interface StepEntityFactory {
 
 	/**
 	 * 
+	 * @param stepId
 	 * @param content
 	 * @return
 	 */
-	StepEntity buildEntity(JSONObject content);
+	StepEntity buildEntity(String stepId, JSONObject content);
 }

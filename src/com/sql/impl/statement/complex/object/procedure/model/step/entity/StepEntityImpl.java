@@ -9,9 +9,14 @@ import com.sql.statement.complex.object.procedure.model.step.entity.StepEntity;
  * @author DougLei
  */
 public abstract class StepEntityImpl implements StepEntity{
+	protected String stepId;
 	private String sqlStatement;
 	private boolean flag;
 	
+	public StepEntityImpl(String stepId) {
+		this.stepId = stepId;
+	}
+
 	public String getSqlStatement() {
 		if(!flag && sqlStatement == null){
 			sqlStatement = processSqlStatement();
