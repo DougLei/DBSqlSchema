@@ -1,7 +1,7 @@
 package com.sql.impl.statement.basic.model.function;
 
 import com.alibaba.fastjson.JSONArray;
-import com.sql.impl.statement.basic.model.BasicImpl;
+import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.util.StrUtils;
 
@@ -9,7 +9,7 @@ import com.sql.util.StrUtils;
  * 
  * @author DougLei
  */
-public class FunctionImpl extends BasicImpl implements Function {
+public class FunctionImpl extends BasicModelImpl implements Function {
 	private String name;
 	private String[] parameters;
 	

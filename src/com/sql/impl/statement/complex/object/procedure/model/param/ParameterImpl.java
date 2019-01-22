@@ -1,6 +1,6 @@
 package com.sql.impl.statement.complex.object.procedure.model.param;
 
-import com.sql.impl.statement.basic.model.BasicImpl;
+import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.complex.object.procedure.model.param.Parameter;
 import com.sql.util.StrUtils;
 
@@ -8,7 +8,7 @@ import com.sql.util.StrUtils;
  * 
  * @author DougLei
  */
-public class ParameterImpl extends BasicImpl implements Parameter{
+public class ParameterImpl extends BasicModelImpl implements Parameter{
 	
 	private String name;
 	private String dataType;

@@ -1,11 +1,11 @@
 package com.sql.statement.basic.model.values;
 
-import com.sql.statement.basic.model.Basic;
+import com.sql.statement.BasicModel;
 
 /**
  * 
  * @author DougLei
  */
-public interface Values extends Basic{
+public interface Values extends BasicModel{
 
 }

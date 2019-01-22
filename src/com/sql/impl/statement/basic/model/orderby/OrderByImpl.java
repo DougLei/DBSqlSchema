@@ -3,7 +3,7 @@ package com.sql.impl.statement.basic.model.orderby;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sql.impl.statement.basic.model.BasicImpl;
+import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.orderby.OrderBy;
 
@@ -11,7 +11,7 @@ import com.sql.statement.basic.model.orderby.OrderBy;
  * 
  * @author DougLei
  */
-public class OrderByImpl extends BasicImpl implements OrderBy {
+public class OrderByImpl extends BasicModelImpl implements OrderBy {
 	
 private List<OrderByColumnEntity> orderByColumnList;
 	

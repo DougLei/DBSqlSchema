@@ -1,11 +1,11 @@
 package com.sql.statement.basic.model.table;
 
-import com.sql.statement.basic.model.Basic;
+import com.sql.statement.BasicModel;
 
 /**
  * 
  * @author DougLei
  */
-public interface Table extends Basic{
+public interface Table extends BasicModel{
 
 }

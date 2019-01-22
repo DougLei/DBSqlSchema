@@ -1,13 +1,13 @@
 package com.sql.statement.complex.object.procedure.model.step;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.statement.basic.model.Basic;
+import com.sql.statement.BasicModel;
 
 /**
  * 步骤接口
  * @author DougLei
  */
-public interface Step extends Basic{
+public interface Step extends BasicModel{
 
 	String getId();
 	

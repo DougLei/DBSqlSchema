@@ -3,12 +3,12 @@ package com.sql.impl.statement.basic.model.where;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sql.impl.statement.basic.model.BasicImpl;
+import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.where.LogicOperatorType;
 import com.sql.statement.basic.model.where.Where;
 import com.sql.statement.basic.model.where.WhereGroup;
 
-public class WhereGroupImpl extends BasicImpl implements WhereGroup {
+public class WhereGroupImpl extends BasicModelImpl implements WhereGroup {
 
 	// 记录where语句的组数数量，决定where xxx 中的xx是否需要加()，如果有多组，会是这种where (xxx) and (xxx)效果，如果只有一组，会是这种where xxx效果
 	private int whereGroupCount = 1;

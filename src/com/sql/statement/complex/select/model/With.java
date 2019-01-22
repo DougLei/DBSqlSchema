@@ -1,11 +1,11 @@
 package com.sql.statement.complex.select.model;
 
-import com.sql.statement.basic.model.Basic;
+import com.sql.statement.BasicModel;
 
 /**
  * 
  * @author DougLei
  */
-public interface With extends Basic{
+public interface With extends BasicModel{
 
 }

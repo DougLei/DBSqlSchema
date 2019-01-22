@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.SqlStatementInfoBuilderImpl;
-import com.sql.impl.statement.basic.model.BasicImpl;
+import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.join.Join;
 import com.sql.statement.basic.model.join.JoinType;
 import com.sql.statement.basic.model.join.OnGroup;
@@ -18,7 +18,7 @@ import com.sql.util.StrUtils;
  * 
  * @author DougLei
  */
-public class JoinImpl extends BasicImpl implements Join {
+public class JoinImpl extends BasicModelImpl implements Join {
 	
 	private JoinType joinType;
 	private TableType tableType;

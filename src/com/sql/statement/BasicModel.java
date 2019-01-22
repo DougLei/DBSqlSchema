@@ -1,10 +1,10 @@
-package com.sql.statement.basic.model;
+package com.sql.statement;
 
 /**
  * 
  * @author DougLei
  */
-public interface Basic {
+public interface BasicModel {
 	
 	/**
 	 * 获取对应的sql语句

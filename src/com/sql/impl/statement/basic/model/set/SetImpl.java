@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.SqlStatementInfoBuilderImpl;
-import com.sql.impl.statement.basic.model.BasicImpl;
+import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.set.Set;
 import com.sql.statement.basic.model.where.ValueType;
@@ -14,7 +14,7 @@ import com.sql.util.StrUtils;
  * 
  * @author DougLei
  */
-public class SetImpl extends BasicImpl implements Set {
+public class SetImpl extends BasicModelImpl implements Set {
 	
 	private String columnName;
 	private ValueType valueType;

@@ -1,6 +1,6 @@
 package com.sql.impl.statement.basic.model.where;
 
-import com.sql.impl.statement.basic.model.BasicImpl;
+import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.where.DataOperatorType;
 import com.sql.statement.basic.model.where.LogicOperatorType;
@@ -11,7 +11,7 @@ import com.sql.statement.basic.model.where.Where;
  * 
  * @author DougLei
  */
-public class WhereImpl extends BasicImpl implements Where {
+public class WhereImpl extends BasicModelImpl implements Where {
 
 	private LogicOperatorType nextLogicOperator;
 	private DataOperatorType dataOperator;

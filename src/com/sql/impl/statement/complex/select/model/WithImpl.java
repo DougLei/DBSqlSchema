@@ -1,13 +1,13 @@
 package com.sql.impl.statement.complex.select.model;
 
-import com.sql.impl.statement.basic.model.BasicImpl;
+import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.complex.select.model.With;
 
 /**
  * 
  * @author DougLei
  */
-public class WithImpl extends BasicImpl implements With {
+public class WithImpl extends BasicModelImpl implements With {
 
 	private String alias;
 	private String sqlStatement;// 存储的是处理后的select sql语句，再和alias整合

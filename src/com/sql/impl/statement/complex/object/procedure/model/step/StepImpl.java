@@ -1,7 +1,7 @@
 package com.sql.impl.statement.complex.object.procedure.model.step;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.impl.statement.basic.model.BasicImpl;
+import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.complex.object.procedure.model.step.Step;
 import com.sql.statement.complex.object.procedure.model.step.StepType;
 import com.sql.statement.complex.object.procedure.model.step.entity.StepEntity;
@@ -11,7 +11,7 @@ import com.sql.util.StrUtils;
  * 
  * @author DougLei
  */
-public class StepImpl extends BasicImpl implements Step {
+public class StepImpl extends BasicModelImpl implements Step {
 	private String id;
 	private StepType type;
 	private StepEntity stepEntity;

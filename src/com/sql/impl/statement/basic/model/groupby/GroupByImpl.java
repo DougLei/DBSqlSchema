@@ -3,7 +3,7 @@ package com.sql.impl.statement.basic.model.groupby;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sql.impl.statement.basic.model.BasicImpl;
+import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.groupby.GroupBy;
 
@@ -11,7 +11,7 @@ import com.sql.statement.basic.model.groupby.GroupBy;
  * 
  * @author DougLei
  */
-public class GroupByImpl extends BasicImpl implements GroupBy {
+public class GroupByImpl extends BasicModelImpl implements GroupBy {
 
 	private List<GroupByColumnEntity> groupByColumnList;
 	

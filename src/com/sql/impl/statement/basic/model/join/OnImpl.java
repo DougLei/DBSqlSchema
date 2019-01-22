@@ -1,6 +1,6 @@
 package com.sql.impl.statement.basic.model.join;
 
-import com.sql.impl.statement.basic.model.BasicImpl;
+import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.join.On;
 import com.sql.statement.basic.model.where.DataOperatorType;
@@ -10,7 +10,7 @@ import com.sql.statement.basic.model.where.LogicOperatorType;
  * 
  * @author DougLei
  */
-public class OnImpl extends BasicImpl implements On {
+public class OnImpl extends BasicModelImpl implements On {
 	
 	private LogicOperatorType nextLogicOperator;
 	private DataOperatorType dataOperator;

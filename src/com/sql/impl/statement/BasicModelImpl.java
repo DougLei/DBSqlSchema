@@ -1,12 +1,12 @@
-package com.sql.impl.statement.basic.model;
+package com.sql.impl.statement;
 
-import com.sql.statement.basic.model.Basic;
+import com.sql.statement.BasicModel;
 
 /**
  * 
  * @author DougLei
  */
-public abstract class BasicImpl implements Basic {
+public abstract class BasicModelImpl implements BasicModel {
 	private String sqlStatement;
 	private boolean isInitialize;
 	

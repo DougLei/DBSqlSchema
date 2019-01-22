@@ -1,10 +1,10 @@
 package com.sql.statement.basic.model.orderby;
 
-import com.sql.statement.basic.model.Basic;
+import com.sql.statement.BasicModel;
 
 /**
  * 
  * @author DougLei
  */
-public interface OrderBy extends Basic {
+public interface OrderBy extends BasicModel {
 }

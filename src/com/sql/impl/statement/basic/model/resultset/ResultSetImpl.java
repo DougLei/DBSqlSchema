@@ -1,6 +1,6 @@
 package com.sql.impl.statement.basic.model.resultset;
 
-import com.sql.impl.statement.basic.model.BasicImpl;
+import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.resultset.ResultSet;
 import com.sql.util.StrUtils;
@@ -9,7 +9,7 @@ import com.sql.util.StrUtils;
  * 
  * @author DougLei
  */
-public class ResultSetImpl extends BasicImpl implements ResultSet {
+public class ResultSetImpl extends BasicModelImpl implements ResultSet {
 	private String columnName;
 	private String alias;
 	private Function function;

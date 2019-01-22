@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.SqlStatementInfoBuilderImpl;
-import com.sql.impl.statement.basic.model.BasicImpl;
+import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.values.Values;
 import com.sql.statement.basic.model.values.ValuesType;
 import com.sql.util.StrUtils;
@@ -16,7 +16,7 @@ import com.sql.util.StrUtils;
  * 
  * @author DougLei
  */
-public class ValuesImpl extends BasicImpl implements Values {
+public class ValuesImpl extends BasicModelImpl implements Values {
 
 	private ValuesType type;
 	private List<ValuesEntity> valuesEntities;

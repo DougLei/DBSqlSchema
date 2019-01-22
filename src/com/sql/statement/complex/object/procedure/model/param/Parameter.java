@@ -1,12 +1,12 @@
 package com.sql.statement.complex.object.procedure.model.param;
 
-import com.sql.statement.basic.model.Basic;
+import com.sql.statement.BasicModel;
 
 /**
  * 存储过程参数
  * @author DougLei
  */
-public interface Parameter extends Basic{
+public interface Parameter extends BasicModel{
 
 	void setName(String name);
 	void setDataType(String dataType);
