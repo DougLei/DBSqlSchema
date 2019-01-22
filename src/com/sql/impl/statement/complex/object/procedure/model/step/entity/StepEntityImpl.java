@@ -11,7 +11,7 @@ import com.sql.statement.complex.object.procedure.model.step.entity.StepEntity;
 public abstract class StepEntityImpl implements StepEntity{
 	protected String stepId;
 	private String sqlStatement;
-	private boolean flag;
+	private boolean isInitialize;
 	
 	public StepEntityImpl(String stepId) {
 		this.stepId = stepId;
@@ -21,9 +21,9 @@ public abstract class StepEntityImpl implements StepEntity{
 	}
 
 	public String getSqlStatement() {
-		if(!flag && sqlStatement == null){
+		if(!isInitialize && sqlStatement == null){
 			sqlStatement = processSqlStatement();
-			flag = true;
+			isInitialize = true;
 		}
 		if(sqlStatement != null && sqlStatement.trim().length() == 0){
 			sqlStatement = null;

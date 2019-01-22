@@ -8,12 +8,12 @@ import com.sql.statement.basic.model.Basic;
  */
 public abstract class BasicImpl implements Basic {
 	private String sqlStatement;
-	private boolean flag;
+	private boolean isInitialize;
 	
 	public String getSqlStatement() {
-		if(!flag && sqlStatement == null){
+		if(!isInitialize && sqlStatement == null){
 			sqlStatement = processSqlStatement();
-			flag = true;
+			isInitialize = true;
 		}
 		if(sqlStatement != null && sqlStatement.trim().length() == 0){
 			sqlStatement = null;
