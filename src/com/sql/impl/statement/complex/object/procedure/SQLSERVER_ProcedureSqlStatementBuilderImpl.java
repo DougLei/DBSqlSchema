@@ -2,14 +2,14 @@ package com.sql.impl.statement.complex.object.procedure;
 
 import java.util.List;
 
-import com.sql.statement.complex.object.procedure.ProcedureSqlStatementBuilder;
-import com.sql.statement.complex.object.procedure.model.Parameter;
+import com.sql.statement.complex.object.procedure.model.param.Parameter;
+import com.sql.statement.complex.object.procedure.model.step.Step;
 
 /**
  * 
  * @author DougLei
  */
-public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStatementBuilderImpl implements ProcedureSqlStatementBuilder {
+public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStatementBuilderImpl {
 
 	public String coverSqlServerSql(String procedureName) {
 		StringBuilder sb = new StringBuilder(200);
@@ -26,12 +26,21 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 		return "";
 	}
 	
-	public List<Parameter> getParameterList() {
+	protected List<Parameter> getParameterList() {
 		List<Parameter> parameterList = super.getParameterList();
 		if(parameterList != null && parameterList.size() > 0){
 			// TODO 二次处理
 			
 		}
 		return parameterList;
+	}
+	
+	protected List<Step> getStepList() {
+		List<Step> stepList = super.getStepList();
+		if(stepList != null && stepList.size() > 0){
+			// TODO 二次处理
+			
+		}
+		return stepList;
 	}
 }

@@ -1,7 +1,7 @@
-package com.sql.impl.statement.complex.object.procedure.model;
+package com.sql.impl.statement.complex.object.procedure.model.param;
 
 import com.sql.impl.statement.basic.model.BasicImpl;
-import com.sql.statement.complex.object.procedure.model.Parameter;
+import com.sql.statement.complex.object.procedure.model.param.Parameter;
 import com.sql.util.StrUtils;
 
 /**

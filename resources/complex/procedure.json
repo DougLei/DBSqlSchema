@@ -9,10 +9,28 @@
 			{
 				"name":"name",
 				"dataType":"",
-				"length":"",
+				"length":20,
 				"inOut":""
 			}
 		],
+		
+		"step1":{
+			"type":"declare",
+			"declare":[
+				{
+					"name":"",
+					"dataType":"",
+					"length":20,
+					"column":[
+						{
+							"name":"",
+							"dataType":"",
+							"length":20
+						}
+					]
+				}
+			]
+		},
 
 
 		

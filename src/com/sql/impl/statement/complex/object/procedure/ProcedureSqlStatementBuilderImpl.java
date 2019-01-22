@@ -6,9 +6,11 @@ import java.util.List;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderImpl;
-import com.sql.impl.statement.complex.object.procedure.model.ParameterImpl;
+import com.sql.impl.statement.complex.object.procedure.model.param.ParameterImpl;
+import com.sql.impl.statement.complex.object.procedure.model.step.StepImpl;
 import com.sql.statement.complex.object.procedure.ProcedureSqlStatementBuilder;
-import com.sql.statement.complex.object.procedure.model.Parameter;
+import com.sql.statement.complex.object.procedure.model.param.Parameter;
+import com.sql.statement.complex.object.procedure.model.step.Step;
 import com.sql.util.StrUtils;
 
 /**
@@ -52,13 +54,23 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 		procedureSqlStatement.append("as ");
 		procedureSqlStatement.append(newline());
 		
-		
-		
+		List<Step> stepList = getStepList();
+		if(stepList == null || stepList.size() == 0){
+			throw new NullPointerException("存储过程的step(index)不能为空");
+		}
+		for (Step step : stepList) {
+			procedureSqlStatement.append(step.getSqlStatement());
+			procedureSqlStatement.append(newline());
+		}
 		
 		return procedureSqlStatement.toString();
 	}
 	
-	public List<Parameter> getParameterList() {
+	/**
+	 * 获取参数列表
+	 * @return
+	 */
+	protected List<Parameter> getParameterList() {
 		JSONArray array = content.getJSONArray("parameter");
 		if(array != null && array.size() > 0){
 			List<Parameter> parameterList = new ArrayList<Parameter>(array.size());
@@ -75,6 +87,32 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * 获取step列表
+	 * @return
+	 */
+	protected List<Step> getStepList() {
+		List<Step> stepList = new ArrayList<Step>(20);
+		
+		int stepIndex = 1;
+		JSONObject json = null;
+		Step step = null;
+		while((json=content.getJSONObject("step"+stepIndex)) != null){
+			stepIndex++;
+			step = new StepImpl();
+			step.setType(json.remove("type"));
+			step.setContent(json);
+			stepList.add(step);
+		}
+		
+		
+		
+		if(stepList.size() == 0){
+			return null;
+		}
+		return stepList;
 	}
 
 	public boolean isCover() {

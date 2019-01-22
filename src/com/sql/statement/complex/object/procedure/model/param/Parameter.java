@@ -1,4 +1,4 @@
-package com.sql.statement.complex.object.procedure.model;
+package com.sql.statement.complex.object.procedure.model.param;
 
 import com.sql.statement.basic.model.Basic;
 
