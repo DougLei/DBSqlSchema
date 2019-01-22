@@ -3,7 +3,6 @@ package com.sql.impl.statement.complex.object.procedure;
 import java.util.List;
 
 import com.sql.statement.complex.object.procedure.model.param.Parameter;
-import com.sql.statement.complex.object.procedure.model.step.Step;
 
 /**
  * 
@@ -33,14 +32,5 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 			
 		}
 		return parameterList;
-	}
-	
-	protected List<Step> getStepList() {
-		List<Step> stepList = super.getStepList();
-		if(stepList != null && stepList.size() > 0){
-			// TODO 二次处理
-			
-		}
-		return stepList;
 	}
 }

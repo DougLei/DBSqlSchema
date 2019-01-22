@@ -56,7 +56,7 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 		
 		List<Step> stepList = getStepList();
 		if(stepList == null || stepList.size() == 0){
-			throw new NullPointerException("存储过程的step(index)不能为空");
+			throw new NullPointerException("存储过程的step(index)属性不能为空，至少有一项");
 		}
 		for (Step step : stepList) {
 			procedureSqlStatement.append(step.getSqlStatement());
@@ -100,14 +100,11 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 		JSONObject json = null;
 		Step step = null;
 		while((json=content.getJSONObject("step"+stepIndex)) != null){
-			stepIndex++;
 			step = new StepImpl();
-			step.setType(json.remove("type"));
-			step.setContent(json);
+			step.setJson(stepIndex, json);
 			stepList.add(step);
+			stepIndex++;
 		}
-		
-		
 		
 		if(stepList.size() == 0){
 			return null;

@@ -13,11 +13,12 @@ public interface Step extends Basic{
 	 * 设置step类型
 	 * @param type
 	 */
-	void setType(Object type);
+	void setType(String type);
 
 	/**
 	 * 设置step的json内容
-	 * @param content
+	 * @param stepIndex
+	 * @param json
 	 */
-	void setContent(JSONObject content);
+	void setJson(int stepIndex, JSONObject json);
 }
