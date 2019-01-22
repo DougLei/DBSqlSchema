@@ -11,4 +11,6 @@ public interface StepEntity {
 	StepType getStepType();
 	
 	String getSqlStatement();
+
+	String getStepId();
 }

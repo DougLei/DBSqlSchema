@@ -16,6 +16,9 @@ public abstract class StepEntityImpl implements StepEntity{
 	public StepEntityImpl(String stepId) {
 		this.stepId = stepId;
 	}
+	public String getStepId() {
+		return stepId;
+	}
 
 	public String getSqlStatement() {
 		if(!flag && sqlStatement == null){

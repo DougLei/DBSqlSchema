@@ -15,6 +15,7 @@
 		],
 		
 		"step1":{
+			"id":"step1",
 			"type":"declare",
 			"declare":[
 				{

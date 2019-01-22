@@ -19,12 +19,7 @@ public class StepImpl extends BasicImpl implements Step {
 	public String getId() {
 		return id;
 	}
-	public void setId(String id) {
-		// TODO 后续要在缓存判断该id是否重复
-		// TODO 如果缓存中存在，则直接取出stepEntity，给属性stepEntity赋值
-		this.id = id;
-	}
-
+	
 	protected String processSqlStatement() {
 		return stepEntity.getSqlStatement();
 	}
@@ -39,7 +34,7 @@ public class StepImpl extends BasicImpl implements Step {
 			if(StrUtils.isEmpty((id = json.remove("id")))){
 				throw new NullPointerException("[step"+stepIndex+"] 的id属性值不能为空");
 			}
-			setId(id.toString());
+			setId(id.toString().trim());
 		}
 		if(type == null){
 			Object type = null;
@@ -50,6 +45,15 @@ public class StepImpl extends BasicImpl implements Step {
 		}
 		if(stepEntity == null){
 			stepEntity = type.buildStepEntity(id, json);
+			StepContext.putStepEntityCache(stepEntity);
+		}
+	}
+	
+	private void setId(String id) {
+		this.id = id;
+		stepEntity = StepContext.getStepEntity(id);
+		if(stepEntity != null){
+			type = stepEntity.getStepType();
 		}
 	}
 }

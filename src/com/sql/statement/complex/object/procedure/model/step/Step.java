@@ -9,7 +9,6 @@ import com.sql.statement.basic.model.Basic;
  */
 public interface Step extends Basic{
 
-	void setId(String id);
 	String getId();
 	
 	/**
