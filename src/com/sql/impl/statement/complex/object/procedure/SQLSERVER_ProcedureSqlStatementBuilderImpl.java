@@ -2,6 +2,7 @@ package com.sql.impl.statement.complex.object.procedure;
 
 import java.util.List;
 
+import com.sql.statement.complex.object.procedure.model.param.InOut;
 import com.sql.statement.complex.object.procedure.model.param.Parameter;
 
 /**
@@ -30,6 +31,9 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 		if(parameterList != null && parameterList.size() > 0){
 			for (Parameter parameter : parameterList) {
 				parameter.setName("@"+parameter.getName());
+				if(parameter.getInOut() == InOut.OUT){
+					parameter.setInoutSqlStatement("output");
+				}
 			}
 		}
 		return parameterList;

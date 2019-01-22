@@ -9,8 +9,12 @@ import com.sql.statement.BasicModel;
 public interface Parameter extends BasicModel{
 
 	String getName();
+	InOut getInOut();
+	
 	void setName(String name);
 	void setDataType(String dataType);
 	void setLength(int length);
 	void setInOut(String inOut);
+	
+	void setInoutSqlStatement(String inoutSqlStatement);
 }

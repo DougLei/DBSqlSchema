@@ -1,6 +1,7 @@
 package com.sql.impl.statement.complex.object.procedure.model.param;
 
 import com.sql.impl.statement.BasicModelImpl;
+import com.sql.statement.complex.object.procedure.model.param.InOut;
 import com.sql.statement.complex.object.procedure.model.param.Parameter;
 import com.sql.util.StrUtils;
 
@@ -13,7 +14,8 @@ public class ParameterImpl extends BasicModelImpl implements Parameter{
 	private String name;
 	private String dataType;
 	private int length;
-	private String inOut;
+	private InOut inOut;
+	private String inoutSqlStatement;
 	
 	protected String processSqlStatement() {
 		StringBuilder sb = new StringBuilder(100);
@@ -22,8 +24,8 @@ public class ParameterImpl extends BasicModelImpl implements Parameter{
 		if(length > 0){
 			sb.append("(").append(length).append(")");
 		}
-		if(StrUtils.notEmpty(inOut)){
-			sb.append(" ").append(inOut);
+		if(inOut != null && StrUtils.notEmpty(inoutSqlStatement)){
+			sb.append(" ").append(inoutSqlStatement);
 		}
 		return sb.toString();
 	}
@@ -34,22 +36,19 @@ public class ParameterImpl extends BasicModelImpl implements Parameter{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDataType() {
-		return dataType;
-	}
 	public void setDataType(String dataType) {
 		this.dataType = dataType;
-	}
-	public int getLength() {
-		return length;
 	}
 	public void setLength(int length) {
 		this.length = length;
 	}
-	public String getInOut() {
+	public InOut getInOut() {
 		return inOut;
 	}
 	public void setInOut(String inOut) {
-		this.inOut = inOut;
+		this.inOut = InOut.toValue(inOut);
+	}
+	public void setInoutSqlStatement(String inoutSqlStatement) {
+		this.inoutSqlStatement = inoutSqlStatement;
 	}
 }
