@@ -8,9 +8,10 @@
 		"parameter":[
 			{
 				"name":"name",
-				"dataType":"str",
+				"dataType":"varchar",
 				"length":20,
-				"inOut":""
+				"inOut":"out",
+				"defaultValue":"haha"
 			}
 		],
 		

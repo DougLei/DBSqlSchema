@@ -2,8 +2,9 @@ package com.sql.impl.statement.complex.object.procedure;
 
 import java.util.List;
 
-import com.sql.statement.complex.object.procedure.model.param.InOut;
-import com.sql.statement.complex.object.procedure.model.param.Parameter;
+import com.sql.impl.statement.complex.object.procedure.model.param.InOut;
+import com.sql.impl.statement.complex.object.procedure.model.param.ParameterEntity;
+import com.sql.util.StrUtils;
 
 /**
  * 
@@ -26,16 +27,33 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 		return "";
 	}
 	
-	protected List<Parameter> getParameterList() {
-		List<Parameter> parameterList = super.getParameterList();
-		if(parameterList != null && parameterList.size() > 0){
-			for (Parameter parameter : parameterList) {
-				parameter.setName("@"+parameter.getName());
-				if(parameter.getInOut() == InOut.OUT){
-					parameter.setInoutSqlStatement("output");
+	protected String getParameterSql() {
+		List<ParameterEntity> parameterEntityList = super.getParameterEntityList();
+		if(parameterEntityList != null && parameterEntityList.size() > 0){
+			int size = parameterEntityList.size();
+			StringBuilder sb = new StringBuilder(size*50);
+			
+			ParameterEntity parameter = null;
+			for(int i=0;i<size;i++){
+				parameter = parameterEntityList.get(i);
+				sb.append("@").append(parameter.getName());
+				sb.append(" ").append(parameter.getDataType());
+				if(parameter.getLength() > 0){
+					sb.append("(").append(parameter.getLength()).append(")");
 				}
+				if(StrUtils.notEmpty(parameter.getDefaultValue())){
+					sb.append("=").append(parameter.getDefaultValue());
+				}
+				if(parameter.getInOut() == InOut.OUT){
+					sb.append(" ").append("output");
+				}
+				if(i<size-1){
+					sb.append(",");
+				}
+				sb.append(newline());
 			}
+			return sb.toString();
 		}
-		return parameterList;
+		return null;
 	}
 }

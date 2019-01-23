@@ -6,10 +6,9 @@ import java.util.List;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderImpl;
-import com.sql.impl.statement.complex.object.procedure.model.param.ParameterImpl;
+import com.sql.impl.statement.complex.object.procedure.model.param.ParameterEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.StepImpl;
 import com.sql.statement.complex.object.procedure.ProcedureSqlStatementBuilder;
-import com.sql.statement.complex.object.procedure.model.param.Parameter;
 import com.sql.statement.complex.object.procedure.model.step.Step;
 import com.sql.util.StrUtils;
 
@@ -35,19 +34,13 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 			procedureSqlStatement.append(coverOracleSql());
 		}
 		
-		procedureSqlStatement.append("procedure ");
+		procedureSqlStatement.append("procedure ").append(procedureName);
 		procedureSqlStatement.append(newline());
 		
 		// 处理参数
-		List<Parameter> parameterList = getParameterList();
-		if(parameterList != null && parameterList.size() > 0){
-			for(int i=0;i<parameterList.size();i++){
-				procedureSqlStatement.append(parameterList.get(i).getSqlStatement());
-				if(i<parameterList.size()-1){
-					procedureSqlStatement.append(",");
-				}
-				procedureSqlStatement.append(newline());
-			}
+		String parameterSql = getParameterSql();
+		if(parameterSql != null){
+			procedureSqlStatement.append(parameterSql);
 		}
 		
 		// as 关键字
@@ -70,25 +63,32 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 	 * 获取参数列表
 	 * @return
 	 */
-	protected List<Parameter> getParameterList() {
+	protected List<ParameterEntity> getParameterEntityList() {
 		JSONArray array = content.getJSONArray("parameter");
 		if(array != null && array.size() > 0){
-			List<Parameter> parameterList = new ArrayList<Parameter>(array.size());
+			List<ParameterEntity> parameterList = new ArrayList<ParameterEntity>(array.size());
 			JSONObject json = null;
-			Parameter parameter = null;
+			ParameterEntity parameter = null;
 			for(int i=0;i<array.size();i++){
 				json = array.getJSONObject(i);
-				parameter = new ParameterImpl();
+				parameter = new ParameterEntity();
 				parameter.setName(json.getString("name"));
 				parameter.setDataType(json.getString("dataType"));
 				parameter.setLength(json.getIntValue("length"));
 				parameter.setInOut(json.getString("inOut"));
+				parameter.setDefaultValue(json.getString("defaultValue"));
 				parameterList.add(parameter);
 			}
 			return parameterList;
 		}
 		return null;
 	}
+	
+	/**
+	 * 获取parameter参数sql语句
+	 * @return
+	 */
+	protected abstract String getParameterSql();
 	
 	/**
 	 * 获取step列表
