@@ -76,7 +76,7 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 				declare = declareEntityList.get(i);
 				sb.append(declare.getName()).append(" ").append(declare.getDataType());
 				
-				if(declare.isTableType()){
+				if(declare.isUserDefinedType()){
 					sb.append(newline()).append("(").append(newline());
 					
 					
@@ -88,10 +88,8 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 						if(column.getLength() > 0){
 							sb.append("(").append(column.getLength()).append(")");
 						}
-						if(j<columns.size()-1){
-							sb.append(",");
-						}
-						sb.append(newline());
+						
+						sb.append(";").append(newline());
 					}
 					
 					

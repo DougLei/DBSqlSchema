@@ -73,7 +73,7 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 				sb.append("declare ");
 				sb.append("@").append(declare.getName()).append(" ").append(declare.getDataType());
 				
-				if(declare.isTableType()){
+				if(declare.isUserDefinedType()){// 目前sqlserver支持的自定义类型就只有table
 					sb.append(newline()).append("(").append(newline());
 					
 					columns = declare.getColumns();

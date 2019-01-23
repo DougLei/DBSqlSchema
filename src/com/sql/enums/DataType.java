@@ -37,12 +37,12 @@ public enum DataType {
 	}
 	
 	/**
-	 * 是否是表类型
+	 * 是否是自定义类型
 	 * @param dataType
 	 * @return
 	 */
-	public boolean isTableType(){ 
-		return this == TABLE;
+	public boolean isUserDefinedType(){ 
+		return this == TABLE || this == USER_DEFINED;
 	}
 	
 	public static DataType toValue(String str){

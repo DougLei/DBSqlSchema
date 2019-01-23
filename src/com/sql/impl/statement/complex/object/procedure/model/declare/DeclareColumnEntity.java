@@ -1,27 +1,22 @@
 package com.sql.impl.statement.complex.object.procedure.model.declare;
 
-import com.sql.enums.DataType;
+import com.sql.impl.statement.complex.object.procedure.model.AbstractDataType;
 
 /**
  * 
  * @author DougLei
  */
-public class DeclareColumnEntity {
+public class DeclareColumnEntity extends AbstractDataType{
 	private String name;
-	private DataType dataType;
 	private int length;
 
 	public DeclareColumnEntity(String name, String dataType, int length) {
-		this.dataType = DataType.toValue(dataType);
+		setDataType(dataType);
 		this.name = name;
 		this.length = length;
 	}
-	
 	public String getName() {
 		return name;
-	}
-	public String getDataType() {
-		return dataType.getDataType();
 	}
 	public int getLength() {
 		return length;

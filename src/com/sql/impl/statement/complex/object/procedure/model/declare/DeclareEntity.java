@@ -3,15 +3,15 @@ package com.sql.impl.statement.complex.object.procedure.model.declare;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sql.enums.DataType;
+import com.sql.impl.statement.complex.object.procedure.model.AbstractDataType;
 
 /**
  * 
  * @author DougLei
  */
-public class DeclareEntity {
+public class DeclareEntity extends AbstractDataType{
 	private String name;
-	private DataType dataType;
+	
 	private int length;
 	private String defaultValue;
 	
@@ -19,19 +19,13 @@ public class DeclareEntity {
 	
 	public DeclareEntity(String name, String dataType, int length, String defaultValue) {
 		this.name = name;
-		this.dataType = DataType.toValue(dataType);
+		setDataType(dataType);
 		this.length = length;
 		this.defaultValue = defaultValue;
 	}
 	
 	public String getName() {
 		return name;
-	}
-	public boolean isTableType(){
-		return dataType.isTableType();
-	}
-	public String getDataType() {
-		return dataType.getDataType();
 	}
 	public int getLength() {
 		return length;
