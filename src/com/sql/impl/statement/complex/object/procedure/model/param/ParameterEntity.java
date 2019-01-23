@@ -1,5 +1,6 @@
 package com.sql.impl.statement.complex.object.procedure.model.param;
 
+import com.sql.enums.DataType;
 import com.sql.util.StrUtils;
 
 /**
@@ -9,7 +10,7 @@ import com.sql.util.StrUtils;
 public class ParameterEntity {
 	
 	private String name;
-	private String dataType;
+	private DataType dataType;
 	private int length;
 	private InOut inOut;
 	private String defaultValue;
@@ -21,7 +22,7 @@ public class ParameterEntity {
 		this.name = name;
 	}
 	public void setDataType(String dataType) {
-		this.dataType = dataType;
+		this.dataType = DataType.toValue(dataType);
 	}
 	public void setLength(int length) {
 		this.length = length;
@@ -43,7 +44,7 @@ public class ParameterEntity {
 		this.defaultValue = defaultValue;
 	}
 	public String getDataType() {
-		return dataType;
+		return dataType.getDataType();
 	}
 	public int getLength() {
 		return length;

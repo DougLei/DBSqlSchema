@@ -6,6 +6,8 @@ import java.util.List;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderImpl;
+import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareColumnEntity;
+import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
 import com.sql.impl.statement.complex.object.procedure.model.param.ParameterEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.StepImpl;
 import com.sql.statement.complex.object.procedure.ProcedureSqlStatementBuilder;
@@ -18,6 +20,10 @@ import com.sql.util.StrUtils;
  */
 public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuilderImpl implements ProcedureSqlStatementBuilder {
 	protected StringBuilder procedureSqlStatement = new StringBuilder(10000);
+	
+	public boolean isCover() {
+		return content.getBoolean("isCover");
+	}
 	
 	protected String buildSql() {
 		String procedureName = content.getString("procedureName");
@@ -47,6 +53,14 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 		procedureSqlStatement.append("as ");
 		procedureSqlStatement.append(newline());
 		
+		// 处理declare
+		String declareSql = getDeclareSql();
+		if(declareSql != null){
+			procedureSqlStatement.append(declareSql);
+		}
+		
+		procedureSqlStatement.append("begin").append(newline());
+		
 		List<Step> stepList = getStepList();
 		if(stepList == null || stepList.size() == 0){
 			throw new NullPointerException("存储过程的step(index)属性不能为空，至少有一项");
@@ -56,6 +70,7 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 			procedureSqlStatement.append(newline());
 		}
 		
+		procedureSqlStatement.append("end;");
 		return procedureSqlStatement.toString();
 	}
 	
@@ -91,6 +106,41 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 	protected abstract String getParameterSql();
 	
 	/**
+	 * 获取declare列表
+	 * @return
+	 */
+	protected List<DeclareEntity> getDeclareEntityList() {
+		JSONArray array = content.getJSONArray("declare");
+		if(array != null && array.size() > 0){
+			List<DeclareEntity> declareList = new ArrayList<DeclareEntity>(array.size());
+			JSONObject json = null;
+			DeclareEntity declare = null;
+			JSONArray columns = null;
+			for(int i=0;i<array.size();i++){
+				json = array.getJSONObject(i);
+				declare = new DeclareEntity(json.getString("name"), json.getString("dataType"), json.getIntValue("length"), json.getString("defaultValue"));
+				
+				columns = json.getJSONArray("column");
+				if(columns != null && columns.size()>0){
+					for(int j=0;j<array.size();j++){
+						json = array.getJSONObject(j);
+						declare.addColumn(new DeclareColumnEntity(json.getString("name"), json.getString("dataType"), json.getIntValue("length")));
+					}
+				}
+				declareList.add(declare);
+			}
+			return declareList;
+		}
+		return null;
+	}
+	
+	/**
+	 * 获取declare参数sql语句
+	 * @return
+	 */
+	protected abstract String getDeclareSql();
+	
+	/**
 	 * 获取step列表
 	 * @return
 	 */
@@ -111,9 +161,5 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 			return null;
 		}
 		return stepList;
-	}
-
-	public boolean isCover() {
-		return content.getBoolean("isCover");
 	}
 }

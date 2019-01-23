@@ -1,4 +1,6 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.declare;
+package com.sql.impl.statement.complex.object.procedure.model.declare;
+
+import com.sql.enums.DataType;
 
 /**
  * 
@@ -6,12 +8,12 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.declar
  */
 public class DeclareColumnEntity {
 	private String name;
-	private String dataType;
+	private DataType dataType;
 	private int length;
 
 	public DeclareColumnEntity(String name, String dataType, int length) {
+		this.dataType = DataType.toValue(dataType);
 		this.name = name;
-		this.dataType = dataType;
 		this.length = length;
 	}
 	
@@ -19,7 +21,7 @@ public class DeclareColumnEntity {
 		return name;
 	}
 	public String getDataType() {
-		return dataType;
+		return dataType.getDataType();
 	}
 	public int getLength() {
 		return length;

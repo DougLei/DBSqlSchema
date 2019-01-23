@@ -2,6 +2,8 @@ package com.sql.impl.statement.complex.object.procedure;
 
 import java.util.List;
 
+import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareColumnEntity;
+import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
 import com.sql.impl.statement.complex.object.procedure.model.param.InOut;
 import com.sql.impl.statement.complex.object.procedure.model.param.ParameterEntity;
 import com.sql.util.StrUtils;
@@ -28,7 +30,7 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 	}
 	
 	protected String getParameterSql() {
-		List<ParameterEntity> parameterEntityList = super.getParameterEntityList();
+		List<ParameterEntity> parameterEntityList = getParameterEntityList();
 		if(parameterEntityList != null && parameterEntityList.size() > 0){
 			int size = parameterEntityList.size();
 			StringBuilder sb = new StringBuilder(size*50);
@@ -49,6 +51,51 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 				}
 				if(i<size-1){
 					sb.append(",");
+				}
+				sb.append(newline());
+			}
+			return sb.toString();
+		}
+		return null;
+	}
+
+	protected String getDeclareSql() {
+		List<DeclareEntity> declareEntityList = getDeclareEntityList();
+		if(declareEntityList != null && declareEntityList.size() > 0){
+			int size = declareEntityList.size();
+			StringBuilder sb = new StringBuilder(size*50);
+			
+			DeclareEntity declare = null;
+			List<DeclareColumnEntity> columns = null;
+			DeclareColumnEntity column = null;
+			for (int i = 0; i < size; i++) {
+				declare = declareEntityList.get(i);
+				sb.append("declare ");
+				sb.append("@").append(declare.getName()).append(" ").append(declare.getDataType());
+				
+				if(declare.isTableType()){
+					sb.append(newline()).append("(").append(newline());
+					
+					columns = declare.getColumns();
+					for (int j = 0; j < columns.size(); j++) {
+						column = columns.get(j);
+						sb.append(column.getName()).append(" ").append(column.getDataType());
+						if(column.getLength() > 0){
+							sb.append("(").append(column.getLength()).append(")");
+						}
+						if(j<columns.size()-1){
+							sb.append(",");
+						}
+						sb.append(newline());
+					}
+					sb.append(")");
+				}else{
+					if(declare.getLength() > 0){
+						sb.append("(").append(declare.getLength()).append(")");
+					}
+					if(StrUtils.notEmpty(declare.getDefaultValue())){
+						sb.append(" =").append(declare.getDefaultValue());
+					}
 				}
 				sb.append(newline());
 			}

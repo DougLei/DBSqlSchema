@@ -14,6 +14,21 @@
 				"defaultValue":"haha"
 			}
 		],
+		"declare":[
+			{
+				"name":"name",
+				"dataType":"table",
+				"length":20,
+				"defaultValue":"",
+				"column":[
+					{
+						"name":"name",
+						"dataType":"varchar",
+						"length":20
+					}
+				]
+			}
+		],
 		
 		"step1":{
 			"id":"step1",

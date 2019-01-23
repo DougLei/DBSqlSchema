@@ -1,7 +1,9 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.declare;
+package com.sql.impl.statement.complex.object.procedure.model.declare;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.sql.enums.DataType;
 
 /**
  * 
@@ -9,27 +11,36 @@ import java.util.List;
  */
 public class DeclareEntity {
 	private String name;
-	private String dataType;
+	private DataType dataType;
 	private int length;
+	private String defaultValue;
+	
 	private List<DeclareColumnEntity> columns;
 	
-	public DeclareEntity(String name, String dataType, int length) {
+	public DeclareEntity(String name, String dataType, int length, String defaultValue) {
 		this.name = name;
-		this.dataType = dataType;
+		this.dataType = DataType.toValue(dataType);
 		this.length = length;
+		this.defaultValue = defaultValue;
 	}
 	
 	public String getName() {
 		return name;
 	}
+	public boolean isTableType(){
+		return dataType.isTableType();
+	}
 	public String getDataType() {
-		return dataType;
+		return dataType.getDataType();
 	}
 	public int getLength() {
 		return length;
 	}
 	public List<DeclareColumnEntity> getColumns() {
 		return columns;
+	}
+	public String getDefaultValue() {
+		return defaultValue;
 	}
 
 	public void addColumn(DeclareColumnEntity declareColumnEntity) {
