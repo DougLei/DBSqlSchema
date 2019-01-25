@@ -1,29 +1,41 @@
 package com.sql.impl.statement.complex.object.procedure.model;
 
-import com.sql.enums.DataType;
+import com.alibaba.fastjson.JSONObject;
+import com.sql.impl.statement.datatype.DataType;
 
 /**
  * 
  * @author DougLei
  */
 public abstract class AbstractDataType {
-	protected DataType dataType;
-	protected String dataTypeStr;
+	private DataType dataType;
+	private String dataTypeStr;
+	private JSONObject customJson;
 	
-	public void setDataType(String dataType){
+	protected void setDataType(String dataType){
 		this.dataType = DataType.toValue(dataType);
-		if(this.dataType == DataType.USER_DEFINED){
+		if(this.dataType == DataType.CUSTOM){
 			this.dataTypeStr = dataType.trim();
 		}else{
 			this.dataTypeStr = this.dataType.getDataType();
 		}
 	}
 	
-	public boolean isUserDefinedType(){
-		return dataType.isUserDefinedType();
-	}
-	
 	public String getDataType() {
 		return dataTypeStr;
+	}
+	
+	public boolean isCustomType(){
+		return dataType.isCustomType();
+	}
+	
+	public void setCustomJson(JSONObject customJson) {
+		this.customJson = customJson;
+	}
+	public String getCustomSqlStatement(){
+		if(isCustomType()){
+			return dataType.getCustomSqlStatement(customJson);
+		}
+		return null;
 	}
 }

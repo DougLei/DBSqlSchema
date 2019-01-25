@@ -9,6 +9,14 @@ import com.sql.util.StrUtils;
  */
 public class ParameterEntity extends AbstractDataType{
 	
+	public ParameterEntity(String name, String dataType,int length, String inOut, String defaultValue) {
+		this.name = name;
+		setDataType(dataType);
+		this.length = length;
+		setInOut(inOut);
+		this.defaultValue = defaultValue;
+	}
+	
 	private String name;
 	private int length;
 	private InOut inOut;
@@ -17,16 +25,10 @@ public class ParameterEntity extends AbstractDataType{
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public void setLength(int length) {
-		this.length = length;
-	}
 	public InOut getInOut() {
 		return inOut;
 	}
-	public void setInOut(String inOut) {
+	private void setInOut(String inOut) {
 		if(StrUtils.isEmpty(inOut)){
 			this.inOut = InOut.IN;
 		}else{
@@ -36,13 +38,7 @@ public class ParameterEntity extends AbstractDataType{
 	public String getDefaultValue() {
 		return defaultValue;
 	}
-	public void setDefaultValue(String defaultValue) {
-		this.defaultValue = defaultValue;
-	}
 	public int getLength() {
 		return length;
-	}
-	public void setInOut(InOut inOut) {
-		this.inOut = inOut;
 	}
 }

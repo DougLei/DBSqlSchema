@@ -2,7 +2,6 @@ package com.sql.impl.statement.complex.object.procedure;
 
 import java.util.List;
 
-import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareColumnEntity;
 import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
 import com.sql.impl.statement.complex.object.procedure.model.param.InOut;
 import com.sql.impl.statement.complex.object.procedure.model.param.ParameterEntity;
@@ -47,7 +46,7 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 				}
 				sb.append(parameter.getDataType());
 				
-				if(isInputParameter && StrUtils.notEmpty(parameter.getDefaultValue())){
+				if(!parameter.isCustomType() && isInputParameter && StrUtils.notEmpty(parameter.getDefaultValue())){
 					sb.append(" :=").append(parameter.getDefaultValue());
 				}
 				
@@ -70,32 +69,12 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 			StringBuilder sb = new StringBuilder(size*50);
 			
 			DeclareEntity declare = null;
-			List<DeclareColumnEntity> columns = null;
-			DeclareColumnEntity column = null;
 			for (int i = 0; i < size; i++) {
 				declare = declareEntityList.get(i);
 				sb.append(declare.getName()).append(" ").append(declare.getDataType());
 				
-				if(declare.isUserDefinedType()){
-					sb.append(newline()).append("(").append(newline());
-					
-					
-					
-					columns = declare.getColumns();
-					for (int j = 0; j < columns.size(); j++) {
-						column = columns.get(j);
-						sb.append(column.getName()).append(" ").append(column.getDataType());
-						if(column.getLength() > 0){
-							sb.append("(").append(column.getLength()).append(")");
-						}
-						
-						sb.append(";").append(newline());
-					}
-					
-					
-					
-					
-					sb.append(")");
+				if(declare.isCustomType()){
+					sb.append(declare.getCustomSqlStatement());
 				}else{
 					if(declare.getLength() > 0){
 						sb.append("(").append(declare.getLength()).append(")");
