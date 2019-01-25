@@ -26,27 +26,18 @@ public class ORACLE_TABLE extends AbstractCustomDataType{
 	}
 
 	protected String getCreateTypeSql(JSONObject customJson) {
-		StringBuilder sb = new StringBuilder(800);
-		String typeName = customJson.getString("typeName");
-		sb.append("create type ").append(typeName).append("_object").append(" as object(").append(newline());
-		
 		JSONArray array = customJson.getJSONArray("column");
-		JSONObject json = null;
-		for(int i=0;i<array.size();i++){
-			json = array.getJSONObject(i);
-			sb.append(json.getString("name")).append(" ").append(DataType.toValue(json.getString("dataType")).getDataType());
-			if(json.getIntValue("length")> 0){
-				sb.append("(").append(json.getIntValue("length")).append(")");
-			}
-			if(i<array.size()-1){
-				sb.append(",");
-			}
-			sb.append(newline());
+		if(array != null && array.size()>0){
+			StringBuilder sb = new StringBuilder(800);
+			String typeName = customJson.getString("typeName");
+			sb.append("create type ").append(typeName).append("_object").append(" as object(").append(newline());
+			appendColumnSql(array, sb);
+			sb.append(");").append(newline());
+			
+			sb.append("create type ").append(typeName).append(" as table of ").append(typeName).append("_object");
+			return sb.toString();
 		}
-		sb.append(");").append(newline());
-		
-		sb.append("create type ").append(typeName).append(" as table of ").append(typeName).append("_object");
-		return sb.toString();
+		return null;
 	}
 
 	public boolean isSupportCreateType() {
