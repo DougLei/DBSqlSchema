@@ -3,6 +3,8 @@ package com.sql.impl.statement.datatype;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
+import com.sql.impl.statement.datatype.table.ORACLE_TABLE;
+import com.sql.impl.statement.datatype.table.SQLSERVER_TABLE;
 
 /**
  * 
@@ -11,8 +13,7 @@ import com.sql.impl.SqlStatementBuilderContext;
 public enum DataType {
 	VARCHAR("varchar", "varchar2"),
 	
-	TABLE(),
-	CUSTOM();// 用户自定义类型
+	TABLE("table", SQLSERVER_TABLE.newInstance(), "object", ORACLE_TABLE.newInstance());
 	
 	private String sqlserverDataType;
 	private String oracleDataType;
@@ -26,7 +27,8 @@ public enum DataType {
 		this.sqlserverDataType = sqlserverDataType;
 		this.oracleDataType = oracleDataType;
 	}
-	private DataType(CustomDataType sqlserverCustomDataType, CustomDataType oracleCustomDataType) {
+	private DataType(String sqlserverDataType, CustomDataType sqlserverCustomDataType, String oracleDataType, CustomDataType oracleCustomDataType) {
+		this(sqlserverDataType, oracleDataType);
 		this.sqlserverCustomDataType = sqlserverCustomDataType;
 		this.oracleCustomDataType = oracleCustomDataType;
 	}
@@ -38,7 +40,7 @@ public enum DataType {
 				return dt;
 			}
 		}
-		return CUSTOM;
+		throw new IllegalArgumentException("程序目前不支持["+str+"]数据类型");
 	}
 
 	/**
@@ -47,11 +49,11 @@ public enum DataType {
 	 * @return
 	 */
 	public boolean isCustomType(){ 
-		return this == TABLE || this == CUSTOM;
+		return this == TABLE;
 	}
 	
 	public String getDataType(){
-		if(this == CUSTOM){
+		if(isCustomType()){
 			return null;
 		}
 		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
@@ -65,6 +67,9 @@ public enum DataType {
 	}
 	
 	public String getCustomSqlStatement(JSONObject customJson) {
+		if(customJson == null || customJson.size() == 0){
+			throw new NullPointerException("获取自定义的sql语句时，传入的配置信息为空");
+		}
 		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
 		switch(dbType){
 			case SQLSERVER:

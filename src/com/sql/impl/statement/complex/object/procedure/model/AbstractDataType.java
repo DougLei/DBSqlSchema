@@ -9,20 +9,14 @@ import com.sql.impl.statement.datatype.DataType;
  */
 public abstract class AbstractDataType {
 	private DataType dataType;
-	private String dataTypeStr;
 	private JSONObject customJson;
 	
 	protected void setDataType(String dataType){
 		this.dataType = DataType.toValue(dataType);
-		if(this.dataType == DataType.CUSTOM){
-			this.dataTypeStr = dataType.trim();
-		}else{
-			this.dataTypeStr = this.dataType.getDataType();
-		}
 	}
 	
 	public String getDataType() {
-		return dataTypeStr;
+		return dataType.getDataType();
 	}
 	
 	public boolean isCustomType(){
