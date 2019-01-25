@@ -36,6 +36,12 @@ public class ORACLE_TMPTABLE extends AbstractCustomDataType{
 	}
 
 	protected String getCreateTypeSql(JSONObject customJson) {
+		
+		// TODO
+		
+		
+		
+		
 		return null;
 	}
 	
