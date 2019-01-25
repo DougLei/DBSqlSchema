@@ -40,6 +40,6 @@ public class ORACLE_TMPTABLE extends AbstractCustomDataType{
 	}
 	
 	public boolean isSupportCreateType() {
-		return false;
+		return true;
 	}
 }
