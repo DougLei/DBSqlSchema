@@ -13,7 +13,7 @@ import com.sql.impl.statement.datatype.table.SQLSERVER_TABLE;
 public enum DataType {
 	VARCHAR("varchar", "varchar2"),
 	
-	TABLE("table", SQLSERVER_TABLE.newInstance(), "object", ORACLE_TABLE.newInstance());
+	TABLE(SQLSERVER_TABLE.newInstance(), ORACLE_TABLE.newInstance());
 	
 	private String sqlserverDataType;
 	private String oracleDataType;
@@ -21,14 +21,14 @@ public enum DataType {
 	private CustomDataType sqlserverCustomDataType;
 	private CustomDataType oracleCustomDataType;
 	
-	private DataType() {
-	}
+	private boolean isBaseType;
+	
 	private DataType(String sqlserverDataType, String oracleDataType) {
+		this.isBaseType = true;
 		this.sqlserverDataType = sqlserverDataType;
 		this.oracleDataType = oracleDataType;
 	}
-	private DataType(String sqlserverDataType, CustomDataType sqlserverCustomDataType, String oracleDataType, CustomDataType oracleCustomDataType) {
-		this(sqlserverDataType, oracleDataType);
+	private DataType(CustomDataType sqlserverCustomDataType, CustomDataType oracleCustomDataType) {
 		this.sqlserverCustomDataType = sqlserverCustomDataType;
 		this.oracleCustomDataType = oracleCustomDataType;
 	}
@@ -43,18 +43,18 @@ public enum DataType {
 		throw new IllegalArgumentException("程序目前不支持["+str+"]数据类型");
 	}
 
-	/**
-	 * 是否是自定义类型
-	 * @param dataType
-	 * @return
-	 */
-	public boolean isCustomType(){ 
-		return this == TABLE;
+	/**是否是基础类型*/
+	public boolean isBaseType(){ 
+		return isBaseType;
 	}
 	
+	/**
+	 * 获取基础类型的类型字符串值
+	 * @return
+	 */
 	public String getDataType(){
-		if(isCustomType()){
-			return null;
+		if(!isBaseType()){
+			throw new IllegalAccessError("非基础数据库类型，无法获取的dataType值");
 		}
 		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
 		switch(dbType){
@@ -66,17 +66,42 @@ public enum DataType {
 		throw new IllegalArgumentException("DataType.getDataType出现异常");
 	}
 	
-	public String getCustomSqlStatement(JSONObject customJson) {
-		if(customJson == null || customJson.size() == 0){
-			throw new NullPointerException("获取自定义的sql语句时，传入的配置信息为空");
+	/**
+	 * 获取创建类型的sql语句
+	 * @param customJson
+	 * @return
+	 */
+	public String getCreateTypeSqlStatement(JSONObject customJson) {
+		if(isBaseType()){
+			throw new IllegalAccessError("基础数据库类型，无法获取创建类型的sql语句");
 		}
 		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
 		switch(dbType){
 			case SQLSERVER:
-				return sqlserverCustomDataType.getCustomSqlStatement(customJson);
+				return sqlserverCustomDataType.getCreateTypeSqlStatement(customJson);
 			case ORACLE:
-				return oracleCustomDataType.getCustomSqlStatement(customJson);
+				return oracleCustomDataType.getCreateTypeSqlStatement(customJson);
 		}
-		throw new IllegalArgumentException("DataType.getCustomSqlStatement出现异常");
+		throw new IllegalArgumentException("DataType.getCreateTypeSqlStatement出现异常");
 	}
+	
+	/**
+	 * 获取要追加到整个sql语句中，要呈现的sql语句内容
+	 * @param customJson
+	 * @return
+	 */
+	public String getAppendCustomSqlStatement(JSONObject customJson) {
+		if(isBaseType()){
+			throw new IllegalAccessError("基础数据库类型，无法获取创建类型的sql语句");
+		}
+		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
+		switch(dbType){
+			case SQLSERVER:
+				return sqlserverCustomDataType.getAppendCustomSqlStatement(customJson);
+			case ORACLE:
+				return oracleCustomDataType.getAppendCustomSqlStatement(customJson);
+		}
+		throw new IllegalArgumentException("DataType.getAppendCustomSqlStatement出现异常");
+	}
+	
 }

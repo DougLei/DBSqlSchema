@@ -9,10 +9,16 @@ import com.alibaba.fastjson.JSONObject;
 public interface CustomDataType {
 
 	/**
-	 * 获取自定义的sql语句
+	 * 获取创建类型的sql语句
 	 * @param customJson
 	 * @return
 	 */
-	String getCustomSqlStatement(JSONObject customJson);
+	String getCreateTypeSqlStatement(JSONObject customJson);
 
+	/**
+	 * 获取要追加到整个sql语句中，要呈现的sql语句内容
+	 * @param customJson
+	 * @return
+	 */
+	String getAppendCustomSqlStatement(JSONObject customJson);
 }

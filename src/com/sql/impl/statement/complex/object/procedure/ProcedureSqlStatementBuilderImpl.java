@@ -79,11 +79,13 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 	}
 
 	protected void recordBeforeProcedureSqlStatement(String sql){
-		if(beforeProcedureSqlStatement == null){
-			beforeProcedureSqlStatement = new StringBuilder(1000);
+		if(StrUtils.notEmpty(sql)){
+			if(beforeProcedureSqlStatement == null){
+				beforeProcedureSqlStatement = new StringBuilder(1000);
+			}
+			beforeProcedureSqlStatement.append(sql);
+			beforeProcedureSqlStatement.append(linkNextSqlStatementToken());
 		}
-		beforeProcedureSqlStatement.append(sql);
-		beforeProcedureSqlStatement.append(linkNextSqlStatementToken());
 	}
 	
 	/**
@@ -105,6 +107,9 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 			for(int i=0;i<array.size();i++){
 				json = array.getJSONObject(i);
 				parameter = new ParameterEntity(json.getString("name"), json.getString("dataType"), json.getIntValue("length"), json.getString("inOut"), json.getString("defaultValue"));
+				if(!parameter.isBaseType()){
+					parameter.setCustomJson(json.getJSONObject("custom"));
+				}
 				parameterList.add(parameter);
 			}
 			return parameterList;
@@ -131,7 +136,7 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 			for(int i=0;i<array.size();i++){
 				json = array.getJSONObject(i);
 				declare = new DeclareEntity(json.getString("name"), json.getString("dataType"), json.getIntValue("length"), json.getString("defaultValue"));
-				if(declare.isCustomType()){
+				if(!declare.isBaseType()){
 					declare.setCustomJson(json.getJSONObject("custom"));
 				}
 				declareList.add(declare);

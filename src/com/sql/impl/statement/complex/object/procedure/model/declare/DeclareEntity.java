@@ -1,5 +1,6 @@
 package com.sql.impl.statement.complex.object.procedure.model.declare;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.complex.object.procedure.model.AbstractDataType;
 
 /**
@@ -27,5 +28,12 @@ public class DeclareEntity extends AbstractDataType{
 	}
 	public String getDefaultValue() {
 		return defaultValue;
+	}
+	
+	public void setCustomJson(JSONObject customJson) {
+		if(customJson != null){
+			customJson.put("isReadonly", false);
+		}
+		super.setCustomJson(customJson);
 	}
 }

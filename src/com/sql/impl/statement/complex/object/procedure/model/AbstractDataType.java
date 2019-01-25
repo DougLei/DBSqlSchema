@@ -19,17 +19,36 @@ public abstract class AbstractDataType {
 		return dataType.getDataType();
 	}
 	
-	public boolean isCustomType(){
-		return dataType.isCustomType();
+	/**是否是基础类型*/
+	public boolean isBaseType(){ 
+		return dataType.isBaseType();
 	}
 	
 	public void setCustomJson(JSONObject customJson) {
 		this.customJson = customJson;
 	}
-	public String getCustomSqlStatement(){
-		if(isCustomType()){
-			return dataType.getCustomSqlStatement(customJson);
-		}
-		return null;
+	
+	/**
+	 * 是否要创建类型
+	 * @return
+	 */
+	public boolean isCreateType() {
+		return customJson.getBooleanValue("isCreateType");
+	}
+	
+	/**
+	 * 获取创建类型的sql语句
+	 * @return
+	 */
+	public String getCreateTypeSqlStatement() {
+		return dataType.getCreateTypeSqlStatement(customJson);
+	}
+	
+	/**
+	 * 获取要追加的自定义类型语句
+	 * @return
+	 */
+	public String getAppendCustomSqlStatement() {
+		return dataType.getAppendCustomSqlStatement(customJson);
 	}
 }

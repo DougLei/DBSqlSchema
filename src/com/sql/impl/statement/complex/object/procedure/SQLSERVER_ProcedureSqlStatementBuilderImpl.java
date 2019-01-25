@@ -37,19 +37,24 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 			ParameterEntity parameter = null;
 			for(int i=0;i<size;i++){
 				parameter = parameterEntityList.get(i);
-				sb.append("@").append(parameter.getName());
-				sb.append(" ").append(parameter.getDataType());
+				sb.append("@").append(parameter.getName()).append(" ");
 				
-				if(!parameter.isCustomType()){
+				if(parameter.isBaseType()){
+					sb.append(parameter.getDataType());
 					if(parameter.getLength() > 0){
 						sb.append("(").append(parameter.getLength()).append(")");
 					}
 					if(StrUtils.notEmpty(parameter.getDefaultValue())){
 						sb.append("=").append(parameter.getDefaultValue());
 					}
-				}
-				if(parameter.getInOut() == InOut.OUT){
-					sb.append(" ").append("output");
+					if(parameter.getInOut() == InOut.OUT){
+						sb.append(" ").append("output");
+					}
+				}else{
+					if(parameter.isCreateType()){
+						recordBeforeProcedureSqlStatement(parameter.getCreateTypeSqlStatement());
+					}
+					sb.append(parameter.getAppendCustomSqlStatement());
 				}
 				if(i<size-1){
 					sb.append(",");
@@ -71,17 +76,22 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 			for (int i = 0; i < size; i++) {
 				declare = declareEntityList.get(i);
 				sb.append("declare ");
-				sb.append("@").append(declare.getName()).append(" ").append(declare.getDataType());
+				sb.append("@").append(declare.getName());
 				
-				if(declare.isCustomType()){
-					sb.append(declare.getCustomSqlStatement());
-				}else{
+				if(declare.isBaseType()){
+					sb.append(declare.getDataType());
 					if(declare.getLength() > 0){
 						sb.append("(").append(declare.getLength()).append(")");
 					}
 					if(StrUtils.notEmpty(declare.getDefaultValue())){
 						sb.append(" =").append(declare.getDefaultValue());
 					}
+					
+				}else{
+					if(declare.isCreateType()){
+						recordBeforeProcedureSqlStatement(declare.getCreateTypeSqlStatement());
+					}
+					sb.append(declare.getAppendCustomSqlStatement());
 				}
 				sb.append(newline());
 			}

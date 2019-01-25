@@ -8,10 +8,17 @@
 		"parameter":[
 			{
 				"name":"name",
-				"dataType":"varchar",
-				"length":20,
-				"inOut":"out",
-				"defaultValue":"haha"
+				"dataType":"table",
+				"custom":{
+					"typeName":"",
+					"column:":[
+						{
+							"name":"name",
+							"dataType":"varchar",
+							"length":20
+						}
+					]
+				}
 			}
 		],
 		"declare":[

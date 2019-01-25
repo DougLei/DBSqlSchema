@@ -1,5 +1,6 @@
 package com.sql.impl.statement.complex.object.procedure.model.param;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.complex.object.procedure.model.AbstractDataType;
 import com.sql.util.StrUtils;
 
@@ -40,5 +41,12 @@ public class ParameterEntity extends AbstractDataType{
 	}
 	public int getLength() {
 		return length;
+	}
+	
+	public void setCustomJson(JSONObject customJson) {
+		if(customJson != null){
+			customJson.put("isReadonly", true);
+		}
+		super.setCustomJson(customJson);
 	}
 }

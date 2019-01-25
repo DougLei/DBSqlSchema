@@ -11,6 +11,7 @@ import com.sql.SqlStatementInfoBuilder;
 import com.sql.enums.DatabaseType;
 import com.sql.exception.DBSqlSchemaException;
 import com.sql.impl.statement.complex.object.procedure.model.step.StepContext;
+import com.sql.impl.statement.datatype.CustomDataTypeContext;
 import com.sql.util.StrUtils;
 
 /**
@@ -124,6 +125,7 @@ public class SqlStatementBuilderContext {
 			confJsonRefContent.clear();
 		}
 		
+		CustomDataTypeContext.clear();
 		StepContext.clear();
 	}
 }
