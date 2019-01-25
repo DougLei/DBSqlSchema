@@ -32,8 +32,7 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 			boolean isInputParameter = false;
 			for(int i=0;i<size;i++){
 				parameter = parameterEntityList.get(i);
-				sb.append(parameter.getName());
-				sb.append(" ");
+				sb.append(parameter.getName()).append(" ");
 				if(parameter.getInOut() == InOut.IN){
 					sb.append("in ");
 					isInputParameter = true;
@@ -44,12 +43,18 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 					sb.append("in out ");
 					isInputParameter = false;
 				}
-				sb.append(parameter.getDataType());
 				
-				if(parameter.isBaseType() && isInputParameter && StrUtils.notEmpty(parameter.getDefaultValue())){
-					sb.append(" :=").append(parameter.getDefaultValue());
+				if(parameter.isBaseType()){
+					sb.append(parameter.getDataType());
+					if(isInputParameter && StrUtils.notEmpty(parameter.getDefaultValue())){
+						sb.append(" :=").append(parameter.getDefaultValue());
+					}
+				}else{
+					if(parameter.isCreateType()){
+						recordBeforeProcedureSqlStatement(parameter.getCreateTypeSqlStatement());
+					}
+					sb.append(parameter.getAppendCustomSqlStatement());
 				}
-				
 				if(i<size-1){
 					sb.append(",");
 				}
@@ -71,19 +76,23 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 			DeclareEntity declare = null;
 			for (int i = 0; i < size; i++) {
 				declare = declareEntityList.get(i);
-				sb.append(declare.getName()).append(" ").append(declare.getDataType());
+				sb.append(declare.getName()).append(" ");
 				
 				if(declare.isBaseType()){
-					sb.append(declare.getAppendCustomSqlStatement());
-				}else{
+					sb.append(declare.getDataType());
 					if(declare.getLength() > 0){
 						sb.append("(").append(declare.getLength()).append(")");
 					}
 					if(StrUtils.notEmpty(declare.getDefaultValue())){
 						sb.append(" :=").append(declare.getDefaultValue());
 					}
-					sb.append(";");
+				}else{
+					if(declare.isCreateType()){
+						recordBeforeProcedureSqlStatement(declare.getCreateTypeSqlStatement());
+					}
+					sb.append(declare.getAppendCustomSqlStatement());
 				}
+				sb.append(";");
 				sb.append(newline());
 			}
 			return sb.toString();

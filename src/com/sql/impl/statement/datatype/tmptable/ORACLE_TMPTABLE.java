@@ -1,5 +1,6 @@
 package com.sql.impl.statement.datatype.tmptable;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.datatype.AbstractCustomDataType;
 import com.sql.impl.statement.datatype.DataType;
@@ -16,11 +17,13 @@ public class ORACLE_TMPTABLE extends AbstractCustomDataType{
 	}
 
 	public String getAppendCustomSqlStatement(JSONObject customJson) {
+		JSONArray array = customJson.getJSONArray("column");
+		
 		return null;
 	}
 
 	protected DataType getCustomDataType() {
-		return null;
+		return DataType.TMP_TABLE;
 	}
 
 	protected String getCreateTypeSql(JSONObject customJson) {
