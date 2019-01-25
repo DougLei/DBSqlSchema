@@ -18,7 +18,16 @@ public class ORACLE_TMPTABLE extends AbstractCustomDataType{
 
 	public String getAppendCustomSqlStatement(JSONObject customJson) {
 		JSONArray array = customJson.getJSONArray("column");
-		
+		if(array != null && array.size()>0){
+			StringBuilder sb = new StringBuilder(800);
+			
+			// TODO
+			
+			
+			
+			
+			return sb.toString();
+		}
 		return null;
 	}
 

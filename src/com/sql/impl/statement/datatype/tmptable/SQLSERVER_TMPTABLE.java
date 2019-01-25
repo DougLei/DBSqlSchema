@@ -23,6 +23,7 @@ public class SQLSERVER_TMPTABLE extends AbstractCustomDataType{
 			sb.append("table ").append(newline()).append("(").append(newline());
 			appendColumnSql(array, sb);
 			sb.append(")");
+			return sb.toString();
 		}
 		return null;
 	}
