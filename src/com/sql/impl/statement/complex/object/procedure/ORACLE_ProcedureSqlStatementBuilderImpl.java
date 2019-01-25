@@ -90,4 +90,8 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 		}
 		return null;
 	}
+
+	protected String linkNextSqlStatementToken() {
+		return newline()+";"+newline();
+	}
 }

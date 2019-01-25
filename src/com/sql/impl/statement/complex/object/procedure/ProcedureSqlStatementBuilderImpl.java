@@ -18,6 +18,7 @@ import com.sql.util.StrUtils;
  * @author DougLei
  */
 public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuilderImpl implements ProcedureSqlStatementBuilder {
+	protected StringBuilder beforeProcedureSqlStatement;
 	protected StringBuilder procedureSqlStatement = new StringBuilder(10000);
 	
 	public boolean isCover() {
@@ -70,8 +71,26 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 		}
 		
 		procedureSqlStatement.append("end;");
+		
+		if(beforeProcedureSqlStatement != null && beforeProcedureSqlStatement.length() >0){
+			procedureSqlStatement.insert(0, beforeProcedureSqlStatement);
+		}
 		return procedureSqlStatement.toString();
 	}
+
+	protected void recordBeforeProcedureSqlStatement(String sql){
+		if(beforeProcedureSqlStatement == null){
+			beforeProcedureSqlStatement = new StringBuilder(1000);
+		}
+		beforeProcedureSqlStatement.append(sql);
+		beforeProcedureSqlStatement.append(linkNextSqlStatementToken());
+	}
+	
+	/**
+	 * 连接下一条sql语句的标识
+	 * @return
+	 */
+	protected abstract String linkNextSqlStatementToken();
 	
 	/**
 	 * 获取参数列表
@@ -95,7 +114,7 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 	
 	/**
 	 * 获取parameter参数sql语句
-	 * @return
+	 * @return 
 	 */
 	protected abstract String getParameterSql();
 	

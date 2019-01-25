@@ -89,4 +89,8 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 		}
 		return null;
 	}
+
+	protected String linkNextSqlStatementToken() {
+		return newline()+"go"+newline();
+	}
 }
