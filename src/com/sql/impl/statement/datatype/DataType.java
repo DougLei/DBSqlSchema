@@ -5,6 +5,8 @@ import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.datatype.table.ORACLE_TABLE;
 import com.sql.impl.statement.datatype.table.SQLSERVER_TABLE;
+import com.sql.impl.statement.datatype.tmptable.ORACLE_TMPTABLE;
+import com.sql.impl.statement.datatype.tmptable.SQLSERVER_TMPTABLE;
 
 /**
  * 
@@ -13,7 +15,8 @@ import com.sql.impl.statement.datatype.table.SQLSERVER_TABLE;
 public enum DataType {
 	VARCHAR("varchar", "varchar2"),
 	
-	TABLE(SQLSERVER_TABLE.newInstance(), ORACLE_TABLE.newInstance());
+	TABLE(SQLSERVER_TABLE.newInstance(), ORACLE_TABLE.newInstance()),
+	TMP_TABLE(SQLSERVER_TMPTABLE.newInstance(), ORACLE_TMPTABLE.newInstance());
 	
 	private String sqlserverDataType;
 	private String oracleDataType;
@@ -102,6 +105,24 @@ public enum DataType {
 				return oracleCustomDataType.getAppendCustomSqlStatement(customJson);
 		}
 		throw new IllegalArgumentException("DataType.getAppendCustomSqlStatement出现异常");
+	}
+	
+	/**
+	 * 是否支持创建类型
+	 * @return
+	 */
+	public boolean isSupportCreateType() {
+		if(!isBaseType()){
+			DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
+			switch(dbType){
+				case SQLSERVER:
+					return sqlserverCustomDataType.isSupportCreateType();
+				case ORACLE:
+					return oracleCustomDataType.isSupportCreateType();
+			}
+			throw new IllegalArgumentException("DataType.isSupportCreateType出现异常");
+		}
+		return false;
 	}
 	
 }

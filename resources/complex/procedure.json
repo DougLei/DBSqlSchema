@@ -9,6 +9,7 @@
 			{
 				"name":"name",
 				"dataType":"table",
+				"isCreateType":true,
 				"custom":{
 					"typeName":"",
 					"column:":[
@@ -24,16 +25,16 @@
 		"declare":[
 			{
 				"name":"name",
-				"dataType":"table",
-				"length":20,
-				"defaultValue":"",
-				"column":[
-					{
-						"name":"name",
-						"dataType":"varchar",
-						"length":20
-					}
-				]
+				"dataType":"tmp_table",
+				"custom":{
+					"column":[
+						{
+							"name":"name",
+							"dataType":"varchar",
+							"length":20
+						}
+					]
+				}
 			}
 		],
 		

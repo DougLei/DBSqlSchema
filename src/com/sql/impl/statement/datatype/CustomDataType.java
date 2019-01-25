@@ -21,4 +21,10 @@ public interface CustomDataType {
 	 * @return
 	 */
 	String getAppendCustomSqlStatement(JSONObject customJson);
+
+	/**
+	 * 是否支持创建类型
+	 * @return
+	 */
+	boolean isSupportCreateType();
 }

@@ -41,7 +41,10 @@ public abstract class AbstractDataType {
 	 * @return
 	 */
 	public String getCreateTypeSqlStatement() {
-		return dataType.getCreateTypeSqlStatement(customJson);
+		if(dataType.isSupportCreateType()){
+			return dataType.getCreateTypeSqlStatement(customJson);
+		}
+		return null;
 	}
 	
 	/**

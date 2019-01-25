@@ -2,14 +2,14 @@ package com.sql.impl.statement.datatype.table;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sql.impl.statement.datatype.CustomDataTypeImpl;
+import com.sql.impl.statement.datatype.AbstractCustomDataType;
 import com.sql.impl.statement.datatype.DataType;
 
 /**
  * 
  * @author DougLei
  */
-public class SQLSERVER_TABLE extends CustomDataTypeImpl{
+public class SQLSERVER_TABLE extends AbstractCustomDataType{
 	private SQLSERVER_TABLE(){}
 	private static final SQLSERVER_TABLE tableDataType = new SQLSERVER_TABLE();
 	public static final SQLSERVER_TABLE newInstance(){
@@ -30,7 +30,7 @@ public class SQLSERVER_TABLE extends CustomDataTypeImpl{
 	}
 
 	protected String getCreateTypeSql(JSONObject customJson) {
-		StringBuilder sb = new StringBuilder(1000);
+		StringBuilder sb = new StringBuilder(800);
 		sb.append("create type ").append(customJson.getString("typeName")).append(" as table");
 		sb.append(newline()).append("(").append(newline());
 		
@@ -49,5 +49,9 @@ public class SQLSERVER_TABLE extends CustomDataTypeImpl{
 		}
 		sb.append(")");
 		return sb.toString();
+	}
+	
+	public boolean isSupportCreateType() {
+		return true;
 	}
 }

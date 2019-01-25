@@ -6,8 +6,7 @@ import com.alibaba.fastjson.JSONObject;
  * 
  * @author DougLei
  */
-public abstract class CustomDataTypeImpl implements CustomDataType{
-	
+public abstract class AbstractCustomDataType implements CustomDataType{
 	
 	public String getCreateTypeSqlStatement(JSONObject customJson) {
 		if(customJson.getBooleanValue("isCreateType")){
