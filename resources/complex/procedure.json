@@ -1,18 +1,24 @@
 {
-	"id":"viewTest",
+	"id":"prcedureTest",
 	"type":"procedure",
 	"description":"",
 	"content":{
 		"procedureName":"TEST_PROCEDURE",
-		"isCover":false,
+		"isCover":true,
 		"parameter":[
 			{
 				"name":"name",
+				"dataType":"varchar",
+				"length":20,
+				"defaultValue":""
+			},
+			{
+				"name":"tbtype",
 				"dataType":"table",
 				"custom":{
-					"typeName":"",
-					"isCreateType":true,
-					"isReadonly":true,
+					"typeName":"mytable",			
+					"isCreateType":true,	
+					"isReadonly":true,		
 					"column:":[
 						{
 							"name":"name",
@@ -58,7 +64,7 @@
 
 
 
-		
+
 
 
 		"step1":{
