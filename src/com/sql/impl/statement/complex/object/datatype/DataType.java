@@ -4,13 +4,26 @@ import com.alibaba.fastjson.JSONObject;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.datatype.base.BaseDataType;
+import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_BLOB;
 import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_CHAR;
+import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_CLOB;
+import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_DATE;
+import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_INT;
+import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_LONG;
 import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_NCHAR;
 import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_NVARCHAR2;
+import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_SHORT;
 import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_VARCHAR2;
 import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_CHAR;
+import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_DATE;
+import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_DATETIME;
+import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_IMAGE;
+import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_INT;
+import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_LONG;
 import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_NCHAR;
 import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_NVARCHAR;
+import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_SHORT;
+import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_TEXT;
 import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_VARCHAR;
 import com.sql.impl.statement.complex.object.datatype.cursor.ORACLE_CURSOR;
 import com.sql.impl.statement.complex.object.datatype.cursor.SQLSERVER_CURSOR;
@@ -29,14 +42,20 @@ public enum DataType {
 	CHAR(SQLSERVER_CHAR.newInstance(), ORACLE_CHAR.newInstance()),
 	NCHAR(SQLSERVER_NCHAR.newInstance(), ORACLE_NCHAR.newInstance()),
 	
-//	DATE("datetime", "date"),
-//	DATETIME("datetime", "timestamp"),
-//	
-//	INTEGER("int", "number"),
+	DATE(SQLSERVER_DATE.newInstance(), ORACLE_DATE.newInstance()),
+	DATETIME(SQLSERVER_DATETIME.newInstance(), ORACLE_DATE.newInstance()),
+	
+	INTEGER(SQLSERVER_INT.newInstance(), ORACLE_INT.newInstance()),
+	SHORT(SQLSERVER_SHORT.newInstance(), ORACLE_SHORT.newInstance()),
+	LONG(SQLSERVER_LONG.newInstance(), ORACLE_LONG.newInstance()),
+//	DOUBLE(),
+	
 //	DOUBLE("decimal", "number"),
-//	
-//	CLOB("text", "clob"),
-//	BLOB("image", "blob"),
+	
+	CLOB(SQLSERVER_TEXT.newInstance(), ORACLE_CLOB.newInstance()),
+	BLOB(SQLSERVER_IMAGE.newInstance(), ORACLE_BLOB.newInstance()),
+	TEXT(SQLSERVER_TEXT.newInstance(), ORACLE_CLOB.newInstance()),
+	IMAGE(SQLSERVER_IMAGE.newInstance(), ORACLE_BLOB.newInstance()),
 	
 	// -----------------------------------------------------------------------------------
 	TABLE(SQLSERVER_TABLE.newInstance(), ORACLE_TABLE.newInstance()),
@@ -114,7 +133,24 @@ public enum DataType {
 		throw new IllegalArgumentException("DataType.calcLength出现异常");
 	}
 	
-	
+	/**
+	 * 计算基础类型的精度
+	 * @param length
+	 * @return
+	 */
+	public int calcPrecision(int precision){
+		if(!isBaseType()){
+			throw new IllegalAccessError("非基础数据库类型，无法计算的precision值");
+		}
+		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
+		switch(dbType){
+			case SQLSERVER:
+				return sqlserverDataType.calcPrecision(precision);
+			case ORACLE:
+				return oracleDataType.calcPrecision(precision);
+		}
+		throw new IllegalArgumentException("DataType.calcPrecision出现异常");
+	}
 	
 	/**
 	 * 获取创建类型的sql语句

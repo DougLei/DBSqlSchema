@@ -11,7 +11,7 @@ public abstract class BaseDataType {
 	}
 	
 	public int calcLength(int length){
-		if(length < minLength()){
+		if(length < 1){
 			return 0;
 		}
 		if(length > maxLength()){
@@ -19,11 +19,21 @@ public abstract class BaseDataType {
 		}
 		return length;
 	}
-
-	protected int minLength() {
-		return 1;
-	}
 	
+	public int calcPrecision(int precision){
+		if(precision < 0){
+			return -1;
+		}
+		if(precision > maxPrecision()){
+			precision = maxPrecision();
+		}
+		return precision;
+	}
+
 	public abstract String dataTypeName();
 	protected abstract int maxLength();
+	
+	protected int maxPrecision() {
+		return -1;
+	}
 }
