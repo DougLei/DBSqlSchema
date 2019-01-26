@@ -4,7 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.datatype.base.BaseDataType;
+import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_CHAR;
+import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_NCHAR;
+import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_NVARCHAR2;
 import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_VARCHAR2;
+import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_CHAR;
+import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_NCHAR;
+import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_NVARCHAR;
 import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_VARCHAR;
 import com.sql.impl.statement.complex.object.datatype.cursor.ORACLE_CURSOR;
 import com.sql.impl.statement.complex.object.datatype.cursor.SQLSERVER_CURSOR;
@@ -19,10 +25,10 @@ import com.sql.impl.statement.complex.object.datatype.tmptable.SQLSERVER_TMPTABL
  */
 public enum DataType {
 	VARCHAR(SQLSERVER_VARCHAR.newInstance(), ORACLE_VARCHAR2.newInstance()),
-//	NVARCHAR("nvarchar", "nvarchar2"),
-//	CHAR("char", "char"),
-//	NCHAR("nchar", "nchar"),
-//	
+	NVARCHAR(SQLSERVER_NVARCHAR.newInstance(), ORACLE_NVARCHAR2.newInstance()),
+	CHAR(SQLSERVER_CHAR.newInstance(), ORACLE_CHAR.newInstance()),
+	NCHAR(SQLSERVER_NCHAR.newInstance(), ORACLE_NCHAR.newInstance()),
+	
 //	DATE("datetime", "date"),
 //	DATETIME("datetime", "timestamp"),
 //	
