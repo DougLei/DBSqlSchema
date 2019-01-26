@@ -18,7 +18,7 @@
 				"custom":{
 					"typeName":"mytable",			
 					"isCreateType":true,	
-					"column:":[
+					"column":[
 						{
 							"name":"name",
 							"dataType":"varchar",
@@ -30,12 +30,16 @@
 		],
 		"declare":[
 			{
-				"name":"name",
+				"name":"sex",
+				"dataType":"varchar",
+				"length":1
+			},
+			{
+				"name":"tmptbtype",
 				"dataType":"tmp_table",
 				"custom":{
-					"typeName":"",
-					"isCreateType":true,
-					"level":"session/transaction",
+					"typeName":"mytmptable",
+					"isCreateType":true,			
 					"column":[
 						{
 							"name":"name",
@@ -45,13 +49,31 @@
 					]
 				}
 			},
-
 			{
-				"name":"name",
+				"name":"mc",
 				"dataType":"cursor",
 				"custom":{	
-					"sqlId":"",
 					"sqlJson":{
+						"id":"testSelect",
+						"type":"select",
+						"description":"",
+						"content":{
+							"resultSet":[
+								{
+									"columnName":"nike_name",
+									"alias":"昵称"
+								}
+							],
+							"table":{
+								"type":"table",
+								"name":"sys_user",
+								"subSqlId":"",
+								"subSqlJson":{
+					
+								},
+								"alias":""
+							}
+						}
 					}
 				}
 			}

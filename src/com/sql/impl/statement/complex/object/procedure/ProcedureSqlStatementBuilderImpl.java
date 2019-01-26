@@ -61,15 +61,15 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 		
 		procedureSqlStatement.append("begin").append(newline());
 		
-		List<Step> stepList = getStepList();
-		if(stepList == null || stepList.size() == 0){
-			throw new NullPointerException("存储过程的step(index)属性不能为空，至少有一项");
-		}
-		for (Step step : stepList) {
-			procedureSqlStatement.append(step.getSqlStatement());
-			procedureSqlStatement.append(newline());
-		}
-		
+//		List<Step> stepList = getStepList();
+//		if(stepList == null || stepList.size() == 0){
+//			throw new NullPointerException("存储过程的step(index)属性不能为空，至少有一项");
+//		}
+//		for (Step step : stepList) {
+//			procedureSqlStatement.append(step.getSqlStatement());
+//			procedureSqlStatement.append(newline());
+//		}
+//		
 		procedureSqlStatement.append("end;");
 		
 		if(beforeProcedureSqlStatement != null && beforeProcedureSqlStatement.length() >0){

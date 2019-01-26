@@ -33,6 +33,9 @@ public abstract class AbstractDataType {
 	 * @return
 	 */
 	public boolean isCreateType() {
+		if(customJson == null || customJson.size() == 0){
+			return false;
+		}
 		return customJson.getBooleanValue("isCreateType");
 	}
 	
