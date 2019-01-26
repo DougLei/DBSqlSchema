@@ -27,4 +27,10 @@ public interface CustomDataType {
 	 * @return
 	 */
 	boolean isSupportCreateType();
+
+	/**
+	 * 是否支持追加自定义的sql语句
+	 * @return
+	 */
+	boolean isSupportAppendCustomSqlStatement();
 }

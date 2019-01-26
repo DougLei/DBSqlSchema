@@ -37,29 +37,31 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 			ParameterEntity parameter = null;
 			for(int i=0;i<size;i++){
 				parameter = parameterEntityList.get(i);
-				sb.append("@").append(parameter.getName()).append(" ");
-				
-				if(parameter.isBaseType()){
-					sb.append(parameter.getDataType());
-					if(parameter.getLength() > 0){
-						sb.append("(").append(parameter.getLength()).append(")");
+				if(parameter.isSupportAppendCustomSqlStatement()){
+					sb.append("@").append(parameter.getName()).append(" ");
+					
+					if(parameter.isBaseType()){
+						sb.append(parameter.getDataType());
+						if(parameter.getLength() > 0){
+							sb.append("(").append(parameter.getLength()).append(")");
+						}
+						if(StrUtils.notEmpty(parameter.getDefaultValue())){
+							sb.append("=").append(parameter.getDefaultValue());
+						}
+						if(parameter.getInOut() == InOut.OUT){
+							sb.append(" ").append("output");
+						}
+					}else{
+						sb.append(parameter.getAppendCustomSqlStatement());
 					}
-					if(StrUtils.notEmpty(parameter.getDefaultValue())){
-						sb.append("=").append(parameter.getDefaultValue());
+					if(i<size-1){
+						sb.append(",");
 					}
-					if(parameter.getInOut() == InOut.OUT){
-						sb.append(" ").append("output");
-					}
-				}else{
-					if(parameter.isCreateType()){
-						recordBeforeProcedureSqlStatement(parameter.getCreateTypeSqlStatement());
-					}
-					sb.append(parameter.getAppendCustomSqlStatement());
+					sb.append(newline());
 				}
-				if(i<size-1){
-					sb.append(",");
+				if(parameter.isCreateType()){
+					recordBeforeProcedureSqlStatement(parameter.getCreateTypeSqlStatement());
 				}
-				sb.append(newline());
 			}
 			return sb.toString();
 		}
@@ -75,25 +77,27 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 			DeclareEntity declare = null;
 			for (int i = 0; i < size; i++) {
 				declare = declareEntityList.get(i);
-				sb.append("declare ");
-				sb.append("@").append(declare.getName());
-				
-				if(declare.isBaseType()){
-					sb.append(declare.getDataType());
-					if(declare.getLength() > 0){
-						sb.append("(").append(declare.getLength()).append(")");
-					}
-					if(StrUtils.notEmpty(declare.getDefaultValue())){
-						sb.append(" =").append(declare.getDefaultValue());
-					}
+				if(declare.isSupportAppendCustomSqlStatement()){
+					sb.append("declare ");
+					sb.append("@").append(declare.getName());
 					
-				}else{
-					if(declare.isCreateType()){
-						recordBeforeProcedureSqlStatement(declare.getCreateTypeSqlStatement());
+					if(declare.isBaseType()){
+						sb.append(declare.getDataType());
+						if(declare.getLength() > 0){
+							sb.append("(").append(declare.getLength()).append(")");
+						}
+						if(StrUtils.notEmpty(declare.getDefaultValue())){
+							sb.append(" =").append(declare.getDefaultValue());
+						}
+						
+					}else{
+						sb.append(declare.getAppendCustomSqlStatement());
 					}
-					sb.append(declare.getAppendCustomSqlStatement());
+					sb.append(newline());
 				}
-				sb.append(newline());
+				if(declare.isCreateType()){
+					recordBeforeProcedureSqlStatement(declare.getCreateTypeSqlStatement());
+				}
 			}
 			return sb.toString();
 		}

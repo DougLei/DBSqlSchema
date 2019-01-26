@@ -9,9 +9,10 @@
 			{
 				"name":"name",
 				"dataType":"table",
-				"isCreateType":true,
 				"custom":{
 					"typeName":"",
+					"isCreateType":true,
+					"isReadonly":true,
 					"column:":[
 						{
 							"name":"name",
@@ -27,6 +28,10 @@
 				"name":"name",
 				"dataType":"tmp_table",
 				"custom":{
+					"typeName":"",
+					"isCreateType":true,
+					"isReadonly":true,
+					"level":"session/transaction",
 					"column":[
 						{
 							"name":"name",

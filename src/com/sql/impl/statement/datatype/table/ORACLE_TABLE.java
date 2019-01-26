@@ -20,6 +20,10 @@ public class ORACLE_TABLE extends AbstractCustomDataType{
 	public String getAppendCustomSqlStatement(JSONObject customJson) {
 		return customJson.getString("typeName");
 	}
+	
+	public boolean isSupportAppendCustomSqlStatement() {
+		return true;
+	}
 
 	protected DataType getCustomDataType() {
 		return DataType.TABLE;

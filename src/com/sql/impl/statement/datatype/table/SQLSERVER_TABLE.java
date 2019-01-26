@@ -24,7 +24,10 @@ public class SQLSERVER_TABLE extends AbstractCustomDataType{
 		return "as "+customJson.getString("typeName") + readonly;
 	}
 
-
+	public boolean isSupportAppendCustomSqlStatement() {
+		return true;
+	}
+	
 	protected DataType getCustomDataType() {
 		return DataType.TABLE;
 	}

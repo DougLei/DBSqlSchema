@@ -48,6 +48,14 @@ public abstract class AbstractDataType {
 	}
 	
 	/**
+	 * 是否支持追加自定义类型语句
+	 * @return
+	 */
+	public boolean isSupportAppendCustomSqlStatement() {
+		return dataType.isSupportAppendCustomSqlStatement();
+	}
+	
+	/**
 	 * 获取要追加的自定义类型语句
 	 * @return
 	 */

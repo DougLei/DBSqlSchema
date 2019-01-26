@@ -125,4 +125,21 @@ public enum DataType {
 		return false;
 	}
 	
+	/**
+	 * 是否支持追加自定义的sql语句
+	 * @return
+	 */
+	public boolean isSupportAppendCustomSqlStatement() {
+		if(!isBaseType()){
+			DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
+			switch(dbType){
+				case SQLSERVER:
+					return sqlserverCustomDataType.isSupportAppendCustomSqlStatement();
+				case ORACLE:
+					return oracleCustomDataType.isSupportAppendCustomSqlStatement();
+			}
+			throw new IllegalArgumentException("DataType.isSupportCreateType出现异常");
+		}
+		return true;
+	}
 }

@@ -27,6 +27,10 @@ public class SQLSERVER_TMPTABLE extends AbstractCustomDataType{
 		}
 		return null;
 	}
+	
+	public boolean isSupportAppendCustomSqlStatement() {
+		return true;
+	}
 
 	protected DataType getCustomDataType() {
 		return DataType.TMP_TABLE;

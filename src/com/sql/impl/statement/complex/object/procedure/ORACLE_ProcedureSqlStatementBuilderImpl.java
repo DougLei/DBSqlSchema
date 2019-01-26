@@ -32,33 +32,35 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 			boolean isInputParameter = false;
 			for(int i=0;i<size;i++){
 				parameter = parameterEntityList.get(i);
-				sb.append(parameter.getName()).append(" ");
-				if(parameter.getInOut() == InOut.IN){
-					sb.append("in ");
-					isInputParameter = true;
-				}else if(parameter.getInOut() == InOut.OUT){
-					sb.append("out ");
-					isInputParameter = false;
-				}else{
-					sb.append("in out ");
-					isInputParameter = false;
-				}
-				
-				if(parameter.isBaseType()){
-					sb.append(parameter.getDataType());
-					if(isInputParameter && StrUtils.notEmpty(parameter.getDefaultValue())){
-						sb.append(" :=").append(parameter.getDefaultValue());
+				if(parameter.isSupportAppendCustomSqlStatement()){
+					sb.append(parameter.getName()).append(" ");
+					if(parameter.getInOut() == InOut.IN){
+						sb.append("in ");
+						isInputParameter = true;
+					}else if(parameter.getInOut() == InOut.OUT){
+						sb.append("out ");
+						isInputParameter = false;
+					}else{
+						sb.append("in out ");
+						isInputParameter = false;
 					}
-				}else{
-					if(parameter.isCreateType()){
-						recordBeforeProcedureSqlStatement(parameter.getCreateTypeSqlStatement());
+					
+					if(parameter.isBaseType()){
+						sb.append(parameter.getDataType());
+						if(isInputParameter && StrUtils.notEmpty(parameter.getDefaultValue())){
+							sb.append(" :=").append(parameter.getDefaultValue());
+						}
+					}else{
+						sb.append(parameter.getAppendCustomSqlStatement());
 					}
-					sb.append(parameter.getAppendCustomSqlStatement());
+					if(i<size-1){
+						sb.append(",");
+					}
+					sb.append(newline());
 				}
-				if(i<size-1){
-					sb.append(",");
+				if(parameter.isCreateType()){
+					recordBeforeProcedureSqlStatement(parameter.getCreateTypeSqlStatement());
 				}
-				sb.append(newline());
 			}
 			
 			sb.append(")").append(newline());
@@ -76,24 +78,25 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 			DeclareEntity declare = null;
 			for (int i = 0; i < size; i++) {
 				declare = declareEntityList.get(i);
-				sb.append(declare.getName()).append(" ");
-				
-				if(declare.isBaseType()){
-					sb.append(declare.getDataType());
-					if(declare.getLength() > 0){
-						sb.append("(").append(declare.getLength()).append(")");
+				if(declare.isSupportAppendCustomSqlStatement()){
+					sb.append(declare.getName()).append(" ");
+					if(declare.isBaseType()){
+						sb.append(declare.getDataType());
+						if(declare.getLength() > 0){
+							sb.append("(").append(declare.getLength()).append(")");
+						}
+						if(StrUtils.notEmpty(declare.getDefaultValue())){
+							sb.append(" :=").append(declare.getDefaultValue());
+						}
+					}else{
+						sb.append(declare.getAppendCustomSqlStatement());
 					}
-					if(StrUtils.notEmpty(declare.getDefaultValue())){
-						sb.append(" :=").append(declare.getDefaultValue());
-					}
-				}else{
-					if(declare.isCreateType()){
-						recordBeforeProcedureSqlStatement(declare.getCreateTypeSqlStatement());
-					}
-					sb.append(declare.getAppendCustomSqlStatement());
+					sb.append(";");
+					sb.append(newline());
 				}
-				sb.append(";");
-				sb.append(newline());
+				if(declare.isCreateType()){
+					recordBeforeProcedureSqlStatement(declare.getCreateTypeSqlStatement());
+				}
 			}
 			return sb.toString();
 		}
