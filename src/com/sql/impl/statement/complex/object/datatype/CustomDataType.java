@@ -17,10 +17,11 @@ public interface CustomDataType {
 
 	/**
 	 * 获取要追加到整个sql语句中，要呈现的sql语句内容
+	 * @param name 
 	 * @param customJson
 	 * @return
 	 */
-	String getAppendCustomSqlStatement(JSONObject customJson);
+	String getAppendCustomSqlStatement(String name, JSONObject customJson);
 
 	/**
 	 * 是否支持创建类型

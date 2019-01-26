@@ -40,9 +40,27 @@
 						}
 					]
 				}
+			},
+
+			{
+				"name":"name",
+				"dataType":"cursor",
+				"custom":{	
+					"sqlId":"",
+					"sqlJson":{
+					}
+				}
 			}
 		],
 		
+
+
+
+
+
+		
+
+
 		"step1":{
 			"id":"step1",
 			"type":"declare",

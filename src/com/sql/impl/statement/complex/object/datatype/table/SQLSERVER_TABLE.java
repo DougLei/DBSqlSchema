@@ -16,7 +16,7 @@ public class SQLSERVER_TABLE extends AbstractCustomDataType{
 		return tableDataType;
 	}
 
-	public String getAppendCustomSqlStatement(JSONObject customJson) {
+	public String getAppendCustomSqlStatement(String name, JSONObject customJson) {
 		String readonly = "";
 		if(customJson.getBooleanValue("isReadonly")){
 			readonly = " readonly";

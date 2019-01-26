@@ -94,19 +94,20 @@ public enum DataType {
 	
 	/**
 	 * 获取要追加到整个sql语句中，要呈现的sql语句内容
+	 * @param name
 	 * @param customJson
 	 * @return
 	 */
-	public String getAppendCustomSqlStatement(JSONObject customJson) {
+	public String getAppendCustomSqlStatement(String name, JSONObject customJson) {
 		if(isBaseType()){
 			throw new IllegalAccessError("基础数据库类型，无法获取创建类型的sql语句");
 		}
 		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
 		switch(dbType){
 			case SQLSERVER:
-				return sqlserverCustomDataType.getAppendCustomSqlStatement(customJson);
+				return sqlserverCustomDataType.getAppendCustomSqlStatement(name, customJson);
 			case ORACLE:
-				return oracleCustomDataType.getAppendCustomSqlStatement(customJson);
+				return oracleCustomDataType.getAppendCustomSqlStatement(name, customJson);
 		}
 		throw new IllegalArgumentException("DataType.getAppendCustomSqlStatement出现异常");
 	}

@@ -17,7 +17,7 @@ public class ORACLE_TMPTABLE extends AbstractCustomDataType{
 		return tmptableDataType;
 	}
 
-	public String getAppendCustomSqlStatement(JSONObject customJson) {
+	public String getAppendCustomSqlStatement(String name, JSONObject customJson) {
 		return null;
 	}
 

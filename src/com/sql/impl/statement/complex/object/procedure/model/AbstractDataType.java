@@ -60,6 +60,14 @@ public abstract class AbstractDataType {
 	 * @return
 	 */
 	public String getAppendCustomSqlStatement() {
-		return dataType.getAppendCustomSqlStatement(customJson);
+		return getAppendCustomSqlStatement(null);
+	}
+	/**
+	 * 获取要追加的自定义类型语句
+	 * @param name 参数/属性名称
+	 * @return
+	 */
+	public String getAppendCustomSqlStatement(String name) {
+		return dataType.getAppendCustomSqlStatement(name, customJson);
 	}
 }

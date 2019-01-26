@@ -16,7 +16,7 @@ public class SQLSERVER_TMPTABLE extends AbstractCustomDataType{
 		return tmptableDataType;
 	}
 
-	public String getAppendCustomSqlStatement(JSONObject customJson) {
+	public String getAppendCustomSqlStatement(String name, JSONObject customJson) {
 		JSONArray array = customJson.getJSONArray("column");
 		if(array != null && array.size()>0){
 			StringBuilder sb = new StringBuilder(800);

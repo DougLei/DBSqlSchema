@@ -78,8 +78,7 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 			for (int i = 0; i < size; i++) {
 				declare = declareEntityList.get(i);
 				if(declare.isSupportAppendCustomSqlStatement()){
-					sb.append("declare ");
-					sb.append("@").append(declare.getName());
+					sb.append("declare @").append(declare.getName()).append(" ");
 					
 					if(declare.isBaseType()){
 						sb.append(declare.getDataType());

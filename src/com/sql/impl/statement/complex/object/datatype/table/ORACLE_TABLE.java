@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.complex.object.datatype.AbstractCustomDataType;
 import com.sql.impl.statement.complex.object.datatype.DataType;
+import com.sql.util.StrUtils;
 
 /**
  * 
@@ -16,8 +17,11 @@ public class ORACLE_TABLE extends AbstractCustomDataType{
 		return tableDataType;
 	}
 
-	public String getAppendCustomSqlStatement(JSONObject customJson) {
-		return customJson.getString("typeName");
+	public String getAppendCustomSqlStatement(String name, JSONObject customJson) {
+		if(StrUtils.isEmpty(name)){
+			return customJson.getString("typeName");
+		}
+		return name +" "+customJson.getString("typeName");
 	}
 	
 	public boolean isSupportAppendCustomSqlStatement() {

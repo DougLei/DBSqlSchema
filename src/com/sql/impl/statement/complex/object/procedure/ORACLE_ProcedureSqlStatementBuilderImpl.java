@@ -79,8 +79,8 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 			for (int i = 0; i < size; i++) {
 				declare = declareEntityList.get(i);
 				if(declare.isSupportAppendCustomSqlStatement()){
-					sb.append(declare.getName()).append(" ");
 					if(declare.isBaseType()){
+						sb.append(declare.getName()).append(" ");
 						sb.append(declare.getDataType());
 						if(declare.getLength() > 0){
 							sb.append("(").append(declare.getLength()).append(")");
@@ -89,7 +89,7 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 							sb.append(" :=").append(declare.getDefaultValue());
 						}
 					}else{
-						sb.append(declare.getAppendCustomSqlStatement());
+						sb.append(declare.getAppendCustomSqlStatement(declare.getName()));
 					}
 					sb.append(";");
 					sb.append(newline());
