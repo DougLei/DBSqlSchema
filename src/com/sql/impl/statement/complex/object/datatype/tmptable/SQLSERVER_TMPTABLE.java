@@ -1,9 +1,9 @@
-package com.sql.impl.statement.complex.object.procedure.datatype.tmptable;
+package com.sql.impl.statement.complex.object.datatype.tmptable;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sql.impl.statement.complex.object.procedure.datatype.AbstractCustomDataType;
-import com.sql.impl.statement.complex.object.procedure.datatype.DataType;
+import com.sql.impl.statement.complex.object.datatype.AbstractCustomDataType;
+import com.sql.impl.statement.complex.object.datatype.DataType;
 
 /**
  * 

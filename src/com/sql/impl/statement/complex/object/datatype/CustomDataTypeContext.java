@@ -1,4 +1,4 @@
-package com.sql.impl.statement.complex.object.procedure.datatype;
+package com.sql.impl.statement.complex.object.datatype;
 
 import java.util.ArrayList;
 import java.util.Collection;

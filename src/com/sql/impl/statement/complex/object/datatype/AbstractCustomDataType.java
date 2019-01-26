@@ -1,4 +1,4 @@
-package com.sql.impl.statement.complex.object.procedure.datatype;
+package com.sql.impl.statement.complex.object.datatype;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;

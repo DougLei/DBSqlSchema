@@ -1,7 +1,7 @@
 package com.sql.impl.statement.complex.object.procedure.model;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.impl.statement.complex.object.procedure.datatype.DataType;
+import com.sql.impl.statement.complex.object.datatype.DataType;
 
 /**
  * 

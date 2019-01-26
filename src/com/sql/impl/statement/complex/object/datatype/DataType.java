@@ -1,12 +1,12 @@
-package com.sql.impl.statement.complex.object.procedure.datatype;
+package com.sql.impl.statement.complex.object.datatype;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.statement.complex.object.procedure.datatype.table.ORACLE_TABLE;
-import com.sql.impl.statement.complex.object.procedure.datatype.table.SQLSERVER_TABLE;
-import com.sql.impl.statement.complex.object.procedure.datatype.tmptable.ORACLE_TMPTABLE;
-import com.sql.impl.statement.complex.object.procedure.datatype.tmptable.SQLSERVER_TMPTABLE;
+import com.sql.impl.statement.complex.object.datatype.table.ORACLE_TABLE;
+import com.sql.impl.statement.complex.object.datatype.table.SQLSERVER_TABLE;
+import com.sql.impl.statement.complex.object.datatype.tmptable.ORACLE_TMPTABLE;
+import com.sql.impl.statement.complex.object.datatype.tmptable.SQLSERVER_TMPTABLE;
 
 /**
  * 
