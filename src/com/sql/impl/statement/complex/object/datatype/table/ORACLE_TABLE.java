@@ -15,7 +15,6 @@ public class ORACLE_TABLE extends AbstractCustomDataType{
 	public static final ORACLE_TABLE newInstance(){
 		return tableDataType;
 	}
-	
 
 	public String getAppendCustomSqlStatement(JSONObject customJson) {
 		return customJson.getString("typeName");

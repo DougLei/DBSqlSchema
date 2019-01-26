@@ -3,6 +3,8 @@ package com.sql.impl.statement.complex.object.datatype;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
+import com.sql.impl.statement.complex.object.datatype.cursor.ORACLE_CURSOR;
+import com.sql.impl.statement.complex.object.datatype.cursor.SQLSERVER_CURSOR;
 import com.sql.impl.statement.complex.object.datatype.table.ORACLE_TABLE;
 import com.sql.impl.statement.complex.object.datatype.table.SQLSERVER_TABLE;
 import com.sql.impl.statement.complex.object.datatype.tmptable.ORACLE_TMPTABLE;
@@ -16,7 +18,9 @@ public enum DataType {
 	VARCHAR("varchar", "varchar2"),
 	
 	TABLE(SQLSERVER_TABLE.newInstance(), ORACLE_TABLE.newInstance()),
-	TMP_TABLE(SQLSERVER_TMPTABLE.newInstance(), ORACLE_TMPTABLE.newInstance());
+	TMP_TABLE(SQLSERVER_TMPTABLE.newInstance(), ORACLE_TMPTABLE.newInstance()),
+	CURSOR(SQLSERVER_CURSOR.newInstance(), ORACLE_CURSOR.newInstance()),
+	;
 	
 	private String sqlserverDataType;
 	private String oracleDataType;
