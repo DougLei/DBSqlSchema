@@ -11,12 +11,18 @@ public abstract class AbstractDataType {
 	private DataType dataType;
 	private JSONObject customJson;
 	
+	protected int length;
+	
 	protected void setDataType(String dataType){
 		this.dataType = DataType.toValue(dataType);
 	}
 	
-	public String getDataType() {
-		return dataType.getDataType();
+	public String getBaseDataType() {
+		return dataType.getBaseDataType();
+	}
+	
+	public int getLength() {
+		return dataType.calcLength(length);
 	}
 	
 	/**是否是基础类型*/

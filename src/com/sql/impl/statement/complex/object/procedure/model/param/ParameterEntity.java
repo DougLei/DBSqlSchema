@@ -19,7 +19,6 @@ public class ParameterEntity extends AbstractDataType{
 	}
 	
 	private String name;
-	private int length;
 	private InOut inOut;
 	private String defaultValue;
 	
@@ -38,9 +37,6 @@ public class ParameterEntity extends AbstractDataType{
 	}
 	public String getDefaultValue() {
 		return defaultValue;
-	}
-	public int getLength() {
-		return length;
 	}
 	
 	public void setCustomJson(JSONObject customJson) {

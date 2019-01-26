@@ -3,6 +3,9 @@ package com.sql.impl.statement.complex.object.datatype;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
+import com.sql.impl.statement.complex.object.datatype.base.BaseDataType;
+import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_VARCHAR2;
+import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_VARCHAR;
 import com.sql.impl.statement.complex.object.datatype.cursor.ORACLE_CURSOR;
 import com.sql.impl.statement.complex.object.datatype.cursor.SQLSERVER_CURSOR;
 import com.sql.impl.statement.complex.object.datatype.table.ORACLE_TABLE;
@@ -15,22 +18,35 @@ import com.sql.impl.statement.complex.object.datatype.tmptable.SQLSERVER_TMPTABL
  * @author DougLei
  */
 public enum DataType {
-	VARCHAR("varchar", "varchar2"),
+	VARCHAR(SQLSERVER_VARCHAR.newInstance(), ORACLE_VARCHAR2.newInstance()),
+//	NVARCHAR("nvarchar", "nvarchar2"),
+//	CHAR("char", "char"),
+//	NCHAR("nchar", "nchar"),
+//	
+//	DATE("datetime", "date"),
+//	DATETIME("datetime", "timestamp"),
+//	
+//	INTEGER("int", "number"),
+//	DOUBLE("decimal", "number"),
+//	
+//	CLOB("text", "clob"),
+//	BLOB("image", "blob"),
 	
+	// -----------------------------------------------------------------------------------
 	TABLE(SQLSERVER_TABLE.newInstance(), ORACLE_TABLE.newInstance()),
 	TMP_TABLE(SQLSERVER_TMPTABLE.newInstance(), ORACLE_TMPTABLE.newInstance()),
 	CURSOR(SQLSERVER_CURSOR.newInstance(), ORACLE_CURSOR.newInstance()),
 	;
 	
-	private String sqlserverDataType;
-	private String oracleDataType;
+	private BaseDataType sqlserverDataType;
+	private BaseDataType oracleDataType;
 	
 	private CustomDataType sqlserverCustomDataType;
 	private CustomDataType oracleCustomDataType;
 	
 	private boolean isBaseType;
 	
-	private DataType(String sqlserverDataType, String oracleDataType) {
+	private DataType(BaseDataType sqlserverDataType, BaseDataType oracleDataType) {
 		this.isBaseType = true;
 		this.sqlserverDataType = sqlserverDataType;
 		this.oracleDataType = oracleDataType;
@@ -59,19 +75,40 @@ public enum DataType {
 	 * 获取基础类型的类型字符串值
 	 * @return
 	 */
-	public String getDataType(){
+	public String getBaseDataType(){
 		if(!isBaseType()){
 			throw new IllegalAccessError("非基础数据库类型，无法获取的dataType值");
 		}
 		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
 		switch(dbType){
 			case SQLSERVER:
-				return sqlserverDataType;
+				return sqlserverDataType.getSqlStatement();
 			case ORACLE:
-				return oracleDataType;
+				return oracleDataType.getSqlStatement();
 		}
 		throw new IllegalArgumentException("DataType.getDataType出现异常");
 	}
+	
+	/**
+	 * 计算基础类型的长度
+	 * @param length
+	 * @return
+	 */
+	public int calcLength(int length){
+		if(!isBaseType()){
+			throw new IllegalAccessError("非基础数据库类型，无法计算的length值");
+		}
+		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
+		switch(dbType){
+			case SQLSERVER:
+				return sqlserverDataType.calcLength(length);
+			case ORACLE:
+				return oracleDataType.calcLength(length);
+		}
+		throw new IllegalArgumentException("DataType.calcLength出现异常");
+	}
+	
+	
 	
 	/**
 	 * 获取创建类型的sql语句

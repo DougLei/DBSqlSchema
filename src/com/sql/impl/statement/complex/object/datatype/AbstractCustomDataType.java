@@ -31,7 +31,7 @@ public abstract class AbstractCustomDataType implements CustomDataType{
 			JSONObject json = null;
 			for(int i=0;i<columnJsonarray.size();i++){
 				json = columnJsonarray.getJSONObject(i);
-				sb.append(json.getString("name")).append(" ").append(DataType.toValue(json.getString("dataType")).getDataType());
+				sb.append(json.getString("name")).append(" ").append(DataType.toValue(json.getString("dataType")).getBaseDataType());
 				if(json.getIntValue("length")> 0){
 					sb.append("(").append(json.getIntValue("length")).append(")");
 				}

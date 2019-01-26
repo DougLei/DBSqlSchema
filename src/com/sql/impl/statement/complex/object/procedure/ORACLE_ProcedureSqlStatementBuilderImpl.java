@@ -46,7 +46,7 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 					}
 					
 					if(parameter.isBaseType()){
-						sb.append(parameter.getDataType());
+						sb.append(parameter.getBaseDataType());
 						if(isInputParameter && StrUtils.notEmpty(parameter.getDefaultValue())){
 							sb.append(" :=").append(parameter.getDefaultValue());
 						}
@@ -81,7 +81,7 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 				if(declare.isSupportAppendCustomSqlStatement()){
 					if(declare.isBaseType()){
 						sb.append(declare.getName()).append(" ");
-						sb.append(declare.getDataType());
+						sb.append(declare.getBaseDataType());
 						if(declare.getLength() > 0){
 							sb.append("(").append(declare.getLength()).append(")");
 						}

@@ -41,7 +41,7 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 					sb.append("@").append(parameter.getName()).append(" ");
 					
 					if(parameter.isBaseType()){
-						sb.append(parameter.getDataType());
+						sb.append(parameter.getBaseDataType());
 						if(parameter.getLength() > 0){
 							sb.append("(").append(parameter.getLength()).append(")");
 						}
@@ -81,7 +81,7 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 					sb.append("declare @").append(declare.getName()).append(" ");
 					
 					if(declare.isBaseType()){
-						sb.append(declare.getDataType());
+						sb.append(declare.getBaseDataType());
 						if(declare.getLength() > 0){
 							sb.append("(").append(declare.getLength()).append(")");
 						}
