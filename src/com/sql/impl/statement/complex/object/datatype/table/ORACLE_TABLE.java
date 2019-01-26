@@ -21,7 +21,7 @@ public class ORACLE_TABLE extends AbstractCustomDataType{
 		if(StrUtils.isEmpty(name)){
 			return customJson.getString("typeName");
 		}
-		return name +" "+customJson.getString("typeName");
+		return name + " " + customJson.getString("typeName");
 	}
 	
 	public boolean isSupportAppendCustomSqlStatement() {

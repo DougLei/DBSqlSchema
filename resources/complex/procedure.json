@@ -18,7 +18,6 @@
 				"custom":{
 					"typeName":"mytable",			
 					"isCreateType":true,	
-					"isReadonly":true,		
 					"column:":[
 						{
 							"name":"name",
@@ -36,7 +35,6 @@
 				"custom":{
 					"typeName":"",
 					"isCreateType":true,
-					"isReadonly":true,
 					"level":"session/transaction",
 					"column":[
 						{

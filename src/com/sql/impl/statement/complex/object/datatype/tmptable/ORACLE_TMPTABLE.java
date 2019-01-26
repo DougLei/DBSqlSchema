@@ -59,11 +59,11 @@ public class ORACLE_TMPTABLE extends AbstractCustomDataType{
 			this.sqlStatement = sqlStatement;
 		}
 
-		public String getSqlStatement() {
+		String getSqlStatement() {
 			return sqlStatement;
 		}
 		
-		public static OracleTmpTableLevel toValue(String str){
+		static OracleTmpTableLevel toValue(String str){
 			if(StrUtils.notEmpty(str)){
 				str = str.trim().toUpperCase();
 				for(OracleTmpTableLevel level : OracleTmpTableLevel.values()){
