@@ -1,0 +1,56 @@
+-- 一般数据类型的配置
+{
+	"name":"name",
+	"dataType":"varchar",
+	"length":20,
+	"defaultValue":""
+}
+
+-- table类型的配置
+{
+	"name":"name",
+	"dataType":"table",
+	"custom":{
+		"typeName":"",			--表类型的名称
+		"isCreateType":true,	--是否创建类型，生成对应的sql语句
+		"isReadonly":true,		--sqlserver表类型参数，是否只读
+		"column:":[
+			{
+				"name":"name",
+				"dataType":"varchar",
+				"length":20
+			}
+		]
+	}
+}
+
+-- tmp table类型的配置
+{
+	"name":"name",
+	"dataType":"tmp_table",
+	"custom":{
+		"typeName":"",
+		"isCreateType":true,			--oracle临时表属性，是否创建类型，生成对应的sql语句
+		"isReadonly":true,				--sqlserver表类型参数，是否只读
+		"level":"session/transaction",	--oracle临时表属性，决定临时表的级别是会话级别，还是事务级别，默认是事务级别
+		"column":[
+			{
+				"name":"name",
+				"dataType":"varchar",
+				"length":20
+			}
+		]
+	}
+}
+
+-- cursor类型配置
+{
+	"name":"name",
+	"dataType":"cursor",
+	"custom":{	
+		"sqlId":"",
+		"sqlJson":{
+			-- 和select sql配置方式一样
+		}
+	}
+}
