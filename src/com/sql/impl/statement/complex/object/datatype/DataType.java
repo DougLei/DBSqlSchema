@@ -8,6 +8,7 @@ import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_BLOB;
 import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_CHAR;
 import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_CLOB;
 import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_DATE;
+import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_DOUBLE;
 import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_INT;
 import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_LONG;
 import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_NCHAR;
@@ -17,6 +18,7 @@ import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_VARCHAR
 import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_CHAR;
 import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_DATE;
 import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_DATETIME;
+import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_DOUBLE;
 import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_IMAGE;
 import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_INT;
 import com.sql.impl.statement.complex.object.datatype.base.sqlserver.SQLSERVER_LONG;
@@ -48,9 +50,7 @@ public enum DataType {
 	INTEGER(SQLSERVER_INT.newInstance(), ORACLE_INT.newInstance()),
 	SHORT(SQLSERVER_SHORT.newInstance(), ORACLE_SHORT.newInstance()),
 	LONG(SQLSERVER_LONG.newInstance(), ORACLE_LONG.newInstance()),
-//	DOUBLE(),
-	
-//	DOUBLE("decimal", "number"),
+	DOUBLE(SQLSERVER_DOUBLE.newInstance(), ORACLE_DOUBLE.newInstance()),
 	
 	CLOB(SQLSERVER_TEXT.newInstance(), ORACLE_CLOB.newInstance()),
 	BLOB(SQLSERVER_IMAGE.newInstance(), ORACLE_BLOB.newInstance()),

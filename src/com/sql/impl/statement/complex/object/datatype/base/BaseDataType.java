@@ -29,7 +29,7 @@ public abstract class BaseDataType {
 		}
 		return precision;
 	}
-
+	
 	public abstract String dataTypeName();
 	protected abstract int maxLength();
 	

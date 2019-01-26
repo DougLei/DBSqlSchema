@@ -43,7 +43,11 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 					if(parameter.isBaseType()){
 						sb.append(parameter.getBaseDataType());
 						if(parameter.getLength() > 0){
-							sb.append("(").append(parameter.getLength()).append(")");
+							sb.append("(").append(parameter.getLength());
+							if(parameter.getPrecision() > -1){
+								sb.append(", ").append(parameter.getPrecision());
+							}
+							sb.append(")");
 						}
 						if(StrUtils.notEmpty(parameter.getDefaultValue())){
 							sb.append("=").append(parameter.getDefaultValue());
@@ -83,7 +87,11 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 					if(declare.isBaseType()){
 						sb.append(declare.getBaseDataType());
 						if(declare.getLength() > 0){
-							sb.append("(").append(declare.getLength()).append(")");
+							sb.append("(").append(declare.getLength());
+							if(declare.getPrecision() > -1){
+								sb.append(", ").append(declare.getPrecision());
+							}
+							sb.append(")");
 						}
 						if(StrUtils.notEmpty(declare.getDefaultValue())){
 							sb.append(" =").append(declare.getDefaultValue());

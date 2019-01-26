@@ -83,7 +83,11 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 						sb.append(declare.getName()).append(" ");
 						sb.append(declare.getBaseDataType());
 						if(declare.getLength() > 0){
-							sb.append("(").append(declare.getLength()).append(")");
+							sb.append("(").append(declare.getLength());
+							if(declare.getPrecision() > -1){
+								sb.append(", ").append(declare.getPrecision());
+							}
+							sb.append(")");
 						}
 						if(StrUtils.notEmpty(declare.getDefaultValue())){
 							sb.append(" :=").append(declare.getDefaultValue());

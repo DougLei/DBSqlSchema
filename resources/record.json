@@ -3,6 +3,7 @@
 	"name":"name",
 	"dataType":"varchar",
 	"length":20,
+	"precision":0,
 	"defaultValue":""
 }
 
@@ -17,7 +18,8 @@
 			{
 				"name":"name",
 				"dataType":"varchar",
-				"length":20
+				"length":20,
+				"precision":0
 			}
 		]
 	}
@@ -35,7 +37,8 @@
 			{
 				"name":"name",
 				"dataType":"varchar",
-				"length":20
+				"length":20,
+				"precision":0
 			}
 		]
 	}

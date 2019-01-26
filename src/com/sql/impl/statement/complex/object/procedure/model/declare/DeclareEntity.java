@@ -12,10 +12,11 @@ public class DeclareEntity extends AbstractDataType{
 	private String name;
 	private String defaultValue;
 	
-	public DeclareEntity(String name, String dataType, int length, String defaultValue) {
+	public DeclareEntity(String name, String dataType, int length, Object precision, String defaultValue) {
 		this.name = name;
 		setDataType(dataType);
-		this.length = length;
+		setLength(length);
+		setPrecision(precision);
 		this.defaultValue = defaultValue;
 	}
 	

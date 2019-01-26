@@ -2,6 +2,7 @@ package com.sql.impl.statement.complex.object.procedure.model;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.complex.object.datatype.DataType;
+import com.sql.util.StrUtils;
 
 /**
  * 
@@ -11,8 +12,20 @@ public abstract class AbstractDataType {
 	private DataType dataType;
 	private JSONObject customJson;
 	
-	protected int length;
+	private int length;
+	private int precision;
 	
+	protected void setLength(int length) {
+		this.length = length;
+	}
+	protected void setPrecision(Object precision) {
+		if(StrUtils.isEmpty(precision)){
+			precision = -1;
+		}else{
+			this.precision = Integer.valueOf(precision.toString());
+		}
+	}
+
 	protected void setDataType(String dataType){
 		this.dataType = DataType.toValue(dataType);
 	}
@@ -24,7 +37,10 @@ public abstract class AbstractDataType {
 	public int getLength() {
 		return dataType.calcLength(length);
 	}
-	
+	public int getPrecision() {
+		return dataType.calcPrecision(precision);
+	}
+
 	/**是否是基础类型*/
 	public boolean isBaseType(){ 
 		return dataType.isBaseType();

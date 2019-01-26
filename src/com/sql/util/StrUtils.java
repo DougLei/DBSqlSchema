@@ -46,6 +46,18 @@ public class StrUtils {
 		return false;
 	}
 	
+	/**
+	 * 是否不为空
+	 * @param object
+	 * @return
+	 */
+	public static boolean notEmpty(Object object){
+		if(object != null && !"".equals(object.toString().trim())){
+			return true;
+		}
+		return false;
+	}
+	
 	// --------------------------------------------------------------------------------------------------
 	/**
 	 * 根据byte数组，获取字符串内容

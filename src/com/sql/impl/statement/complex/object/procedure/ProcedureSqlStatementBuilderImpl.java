@@ -106,7 +106,7 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 			ParameterEntity parameter = null;
 			for(int i=0;i<array.size();i++){
 				json = array.getJSONObject(i);
-				parameter = new ParameterEntity(json.getString("name"), json.getString("dataType"), json.getIntValue("length"), json.getString("inOut"), json.getString("defaultValue"));
+				parameter = new ParameterEntity(json.getString("name"), json.getString("dataType"), json.getIntValue("length"), json.get("precision"), json.getString("inOut"), json.getString("defaultValue"));
 				if(!parameter.isBaseType()){
 					parameter.setCustomJson(json.getJSONObject("custom"));
 				}
@@ -135,7 +135,7 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 			DeclareEntity declare = null;
 			for(int i=0;i<array.size();i++){
 				json = array.getJSONObject(i);
-				declare = new DeclareEntity(json.getString("name"), json.getString("dataType"), json.getIntValue("length"), json.getString("defaultValue"));
+				declare = new DeclareEntity(json.getString("name"), json.getString("dataType"), json.getIntValue("length"), json.get("precision"), json.getString("defaultValue"));
 				if(!declare.isBaseType()){
 					declare.setCustomJson(json.getJSONObject("custom"));
 				}
