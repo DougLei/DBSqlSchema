@@ -12,7 +12,13 @@ import com.sql.statement.complex.object.procedure.model.step.entityfactory.StepE
  * @author DougLei
  */
 public enum StepType {
-	SQL("sql", SqlStepEntityFactory.newInstance());
+	SQL("sql", SqlStepEntityFactory.newInstance())
+//	SET_VALUE(),
+//	IF(),
+//	IF_ELSE(),
+//	FOR(),
+//	WHILE(),
+	;
 	
 	private String type;
 	private StepEntityFactory factory;
