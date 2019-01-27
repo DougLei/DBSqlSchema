@@ -34,7 +34,7 @@ public class SqlStepEntity extends AbstractStepEntity {
 		if(list != null && list.size() > 0){
 			StringBuilder sb = new StringBuilder(list.size()*500);
 			for (SqlEntity se : list) {
-				sb.append(se.getSqlStatement()).append(newline());
+				sb.append(se.getSqlStatement()).append(";").append(newline());
 			}
 			return sb.toString();
 		}
