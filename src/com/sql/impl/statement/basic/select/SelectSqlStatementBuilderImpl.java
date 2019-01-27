@@ -119,6 +119,7 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		TableImpl table = new TableImpl();
 		table.setTableType(json.getString("type"));
 		table.setName(json.getString("name"));
+		table.setFunction(getFunction(json.getJSONObject("function")));
 		table.setSubSqlId(json.getString("subSqlId"));
 		table.setSubSqlJson(json.getJSONObject("subSqlJson"));
 		table.setAlias(json.getString("alias"));

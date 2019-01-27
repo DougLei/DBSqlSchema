@@ -14,8 +14,20 @@
 			}
 		],
 		"table":{
-			"type":"table",
+			"type":"function",
 			"name":"sys_user",
+			"function":{
+				"name":"f_split",
+				"parameters":[
+					{
+						"type":"value",
+						"value":"",
+						"sqlId":"",
+						"sqlJson":{
+						}
+					}
+				]
+			},
 			"subSqlId":"",
 			"subSqlJson":{
 

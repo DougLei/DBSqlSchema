@@ -5,6 +5,7 @@ import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.impl.statement.BasicModelImpl;
+import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.table.Table;
 import com.sql.statement.basic.model.table.TableType;
 import com.sql.util.StrUtils;
@@ -19,6 +20,8 @@ public class TableImpl extends BasicModelImpl implements Table {
 	private String alias;
 	private TableType tableType;
 	
+	private Function function;
+	
 	private String subSqlId;
 	private JSONObject subSqlJson;
 	
@@ -26,6 +29,8 @@ public class TableImpl extends BasicModelImpl implements Table {
 		String sqlStatement = null;
 		if(tableType == TableType.TABLE){
 			sqlStatement = name;
+		}else if(tableType == TableType.FUNCTION){
+			sqlStatement = function.getSqlStatement();
 		}else if(tableType == TableType.SUB_QUERY){
 			sqlStatement = "( ";
 			if(StrUtils.notEmpty(subSqlId)){
@@ -57,5 +62,8 @@ public class TableImpl extends BasicModelImpl implements Table {
 	}
 	public void setTableType(String tableType) {
 		this.tableType = TableType.toValue(tableType);
+	}
+	public void setFunction(Function function) {
+		this.function = function;
 	}
 }

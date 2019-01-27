@@ -8,6 +8,7 @@ import java.util.Arrays;
  */
 public enum TableType {
 	TABLE("table"), // 表
+	FUNCTION("function"), // 函数
 	SUB_QUERY("sub_query"); // 子查询
 	
 	private String type;
