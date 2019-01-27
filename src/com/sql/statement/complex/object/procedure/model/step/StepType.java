@@ -34,7 +34,7 @@ public enum StepType {
 	}
 
 	public StepEntity buildStepEntity(Step step, JSONObject content) {
-		StepEntity stepEntity = factory.buildEntity(content);
+		StepEntity stepEntity = factory.buildEntity(content.getJSONArray("content"));
 		stepEntity.setStepId(step.getId());
 		stepEntity.setDesc(step.getDesc());
 		return stepEntity;

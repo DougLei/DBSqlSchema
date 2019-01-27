@@ -12,13 +12,6 @@ public interface Step extends BasicModel{
 	String getId();
 	
 	/**
-	 * 设置step类型
-	 * @param stepIndex
-	 * @param type
-	 */
-	void setType(int stepIndex, Object type);
-
-	/**
 	 * 设置step的json内容
 	 * @param stepIndex
 	 * @param json
@@ -26,5 +19,4 @@ public interface Step extends BasicModel{
 	void setJson(int stepIndex, JSONObject json);
 	
 	String getDesc();
-	void setDesc(Object desc);
 }

@@ -91,35 +91,13 @@
 			"id":"step1",
 			"type":"sql",
 			"desc":"给表中插入一条数据",
-			"sql":[
+			"content":[
 				{
-					"name":"",
-					"dataType":"",
-					"length":20,
-					"column":[
-						{
-							"name":"",
-							"dataType":"",
-							"length":20
-						}
-					]
+					"sqlId":"",
+					"sqlJson":{
+					}
 				}
 			]
-		},
-
-
-		
-
-
-
-
-
-
-
-		"sql":{
-			"sqlId":"",
-			"sqlJson":{
-			}
 		}
 	}
 }

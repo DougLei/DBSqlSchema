@@ -29,21 +29,6 @@ public class StepImpl extends BasicModelImpl implements Step {
 		return stepEntity.getSqlStatement();
 	}
 
-	public void setType(int stepIndex, Object type) {
-		if(StrUtils.isEmpty(type)){
-			throw new NullPointerException("[step"+stepIndex+"] 的type属性值不能为空");
-		}
-		this.type = StepType.toValue(type.toString());
-	}
-
-	public void setDesc(Object desc) {
-		if(StrUtils.isEmpty(desc)){
-			this.desc = "";
-		}else{
-			this.desc = desc.toString().trim();
-		}
-	}
-
 	public void setJson(int stepIndex, JSONObject json) {
 		if(id == null){
 			Object id = null;
@@ -70,6 +55,21 @@ public class StepImpl extends BasicModelImpl implements Step {
 		if(stepEntity != null){
 			type = stepEntity.getStepType();
 			desc = stepEntity.getDesc();
+		}
+	}
+	
+	private void setType(int stepIndex, Object type) {
+		if(StrUtils.isEmpty(type)){
+			throw new NullPointerException("[step"+stepIndex+"] 的type属性值不能为空");
+		}
+		this.type = StepType.toValue(type.toString());
+	}
+
+	private void setDesc(Object desc) {
+		if(StrUtils.isEmpty(desc)){
+			this.desc = "";
+		}else{
+			this.desc = desc.toString().trim();
 		}
 	}
 }

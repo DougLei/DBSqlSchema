@@ -23,4 +23,8 @@ public abstract class AbstractStepEntity implements StepEntity {
 	public String getDesc() {
 		return desc;
 	}
+	
+	protected static final char newline(){
+		return '\n';
+	}
 }
