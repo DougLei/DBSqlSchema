@@ -3,7 +3,6 @@ package com.sql.impl.statement.complex.object.procedure;
 import java.util.List;
 
 import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
-import com.sql.impl.statement.complex.object.procedure.model.param.InOut;
 import com.sql.impl.statement.complex.object.procedure.model.param.ParameterEntity;
 import com.sql.util.StrUtils;
 
@@ -34,10 +33,10 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 				parameter = parameterEntityList.get(i);
 				if(parameter.isSupportAppendCustomSqlStatement()){
 					sb.append(parameter.getName()).append(" ");
-					if(parameter.getInOut() == InOut.IN){
+					if(parameter.isIN()){
 						sb.append("in ");
 						isInputParameter = true;
-					}else if(parameter.getInOut() == InOut.OUT){
+					}else if(parameter.isOUT()){
 						sb.append("out ");
 						isInputParameter = false;
 					}else{

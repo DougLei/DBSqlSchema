@@ -46,4 +46,32 @@ public class ParameterEntity extends AbstractDataType{
 		}
 		super.setCustomJson(customJson);
 	}
+	
+	/**
+	 * 
+	 * @author DougLei
+	 */
+	private enum InOut {
+		IN,
+		OUT,
+		INOUT;
+		
+		static InOut toValue(String str){
+			try {
+				return InOut.valueOf(str.trim().toUpperCase());
+			} catch (Exception e) {
+				throw new IllegalArgumentException("值[\""+str+"\"]错误，目前支持的值包括：[in, out, inout]");
+			}
+		}
+	}
+	
+	public boolean isIN(){
+		return inOut == InOut.IN;
+	}
+	public boolean isOUT(){
+		return inOut == InOut.OUT;
+	}
+	public boolean isIN_OUT(){
+		return inOut == InOut.INOUT;
+	}
 }
