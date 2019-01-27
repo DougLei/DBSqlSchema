@@ -14,18 +14,34 @@ import com.sql.util.StrUtils;
 public class StepImpl extends BasicModelImpl implements Step {
 	private String id;
 	private StepType type;
+	private String desc;
 	private StepEntity stepEntity;
 	
 	public String getId() {
 		return id;
 	}
 	
+	public String getDesc() {
+		return desc;
+	}
+
 	protected String processSqlStatement() {
 		return stepEntity.getSqlStatement();
 	}
 
-	public void setType(String type) {
-		this.type = StepType.toValue(type);
+	public void setType(int stepIndex, Object type) {
+		if(StrUtils.isEmpty(type)){
+			throw new NullPointerException("[step"+stepIndex+"] 的type属性值不能为空");
+		}
+		this.type = StepType.toValue(type.toString());
+	}
+
+	public void setDesc(Object desc) {
+		if(StrUtils.isEmpty(desc)){
+			this.desc = "";
+		}else{
+			this.desc = desc.toString().trim();
+		}
 	}
 
 	public void setJson(int stepIndex, JSONObject json) {
@@ -37,14 +53,13 @@ public class StepImpl extends BasicModelImpl implements Step {
 			setId(id.toString().trim());
 		}
 		if(type == null){
-			Object type = null;
-			if(StrUtils.isEmpty((type = json.remove("type")))){
-				throw new NullPointerException("[step"+stepIndex+"] 的type属性值不能为空");
-			}
-			setType(type.toString());
+			setType(stepIndex, json.remove("type"));
+		}
+		if(desc == null){
+			setDesc(json.remove("desc"));
 		}
 		if(stepEntity == null){
-			stepEntity = type.buildStepEntity(id, json);
+			stepEntity = type.buildStepEntity(this, json);
 			StepContext.putStepEntityCache(stepEntity);
 		}
 	}
@@ -54,6 +69,7 @@ public class StepImpl extends BasicModelImpl implements Step {
 		stepEntity = StepContext.getStepEntity(id);
 		if(stepEntity != null){
 			type = stepEntity.getStepType();
+			desc = stepEntity.getDesc();
 		}
 	}
 }

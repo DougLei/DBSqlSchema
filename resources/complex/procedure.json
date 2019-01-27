@@ -89,8 +89,9 @@
 
 		"step1":{
 			"id":"step1",
-			"type":"xxx",
-			"xxx":[
+			"type":"sql",
+			"desc":"给表中插入一条数据",
+			"sql":[
 				{
 					"name":"",
 					"dataType":"",
