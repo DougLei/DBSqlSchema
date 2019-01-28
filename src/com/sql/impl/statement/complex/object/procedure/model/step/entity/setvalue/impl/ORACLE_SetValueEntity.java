@@ -29,6 +29,6 @@ public class ORACLE_SetValueEntity extends SetValueEntity {
 			infoBuilder.setJson(selectSqlJson);
 			sb.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
 		}
-		return "select "+paramName+" into" + sb.substring(6);
+		return "select "+paramName+" :=" + sb.substring(6);
 	}
 }

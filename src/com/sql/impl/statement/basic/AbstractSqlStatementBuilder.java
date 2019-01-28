@@ -212,7 +212,7 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 						
 						json = json.getJSONObject("value");
 						if(json == null || json.size() == 0){
-							throw new DBSqlSchemaException("where 子句中，value属性不能为空");
+							throw new DBSqlSchemaException("having 子句中，value属性不能为空");
 						}
 						value = new ValueImpl();
 						value.setType(json.getString("type"));
