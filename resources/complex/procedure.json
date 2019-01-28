@@ -109,6 +109,7 @@
 					"paramName":"",
 
 					"value":"",
+
 					"valueFunction":{
 						"name":"",
 						"parameters":[
@@ -120,6 +121,10 @@
 								}
 							}
 						]
+					},
+
+					"selectSqlId":"",
+					"selectSqlJson":{
 					}
 				}
 			]

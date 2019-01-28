@@ -29,8 +29,6 @@ public class FunctionImpl extends BasicModelImpl implements Function {
 		this.name = name;
 		this.parameters = parameters;
 	}
-	private FunctionImpl() {
-	}
 
 	protected String processSqlStatement() {
 		StringBuilder function = new StringBuilder(200);
