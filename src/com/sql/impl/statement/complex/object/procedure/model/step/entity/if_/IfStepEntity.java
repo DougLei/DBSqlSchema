@@ -9,6 +9,8 @@ import com.sql.statement.complex.object.procedure.model.step.StepType;
  */
 public class IfStepEntity extends AbstractStepEntity {
 
+	
+	
 	public StepType getStepType() {
 		return StepType.IF;
 	}

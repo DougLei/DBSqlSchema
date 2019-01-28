@@ -17,11 +17,11 @@ public class SqlStepEntityFactory implements StepEntityFactory {
 		return factory;
 	}
 	
-	public StepEntity buildEntity(JSONArray array) {
+	public StepEntity buildEntity(JSONObject stepContent, JSONArray content) {
 		SqlStepEntity sqlStepEntity = new SqlStepEntity();
 		JSONObject json = null;
-		for(int i=0;i<array.size();i++){
-			json = array.getJSONObject(i);
+		for(int i=0;i<content.size();i++){
+			json = content.getJSONObject(i);
 			sqlStepEntity.addSql(json.getString("sqlId"), json.getJSONObject("sqlJson"));
 		}
 		return sqlStepEntity;

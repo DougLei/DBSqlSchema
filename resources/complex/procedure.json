@@ -133,6 +133,42 @@
 			"id":"step3",
 			"type":"if",
 			"desc":"判断",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"left":"nike_name",
+							"leftType":"value",
+							"leftFunction":{
+								"name":"",
+								"parameters":[
+									{
+										"type":"value",
+										"value":"",
+										"sqlId":"",
+										"sqlJson":{
+										}
+									}
+								]
+							},
+
+
+
+							"operator":"eq",
+
+
+							"right":"1",
+
+
+
+
+
+							"nextLogicOperator":"and"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			],
 			"content":[
 				{
 					

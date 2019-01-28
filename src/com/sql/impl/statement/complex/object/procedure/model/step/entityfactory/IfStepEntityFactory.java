@@ -1,6 +1,8 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entityfactory;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.if_.IfStepEntity;
 import com.sql.statement.complex.object.procedure.model.step.entity.StepEntity;
 import com.sql.statement.complex.object.procedure.model.step.entityfactory.StepEntityFactory;
 
@@ -15,10 +17,10 @@ public class IfStepEntityFactory implements StepEntityFactory {
 		return factory;
 	}
 	
-	public StepEntity buildEntity(JSONArray array) {
+	public StepEntity buildEntity(JSONObject stepContent, JSONArray content) {
+		IfStepEntity ifStepEntity = new IfStepEntity();
 		
 		
-		
-		return null;
+		return ifStepEntity;
 	}
 }
