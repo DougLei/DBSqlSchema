@@ -4,13 +4,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.SqlStatementInfoBuilderImpl;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractEntity;
 import com.sql.util.StrUtils;
 
 /**
  * 
  * @author DougLei
  */
-public class SqlEntity {
+public class SqlEntity extends AbstractEntity{
 	private String sqlId;
 	private JSONObject sqlJson;
 	

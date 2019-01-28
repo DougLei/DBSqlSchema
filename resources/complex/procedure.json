@@ -90,11 +90,36 @@
 		"step1":{
 			"id":"step1",
 			"type":"sql",
-			"desc":"给表中插入一条数据",
+			"desc":"各种sql语句",
 			"content":[
 				{
 					"sqlId":"",
 					"sqlJson":{
+					}
+				}
+			]
+		},
+		"step2":{
+			"id":"step2",
+			"type":"set_value",
+			"desc":"给参数赋值",
+			"content":[
+				{
+					"type":"value",
+					"paramName":"",
+
+					"value":"",
+					"valueFunction":{
+						"name":"",
+						"parameters":[
+							{
+								"type":"value",
+								"value":"",
+								"sqlId":"",
+								"sqlJson":{
+								}
+							}
+						]
 					}
 				}
 			]
