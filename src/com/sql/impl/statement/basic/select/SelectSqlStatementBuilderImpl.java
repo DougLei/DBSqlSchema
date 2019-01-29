@@ -9,7 +9,6 @@ import com.sql.impl.statement.basic.AbstractSqlStatementBuilder;
 import com.sql.impl.statement.basic.model.resultset.ResultSetImpl;
 import com.sql.impl.statement.basic.model.table.TableImpl;
 import com.sql.statement.basic.model.groupby.GroupBy;
-import com.sql.statement.basic.model.having.HavingGroup;
 import com.sql.statement.basic.model.join.Join;
 import com.sql.statement.basic.model.orderby.OrderBy;
 import com.sql.statement.basic.model.resultset.ResultSet;
@@ -65,17 +64,7 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		}
 		
 		// having
-		List<HavingGroup> havingGroupList = getHavingGroupList();
-		if(havingGroupList != null && havingGroupList.size() > 0){
-			selectSqlStatement.append("having ");
-			for(int i=0;i<havingGroupList.size();i++){
-				selectSqlStatement.append(havingGroupList.get(i).getSqlStatement());
-				if(i < havingGroupList.size()-1){
-					selectSqlStatement.append(", ");
-				}
-			}
-			selectSqlStatement.append(newline());
-		}
+		selectSqlStatement.append(getHavingSqlStatement());
 		
 		// order by
 		OrderBy orderBy = getOrderBy();

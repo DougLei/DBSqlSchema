@@ -9,8 +9,6 @@ import com.sql.exception.DBSqlSchemaException;
 import com.sql.impl.SqlStatementBuilderImpl;
 import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.impl.statement.basic.model.groupby.GroupByImpl;
-import com.sql.impl.statement.basic.model.having.HavingGroupImpl;
-import com.sql.impl.statement.basic.model.having.HavingImpl;
 import com.sql.impl.statement.basic.model.join.JoinImpl;
 import com.sql.impl.statement.basic.model.join.OnGroupImpl;
 import com.sql.impl.statement.basic.model.join.OnImpl;
@@ -20,7 +18,6 @@ import com.sql.impl.statement.basic.model.where.WhereGroupImpl;
 import com.sql.impl.statement.basic.model.where.WhereImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.groupby.GroupBy;
-import com.sql.statement.basic.model.having.HavingGroup;
 import com.sql.statement.basic.model.join.Join;
 import com.sql.statement.basic.model.orderby.OrderBy;
 import com.sql.statement.basic.model.where.WhereGroup;
@@ -59,6 +56,7 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 		return null;
 	}
 	
+	// ------------------------------------------------
 	public List<Join> getJoinList() {
 		JSONArray jsonarray = content.getJSONArray("join");
 		if(jsonarray != null && jsonarray.size() > 0){
@@ -110,12 +108,61 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 		return null;
 	}
 
+	// ------------------------------------------------
 	public String getWhereSqlStatement(){
+		return getWhereSqlStatement("where", getWhereGroupList());
+	}
+	private List<WhereGroup> getWhereGroupList() {
+		return getWhereGroupList("where", "whereGroup");
+	}
+	
+	// ------------------------------------------------
+
+	public GroupBy getGroupBy() {
+		JSONArray jsonarray = content.getJSONArray("groupBy");
+		if(jsonarray != null && jsonarray.size() > 0){
+			GroupByImpl groupBy = new GroupByImpl();
+			
+			JSONObject json = null;
+			for(int i=0;i<jsonarray.size();i++){
+				json = jsonarray.getJSONObject(i);
+				groupBy.addGroupByColumn(json.getString("columnName"), getFunction(json.getJSONObject("columnFunction")));
+			}
+			return groupBy;
+		}
+		return null;
+	}
+
+	// ------------------------------------------------
+	public String getHavingSqlStatement(){
+		return getWhereSqlStatement("having", getHavingGroupList());
+	}
+	private List<WhereGroup> getHavingGroupList() {
+		return getWhereGroupList("having", "havingGroup");
+	}
+
+	// ------------------------------------------------
+	public OrderBy getOrderBy() {
+		JSONArray jsonarray = content.getJSONArray("orderBy");
+		if(jsonarray != null && jsonarray.size() > 0){
+			OrderByImpl orderBy = new OrderByImpl();
+			
+			JSONObject json = null;
+			for(int i=0;i<jsonarray.size();i++){
+				json = jsonarray.getJSONObject(i);
+				orderBy.addOrderByColumn(json.getString("columnName"), getFunction(json.getJSONObject("columnFunction")), json.getString("sort"));
+			}
+			return orderBy;
+		}
+		return null;
+	}
+	
+	// ------------------------------------------------
+	private String getWhereSqlStatement(String keyword, List<WhereGroup> whereGroupList){
 		StringBuilder where = new StringBuilder(3000);
-		List<WhereGroup> whereGroupList = getWhereGroupList();
 		if(whereGroupList != null && whereGroupList.size() > 0){
 			where.append(newline());
-			where.append("where ");
+			where.append(keyword).append(" ");
 			for (WhereGroup whereGroup : whereGroupList) {
 				where.append(whereGroup.getSqlStatement());
 			}
@@ -123,8 +170,8 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 		}
 		return where.toString();
 	}
-	private List<WhereGroup> getWhereGroupList() {
-		JSONArray jsonarray = content.getJSONArray("where");
+	private List<WhereGroup> getWhereGroupList(String name, String groupName) {
+		JSONArray jsonarray = content.getJSONArray(name);
 		if(jsonarray != null && jsonarray.size() > 0){
 			List<WhereGroup> whereGroupList = new ArrayList<WhereGroup>(jsonarray.size());
 			
@@ -138,7 +185,7 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 				whereGroup = new WhereGroupImpl();
 				whereGroup.setNextLogicOperator(json.getString("nextLogicOperator"));
 				
-				wheres = json.getJSONArray("whereGroup");
+				wheres = json.getJSONArray(groupName);
 				if(wheres != null && wheres.size() > 0){
 					for(int j=0;j<wheres.size();j++){
 						json = wheres.getJSONObject(j);
@@ -166,83 +213,6 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 				whereGroupList.add(whereGroup);
 			}
 			return whereGroupList;
-		}
-		return null;
-	}
-	
-	public GroupBy getGroupBy() {
-		JSONArray jsonarray = content.getJSONArray("groupBy");
-		if(jsonarray != null && jsonarray.size() > 0){
-			GroupByImpl groupBy = new GroupByImpl();
-			
-			JSONObject json = null;
-			for(int i=0;i<jsonarray.size();i++){
-				json = jsonarray.getJSONObject(i);
-				groupBy.addGroupByColumn(json.getString("columnName"), getFunction(json.getJSONObject("columnFunction")));
-			}
-			return groupBy;
-		}
-		return null;
-	}
-
-	public List<HavingGroup> getHavingGroupList() {
-		JSONArray jsonarray = content.getJSONArray("having");
-		if(jsonarray != null && jsonarray.size() > 0){
-			List<HavingGroup> havingGroupList = new ArrayList<HavingGroup>(jsonarray.size());
-			
-			JSONObject json = null;
-			HavingGroupImpl havingGroup = null;
-			JSONArray wheres = null;
-			HavingImpl having = null;
-			ValueImpl value = null;
-			for(int i=0;i<jsonarray.size();i++){
-				json = jsonarray.getJSONObject(i);
-				havingGroup = new HavingGroupImpl();
-				havingGroup.setNextLogicOperator(json.getString("nextLogicOperator"));
-				
-				wheres = json.getJSONArray("havingGroup");
-				if(wheres != null && wheres.size() > 0){
-					for(int j=0;j<wheres.size();j++){
-						json = wheres.getJSONObject(j);
-						having = new HavingImpl();
-						having.setColumnName(json.getString("columnName"));
-						having.setColumnFunction(getFunction(json.getJSONObject("columnFunction")));
-						having.setDataOperator(json.getString("operator"));
-						having.setNextLogicOperator(json.getString("nextLogicOperator"));
-						
-						json = json.getJSONObject("value");
-						if(json == null || json.size() == 0){
-							throw new DBSqlSchemaException("having 子句中，value属性不能为空");
-						}
-						value = new ValueImpl();
-						value.setType(json.getString("type"));
-						value.setSubSqlId(json.getString("subSqlId"));
-						value.setSubSqlJson(json.getJSONObject("subSqlJson"));
-						value.setValueArray(json.getJSONArray("value"));
-						value.setValueFunctionArray(json.getJSONArray("valueFunction"));
-						
-						having.setValue(value);
-						havingGroup.addHaving(having);
-					}
-				}
-				havingGroupList.add(havingGroup);
-			}
-			return havingGroupList;
-		}
-		return null;
-	}
-
-	public OrderBy getOrderBy() {
-		JSONArray jsonarray = content.getJSONArray("orderBy");
-		if(jsonarray != null && jsonarray.size() > 0){
-			OrderByImpl orderBy = new OrderByImpl();
-			
-			JSONObject json = null;
-			for(int i=0;i<jsonarray.size();i++){
-				json = jsonarray.getJSONObject(i);
-				orderBy.addOrderByColumn(json.getString("columnName"), getFunction(json.getJSONObject("columnFunction")), json.getString("sort"));
-			}
-			return orderBy;
 		}
 		return null;
 	}
