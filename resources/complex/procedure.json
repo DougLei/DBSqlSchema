@@ -137,8 +137,12 @@
 				{
 					"conditionGroup":[
 						{
-							"left":"nike_name",
-							"leftType":"value",
+							"leftType":"value/parameter/function",
+
+							"leftValue":"",
+
+							"leftParamName":"nike_name",
+
 							"leftFunction":{
 								"name":"",
 								"parameters":[
@@ -157,7 +161,7 @@
 							"operator":"eq",
 
 
-							"right":"1",
+							
 
 
 
@@ -171,7 +175,8 @@
 			],
 			"content":[
 				{
-					
+					"stepJson":{
+					}
 				}
 			]
 		}

@@ -19,8 +19,13 @@ public class IfStepEntityFactory implements StepEntityFactory {
 	
 	public StepEntity buildEntity(JSONObject stepContent, JSONArray content) {
 		IfStepEntity ifStepEntity = new IfStepEntity();
+		ifStepEntity.setCondition(stepContent.getJSONArray("condition"));
 		
-		
+		JSONObject json = null;
+		for(int i=0;i<content.size();i++){
+			json = content.getJSONObject(i);
+			ifStepEntity.addStep(json.getJSONObject("stepJson"));
+		}
 		return ifStepEntity;
 	}
 }
