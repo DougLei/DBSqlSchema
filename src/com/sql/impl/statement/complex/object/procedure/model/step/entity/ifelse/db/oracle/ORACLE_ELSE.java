@@ -3,24 +3,24 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse
 import java.util.List;
 
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.condition.ConditionGroup;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.DBElseEntity;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.DBIfEntity;
 
 /**
  * 
  * @author DougLei
  */
-public class ORACLE_ELSE extends DBElseEntity{
+public class ORACLE_ELSE extends DBIfEntity{
 	
 	public ORACLE_ELSE(List<ConditionGroup> groupList) {
-		super(groupList);
+		super(groupList, false);
 	}
 
-	public String getSqlStatement(String sqlStatement) {
+	public String getSqlStatement(boolean isEnd, String sqlStatement) {
 		StringBuilder sb = new StringBuilder(sqlStatement.length() + conditionSqlStatement.length() + 100);
-		sb.append("if ").append(conditionSqlStatement).append(" then").append(newline());
+		sb.append("else ").append(conditionSqlStatement).append(newline());
 		sb.append("begin").append(newline());
 		sb.append(sqlStatement).append(newline());
-		sb.append("end if;");
+		sb.append("end if;").append(newline());
 		return sb.toString();
 	}
 }

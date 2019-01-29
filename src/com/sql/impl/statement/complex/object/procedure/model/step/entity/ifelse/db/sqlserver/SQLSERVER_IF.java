@@ -12,10 +12,10 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.
 public class SQLSERVER_IF extends DBIfEntity{
 
 	public SQLSERVER_IF(List<ConditionGroup> groupList) {
-		super(groupList);
+		super(groupList, true);
 	}
 
-	public String getSqlStatement(String sqlStatement) {
+	public String getSqlStatement(boolean isEnd, String sqlStatement) {
 		StringBuilder sb = new StringBuilder(sqlStatement.length() + conditionSqlStatement.length() + 100);
 		sb.append("if ").append(conditionSqlStatement).append(newline());
 		sb.append("begin").append(newline());

@@ -43,9 +43,6 @@ public class IfEntity {
 				}
 			}
 		}
-		if(groupList == null || groupList.size() == 0){
-			throw new NullPointerException("if语句的条件不能为空");
-		}
 	}
 	
 	private void processContent(JSONArray content) {
@@ -59,11 +56,15 @@ public class IfEntity {
 		}
 	}
 
-	public List<ConditionGroup> getGroupList() {
+	public List<ConditionGroup> getConditionGroupList() {
 		return groupList;
 	}
 
 	public String getContent() {
-		return null;
+		StringBuilder sb = new StringBuilder(stepList.size()*500);
+		for(Step s: stepList){
+			sb.append(s.getSqlStatement());
+		}
+		return sb.toString();
 	}
 }

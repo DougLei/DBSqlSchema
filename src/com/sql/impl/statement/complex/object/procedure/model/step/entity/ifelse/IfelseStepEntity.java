@@ -7,9 +7,7 @@ import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractStepEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.condition.ConditionGroup;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.DBElseEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.DBIfEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.DBIfelseEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.oracle.ORACLE_ELSE;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.oracle.ORACLE_IF;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.oracle.ORACLE_IFELSE;
@@ -30,11 +28,20 @@ public class IfelseStepEntity extends AbstractStepEntity {
 		return StepType.IF_ELSE;
 	}
 
+	/**
+	 * 标识if-else语句是否结束
+	 * @param ifEntityList
+	 * @return
+	 */
+	private boolean isEnd(){
+		return ifEntityList.size() == 0;
+	}
+	
 	public String getSqlStatement() {
 		StringBuilder sb = new StringBuilder(5000);
 		
 		IfEntity if1 = ifEntityList.remove(0);
-		sb.append(getDBIfEntity(if1.getGroupList()).getSqlStatement(if1.getContent()));
+		sb.append(getIFEntity(if1.getConditionGroupList()).getSqlStatement(isEnd(), if1.getContent()));
 		
 		IfEntity ifelse = null;
 		for (int i = 0; i < ifEntityList.size(); i++) {
@@ -42,42 +49,51 @@ public class IfelseStepEntity extends AbstractStepEntity {
 				break;
 			}
 			ifelse = ifEntityList.remove(i);
-			sb.append(getDBIfelseEntity(ifelse.getGroupList()).getSqlStatement(ifelse.getContent()));
+			sb.append(getELSEIFEntity(ifelse.getConditionGroupList()).getSqlStatement(false, ifelse.getContent()));
 			i--;
 		}
 		
-		IfEntity else1 = ifEntityList.remove(0);
-		sb.append(getDBElseEntity(else1.getGroupList()).getSqlStatement(else1.getContent()));
+		if(ifEntityList.size() > 0){
+			IfEntity else1 = ifEntityList.remove(0);
+			if(else1.getConditionGroupList() != null && else1.getConditionGroupList().size() > 0){
+				sb.append(getELSEIFEntity(else1.getConditionGroupList()).getSqlStatement(true, else1.getContent()));
+			}else{
+				sb.append(getELSEEntity(else1.getConditionGroupList()).getSqlStatement(true, else1.getContent()));
+			}
+		}
 		return sb.toString();
 	}
 	
-	private DBIfEntity getDBIfEntity(List<ConditionGroup> groupList) {
+	/** if */
+	private DBIfEntity getIFEntity(List<ConditionGroup> conditionGroupList) {
 		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
 		switch(dbType){
 			case SQLSERVER:
-				return new SQLSERVER_IF(groupList);
+				return new SQLSERVER_IF(conditionGroupList);
 			case ORACLE:
-				return new ORACLE_IF(groupList);
+				return new ORACLE_IF(conditionGroupList);
 		}
 		return null;
 	}
-	private DBIfelseEntity getDBIfelseEntity(List<ConditionGroup> groupList) {
+	/** else if */
+	private DBIfEntity getELSEIFEntity(List<ConditionGroup> conditionGroupList) {
 		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
 		switch(dbType){
 			case SQLSERVER:
-				return new SQLSERVER_IFELSE(groupList);
+				return new SQLSERVER_IFELSE(conditionGroupList);
 			case ORACLE:
-				return new ORACLE_IFELSE(groupList);
+				return new ORACLE_IFELSE(conditionGroupList);
 		}
 		return null;
 	}
-	private DBElseEntity getDBElseEntity(List<ConditionGroup> groupList) {
+	/** else */
+	private DBIfEntity getELSEEntity(List<ConditionGroup> conditionGroupList) {
 		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
 		switch(dbType){
 			case SQLSERVER:
-				return new SQLSERVER_ELSE(groupList);
+				return new SQLSERVER_ELSE(conditionGroupList);
 			case ORACLE:
-				return new ORACLE_ELSE(groupList);
+				return new ORACLE_ELSE(conditionGroupList);
 		}
 		return null;
 	}
