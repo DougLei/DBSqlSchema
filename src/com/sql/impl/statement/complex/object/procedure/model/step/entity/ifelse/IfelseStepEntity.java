@@ -98,7 +98,6 @@ public class IfelseStepEntity extends AbstractStepEntity {
 		return null;
 	}
 	
-
 	public void addIfEntity(IfEntity ifEntity) {
 		ifEntityList.add(ifEntity);
 	}
