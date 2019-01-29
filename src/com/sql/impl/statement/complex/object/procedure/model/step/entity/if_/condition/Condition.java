@@ -1,68 +1,56 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.if_.condition;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.impl.statement.BasicModelImpl;
+import com.sql.impl.statement.basic.model.function.FunctionImpl;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.if_.condition.parameter.Parameter;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.where.DataOperatorType;
 import com.sql.statement.basic.model.where.LogicOperatorType;
-import com.sql.statement.basic.model.where.Value;
-import com.sql.statement.basic.model.where.Where;
 
 /**
  * 
  * @author DougLei
  */
-public class Condition extends BasicModelImpl implements Where {
+public class Condition {
 
-	public Condition(JSONObject json){
-		// TODO 
-	}
-	
+	private Parameter leftParameter;
+	private Parameter rightParameter;
 	private LogicOperatorType nextLogicOperator;
 	private DataOperatorType dataOperator;
 	
-	private String columnName;
-	private Value value;
-	private Function columnFunction;
+	public String getSqlStatement() {
+		return leftParameter.getSqlStatement() + dataOperator.getSqlStatement() + rightParameter.getSqlStatement();
+	}
 	
-	public String getNextLogicOperator() {
-		return nextLogicOperator.getSqlStatement();
+	public Condition(JSONObject json){
+		setLeftParameter(json);
+		setRightParameter(json);
+		nextLogicOperator = LogicOperatorType.toValue(json.getString("nextLogicOperator"));
+		dataOperator = DataOperatorType.toValue(json.getString("operator"));
+	}
+	
+	private void setLeftParameter(JSONObject json) {
+		leftParameter = getParameter("left", json);
+	}
+	private void setRightParameter(JSONObject json) {
+		rightParameter = getParameter("right", json);
+	}
+	private Parameter getParameter(String str, JSONObject json){
+		Parameter parameter = new Parameter();
+		parameter.setType(json.getString(str+"Type"));
+		parameter.setValue(json.getString(str+"Value"));
+		parameter.setName(json.getString(str+"Name"));
+		parameter.setFunction(getFunction(json.getJSONObject(str+"Function")));
+		return parameter;
+	}
+	private Function getFunction(JSONObject function) {
+		if(function != null){
+			return FunctionImpl.newInstance(function.getString("name"), function.getJSONArray("parameters"));
+		}
+		return null;
 	}
 
-	protected String processSqlStatement() {
-		StringBuilder sb = new StringBuilder(100);
-		sb.append(processSqlStatement(columnFunction, columnName));
-		sb.append(" ");
-		sb.append(dataOperator.getSqlStatement(value.getSqlStatements()));
-		return sb.toString();
-	}
-	
-	private String processSqlStatement(Function function, String columnName){
-		String sqlStatement = null;
-		if(function != null){
-			sqlStatement = function.getSqlStatement();
-		}
-		if(sqlStatement == null){
-			sqlStatement = columnName;
-		}
-		return sqlStatement;
-	}
-	
-	public void setDataOperator(String dataOperator) {
-		this.dataOperator = DataOperatorType.toValue(dataOperator);
-	}
-	public void setNextLogicOperator(String nextLogicOperator) {
-		this.nextLogicOperator = LogicOperatorType.toValue(nextLogicOperator);
-	}
-	public void setColumnName(String columnName) {
-		this.columnName = columnName;
-	}
-	public void setValue(Value value) {
-		this.value = value;
-	}
-	public void setColumnFunction(Function function) {
-		if(columnFunction == null){
-			columnFunction = function;
-		}
+	public String getNextLogicOperator() {
+		return nextLogicOperator.getSqlStatement();
 	}
 }
