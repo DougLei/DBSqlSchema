@@ -1,8 +1,8 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.if_.condition;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.condition;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.basic.model.function.FunctionImpl;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.if_.condition.parameter.Parameter;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.condition.parameter.Parameter;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.where.DataOperatorType;
 import com.sql.statement.basic.model.where.LogicOperatorType;

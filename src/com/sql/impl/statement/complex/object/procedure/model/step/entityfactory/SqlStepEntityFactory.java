@@ -17,7 +17,8 @@ public class SqlStepEntityFactory implements StepEntityFactory {
 		return factory;
 	}
 	
-	public StepEntity buildEntity(JSONObject stepContent, JSONArray content) {
+	public StepEntity buildEntity(JSONObject stepContent) {
+		JSONArray content = stepContent.getJSONArray("content");
 		SqlStepEntity sqlStepEntity = new SqlStepEntity();
 		JSONObject json = null;
 		for(int i=0;i<content.size();i++){

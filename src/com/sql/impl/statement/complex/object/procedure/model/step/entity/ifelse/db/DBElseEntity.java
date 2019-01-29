@@ -1,17 +1,17 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.if_;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db;
 
 import java.util.List;
 
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.if_.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.condition.ConditionGroup;
 
 /**
  * 
  * @author DougLei
  */
-public abstract class DBIfEntity{
+public abstract class DBElseEntity{
 
 	protected String conditionSqlStatement;
-	public DBIfEntity(List<ConditionGroup> groupList) {
+	public DBElseEntity(List<ConditionGroup> groupList) {
 		StringBuilder sb = new StringBuilder();
 		
 		for(int i=0;i<groupList.size();i++){

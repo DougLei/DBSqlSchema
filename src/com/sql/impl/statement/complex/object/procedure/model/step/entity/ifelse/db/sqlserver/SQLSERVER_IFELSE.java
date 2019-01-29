@@ -1,17 +1,17 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.if_.impl;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.sqlserver;
 
 import java.util.List;
 
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.if_.DBIfEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.if_.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.DBIfelseEntity;
 
 /**
  * 
  * @author DougLei
  */
-public class SQLSERVER_IF extends DBIfEntity{
+public class SQLSERVER_IFELSE extends DBIfelseEntity{
 
-	public SQLSERVER_IF(List<ConditionGroup> groupList) {
+	public SQLSERVER_IFELSE(List<ConditionGroup> groupList) {
 		super(groupList);
 	}
 

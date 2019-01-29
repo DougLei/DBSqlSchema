@@ -1,4 +1,4 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.if_.condition.parameter;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.condition.parameter;
 
 import java.util.Arrays;
 

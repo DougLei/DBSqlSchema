@@ -1,17 +1,17 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.if_.impl;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.oracle;
 
 import java.util.List;
 
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.if_.DBIfEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.if_.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.DBIfelseEntity;
 
 /**
  * 
  * @author DougLei
  */
-public class ORACLE_IF extends DBIfEntity{
+public class ORACLE_IFELSE extends DBIfelseEntity{
 	
-	public ORACLE_IF(List<ConditionGroup> groupList) {
+	public ORACLE_IFELSE(List<ConditionGroup> groupList) {
 		super(groupList);
 	}
 

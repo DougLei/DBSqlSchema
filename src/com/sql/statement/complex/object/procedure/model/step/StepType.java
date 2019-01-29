@@ -3,7 +3,7 @@ package com.sql.statement.complex.object.procedure.model.step;
 import java.util.Arrays;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.IfStepEntityFactory;
+import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.IfelseStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.SetValueStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.SqlStepEntityFactory;
 import com.sql.statement.complex.object.procedure.model.step.entity.StepEntity;
@@ -16,8 +16,7 @@ import com.sql.statement.complex.object.procedure.model.step.entityfactory.StepE
 public enum StepType {
 	SQL(SqlStepEntityFactory.newInstance()),
 	SET_VALUE(SetValueStepEntityFactory.newInstance()),
-	IF(IfStepEntityFactory.newInstance()),
-//	IF_ELSE(),
+	IF_ELSE(IfelseStepEntityFactory.newInstance()),
 //	FOR(),
 //	WHILE(),
 	;
@@ -40,7 +39,7 @@ public enum StepType {
 	}
 
 	public StepEntity buildStepEntity(Step step, JSONObject stepContent) {
-		StepEntity stepEntity = factory.buildEntity(stepContent, stepContent.getJSONArray("content"));
+		StepEntity stepEntity = factory.buildEntity(stepContent);
 		stepEntity.setStepId(step.getId());
 		stepEntity.setDesc(step.getDesc());
 		return stepEntity;

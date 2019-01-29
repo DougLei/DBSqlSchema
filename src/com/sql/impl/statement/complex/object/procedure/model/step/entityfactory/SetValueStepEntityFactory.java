@@ -17,7 +17,8 @@ public class SetValueStepEntityFactory implements StepEntityFactory {
 		return factory;
 	}
 	
-	public StepEntity buildEntity(JSONObject stepContent, JSONArray content) {
+	public StepEntity buildEntity(JSONObject stepContent) {
+		JSONArray content = stepContent.getJSONArray("content");
 		SetValueStepEntity setValueStepEntity = new SetValueStepEntity();
 		for(int i=0;i<content.size();i++){
 			setValueStepEntity.addSetValueEntity(content.getJSONObject(i));
