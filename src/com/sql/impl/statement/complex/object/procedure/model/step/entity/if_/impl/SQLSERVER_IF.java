@@ -16,15 +16,11 @@ public class SQLSERVER_IF extends DBIfEntity{
 	}
 
 	public String getSqlStatement(String sqlStatement) {
-		StringBuilder sb = new StringBuilder(sqlStatement.length() + groupList.size() * 100);
-		// TODO 
-		
-		
-		
-		
-		
-		
-		
+		StringBuilder sb = new StringBuilder(sqlStatement.length() + conditionSqlStatement.length() + 100);
+		sb.append("if ").append(conditionSqlStatement).append(newline());
+		sb.append("begin").append(newline());
+		sb.append(sqlStatement).append(newline());
+		sb.append("end");
 		return sb.toString();
 	}
 }

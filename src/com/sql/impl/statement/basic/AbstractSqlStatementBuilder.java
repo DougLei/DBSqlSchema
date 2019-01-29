@@ -82,6 +82,7 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 						json = onGroups.getJSONObject(j);
 						onGroup = new OnGroupImpl();
 						onGroup.setNextLogicOperator(json.getString("nextLogicOperator"));
+						onGroup.setOnGroupCount(onGroups.size());
 						
 						ons = json.getJSONArray("onGroup");
 						if(ons != null && ons.size() > 0){
@@ -163,8 +164,11 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 		if(whereGroupList != null && whereGroupList.size() > 0){
 			where.append(newline());
 			where.append(keyword).append(" ");
-			for (WhereGroup whereGroup : whereGroupList) {
-				where.append(whereGroup.getSqlStatement());
+			for(int i=0;i<whereGroupList.size();i++){
+				where.append(whereGroupList.get(i).getSqlStatement());
+				if(i<whereGroupList.size()-1){
+					where.append(" ").append(whereGroupList.get(i).getNextLogicOperator()).append(" ");
+				}
 			}
 			where.append(newline());
 		}
@@ -173,17 +177,19 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 	private List<WhereGroup> getWhereGroupList(String name, String groupName) {
 		JSONArray jsonarray = content.getJSONArray(name);
 		if(jsonarray != null && jsonarray.size() > 0){
-			List<WhereGroup> whereGroupList = new ArrayList<WhereGroup>(jsonarray.size());
+			int size = jsonarray.size();
+			List<WhereGroup> whereGroupList = new ArrayList<WhereGroup>(size);
 			
 			JSONObject json = null;
 			WhereGroupImpl whereGroup = null;
 			JSONArray wheres = null;
 			WhereImpl where = null;
 			ValueImpl value = null;
-			for(int i=0;i<jsonarray.size();i++){
+			for(int i=0;i<size;i++){
 				json = jsonarray.getJSONObject(i);
 				whereGroup = new WhereGroupImpl();
 				whereGroup.setNextLogicOperator(json.getString("nextLogicOperator"));
+				whereGroup.setWhereGroupCount(size);
 				
 				wheres = json.getJSONArray(groupName);
 				if(wheres != null && wheres.size() > 0){

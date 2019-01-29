@@ -10,9 +10,17 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.if_.con
  */
 public abstract class DBIfEntity{
 
-	protected List<ConditionGroup> groupList;
+	protected String conditionSqlStatement;
 	public DBIfEntity(List<ConditionGroup> groupList) {
-		this.groupList = groupList;
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i=0;i<groupList.size();i++){
+			sb.append(groupList.get(i).getSqlStatement());
+			if(i<groupList.size()-1){
+				sb.append(" ").append(groupList.get(i).getNextLogicOperator()).append(" ");
+			}
+		}
+		conditionSqlStatement = sb.toString();
 	}
 
 	public abstract String getSqlStatement(String sqlStatement);

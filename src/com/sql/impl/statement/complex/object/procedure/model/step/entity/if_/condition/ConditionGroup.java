@@ -20,8 +20,8 @@ public class ConditionGroup {
 	public String getNextLogicOperator() {
 		return nextLogicOperator.getSqlStatement();
 	}
-
-	protected String processSqlStatement() {
+	
+	public String getSqlStatement() {
 		if(conditions != null && conditions.size() > 0){
 			StringBuilder sb = new StringBuilder(200);
 			if(conditionGroupCount > 1){

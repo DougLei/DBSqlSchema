@@ -29,16 +29,17 @@ public class IfStepEntity extends AbstractStepEntity {
 	
 	public void setCondition(JSONArray condition) {
 		if(condition != null && condition.size() > 0){
-			groupList = new ArrayList<ConditionGroup>(condition.size());
+			int size = condition.size();
+			groupList = new ArrayList<ConditionGroup>(size);
 			
 			JSONObject json = null;
 			JSONArray groupArray = null;
 			ConditionGroup group = null;
-			for(int i=0;i<condition.size();i++){
+			for(int i=0;i<size;i++){
 				json = condition.getJSONObject(i);
 				groupArray = json.getJSONArray("conditionGroup");
 				if(groupArray != null && groupArray.size() > 0){
-					group = new ConditionGroup(groupArray.size(), json.getString("nextLogicOperator"));
+					group = new ConditionGroup(size, json.getString("nextLogicOperator"));
 					for(int j=0;j<groupArray.size();j++){
 						group.addCondition(groupArray.getJSONObject(j));
 					}
