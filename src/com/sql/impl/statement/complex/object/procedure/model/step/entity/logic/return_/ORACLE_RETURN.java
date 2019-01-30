@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.LogicEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.condition.ConditionGroup;
+import com.sql.util.StrUtils;
 
 /**
  * 
@@ -16,10 +17,20 @@ public class ORACLE_RETURN extends LogicEntity{
 	}
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {
+		if(StrUtils.notEmpty(sqlStatement)){
+			throw new IllegalArgumentException("oracle存储过程中无法使用return，如果需要return 相关数据，请改用输出参数的形式");
+		}
+		
 		StringBuilder sb = buildSqlStringBuilder(sqlStatement);
-		// TODO
-		
-		
+		if(conditionSqlStatement.length() > 0){
+			sb.append("if ").append(conditionSqlStatement).append(" then").append(newline());
+			sb.append("begin").append(newline());
+			sb.append("return;").append(newline());
+			sb.append("end if;");
+		}else{
+			sb.append("return;");
+		}
+		sb.append(newline());
 		return sb.toString();
 	}
 }
