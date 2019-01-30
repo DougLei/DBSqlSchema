@@ -26,7 +26,8 @@ public enum StepType {
 	
 	BREAK(BreakStepEntityFactory.newInstance()),
 	RETURN(ReturnStepEntityFactory.newInstance()),
-//	EXEC_PROCEDURE()
+//	EXEC_PROCEDURE(),
+//	EXEC_DYNAMIC_SQL()
 	;
 	
 	private StepEntityFactory factory;
