@@ -37,6 +37,7 @@ public abstract class LogicEntity{
 	}
 	
 	protected StringBuilder buildSqlStringBuilder(String sqlStatement){
-		return new StringBuilder(sqlStatement.length() + conditionSqlStatement.length() + 100);
+		int length = sqlStatement==null ?0:sqlStatement.length();
+		return new StringBuilder(length + conditionSqlStatement.length() + 100);
 	}
 }

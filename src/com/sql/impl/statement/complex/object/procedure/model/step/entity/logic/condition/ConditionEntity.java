@@ -45,13 +45,15 @@ public class ConditionEntity {
 	}
 	
 	private void processContent(JSONArray content) {
-		JSONObject stepJson = null;
-		Step step = null;
-		for(int i=0;i<content.size();i++){
-			stepJson = content.getJSONObject(i).getJSONObject("stepJson");
-			step = new StepImpl();
-			step.setJson(-1, stepJson);
-			stepList.add(step);
+		if(content != null && content.size() > 0){
+			JSONObject stepJson = null;
+			Step step = null;
+			for(int i=0;i<content.size();i++){
+				stepJson = content.getJSONObject(i).getJSONObject("stepJson");
+				step = new StepImpl();
+				step.setJson(-1, stepJson);
+				stepList.add(step);
+			}
 		}
 	}
 
@@ -60,10 +62,13 @@ public class ConditionEntity {
 	}
 
 	public String getContent() {
-		StringBuilder sb = new StringBuilder(stepList.size()*500);
-		for(Step s: stepList){
-			sb.append(s.getSqlStatement());
+		if(stepList != null && stepList.size() > 0){
+			StringBuilder sb = new StringBuilder(stepList.size()*500);
+			for(Step s: stepList){
+				sb.append(s.getSqlStatement());
+			}
+			return sb.toString();
 		}
-		return sb.toString();
+		return null;
 	}
 }

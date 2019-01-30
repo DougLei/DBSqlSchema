@@ -242,8 +242,30 @@
 					}
 				}
 			]	
+		},
+
+		"step5":{
+			"id":"step5",
+			"type":"break",
+			"desc":"break",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"rightFunction":{
+								"name":""
+							},
+							"nextLogicOperator":"and"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			]
 		}
 
+
+
+		
 
 
 

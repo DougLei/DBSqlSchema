@@ -3,6 +3,7 @@ package com.sql.statement.complex.object.procedure.model.step;
 import java.util.Arrays;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.BreakStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.IfelseStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.SetValueStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.SqlStepEntityFactory;
@@ -20,7 +21,9 @@ public enum StepType {
 	IF_ELSE(IfelseStepEntityFactory.newInstance()),
 //	FOR(),
 	WHILE(WhileStepEntityFactory.newInstance()),
-//	RETURN(),
+	
+	BREAK(BreakStepEntityFactory.newInstance()),
+//	RETURN
 	;
 	
 	private StepEntityFactory factory;
