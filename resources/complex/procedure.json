@@ -261,11 +261,30 @@
 					"nextLogicOperator":"and"
 				}
 			]
+		},
+
+		"step6":{
+			"id":"step6",
+			"type":"return",
+			"desc":"return",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"rightFunction":{
+								"name":""
+							},
+							"nextLogicOperator":"and"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			]
 		}
 
 
 
-		
+
 
 
 
