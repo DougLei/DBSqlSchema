@@ -31,4 +31,9 @@ public class SQLSERVER_SetValueEntity extends SetValueEntity {
 		}
 		return "select @"+paramName+"=" + sb.substring(6);
 	}
+	
+	protected String getPROCEDURESqlStatement() {
+		// TODO 存储过程的方式赋值，完全没有实现，父类连存储过程的参数怎么传递的属性都没有编写
+		return null;
+	}
 }

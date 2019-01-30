@@ -62,6 +62,8 @@ public abstract class SetValueEntity extends AbstractEntity{
 				return getFUNCTIONSqlStatement();
 			case SELECT_SQL:
 				return getSELECT_SQLSqlStatement();
+			case PROCEDURE:
+				return getPROCEDURESqlStatement();
 		}
 		return null;
 	}
@@ -69,6 +71,7 @@ public abstract class SetValueEntity extends AbstractEntity{
 	protected abstract String getVALUESqlStatement();
 	protected abstract String getFUNCTIONSqlStatement();
 	protected abstract String getSELECT_SQLSqlStatement();
+	protected abstract String getPROCEDURESqlStatement();
 
 	/**
 	 * 
@@ -77,7 +80,8 @@ public abstract class SetValueEntity extends AbstractEntity{
 	private enum Type {
 		VALUE,
 		FUNCTION,
-		SELECT_SQL;
+		SELECT_SQL,
+		PROCEDURE;
 		
 		static Type toValue(String str){
 			try {
