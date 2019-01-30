@@ -17,7 +17,7 @@ public class SQLSERVER_RETURN extends LogicEntity{
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {
 		StringBuilder sb = buildSqlStringBuilder(sqlStatement);
-
+		// TODO
 		
 		
 		return sb.toString();

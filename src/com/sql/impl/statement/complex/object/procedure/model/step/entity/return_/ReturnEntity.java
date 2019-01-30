@@ -5,7 +5,12 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.Abstrac
 
 public class ReturnEntity extends AbstractEntity{
 
-	public ReturnEntity(JSONObject returnValue) {
+	// TODO
+	
+	public ReturnEntity(JSONObject returnEntity) {
+		
+		// TODO
+		
 	}
 
 	public String getSqlStatement() {
