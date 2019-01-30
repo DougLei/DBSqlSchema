@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.SqlStatementInfoBuilderImpl;
+import com.sql.statement.basic.model.function.Function;
 import com.sql.util.StrUtils;
 
 /**
@@ -12,13 +13,18 @@ import com.sql.util.StrUtils;
  */
 public class ParameterEntity {
 	private Type type;
+	
 	private String value;
+	
+	private Function function;
+	
 	private String sqlId;
 	private JSONObject sqlJson;
 	
 	public ParameterEntity(JSONObject json) {
 		this.type = Type.toValue(json.getString("type"));
 		this.value = json.getString("value");
+		this.function = FunctionImpl.newInstance(json.getJSONObject("function"));
 		this.sqlId = json.getString("sqlId");
 		this.sqlJson = json.getJSONObject("sqlJson");
 	}
@@ -26,6 +32,8 @@ public class ParameterEntity {
 	public String getSqlStatement() {
 		if(type == Type.VALUE){
 			return value;
+		}else if(type == Type.FUNCTION){
+			return function.getSqlStatement();
 		}else if(type == Type.SQL){
 			StringBuilder sb = new StringBuilder(200);
 			sb.append("( ");
@@ -44,6 +52,7 @@ public class ParameterEntity {
 	
 	private enum Type{
 		VALUE,
+		FUNCTION,
 		SQL;
 		
 		static Type toValue(String str){

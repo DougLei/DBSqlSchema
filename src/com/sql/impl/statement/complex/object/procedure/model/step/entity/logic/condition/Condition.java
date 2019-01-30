@@ -3,7 +3,6 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.condition.parameter.Parameter;
-import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.where.DataOperatorType;
 import com.sql.statement.basic.model.where.LogicOperatorType;
 
@@ -40,14 +39,8 @@ public class Condition {
 		parameter.setType(json.getString(str+"Type"));
 		parameter.setValue(json.getString(str+"Value"));
 		parameter.setName(json.getString(str+"Name"));
-		parameter.setFunction(getFunction(json.getJSONObject(str+"Function")));
+		parameter.setFunction(FunctionImpl.newInstance(json.getJSONObject(str+"Function")));
 		return parameter;
-	}
-	private Function getFunction(JSONObject function) {
-		if(function != null){
-			return FunctionImpl.newInstance(function.getString("name"), function.getJSONArray("parameters"));
-		}
-		return null;
 	}
 
 	public String getNextLogicOperator() {

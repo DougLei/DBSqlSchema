@@ -50,10 +50,7 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 	 * @return
 	 */
 	protected Function getFunction(JSONObject function){
-		if(function != null){
-			return FunctionImpl.newInstance(function.getString("name"), function.getJSONArray("parameters"));
-		}
-		return null;
+		return FunctionImpl.newInstance(function);
 	}
 	
 	// ------------------------------------------------

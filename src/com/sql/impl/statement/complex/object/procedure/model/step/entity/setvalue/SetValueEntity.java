@@ -51,7 +51,7 @@ public abstract class SetValueEntity extends AbstractEntity{
 	}
 
 	private void setValueFunction(JSONObject function){
-		this.valueFunction = FunctionImpl.newInstance(function.getString("name"), function.getJSONArray("parameters"));
+		this.valueFunction = FunctionImpl.newInstance(function);
 	}
 
 	public String getSqlStatement(){

@@ -84,10 +84,8 @@ public class ValueImpl implements Value {
 	public void setValueFunctionArray(JSONArray functionJsonarray) {
 		if(functionJsonarray != null && functionJsonarray.size() > 0){
 			functions = new Function[functionJsonarray.size()];
-			JSONObject func = null;
 			for(int i=0;i<functionJsonarray.size();i++){
-				func = functionJsonarray.getJSONObject(i);
-				functions[i] = FunctionImpl.newInstance(func.getString("name"), func.getJSONArray("parameters"));
+				functions[i] = FunctionImpl.newInstance(functionJsonarray.getJSONObject(i));
 			}
 		}
 	}

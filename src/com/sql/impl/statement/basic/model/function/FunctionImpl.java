@@ -1,6 +1,7 @@
 package com.sql.impl.statement.basic.model.function;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.util.StrUtils;
@@ -14,13 +15,17 @@ public class FunctionImpl extends BasicModelImpl implements Function {
 	private String name;
 	private ParameterEntity[] parameters;
 	
-	public static Function newInstance(String name, JSONArray paramJsonarray){
-		if(StrUtils.notEmpty(name) && paramJsonarray!= null && paramJsonarray.size() > 0){
-			ParameterEntity[] parameters = new ParameterEntity[paramJsonarray.size()];
-			for(int i=0;i<paramJsonarray.size();i++){
-				parameters[i] = new ParameterEntity(paramJsonarray.getJSONObject(i));
+	public static Function newInstance(JSONObject function){
+		if(function != null && function.size() > 0){
+			String name = function.getString("name");
+			JSONArray paramJsonarray = function.getJSONArray("parameter");
+			if(StrUtils.notEmpty(name) && paramJsonarray!= null && paramJsonarray.size() > 0){
+				ParameterEntity[] parameters = new ParameterEntity[paramJsonarray.size()];
+				for(int i=0;i<paramJsonarray.size();i++){
+					parameters[i] = new ParameterEntity(paramJsonarray.getJSONObject(i));
+				}
+				return new FunctionImpl(name, parameters);
 			}
-			return new FunctionImpl(name, parameters);
 		}
 		return null;
 	}

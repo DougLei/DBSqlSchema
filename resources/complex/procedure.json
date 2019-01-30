@@ -112,10 +112,13 @@
 
 					"valueFunction":{
 						"name":"",
-						"parameters":[
+						"parameter":[
 							{
 								"type":"value",
 								"value":"",
+								"function":{
+
+								},
 								"sqlId":"",
 								"sqlJson":{
 								}
