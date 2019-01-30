@@ -131,7 +131,7 @@
 		},
 		
 		"step3":{
-			"id":"step4",
+			"id":"step3",
 			"type":"if_else",
 			"desc":"if_else判断",
 			"if1":{
@@ -186,6 +186,59 @@
 			"if2":{
 
 			}		
+		},
+		
+		"step4":{
+			"id":"step4",
+			"type":"while",
+			"desc":"while循环",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"leftType":"value/parameter/function",
+							"leftValue":"",
+							"leftName":"nike_name",
+							"leftFunction":{
+								"name":"",
+								"parameters":[
+									{
+										"type":"value",
+										"value":"",
+										"sqlId":"",
+										"sqlJson":{
+										}
+									}
+								]
+							},
+							"operator":"eq",
+							"rightType":"value/parameter/function",
+							"rightValue":"",
+							"rightName":"nike_name",
+							"rightFunction":{
+								"name":"",
+								"parameters":[
+									{
+										"type":"value",
+										"value":"",
+										"sqlId":"",
+										"sqlJson":{
+										}
+									}
+								]
+							},
+							"nextLogicOperator":"and"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			],
+			"content":[
+				{
+					"stepJson":{
+					}
+				}
+			]	
 		}
 
 

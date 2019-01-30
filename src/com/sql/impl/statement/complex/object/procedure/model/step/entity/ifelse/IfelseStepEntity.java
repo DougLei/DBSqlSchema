@@ -6,14 +6,15 @@ import java.util.List;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractStepEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.condition.ConditionGroup;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.DBIfEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.oracle.ORACLE_ELSE;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.oracle.ORACLE_IF;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.oracle.ORACLE_IFELSE;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.sqlserver.SQLSERVER_ELSE;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.sqlserver.SQLSERVER_IF;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db.sqlserver.SQLSERVER_IFELSE;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.LogicEntity;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.condition.ConditionEntity;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.ifelse.oracle.ORACLE_ELSE;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.ifelse.oracle.ORACLE_IF;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.ifelse.oracle.ORACLE_IFELSE;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.ifelse.sqlserver.SQLSERVER_ELSE;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.ifelse.sqlserver.SQLSERVER_IF;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.ifelse.sqlserver.SQLSERVER_IFELSE;
 import com.sql.statement.complex.object.procedure.model.step.StepType;
 
 /**
@@ -22,7 +23,7 @@ import com.sql.statement.complex.object.procedure.model.step.StepType;
  */
 public class IfelseStepEntity extends AbstractStepEntity {
 	
-	private List<IfEntity> ifEntityList = new ArrayList<IfEntity>();
+	private List<ConditionEntity> conditionEntityList = new ArrayList<ConditionEntity>();
 	
 	public StepType getStepType() {
 		return StepType.IF_ELSE;
@@ -34,38 +35,39 @@ public class IfelseStepEntity extends AbstractStepEntity {
 	 * @return
 	 */
 	private boolean isEnd(){
-		return ifEntityList.size() == 0;
+		return conditionEntityList.size() == 0;
 	}
 	
 	public String getSqlStatement() {
 		StringBuilder sb = new StringBuilder(5000);
 		
-		IfEntity if1 = ifEntityList.remove(0);
+		ConditionEntity if1 = conditionEntityList.remove(0);
 		sb.append(getIFEntity(if1.getConditionGroupList()).getSqlStatement(isEnd(), if1.getContent()));
 		
-		IfEntity ifelse = null;
-		for (int i = 0; i < ifEntityList.size(); i++) {
-			if(i == ifEntityList.size()-1){
+		ConditionEntity ifelse = null;
+		for (int i = 0; i < conditionEntityList.size(); i++) {
+			if(i == conditionEntityList.size()-1){
 				break;
 			}
-			ifelse = ifEntityList.remove(i);
+			ifelse = conditionEntityList.remove(i);
 			sb.append(getELSEIFEntity(ifelse.getConditionGroupList()).getSqlStatement(false, ifelse.getContent()));
 			i--;
 		}
 		
-		if(ifEntityList.size() > 0){
-			IfEntity else1 = ifEntityList.remove(0);
+		if(conditionEntityList.size() > 0){
+			ConditionEntity else1 = conditionEntityList.remove(0);
 			if(else1.getConditionGroupList() != null && else1.getConditionGroupList().size() > 0){
 				sb.append(getELSEIFEntity(else1.getConditionGroupList()).getSqlStatement(true, else1.getContent()));
 			}else{
 				sb.append(getELSEEntity(else1.getConditionGroupList()).getSqlStatement(true, else1.getContent()));
 			}
 		}
+		sb.append(newline());
 		return sb.toString();
 	}
 	
 	/** if */
-	private DBIfEntity getIFEntity(List<ConditionGroup> conditionGroupList) {
+	private LogicEntity getIFEntity(List<ConditionGroup> conditionGroupList) {
 		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
 		switch(dbType){
 			case SQLSERVER:
@@ -76,7 +78,7 @@ public class IfelseStepEntity extends AbstractStepEntity {
 		return null;
 	}
 	/** else if */
-	private DBIfEntity getELSEIFEntity(List<ConditionGroup> conditionGroupList) {
+	private LogicEntity getELSEIFEntity(List<ConditionGroup> conditionGroupList) {
 		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
 		switch(dbType){
 			case SQLSERVER:
@@ -87,7 +89,7 @@ public class IfelseStepEntity extends AbstractStepEntity {
 		return null;
 	}
 	/** else */
-	private DBIfEntity getELSEEntity(List<ConditionGroup> conditionGroupList) {
+	private LogicEntity getELSEEntity(List<ConditionGroup> conditionGroupList) {
 		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
 		switch(dbType){
 			case SQLSERVER:
@@ -98,7 +100,7 @@ public class IfelseStepEntity extends AbstractStepEntity {
 		return null;
 	}
 	
-	public void addIfEntity(IfEntity ifEntity) {
-		ifEntityList.add(ifEntity);
+	public void addConditionEntity(ConditionEntity conditionEntity) {
+		conditionEntityList.add(conditionEntity);
 	}
 }

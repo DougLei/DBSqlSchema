@@ -1,4 +1,4 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.condition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,19 +6,18 @@ import java.util.List;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.complex.object.procedure.model.step.StepImpl;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.condition.ConditionGroup;
 import com.sql.statement.complex.object.procedure.model.step.Step;
 
 /**
  * 
  * @author DougLei
  */
-public class IfEntity {
+public class ConditionEntity {
 
 	private List<ConditionGroup> groupList;
 	private List<Step> stepList = new ArrayList<Step>();
 	
-	public IfEntity(JSONArray condition, JSONArray content) {
+	public ConditionEntity(JSONArray condition, JSONArray content) {
 		processCondition(condition);
 		processContent(content);
 	}

@@ -1,4 +1,4 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.condition;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.condition;
 
 import java.util.ArrayList;
 import java.util.List;

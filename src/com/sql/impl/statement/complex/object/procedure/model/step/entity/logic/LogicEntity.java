@@ -1,17 +1,17 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.db;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.logic;
 
 import java.util.List;
 
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.condition.ConditionGroup;
 
 /**
  * 
  * @author DougLei
  */
-public abstract class DBIfEntity{
+public abstract class LogicEntity{
 
 	protected String conditionSqlStatement;
-	public DBIfEntity(List<ConditionGroup> groupList, boolean validGroupListIsNull) {
+	public LogicEntity(List<ConditionGroup> groupList, boolean validGroupListIsNull) {
 		if(validGroupListIsNull && groupList == null || groupList.size() == 0){
 			throw new NullPointerException("条件不能为空");
 		}
@@ -34,5 +34,9 @@ public abstract class DBIfEntity{
 	
 	protected final char newline(){
 		return '\n';
+	}
+	
+	protected StringBuilder buildSqlStringBuilder(String sqlStatement){
+		return new StringBuilder(sqlStatement.length() + conditionSqlStatement.length() + 100);
 	}
 }
