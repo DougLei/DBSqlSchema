@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.BreakStepEntityFactory;
+import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.ForStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.IfelseStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.ReturnStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.SetValueStepEntityFactory;
@@ -20,7 +21,7 @@ public enum StepType {
 	SQL(SqlStepEntityFactory.newInstance()),
 	SET_VALUE(SetValueStepEntityFactory.newInstance()),
 	IF_ELSE(IfelseStepEntityFactory.newInstance()),
-//	FOR(),
+	FOR(ForStepEntityFactory.newInstance()),
 	WHILE(WhileStepEntityFactory.newInstance()),
 	
 	BREAK(BreakStepEntityFactory.newInstance()),

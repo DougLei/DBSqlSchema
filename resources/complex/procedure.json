@@ -284,6 +284,28 @@
 				"type":"value",
 				"value":""
 			}
+		},
+
+		"step7":{
+			"id":"step7",
+			"type":"for",
+			"desc":"for循环",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"leftType":"value/parameter/function"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			],
+			"content":[
+				{
+					"stepJson":{
+					}
+				}
+			]	
 		}
 
 

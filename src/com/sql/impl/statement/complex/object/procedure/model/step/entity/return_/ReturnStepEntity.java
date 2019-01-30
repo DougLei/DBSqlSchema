@@ -51,6 +51,6 @@ public class ReturnStepEntity extends AbstractStepEntity {
 	
 	
 	public StepType getStepType() {
-		return StepType.BREAK;
+		return StepType.RETURN;
 	}
 }
