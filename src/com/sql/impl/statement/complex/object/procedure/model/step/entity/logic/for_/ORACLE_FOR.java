@@ -17,10 +17,10 @@ public class ORACLE_FOR extends LogicEntity{
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {
 		StringBuilder sb = buildSqlStringBuilder(sqlStatement);
-		sb.append("while ").append(conditionSqlStatement).append(" loop").append(newline());
-		sb.append("begin").append(newline());
-		sb.append(sqlStatement).append(newline());
-		sb.append("end loop;").append(newline());
+		
+		
+		
+		
 		return sb.toString();
 	}
 }

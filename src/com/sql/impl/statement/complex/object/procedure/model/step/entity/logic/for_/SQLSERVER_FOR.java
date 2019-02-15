@@ -17,10 +17,9 @@ public class SQLSERVER_FOR extends LogicEntity{
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {
 		StringBuilder sb = buildSqlStringBuilder(sqlStatement);
-		sb.append("while ").append(conditionSqlStatement).append(newline());
-		sb.append("begin").append(newline());
-		sb.append(sqlStatement).append(newline());
-		sb.append("end").append(newline());
+		
+		
+		
 		return sb.toString();
 	}
 }

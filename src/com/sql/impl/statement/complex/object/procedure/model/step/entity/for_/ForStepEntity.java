@@ -37,7 +37,6 @@ public class ForStepEntity extends AbstractStepEntity {
 		return null;
 	}
 	
-	
 	public StepType getStepType() {
 		return StepType.FOR;
 	}
