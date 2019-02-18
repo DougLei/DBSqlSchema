@@ -22,6 +22,7 @@ public enum StepType {
 	SET_VALUE(SetValueStepEntityFactory.newInstance()),
 	IF_ELSE(IfelseStepEntityFactory.newInstance()),
 	FOR(ForStepEntityFactory.newInstance()),
+//	CURSOR_LOOP(),
 	WHILE(WhileStepEntityFactory.newInstance()),
 	
 	BREAK(BreakStepEntityFactory.newInstance()),

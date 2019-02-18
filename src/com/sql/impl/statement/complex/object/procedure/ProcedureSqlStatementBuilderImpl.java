@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderImpl;
 import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
+import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareVariableContext;
 import com.sql.impl.statement.complex.object.procedure.model.param.ParameterEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.StepImpl;
 import com.sql.statement.complex.object.procedure.ProcedureSqlStatementBuilder;
@@ -18,11 +19,28 @@ import com.sql.util.StrUtils;
  * @author DougLei
  */
 public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuilderImpl implements ProcedureSqlStatementBuilder {
-	protected StringBuilder beforeProcedureSqlStatement;
-	protected StringBuilder procedureSqlStatement = new StringBuilder(10000);
+	protected StringBuilder createTypeSqlStatement;// 在存储过程中使用的自定义类型，需要先创建出来，这里存储的是创建语句，最后要在创建存储过程语句之前先执行这些创建类型的语句
+	protected StringBuilder headSqlStatement = new StringBuilder(500);// create procedure 语句
+	protected StringBuilder parameterSqlStatement = new StringBuilder(1000);// parameter 语句
+	protected StringBuilder bodySqlStatement = new StringBuilder(10000);
 	
 	public boolean isCover() {
 		return content.getBoolean("isCover");
+	}
+	
+	/**
+	 * 记录
+	 * <p>在存储过程中使用的自定义类型，需要先创建出来，这里存储的是创建语句，最后要在创建存储过程语句之前先执行这些创建类型的语句</p>
+	 * @param sql
+	 */
+	protected void recordCreateTypeSqlStatement(String sql){
+		if(StrUtils.notEmpty(sql)){
+			if(createTypeSqlStatement == null){
+				createTypeSqlStatement = new StringBuilder(1000);
+			}
+			createTypeSqlStatement.append(sql).append(newline());
+			createTypeSqlStatement.append(linkNextSqlStatementToken());
+		}
 	}
 	
 	protected String buildSql() {
@@ -33,61 +51,60 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 		
 		boolean isCover = isCover();
 		if(isCover){
-			procedureSqlStatement.append(coverSqlServerSql(procedureName));
+			headSqlStatement.append(coverSqlServerSql(procedureName));
 		}
-		procedureSqlStatement.append("create ");
+		headSqlStatement.append("create ");
 		if(isCover){
-			procedureSqlStatement.append(coverOracleSql());
+			headSqlStatement.append(coverOracleSql());
 		}
-		
-		procedureSqlStatement.append("procedure ").append(procedureName);
-		procedureSqlStatement.append(newline());
+		headSqlStatement.append("procedure ").append(procedureName);
 		
 		// 处理参数
 		String parameterSql = getParameterSql();
 		if(parameterSql != null){
-			procedureSqlStatement.append(parameterSql);
+			parameterSqlStatement.append(parameterSql);
 		}
-		
-		// as 关键字
-		procedureSqlStatement.append("as ");
-		procedureSqlStatement.append(newline());
 		
 		// 处理declare
-		String declareSql = getDeclareSql();
-		if(declareSql != null){
-			procedureSqlStatement.append(declareSql);
-		}
+		recordDeclareEntityList();
 		
-		procedureSqlStatement.append("begin").append(newline());
-		
+		// 处理存储过程body
 		List<Step> stepList = getStepList();
 		if(stepList == null || stepList.size() == 0){
 			throw new NullPointerException("存储过程的step(index)属性不能为空，至少有一项");
 		}
 		for (Step step : stepList) {
-			procedureSqlStatement.append(step.getSqlStatement());
-			procedureSqlStatement.append(newline());
+			bodySqlStatement.append(step.getSqlStatement());
+			bodySqlStatement.append(newline());
 		}
-		
-		procedureSqlStatement.append("end;");
-		
-		if(beforeProcedureSqlStatement != null && beforeProcedureSqlStatement.length() >0){
-			procedureSqlStatement.insert(0, beforeProcedureSqlStatement);
-		}
-		return procedureSqlStatement.toString();
+		return installProcedureSqlStatement();
 	}
 
-	protected void recordBeforeProcedureSqlStatement(String sql){
-		if(StrUtils.notEmpty(sql)){
-			if(beforeProcedureSqlStatement == null){
-				beforeProcedureSqlStatement = new StringBuilder(1000);
-			}
-			beforeProcedureSqlStatement.append(sql);
-			beforeProcedureSqlStatement.append(linkNextSqlStatementToken());
+	/**
+	 * 组装最后的procedure语句
+	 * @return
+	 */
+	private String installProcedureSqlStatement() {
+		if(createTypeSqlStatement != null && createTypeSqlStatement.length() > 0){
+			append(createTypeSqlStatement.toString());
 		}
+		append(headSqlStatement);
+		append(parameterSqlStatement);
+		append("as ");
+		append(DeclareVariableContext.getDeclareVariableSqlStatement());
+		append("begin");
+		append(bodySqlStatement);
+		append("end;");
+		return sql.toString();
 	}
-	
+	private StringBuilder sql = new StringBuilder();
+	private void append(StringBuilder sb){
+		append(sb.toString());
+	}
+	private void append(String sb){
+		sql.append(sb).append(newline());
+	}
+
 	/**
 	 * 连接下一条sql语句的标识
 	 * @return
@@ -124,10 +141,10 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 	protected abstract String getParameterSql();
 	
 	/**
-	 * 获取declare列表
+	 * 记录declare列表
 	 * @return
 	 */
-	protected List<DeclareEntity> getDeclareEntityList() {
+	protected void recordDeclareEntityList() {
 		JSONArray array = content.getJSONArray("declare");
 		if(array != null && array.size() > 0){
 			List<DeclareEntity> declareList = new ArrayList<DeclareEntity>(array.size());
@@ -141,16 +158,9 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 				}
 				declareList.add(declare);
 			}
-			return declareList;
+			DeclareVariableContext.recordDeclare(declareList);
 		}
-		return null;
 	}
-	
-	/**
-	 * 获取declare参数sql语句
-	 * @return
-	 */
-	protected abstract String getDeclareSql();
 	
 	/**
 	 * 获取step列表

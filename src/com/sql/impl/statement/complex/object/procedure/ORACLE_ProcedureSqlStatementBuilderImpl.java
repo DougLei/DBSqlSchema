@@ -2,7 +2,6 @@ package com.sql.impl.statement.complex.object.procedure;
 
 import java.util.List;
 
-import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
 import com.sql.impl.statement.complex.object.procedure.model.param.ParameterEntity;
 import com.sql.util.StrUtils;
 
@@ -58,7 +57,7 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 					sb.append(newline());
 				}
 				if(parameter.isCreateType()){
-					recordBeforeProcedureSqlStatement(parameter.getCreateTypeSqlStatement());
+					recordCreateTypeSqlStatement(parameter.getCreateTypeSqlStatement());
 				}
 			}
 			
@@ -68,43 +67,42 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 		return null;
 	}
 
-	protected String getDeclareSql() {
-		List<DeclareEntity> declareEntityList = getDeclareEntityList();
-		if(declareEntityList != null && declareEntityList.size() > 0){
-			int size = declareEntityList.size();
-			StringBuilder sb = new StringBuilder(size*50);
-			
-			DeclareEntity declare = null;
-			for (int i = 0; i < size; i++) {
-				declare = declareEntityList.get(i);
-				if(declare.isSupportAppendCustomSqlStatement()){
-					if(declare.isBaseType()){
-						sb.append(declare.getName()).append(" ");
-						sb.append(declare.getBaseDataType());
-						if(declare.getLength() > 0){
-							sb.append("(").append(declare.getLength());
-							if(declare.getPrecision() > -1){
-								sb.append(", ").append(declare.getPrecision());
-							}
-							sb.append(")");
-						}
-						if(StrUtils.notEmpty(declare.getDefaultValue())){
-							sb.append(" :=").append(declare.getDefaultValue());
-						}
-					}else{
-						sb.append(declare.getAppendCustomSqlStatement(declare.getName()));
-					}
-					sb.append(";");
-					sb.append(newline());
-				}
-				if(declare.isCreateType()){
-					recordBeforeProcedureSqlStatement(declare.getCreateTypeSqlStatement());
-				}
-			}
-			return sb.toString();
-		}
-		return null;
-	}
+//	protected void processDeclareSql() {
+//		List<DeclareEntity> declareEntityList = getDeclareEntityList();
+//		if(declareEntityList != null && declareEntityList.size() > 0){
+//			int size = declareEntityList.size();
+//			StringBuilder sb = new StringBuilder(50);
+//			
+//			DeclareEntity declare = null;
+//			for (int i = 0; i < size; i++) {
+//				declare = declareEntityList.get(i);
+//				if(declare.isSupportAppendCustomSqlStatement()){
+//					if(declare.isBaseType()){
+//						sb.append(declare.getName()).append(" ");
+//						sb.append(declare.getBaseDataType());
+//						if(declare.getLength() > 0){
+//							sb.append("(").append(declare.getLength());
+//							if(declare.getPrecision() > -1){
+//								sb.append(", ").append(declare.getPrecision());
+//							}
+//							sb.append(")");
+//						}
+//						if(StrUtils.notEmpty(declare.getDefaultValue())){
+//							sb.append(" :=").append(declare.getDefaultValue());
+//						}
+//					}else{
+//						sb.append(declare.getAppendCustomSqlStatement(declare.getName()));
+//					}
+//					sb.append(";");
+//					DeclareVariableContext.recordDeclareVariableSqlStatement(sb.toString());
+//					sb.setLength(0);
+//				}
+//				if(declare.isCreateType()){
+//					recordCreateTypeSqlStatement(declare.getCreateTypeSqlStatement());
+//				}
+//			}
+//		}
+//	}
 
 	protected String linkNextSqlStatementToken() {
 		return newline()+";"+newline();

@@ -199,6 +199,7 @@
 				{
 					"conditionGroup":[
 						{
+							"declareLeft":false,
 							"leftType":"value/parameter/function",
 							"leftValue":"",
 							"leftName":"nike_name",
@@ -215,6 +216,7 @@
 								]
 							},
 							"operator":"eq",
+							"declareRight":false,
 							"rightType":"value/parameter/function",
 							"rightValue":"",
 							"rightName":"nike_name",
@@ -294,6 +296,63 @@
 				{
 					"conditionGroup":[
 						{
+							"leftDeclare":false,
+							"leftType":"value/parameter/function",
+							"leftValue":"",
+							"leftName":"nike_name",
+							"leftFunction":{
+								"name":"",
+								"parameters":[
+									{
+										"type":"value",
+										"value":"",
+										"sqlId":"",
+										"sqlJson":{
+										}
+									}
+								]
+							},
+							"operator":"eq",
+							"rightDeclare":false,
+							"rightType":"value/parameter/function",
+							"rightValue":"",
+							"rightName":"nike_name",
+							"rightFunction":{
+								"name":"",
+								"parameters":[
+									{
+										"type":"value",
+										"value":"",
+										"sqlId":"",
+										"sqlJson":{
+										}
+									}
+								]
+							},
+							"nextLogicOperator":"and"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			],
+			"content":[
+				{
+					"stepJson":{
+					}
+				}
+			]	
+		},
+
+
+
+		"step8":{
+			"id":"step8",
+			"type":"cursor_loop",
+			"desc":"游标循环",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
 							"leftType":"value/parameter/function"
 						}
 					],
@@ -307,9 +366,6 @@
 				}
 			]	
 		}
-
-
-
 
 
 

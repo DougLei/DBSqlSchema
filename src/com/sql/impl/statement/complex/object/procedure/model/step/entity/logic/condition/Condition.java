@@ -36,6 +36,7 @@ public class Condition {
 	}
 	private Parameter getParameter(String str, JSONObject json){
 		Parameter parameter = new Parameter();
+		parameter.setDeclare(json.getBooleanValue(str+"Declare"));
 		parameter.setType(json.getString(str+"Type"));
 		parameter.setValue(json.getString(str+"Value"));
 		parameter.setName(json.getString(str+"Name"));

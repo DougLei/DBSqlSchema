@@ -11,6 +11,7 @@ import com.sql.statement.basic.model.function.Function;
  * @author DougLei
  */
 public class Parameter {
+	private boolean isDeclare;
 	private Type type;
 	private String value;
 	private String name;
@@ -39,6 +40,9 @@ public class Parameter {
 		return null;
 	}
 	
+	public void setDeclare(boolean isDeclare) {
+		this.isDeclare = isDeclare;
+	}
 	public void setType(String type) {
 		this.type = Type.toValue(type);
 	}
