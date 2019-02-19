@@ -156,6 +156,9 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 				if(!declare.isBaseType()){
 					declare.setCustomJson(json.getJSONObject("custom"));
 				}
+				if(declare.isCreateType()){
+					recordCreateTypeSqlStatement(declare.getCreateTypeSqlStatement());
+				}
 				declareList.add(declare);
 			}
 			DeclareVariableContext.recordDeclare(declareList);

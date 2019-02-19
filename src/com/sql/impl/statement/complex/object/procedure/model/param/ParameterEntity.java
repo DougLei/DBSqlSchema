@@ -11,7 +11,7 @@ import com.sql.util.StrUtils;
 public class ParameterEntity extends AbstractDataType{
 	
 	public ParameterEntity(String name, String dataType,int length, Object precision, String inOut, String defaultValue) {
-		this.name = name;
+		this.name = name.trim().toUpperCase();
 		setDataType(dataType);
 		setLength(length);
 		setPrecision(precision);

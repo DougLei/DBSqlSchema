@@ -1,7 +1,15 @@
 package com.sql.impl.statement.complex.object.procedure.model.declare;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.sql.enums.DatabaseType;
+import com.sql.impl.SqlStatementBuilderContext;
+import com.sql.impl.statement.complex.object.procedure.model.declare.db.DBDeclare;
+import com.sql.impl.statement.complex.object.procedure.model.declare.db.ORACLE_Declare;
+import com.sql.impl.statement.complex.object.procedure.model.declare.db.SQLSERVER_Declare;
 
 
 /**
@@ -12,14 +20,14 @@ public class DeclareVariableContext {
 	/**
 	 * 声明变量的sql语句，可能在存储过程体中也会声明变量，所以这里统一记录，最后统一放到存储过程delcare块中
 	 */
-	private static final ThreadLocal<List<DeclareEntity>> declareListLocal = new ThreadLocal<List<DeclareEntity>>();
+	private static final ThreadLocal<Map<String, DeclareEntity>> declareListLocal = new ThreadLocal<Map<String, DeclareEntity>>();
 
 	/**
 	 * 是否包括declare代码块
 	 * @return
 	 */
 	public static boolean includeDeclare() {
-		List<DeclareEntity> local = declareListLocal.get();
+		Map<String, DeclareEntity> local = declareListLocal.get();
 		return local != null && local.size() > 0;
 	}
 
@@ -28,11 +36,15 @@ public class DeclareVariableContext {
 	 * @param declareEntity
 	 */
 	public static void recordDeclare(DeclareEntity declareEntity) {
-		List<DeclareEntity> local = declareListLocal.get();
+		Map<String, DeclareEntity> local = declareListLocal.get();
 		if(local == null){
-			local = new ArrayList<DeclareEntity>(20);
+			local = new HashMap<String, DeclareEntity>(20);
+		}else{
+			if(local.containsKey(declareEntity.getName())){
+				throw new IllegalArgumentException("存储过程中declare 同名的变量名：["+declareEntity.getName()+"]，请修改");
+			}
 		}
-		local.add(declareEntity);
+		local.put(declareEntity.getName(), declareEntity);
 	}
 	
 	/**
@@ -53,14 +65,26 @@ public class DeclareVariableContext {
 	 */
 	public static String getDeclareVariableSqlStatement() {
 		if(includeDeclare()){
-			List<DeclareEntity> declareEntityList = declareListLocal.get();
-			// TODO
-			
-			
-			
-			
-			return null;
+			Collection<DeclareEntity> declareEntityList = declareListLocal.get().values();
+			StringBuilder declareSql = new StringBuilder(declareEntityList.size() * 50);
+			DBDeclare dbdeclare = getDBDeclare();
+			for (DeclareEntity declareEntity : declareEntityList) {
+				declareSql.append(dbdeclare.toDeclareSqlStatement(declareEntity)).append('\n');
+			}
+			declareEntityList.clear();
+			return declareSql.toString();
 		}
-		throw new NullPointerException("无法获取decalre的sql语句代码块");
+		throw new NullPointerException("无法获取declare的sql语句代码块");
+	}
+
+	private static DBDeclare getDBDeclare() {
+		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
+		switch(dbType){
+			case SQLSERVER:
+				return new SQLSERVER_Declare();
+			case ORACLE:
+				return new ORACLE_Declare();
+		}
+		return null;
 	}
 }

@@ -13,7 +13,7 @@ public class DeclareEntity extends AbstractDataType{
 	private String defaultValue;
 	
 	public DeclareEntity(String name, String dataType, int length, Object precision, String defaultValue) {
-		this.name = name;
+		this.name = name.trim().toUpperCase();
 		setDataType(dataType);
 		setLength(length);
 		setPrecision(precision);
