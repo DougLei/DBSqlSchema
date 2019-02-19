@@ -6,7 +6,7 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.c
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.while_.ORACLE_WHILE;
 
 /**
- * 
+ * 底层调用的是ORACLE_WHILE
  * @author DougLei
  */
 public class ORACLE_FOR extends ORACLE_WHILE{

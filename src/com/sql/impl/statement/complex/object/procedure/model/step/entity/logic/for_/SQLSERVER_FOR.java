@@ -6,7 +6,7 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.c
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.while_.SQLSERVER_WHILE;
 
 /**
- * 
+ * 底层调用的是SQLSERVER_WHILE
  * @author DougLei
  */
 public class SQLSERVER_FOR extends SQLSERVER_WHILE{

@@ -291,14 +291,14 @@
 		"step7":{
 			"id":"step7",
 			"type":"for",
-			"desc":"for循环",
+			"desc":"for循环--代码实现其实和while循环是一样的",
 			"condition":[
 				{
 					"conditionGroup":[
 						{
 							"leftIsDeclare":false,
 
-							
+
 							"leftType":"value/parameter/function",
 							"leftValue":"",
 							"leftName":"nike_name",
