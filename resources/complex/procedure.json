@@ -199,7 +199,7 @@
 				{
 					"conditionGroup":[
 						{
-							"declareLeft":false,
+							"leftIsDeclare":false,
 							"leftType":"value/parameter/function",
 							"leftValue":"",
 							"leftName":"nike_name",
@@ -216,7 +216,7 @@
 								]
 							},
 							"operator":"eq",
-							"declareRight":false,
+							"rightIsDeclare":false,
 							"rightType":"value/parameter/function",
 							"rightValue":"",
 							"rightName":"nike_name",
@@ -296,7 +296,14 @@
 				{
 					"conditionGroup":[
 						{
-							"leftDeclare":false,
+							"leftIsDeclare":false,
+
+
+
+
+
+
+
 							"leftType":"value/parameter/function",
 							"leftValue":"",
 							"leftName":"nike_name",
@@ -313,7 +320,7 @@
 								]
 							},
 							"operator":"eq",
-							"rightDeclare":false,
+							"rightIsDeclare":false,
 							"rightType":"value/parameter/function",
 							"rightValue":"",
 							"rightName":"nike_name",

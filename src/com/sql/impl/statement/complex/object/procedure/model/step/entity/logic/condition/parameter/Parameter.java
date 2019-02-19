@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
+import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
+import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareVariableContext;
 import com.sql.statement.basic.model.function.Function;
 
 /**
@@ -12,12 +14,17 @@ import com.sql.statement.basic.model.function.Function;
  */
 public class Parameter {
 	private boolean isDeclare;
+	private DeclareEntity declareEntity;
+	
 	private Type type;
 	private String value;
 	private String name;
 	private Function function;
 	
 	public String getSqlStatement() {
+		if(isDeclare){
+			DeclareVariableContext.recordDeclare(declareEntity);
+		}
 		switch(type){
 			case VALUE:
 				return value;
@@ -42,6 +49,9 @@ public class Parameter {
 	
 	public void setDeclare(boolean isDeclare) {
 		this.isDeclare = isDeclare;
+	}
+	public void setDeclareEntity(DeclareEntity declareEntity) {
+		this.declareEntity = declareEntity;
 	}
 	public void setType(String type) {
 		this.type = Type.toValue(type);

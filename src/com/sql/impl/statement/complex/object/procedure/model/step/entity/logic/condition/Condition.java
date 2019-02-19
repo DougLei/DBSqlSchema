@@ -2,6 +2,7 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.
 
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.basic.model.function.FunctionImpl;
+import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.condition.parameter.Parameter;
 import com.sql.statement.basic.model.where.DataOperatorType;
 import com.sql.statement.basic.model.where.LogicOperatorType;
@@ -11,7 +12,6 @@ import com.sql.statement.basic.model.where.LogicOperatorType;
  * @author DougLei
  */
 public class Condition {
-
 	private Parameter leftParameter;
 	private Parameter rightParameter;
 	private LogicOperatorType nextLogicOperator;
@@ -36,7 +36,8 @@ public class Condition {
 	}
 	private Parameter getParameter(String str, JSONObject json){
 		Parameter parameter = new Parameter();
-		parameter.setDeclare(json.getBooleanValue(str+"Declare"));
+		parameter.setDeclare(json.getBooleanValue(str+"IsDeclare"));
+		parameter.setDeclareEntity(new DeclareEntity(json.getJSONObject(str+"Declare")));
 		parameter.setType(json.getString(str+"Type"));
 		parameter.setValue(json.getString(str+"Value"));
 		parameter.setName(json.getString(str+"Name"));

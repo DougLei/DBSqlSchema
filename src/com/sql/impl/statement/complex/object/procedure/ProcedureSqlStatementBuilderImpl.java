@@ -152,10 +152,7 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 			DeclareEntity declare = null;
 			for(int i=0;i<array.size();i++){
 				json = array.getJSONObject(i);
-				declare = new DeclareEntity(json.getString("name"), json.getString("dataType"), json.getIntValue("length"), json.get("precision"), json.getString("defaultValue"));
-				if(!declare.isBaseType()){
-					declare.setCustomJson(json.getJSONObject("custom"));
-				}
+				declare = new DeclareEntity(json);
 				if(declare.isCreateType()){
 					recordCreateTypeSqlStatement(declare.getCreateTypeSqlStatement());
 				}
