@@ -20,7 +20,7 @@ public class SQLSERVER_TMPTABLE extends AbstractCustomDataType{
 		JSONArray array = customJson.getJSONArray("column");
 		if(array != null && array.size()>0){
 			StringBuilder sb = new StringBuilder(800);
-			sb.append("table ").append(newline()).append("(").append(newline());
+			sb.append("@").append(name).append(" table").append(newline()).append("(").append(newline());
 			appendColumnSql(array, sb);
 			sb.append(")");
 			return sb.toString();

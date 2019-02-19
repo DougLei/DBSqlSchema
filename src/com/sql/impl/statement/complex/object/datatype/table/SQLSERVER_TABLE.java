@@ -21,7 +21,7 @@ public class SQLSERVER_TABLE extends AbstractCustomDataType{
 		if(customJson.getBooleanValue("isReadonly")){
 			readonly = " readonly";
 		}
-		return "as "+customJson.getString("typeName") + readonly;
+		return "@" + name + " as "+customJson.getString("typeName") + readonly;
 	}
 
 	public boolean isSupportAppendCustomSqlStatement() {

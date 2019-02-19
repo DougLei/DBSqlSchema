@@ -393,7 +393,29 @@
 					}
 				}
 			]	
+		},
+		"step10":{
+			"id":"step10",
+			"type":"rollback",
+			"desc":"rollback",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"leftType":"value/parameter/function"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			],
+			"content":[
+				{
+					"stepJson":{
+					}
+				}
+			]	
 		}
+
 
 
 

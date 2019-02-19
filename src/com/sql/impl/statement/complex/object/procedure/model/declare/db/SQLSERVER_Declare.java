@@ -12,10 +12,10 @@ public class SQLSERVER_Declare implements DBDeclare{
 	public String toDeclareSqlStatement(DeclareEntity declare) {
 		StringBuilder sb = new StringBuilder(50);
 		if(declare.isSupportAppendCustomSqlStatement()){
-			sb.append("declare @").append(declare.getName()).append(" ");
+			sb.append("declare ");
 			
 			if(declare.isBaseType()){
-				sb.append(declare.getBaseDataType());
+				sb.append("@").append(declare.getName()).append(" ").append(declare.getBaseDataType());
 				if(declare.getLength() > 0){
 					sb.append("(").append(declare.getLength());
 					if(declare.getPrecision() > -1){

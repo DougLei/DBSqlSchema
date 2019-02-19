@@ -17,7 +17,8 @@ public class SQLSERVER_CURSOR extends AbstractCustomDataType{
 	
 	public String getAppendCustomSqlStatement(String name, JSONObject customJson) {
 		StringBuilder sb = new StringBuilder(500);
-		sb.append("cursor").append(newline());
+		sb.append(name).append(" cursor for").append(newline());
+		sb.append("(");
 		if(StrUtils.isEmpty(customJson.getString("sqlId"))){
 			SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
 			infoBuilder.setJson(customJson.getJSONObject("sqlJson"));
@@ -25,6 +26,7 @@ public class SQLSERVER_CURSOR extends AbstractCustomDataType{
 		}else{
 			sb.append(SqlStatementBuilderContext.buildSqlStatement(customJson.getString("sqlId")));
 		}
+		sb.append(")");
 		return sb.toString();
 	}
 
