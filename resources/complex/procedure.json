@@ -352,16 +352,9 @@
 			"id":"step8",
 			"type":"cursor_loop",
 			"desc":"游标循环",
-			"condition":[
-				{
-					"conditionGroup":[
-						{
-							"leftType":"value/parameter/function"
-						}
-					],
-					"nextLogicOperator":"and"
-				}
-			],
+			"cursor":{
+				
+			},
 			"content":[
 				{
 					"stepJson":{
