@@ -2,25 +2,16 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.
 
 import java.util.List;
 
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.LogicEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.while_.ORACLE_WHILE;
 
 /**
  * 
  * @author DougLei
  */
-public class ORACLE_FOR extends LogicEntity{
+public class ORACLE_FOR extends ORACLE_WHILE{
 
 	public ORACLE_FOR(List<ConditionGroup> groupList) {
-		super(groupList, true);
-	}
-
-	public String getSqlStatement(boolean isEnd, String sqlStatement) {
-		StringBuilder sb = buildSqlStringBuilder(sqlStatement);
-		
-		
-		
-		
-		return sb.toString();
+		super(groupList);
 	}
 }

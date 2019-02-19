@@ -26,7 +26,7 @@ public abstract class LogicEntity{
 			}
 			conditionSqlStatement = sb.toString();
 		}else{
-			conditionSqlStatement="";
+			conditionSqlStatement = "";
 		}
 	}
 
