@@ -5,6 +5,7 @@
 	"content":{
 		"procedureName":"TEST_PROCEDURE",
 		"isCover":true,
+		"isTransaction":false,
 		"parameter":[
 			{
 				"name":"name",
@@ -367,7 +368,33 @@
 					}
 				}
 			]	
+		},
+
+
+
+
+		"step9":{
+			"id":"step9",
+			"type":"commit",
+			"desc":"commit",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"leftType":"value/parameter/function"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			],
+			"content":[
+				{
+					"stepJson":{
+					}
+				}
+			]	
 		}
+
 
 
 

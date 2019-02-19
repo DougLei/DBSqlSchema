@@ -7,5 +7,9 @@ import com.sql.statement.complex.object.DBObjectSqlStatementBuilder;
  * @author DougLei
  */
 public interface ProcedureSqlStatementBuilder extends DBObjectSqlStatementBuilder{
-	
+	/**
+	 * 是否需要事务
+	 * @return
+	 */
+	boolean isTransaction();
 }

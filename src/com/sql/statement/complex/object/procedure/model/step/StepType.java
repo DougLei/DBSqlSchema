@@ -4,10 +4,12 @@ import java.util.Arrays;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.BreakStepEntityFactory;
+import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.CommitStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.CursorLoopStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.ForStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.IfelseStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.ReturnStepEntityFactory;
+import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.RollbackStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.SetValueStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.SqlStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.WhileStepEntityFactory;
@@ -28,6 +30,10 @@ public enum StepType {
 	
 	BREAK(BreakStepEntityFactory.newInstance()),
 	RETURN(ReturnStepEntityFactory.newInstance()),
+	
+	COMMIT(CommitStepEntityFactory.newInstance()),
+	ROLLBACK(RollbackStepEntityFactory.newInstance()),
+	
 //	EXEC_PROCEDURE(),
 //	EXEC_DYNAMIC_SQL()
 	;

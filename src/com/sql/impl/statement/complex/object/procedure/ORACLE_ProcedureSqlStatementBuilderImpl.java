@@ -70,4 +70,9 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 	protected String linkNextSqlStatementToken() {
 		return newline()+";"+newline();
 	}
+
+	// oracle的存储过程是默认开启事务的，不需要begin transaction;操作
+	protected String beginTransaction() {
+		return "";
+	}
 }

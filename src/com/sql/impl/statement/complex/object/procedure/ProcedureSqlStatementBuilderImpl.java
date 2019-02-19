@@ -24,6 +24,10 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 	protected StringBuilder parameterSqlStatement = new StringBuilder(1000);// parameter 语句
 	protected StringBuilder bodySqlStatement = new StringBuilder(10000);
 	
+	public boolean isTransaction(){
+		return content.getBoolean("isTransaction");
+	}
+	
 	public boolean isCover() {
 		return content.getBoolean("isCover");
 	}
@@ -93,10 +97,26 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 		append("as ");
 		append(DeclareVariableContext.getDeclareVariableSqlStatement());
 		append("begin");
+		
+		boolean isTransaction = isTransaction();
+		if(isTransaction){
+			append(beginTransaction());
+		}
 		append(bodySqlStatement);
+		if(isTransaction){
+			append(commit());
+		}
 		append("end;");
 		return sql.toString();
 	}
+	
+	protected String beginTransaction() {
+		return "begin transaction;";
+	}
+	private String commit() {
+		return "commit;";
+	}
+	
 	private StringBuilder sql = new StringBuilder();
 	private void append(StringBuilder sb){
 		append(sb.toString());
