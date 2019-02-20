@@ -49,6 +49,10 @@ public class DeclareVariableContext {
 			}
 		}
 		local.put(declareEntity.getName(), declareEntity);
+		
+		if(declareEntity.isCreateType()){
+			CreateTypeContext.recordCreateTypeSqlStatement(declareEntity.getCreateTypeSqlStatement());
+		}
 		return declareEntity;
 	}
 	

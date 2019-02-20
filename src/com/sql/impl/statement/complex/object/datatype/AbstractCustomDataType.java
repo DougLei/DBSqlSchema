@@ -13,9 +13,10 @@ public abstract class AbstractCustomDataType implements CustomDataType{
 	public String getCreateTypeSqlStatement(JSONObject customJson) {
 		if(customJson.getBooleanValue("isCreateType")){
 			String typeName = customJson.getString("typeName");
-			if(!CustomDataTypeContext.customDataTypeIsExists(getCustomDataType(), typeName)){
-				return getCreateTypeSql(customJson);
+			if(CustomDataTypeContext.customDataTypeIsExists(getCustomDataType(), typeName)){
+				throw new IllegalArgumentException(getCustomDataType() + "类型，出现重复的名称:" + typeName+",请修改");
 			}
+			return getCreateTypeSql(customJson);
 		}
 		return null;
 	}

@@ -6,8 +6,8 @@ import java.util.List;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderImpl;
+import com.sql.impl.statement.complex.object.procedure.context.CreateTypeContext;
 import com.sql.impl.statement.complex.object.procedure.context.DeclareVariableContext;
-import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
 import com.sql.impl.statement.complex.object.procedure.model.param.ParameterEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.StepImpl;
 import com.sql.statement.complex.object.procedure.ProcedureSqlStatementBuilder;
@@ -19,7 +19,6 @@ import com.sql.util.StrUtils;
  * @author DougLei
  */
 public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuilderImpl implements ProcedureSqlStatementBuilder {
-	protected StringBuilder createTypeSqlStatement;// 在存储过程中使用的自定义类型，需要先创建出来，这里存储的是创建语句，最后要在创建存储过程语句之前先执行这些创建类型的语句
 	protected StringBuilder headSqlStatement = new StringBuilder(500);// create procedure 语句
 	protected StringBuilder parameterSqlStatement = new StringBuilder(1000);// parameter 语句
 	protected StringBuilder bodySqlStatement = new StringBuilder(10000);
@@ -30,21 +29,6 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 	
 	public boolean isCover() {
 		return content.getBoolean("isCover");
-	}
-	
-	/**
-	 * 记录
-	 * <p>在存储过程中使用的自定义类型，需要先创建出来，这里存储的是创建语句，最后要在创建存储过程语句之前先执行这些创建类型的语句</p>
-	 * @param sql
-	 */
-	protected void recordCreateTypeSqlStatement(String sql){
-		if(StrUtils.notEmpty(sql)){
-			if(createTypeSqlStatement == null){
-				createTypeSqlStatement = new StringBuilder(1000);
-			}
-			createTypeSqlStatement.append(sql).append(newline());
-			createTypeSqlStatement.append(linkNextSqlStatementToken());
-		}
 	}
 	
 	protected String buildSql() {
@@ -89,8 +73,8 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 	 * @return
 	 */
 	private String installProcedureSqlStatement() {
-		if(createTypeSqlStatement != null && createTypeSqlStatement.length() > 0){
-			append(createTypeSqlStatement.toString());
+		if(CreateTypeContext.includeCreateType()){
+			append(CreateTypeContext.getCreateTypeSqlStatement());
 		}
 		append(headSqlStatement);
 		append(parameterSqlStatement);
@@ -125,12 +109,6 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 		sql.append(sb).append(newline());
 	}
 
-	/**
-	 * 连接下一条sql语句的标识
-	 * @return
-	 */
-	protected abstract String linkNextSqlStatementToken();
-	
 	/**
 	 * 获取参数列表
 	 * @return
@@ -167,12 +145,8 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 	protected void processDeclareEntityList() {
 		JSONArray array = content.getJSONArray("declare");
 		if(array != null && array.size() > 0){
-			DeclareEntity declare = null;
 			for(int i=0;i<array.size();i++){
-				declare = DeclareVariableContext.recordDeclare(array.getJSONObject(i));
-				if(declare.isCreateType()){
-					recordCreateTypeSqlStatement(declare.getCreateTypeSqlStatement());
-				}
+				DeclareVariableContext.recordDeclare(array.getJSONObject(i));
 			}
 		}
 	}

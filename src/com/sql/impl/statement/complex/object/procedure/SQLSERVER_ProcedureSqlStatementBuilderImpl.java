@@ -2,6 +2,7 @@ package com.sql.impl.statement.complex.object.procedure;
 
 import java.util.List;
 
+import com.sql.impl.statement.complex.object.procedure.context.CreateTypeContext;
 import com.sql.impl.statement.complex.object.procedure.model.param.ParameterEntity;
 import com.sql.util.StrUtils;
 
@@ -62,15 +63,11 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 					sb.append(newline());
 				}
 				if(parameter.isCreateType()){
-					recordCreateTypeSqlStatement(parameter.getCreateTypeSqlStatement());
+					CreateTypeContext.recordCreateTypeSqlStatement(parameter.getCreateTypeSqlStatement());
 				}
 			}
 			return sb.toString();
 		}
 		return null;
-	}
-
-	protected String linkNextSqlStatementToken() {
-		return newline()+"go"+newline();
 	}
 }

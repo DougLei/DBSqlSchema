@@ -2,6 +2,7 @@ package com.sql.impl.statement.complex.object.procedure;
 
 import java.util.List;
 
+import com.sql.impl.statement.complex.object.procedure.context.CreateTypeContext;
 import com.sql.impl.statement.complex.object.procedure.model.param.ParameterEntity;
 import com.sql.util.StrUtils;
 
@@ -57,7 +58,7 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 					sb.append(newline());
 				}
 				if(parameter.isCreateType()){
-					recordCreateTypeSqlStatement(parameter.getCreateTypeSqlStatement());
+					CreateTypeContext.recordCreateTypeSqlStatement(parameter.getCreateTypeSqlStatement());
 				}
 			}
 			
@@ -65,10 +66,6 @@ public class ORACLE_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStateme
 			return sb.toString();
 		}
 		return null;
-	}
-
-	protected String linkNextSqlStatementToken() {
-		return newline()+";"+newline();
 	}
 
 	// oracle的存储过程是默认开启事务的，不需要begin transaction;操作
