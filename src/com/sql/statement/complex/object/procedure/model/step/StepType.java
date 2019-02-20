@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.BreakStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.CommitStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.CursorLoopStepEntityFactory;
+import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.CursorOpStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.ForStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.IfelseStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.ReturnStepEntityFactory;
@@ -25,7 +26,10 @@ public enum StepType {
 	SET_VALUE(SetValueStepEntityFactory.newInstance()),
 	IF_ELSE(IfelseStepEntityFactory.newInstance()),
 	FOR(ForStepEntityFactory.newInstance()),
+	
 	CURSOR_LOOP(CursorLoopStepEntityFactory.newInstance()),
+	CURSOR_OP(CursorOpStepEntityFactory.newInstance()),
+	
 	WHILE(WhileStepEntityFactory.newInstance()),
 	
 	BREAK(BreakStepEntityFactory.newInstance()),

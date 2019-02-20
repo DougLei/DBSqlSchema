@@ -2,6 +2,8 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.
 
 import java.util.List;
 
+import com.sql.impl.statement.complex.object.procedure.context.CursorContext;
+
 /**
  * 
  * @author DougLei
@@ -15,7 +17,7 @@ public class ORACLE_CURSORLOOP extends AbstractCursorLoop{
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {
 		StringBuilder sb = buildSqlStringBuilder(sqlStatement);
 		sb.append("open ").append(cursorName).append(";").append(newline());
-		sb.append("fetch next from ").append(cursorName).append(" into ").append(getVariableNames()).append(";").append(newline());
+		sb.append(CursorContext.getFetchSql(cursorName)).append(newline());
 		sb.append("while ").append(cursorName).append("%found loop").append(newline());
 		sb.append("begin").append(newline());
 		sb.append(sqlStatement).append(newline());

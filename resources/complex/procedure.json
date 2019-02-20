@@ -373,6 +373,23 @@
 			]	
 		},
 
+		"step11":{
+			"id":"step11",
+			"type":"cursor_op",
+			"desc":"cursor_op",
+			"cursorName":"",
+			"opType":"fetch",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"leftType":"value/parameter/function"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			]	
+		},
 
 
 
@@ -389,13 +406,7 @@
 					],
 					"nextLogicOperator":"and"
 				}
-			],
-			"content":[
-				{
-					"stepJson":{
-					}
-				}
-			]	
+			]
 		},
 		"step10":{
 			"id":"step10",
@@ -409,12 +420,6 @@
 						}
 					],
 					"nextLogicOperator":"and"
-				}
-			],
-			"content":[
-				{
-					"stepJson":{
-					}
 				}
 			]	
 		}

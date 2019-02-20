@@ -1,6 +1,8 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.cursorloop;
 
 import java.util.List;
+
+import com.sql.impl.statement.complex.object.procedure.context.CursorContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.LogicEntity;
 
 /**
@@ -15,6 +17,7 @@ public abstract class AbstractCursorLoop extends LogicEntity{
 		super(null, false);
 		this.cursorName = cursorName;
 		this.variableNameList = variableNameList;
+		CursorContext.recordCursor(cursorName, variableNameList, getVariableNames());
 	}
 	
 	protected abstract String getVariableNames();
