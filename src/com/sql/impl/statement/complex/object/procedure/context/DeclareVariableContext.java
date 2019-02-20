@@ -1,12 +1,13 @@
-package com.sql.impl.statement.complex.object.procedure.model.declare;
+package com.sql.impl.statement.complex.object.procedure.context;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
+import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
 import com.sql.impl.statement.complex.object.procedure.model.declare.db.DBDeclare;
 import com.sql.impl.statement.complex.object.procedure.model.declare.db.ORACLE_Declare;
 import com.sql.impl.statement.complex.object.procedure.model.declare.db.SQLSERVER_Declare;
@@ -33,10 +34,13 @@ public class DeclareVariableContext {
 
 	/**
 	 * 记录declare
-	 * @param declareEntity
+	 * @param declareJson
+	 * @return 
 	 */
-	public static void recordDeclare(DeclareEntity declareEntity) {
+	public static DeclareEntity recordDeclare(JSONObject declareJson) {
 		Map<String, DeclareEntity> local = declareListLocal.get();
+		
+		DeclareEntity declareEntity = new DeclareEntity(declareJson);
 		if(local == null){
 			local = new HashMap<String, DeclareEntity>(20);
 		}else{
@@ -45,18 +49,7 @@ public class DeclareVariableContext {
 			}
 		}
 		local.put(declareEntity.getName(), declareEntity);
-	}
-	
-	/**
-	 * 记录declare集合
-	 * @param declareList
-	 */
-	public static void recordDeclare(List<DeclareEntity> declareList) {
-		if(declareList != null && declareList.size() > 0){
-			for (DeclareEntity declareEntity : declareList) {
-				recordDeclare(declareEntity);
-			}
-		}
+		return declareEntity;
 	}
 	
 	/**
@@ -71,10 +64,18 @@ public class DeclareVariableContext {
 			for (DeclareEntity declareEntity : declareEntityList) {
 				declareSql.append(dbdeclare.toDeclareSqlStatement(declareEntity)).append('\n');
 			}
-			declareEntityList.clear();
+			clear();
 			return declareSql.toString();
 		}
 		throw new NullPointerException("无法获取declare的sql语句代码块");
+	}
+
+	public static void clear() {
+		Map<String, DeclareEntity> map = declareListLocal.get();
+		if(map != null && map.size() > 0){
+			map.values().clear();
+			map.clear();
+		}
 	}
 
 	private static DBDeclare getDBDeclare() {

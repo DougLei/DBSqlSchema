@@ -6,8 +6,8 @@ import java.util.List;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderImpl;
+import com.sql.impl.statement.complex.object.procedure.context.DeclareVariableContext;
 import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
-import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareVariableContext;
 import com.sql.impl.statement.complex.object.procedure.model.param.ParameterEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.StepImpl;
 import com.sql.statement.complex.object.procedure.ProcedureSqlStatementBuilder;
@@ -70,7 +70,7 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 		}
 		
 		// 处理declare
-		recordDeclareEntityList();
+		processDeclareEntityList();
 		
 		// 处理存储过程body
 		List<Step> stepList = getStepList();
@@ -161,24 +161,19 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 	protected abstract String getParameterSql();
 	
 	/**
-	 * 记录declare列表
+	 * 处理(记录)declare 集合
 	 * @return
 	 */
-	protected void recordDeclareEntityList() {
+	protected void processDeclareEntityList() {
 		JSONArray array = content.getJSONArray("declare");
 		if(array != null && array.size() > 0){
-			List<DeclareEntity> declareList = new ArrayList<DeclareEntity>(array.size());
-			JSONObject json = null;
 			DeclareEntity declare = null;
 			for(int i=0;i<array.size();i++){
-				json = array.getJSONObject(i);
-				declare = new DeclareEntity(json);
+				declare = DeclareVariableContext.recordDeclare(array.getJSONObject(i));
 				if(declare.isCreateType()){
 					recordCreateTypeSqlStatement(declare.getCreateTypeSqlStatement());
 				}
-				declareList.add(declare);
 			}
-			DeclareVariableContext.recordDeclare(declareList);
 		}
 	}
 	

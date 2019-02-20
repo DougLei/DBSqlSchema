@@ -2,10 +2,10 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.
 
 import java.util.Arrays;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
-import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareVariableContext;
+import com.sql.impl.statement.complex.object.procedure.context.DeclareVariableContext;
 import com.sql.statement.basic.model.function.Function;
 
 /**
@@ -14,7 +14,7 @@ import com.sql.statement.basic.model.function.Function;
  */
 public class Parameter {
 	private boolean isDeclare;
-	private DeclareEntity declareEntity;
+	private JSONObject declareEntityJson;
 	
 	private Type type;
 	private String value;
@@ -23,7 +23,7 @@ public class Parameter {
 	
 	public String getSqlStatement() {
 		if(isDeclare){
-			DeclareVariableContext.recordDeclare(declareEntity);
+			DeclareVariableContext.recordDeclare(declareEntityJson);
 		}
 		switch(type){
 			case VALUE:
@@ -50,8 +50,8 @@ public class Parameter {
 	public void setDeclare(boolean isDeclare) {
 		this.isDeclare = isDeclare;
 	}
-	public void setDeclareEntity(DeclareEntity declareEntity) {
-		this.declareEntity = declareEntity;
+	public void setDeclareJson(JSONObject declareEntityJson) {
+		this.declareEntityJson = declareEntityJson;
 	}
 	public void setType(String type) {
 		this.type = Type.toValue(type);

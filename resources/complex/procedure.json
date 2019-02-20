@@ -353,7 +353,17 @@
 			"type":"cursor_loop",
 			"desc":"游标循环",
 			"cursor":{
-				
+				"name":"",
+				"declareCursor":{
+
+				},
+				"declareVariable":[
+					{
+						"name":"sex",
+						"dataType":"varchar",
+						"length":1
+					}
+				]
 			},
 			"content":[
 				{
