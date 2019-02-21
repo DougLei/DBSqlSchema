@@ -40,6 +40,8 @@ public enum StepType {
 	
 //	EXEC_PROCEDURE(),
 //	EXEC_DYNAMIC_SQL()
+	
+	// 行类型
 	;
 	
 	private StepEntityFactory factory;
