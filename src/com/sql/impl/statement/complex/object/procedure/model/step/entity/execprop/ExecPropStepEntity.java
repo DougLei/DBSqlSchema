@@ -44,6 +44,6 @@ public class ExecPropStepEntity extends AbstractStepEntity {
 	}
 	
 	public StepType getStepType() {
-		return StepType.ROLLBACK;
+		return StepType.EXEC_PROC;
 	}
 }

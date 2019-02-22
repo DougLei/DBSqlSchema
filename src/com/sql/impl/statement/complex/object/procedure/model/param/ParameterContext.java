@@ -87,7 +87,7 @@ public class ParameterContext {
 		throw new NullPointerException("无法获取parameter的sql语句代码块");
 	}
 
-	public static void clear() {
+	private static void clear() {
 		Map<String, ParameterEntity> map = parameterListLocal.get();
 		if(map != null && map.size() > 0){
 			map.values().clear();

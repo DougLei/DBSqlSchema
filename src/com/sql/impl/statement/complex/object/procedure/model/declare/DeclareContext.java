@@ -71,7 +71,7 @@ public class DeclareContext {
 		throw new NullPointerException("无法获取declare的sql语句代码块");
 	}
 
-	public static void clear() {
+	private static void clear() {
 		Map<String, DeclareEntity> map = declareListLocal.get();
 		if(map != null && map.size() > 0){
 			map.values().clear();
