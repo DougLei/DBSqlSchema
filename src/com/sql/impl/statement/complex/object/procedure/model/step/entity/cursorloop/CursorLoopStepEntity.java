@@ -5,9 +5,7 @@ import java.util.List;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractStepEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.LogicEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.cursorloop.ORACLE_CURSORLOOP;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.cursorloop.SQLSERVER_CURSORLOOP;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
 import com.sql.statement.complex.object.procedure.model.step.StepType;
 
 /**
@@ -15,7 +13,7 @@ import com.sql.statement.complex.object.procedure.model.step.StepType;
  * @author DougLei
  */
 public class CursorLoopStepEntity extends AbstractStepEntity {
-	private CursorEntity cursorEntity;
+	private CursorLoopEntity cursorEntity;
 	
 	public String getSqlStatement() {
 		StringBuilder sb = new StringBuilder(5000);
@@ -39,7 +37,7 @@ public class CursorLoopStepEntity extends AbstractStepEntity {
 		return StepType.CURSOR_LOOP;
 	}
 
-	public void setCursorEntity(CursorEntity cursorEntity) {
+	public void setCursorEntity(CursorLoopEntity cursorEntity) {
 		this.cursorEntity = cursorEntity;
 	}
 }

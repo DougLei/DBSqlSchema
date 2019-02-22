@@ -14,6 +14,7 @@ public abstract class AbstractDataType {
 	
 	private int length;
 	private int precision;
+	private InOut inOut;
 	
 	protected void setLength(int length) {
 		this.length = length;
@@ -28,6 +29,13 @@ public abstract class AbstractDataType {
 
 	protected void setDataType(String dataType){
 		this.dataType = DataType.toValue(dataType);
+	}
+	protected void setInOut(String inOut) {
+		if(StrUtils.isEmpty(inOut)){
+			this.inOut = InOut.IN;
+		}else{
+			this.inOut = InOut.toValue(inOut);
+		}
 	}
 	
 	public String getBaseDataType() {
@@ -94,5 +102,33 @@ public abstract class AbstractDataType {
 	 */
 	public String getAppendCustomSqlStatement(String name) {
 		return dataType.getAppendCustomSqlStatement(name, customJson);
+	}
+
+	public boolean isIN(){
+		return inOut == InOut.IN;
+	}
+	public boolean isOUT(){
+		return inOut == InOut.OUT;
+	}
+	public boolean isIN_OUT(){
+		return inOut == InOut.INOUT;
+	}
+	
+	/**
+	 * 
+	 * @author DougLei
+	 */
+	private enum InOut {
+		IN,
+		OUT,
+		INOUT;
+		
+		static InOut toValue(String str){
+			try {
+				return InOut.valueOf(str.trim().toUpperCase());
+			} catch (Exception e) {
+				throw new IllegalArgumentException("值[\""+str+"\"]错误，目前支持的值包括：[in, out, inout]");
+			}
+		}
 	}
 }

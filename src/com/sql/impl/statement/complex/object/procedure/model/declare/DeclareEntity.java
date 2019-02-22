@@ -13,16 +13,17 @@ public class DeclareEntity extends AbstractDataType{
 	private String defaultValue;
 	
 	public DeclareEntity(JSONObject json) {
-		this(json.getString("name"), json.getString("dataType"), json.getIntValue("length"), json.get("precision"), json.getString("defaultValue"));
+		this(json.getString("name"), json.getString("dataType"), json.getIntValue("length"), json.get("precision"), json.getString("inOut"), json.getString("defaultValue"));
 		if(!isBaseType()){
 			setCustomJson(json.getJSONObject("custom"));
 		}
 	}
-	private DeclareEntity(String name, String dataType, int length, Object precision, String defaultValue) {
+	private DeclareEntity(String name, String dataType, int length, Object precision, String inOut, String defaultValue) {
 		this.name = name.trim().toUpperCase();
 		setDataType(dataType);
 		setLength(length);
 		setPrecision(precision);
+		setInOut(inOut);
 		this.defaultValue = defaultValue;
 	}
 	

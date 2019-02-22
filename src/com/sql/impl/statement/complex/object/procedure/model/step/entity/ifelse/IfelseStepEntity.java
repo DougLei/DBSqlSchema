@@ -6,15 +6,15 @@ import java.util.List;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractStepEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.LogicEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.condition.ConditionEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.condition.ConditionGroup;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.ifelse.oracle.ORACLE_ELSE;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.ifelse.oracle.ORACLE_IF;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.ifelse.oracle.ORACLE_IFELSE;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.ifelse.sqlserver.SQLSERVER_ELSE;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.ifelse.sqlserver.SQLSERVER_IF;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.logic.ifelse.sqlserver.SQLSERVER_IFELSE;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.oracle.ORACLE_ELSE;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.oracle.ORACLE_IF;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.oracle.ORACLE_IFELSE;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.sqlserver.SQLSERVER_ELSE;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.sqlserver.SQLSERVER_IF;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.sqlserver.SQLSERVER_IFELSE;
 import com.sql.statement.complex.object.procedure.model.step.StepType;
 
 /**

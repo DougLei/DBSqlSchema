@@ -11,11 +11,13 @@
 				"name":"name",
 				"dataType":"varchar",
 				"length":20,
-				"defaultValue":""
+				"defaultValue":"",
+				"inOut":"in"
 			},
 			{
 				"name":"tbtype",
 				"dataType":"table",
+				"inOut":"in",
 				"custom":{
 					"typeName":"mytable",			
 					"isCreateType":true,	
@@ -33,11 +35,13 @@
 			{
 				"name":"sex",
 				"dataType":"varchar",
-				"length":1
+				"length":1,
+				"inOut":"in"
 			},
 			{
 				"name":"tmptbtype",
 				"dataType":"tmp_table",
+				"inOut":"in",
 				"custom":{
 					"typeName":"mytmptable",
 					"isCreateType":true,			
@@ -422,6 +426,32 @@
 					"nextLogicOperator":"and"
 				}
 			]	
+		},
+		
+		
+		
+		"step12":{
+			"id":"step12",
+			"type":"exec_proc",
+			"desc":"执行存储过程",
+			"inParam":[
+				{
+
+				}
+			],
+			"outParam":[
+
+			],
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"leftType":"value/parameter/function"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			]
 		}
 
 
