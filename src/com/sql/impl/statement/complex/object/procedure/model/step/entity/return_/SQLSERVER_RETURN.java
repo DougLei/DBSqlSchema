@@ -17,22 +17,18 @@ public class SQLSERVER_RETURN extends LogicEntity{
 	}
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {
-		boolean sqlStatementNotNull = StrUtils.notEmpty(sqlStatement);
+		if(StrUtils.notEmpty(sqlStatement)){
+			throw new IllegalArgumentException("系统不支持sqlserver存储过程return数据，如果需要return 相关数据，请改用输出参数的形式");
+		}
+		
 		StringBuilder sb = buildSqlStringBuilder(sqlStatement);
 		if(conditionSqlStatement.length() > 0){
 			sb.append("if ").append(conditionSqlStatement).append(newline());
 			sb.append("begin").append(newline());
-			sb.append("return");
-			if(sqlStatementNotNull){
-				sb.append(" ").append(sqlStatement);
-			}
-			sb.append(newline());
+			sb.append("return").append(newline());
 			sb.append("end");
 		}else{
 			sb.append("return");
-			if(sqlStatementNotNull){
-				sb.append(" ").append(sqlStatement);
-			}
 		}
 		sb.append(newline());
 		return sb.toString();

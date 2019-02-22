@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sql.impl.statement.complex.object.procedure.context.DeclareVariableContext;
+import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractContent;
 import com.sql.util.StrUtils;
 
@@ -34,14 +34,14 @@ public class CursorLoopEntity extends AbstractContent{
 		if(StrUtils.notEmpty(declareCursorJson.getString("name"))){
 			this.name = declareCursorJson.getString("name");
 		}
-		DeclareVariableContext.recordDeclare(declareCursorJson);
+		DeclareContext.recordDeclare(declareCursorJson);
 	}
 	
 	private void processVariablesDeclare(JSONArray declareVariableArray) {
 		int size = declareVariableArray.size();
 		variableNameList = new ArrayList<String>(size);
 		for(int i=0;i<size;i++){
-			variableNameList.add(DeclareVariableContext.recordDeclare(declareVariableArray.getJSONObject(i)).getName());
+			variableNameList.add(DeclareContext.recordDeclare(declareVariableArray.getJSONObject(i)).getName());
 		}
 	}
 

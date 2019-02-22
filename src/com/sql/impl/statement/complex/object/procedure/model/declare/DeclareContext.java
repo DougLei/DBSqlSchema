@@ -1,4 +1,4 @@
-package com.sql.impl.statement.complex.object.procedure.context;
+package com.sql.impl.statement.complex.object.procedure.model.declare;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -7,17 +7,14 @@ import java.util.Map;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
-import com.sql.impl.statement.complex.object.procedure.model.declare.db.DBDeclare;
-import com.sql.impl.statement.complex.object.procedure.model.declare.db.ORACLE_Declare;
-import com.sql.impl.statement.complex.object.procedure.model.declare.db.SQLSERVER_Declare;
+import com.sql.impl.statement.complex.object.procedure.context.CreateTypeContext;
 
 
 /**
  * 
  * @author DougLei
  */
-public class DeclareVariableContext {
+public class DeclareContext {
 	/**
 	 * 声明变量的sql语句，可能在存储过程体中也会声明变量，所以这里统一记录，最后统一放到存储过程delcare块中
 	 */
@@ -60,7 +57,7 @@ public class DeclareVariableContext {
 	 * 获取最终的declare sql语句
 	 * @return
 	 */
-	public static String getDeclareVariableSqlStatement() {
+	public static String getDeclareSqlStatement() {
 		if(includeDeclare()){
 			Collection<DeclareEntity> declareEntityList = declareListLocal.get().values();
 			StringBuilder declareSql = new StringBuilder(declareEntityList.size() * 50);

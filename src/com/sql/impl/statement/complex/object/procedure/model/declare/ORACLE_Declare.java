@@ -1,6 +1,5 @@
-package com.sql.impl.statement.complex.object.procedure.model.declare.db;
+package com.sql.impl.statement.complex.object.procedure.model.declare;
 
-import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
 import com.sql.util.StrUtils;
 
 /**

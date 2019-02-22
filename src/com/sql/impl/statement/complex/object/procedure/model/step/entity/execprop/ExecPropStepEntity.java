@@ -1,48 +1,49 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.return_;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.execprop;
 
 import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractStepEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.rollback.ORACLE_ROLLBACK;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.rollback.SQLSERVER_ROLLBACK;
 import com.sql.statement.complex.object.procedure.model.step.StepType;
 
 /**
  * 
  * @author DougLei
  */
-public class ReturnStepEntity extends AbstractStepEntity {
-
+public class ExecPropStepEntity extends AbstractStepEntity {
 	private ConditionEntity conditionEntity;
 	
-	public ReturnStepEntity(JSONArray condition, JSONObject returnEntity) {
+	public ExecPropStepEntity(JSONArray condition) {
 		conditionEntity = new ConditionEntity(condition, null);
 	}
 
 	public String getSqlStatement() {
 		StringBuilder sb = new StringBuilder(300);
-		sb.append(getReturnEntity(conditionEntity.getConditionGroupList()).getSqlStatement(false, null));
+		sb.append(getRollbackEntity(conditionEntity.getConditionGroupList()).getSqlStatement(false, null));
 		sb.append(newline());
 		return sb.toString();
 	}
 
-	private LogicEntity getReturnEntity(List<ConditionGroup> conditionGroupList) {
+	
+	private LogicEntity getRollbackEntity(List<ConditionGroup> conditionGroupList) {
 		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
 		switch(dbType){
 			case SQLSERVER:
-				return new SQLSERVER_RETURN(conditionGroupList);
+				return new SQLSERVER_ROLLBACK(conditionGroupList);
 			case ORACLE:
-				return new ORACLE_RETURN(conditionGroupList);
+				return new ORACLE_ROLLBACK(conditionGroupList);
 		}
 		return null;
 	}
 	
 	public StepType getStepType() {
-		return StepType.RETURN;
+		return StepType.ROLLBACK;
 	}
 }

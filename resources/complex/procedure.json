@@ -286,11 +286,7 @@
 					],
 					"nextLogicOperator":"and"
 				}
-			],
-			"returnValue":{
-				"type":"value",
-				"value":""
-			}
+			]
 		},
 
 		"step7":{

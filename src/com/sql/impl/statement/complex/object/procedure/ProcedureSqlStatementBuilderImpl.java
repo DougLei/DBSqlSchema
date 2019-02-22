@@ -7,8 +7,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderImpl;
 import com.sql.impl.statement.complex.object.procedure.context.CreateTypeContext;
-import com.sql.impl.statement.complex.object.procedure.context.DeclareVariableContext;
-import com.sql.impl.statement.complex.object.procedure.model.param.ParameterEntity;
+import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareContext;
+import com.sql.impl.statement.complex.object.procedure.model.param.ParameterContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.StepImpl;
 import com.sql.statement.complex.object.procedure.ProcedureSqlStatementBuilder;
 import com.sql.statement.complex.object.procedure.model.step.Step;
@@ -20,7 +20,6 @@ import com.sql.util.StrUtils;
  */
 public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuilderImpl implements ProcedureSqlStatementBuilder {
 	protected StringBuilder headSqlStatement = new StringBuilder(500);// create procedure 语句
-	protected StringBuilder parameterSqlStatement = new StringBuilder(1000);// parameter 语句
 	protected StringBuilder bodySqlStatement = new StringBuilder(10000);
 	
 	public boolean isTransaction(){
@@ -48,13 +47,10 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 		headSqlStatement.append("procedure ").append(procedureName);
 		
 		// 处理参数
-		String parameterSql = getParameterSql();
-		if(parameterSql != null){
-			parameterSqlStatement.append(parameterSql);
-		}
+		processParameter();
 		
 		// 处理declare
-		processDeclareEntityList();
+		processDeclare();
 		
 		// 处理存储过程body
 		List<Step> stepList = getStepList();
@@ -77,9 +73,9 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 			append(CreateTypeContext.getCreateTypeSqlStatement());
 		}
 		append(headSqlStatement);
-		append(parameterSqlStatement);
+		append(ParameterContext.getParameterSqlStatement());
 		append("as ");
-		append(DeclareVariableContext.getDeclareVariableSqlStatement());
+		append(DeclareContext.getDeclareSqlStatement());
 		append("begin");
 		
 		boolean isTransaction = isTransaction();
@@ -110,43 +106,27 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 	}
 
 	/**
-	 * 获取参数列表
-	 * @return
-	 */
-	protected List<ParameterEntity> getParameterEntityList() {
-		JSONArray array = content.getJSONArray("parameter");
-		if(array != null && array.size() > 0){
-			List<ParameterEntity> parameterList = new ArrayList<ParameterEntity>(array.size());
-			JSONObject json = null;
-			ParameterEntity parameter = null;
-			for(int i=0;i<array.size();i++){
-				json = array.getJSONObject(i);
-				parameter = new ParameterEntity(json.getString("name"), json.getString("dataType"), json.getIntValue("length"), json.get("precision"), json.getString("inOut"), json.getString("defaultValue"));
-				if(!parameter.isBaseType()){
-					parameter.setCustomJson(json.getJSONObject("custom"));
-				}
-				parameterList.add(parameter);
-			}
-			return parameterList;
-		}
-		return null;
-	}
-	
-	/**
-	 * 获取parameter参数sql语句
+	 * 处理(记录)parameter 集合
 	 * @return 
 	 */
-	protected abstract String getParameterSql();
+	protected void processParameter(){
+		JSONArray array = content.getJSONArray("parameter");
+		if(array != null && array.size() > 0){
+			for(int i=0;i<array.size();i++){
+				ParameterContext.recordParameter(array.getJSONObject(i));
+			}
+		}
+	}
 	
 	/**
 	 * 处理(记录)declare 集合
 	 * @return
 	 */
-	protected void processDeclareEntityList() {
+	protected void processDeclare() {
 		JSONArray array = content.getJSONArray("declare");
 		if(array != null && array.size() > 0){
 			for(int i=0;i<array.size();i++){
-				DeclareVariableContext.recordDeclare(array.getJSONObject(i));
+				DeclareContext.recordDeclare(array.getJSONObject(i));
 			}
 		}
 	}

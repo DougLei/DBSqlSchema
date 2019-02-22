@@ -5,7 +5,7 @@ import java.util.Arrays;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.statement.complex.object.procedure.context.DeclareVariableContext;
+import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareContext;
 import com.sql.statement.basic.model.function.Function;
 
 /**
@@ -23,7 +23,7 @@ public class Parameter {
 	
 	public String getSqlStatement() {
 		if(isDeclare){
-			DeclareVariableContext.recordDeclare(declareEntityJson);
+			DeclareContext.recordDeclare(declareEntityJson);
 		}
 		switch(type){
 			case VALUE:
