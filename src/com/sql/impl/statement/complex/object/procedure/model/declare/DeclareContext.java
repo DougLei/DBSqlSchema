@@ -7,7 +7,7 @@ import java.util.Map;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.statement.complex.object.procedure.context.CreateTypeContext;
+import com.sql.impl.statement.complex.object.procedure.model.CreateTypeContext;
 
 
 /**

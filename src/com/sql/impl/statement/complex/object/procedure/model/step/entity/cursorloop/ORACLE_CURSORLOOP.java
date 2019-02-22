@@ -2,7 +2,7 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.cursor
 
 import java.util.List;
 
-import com.sql.impl.statement.complex.object.procedure.context.CursorContext;
+import com.sql.impl.statement.complex.object.procedure.model.CursorContext;
 
 /**
  * 

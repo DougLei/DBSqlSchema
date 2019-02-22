@@ -1,6 +1,6 @@
 package com.sql.impl.statement.complex.object.procedure.model.param;
 
-import com.sql.impl.statement.complex.object.procedure.context.CreateTypeContext;
+import com.sql.impl.statement.complex.object.procedure.model.CreateTypeContext;
 import com.sql.util.StrUtils;
 
 /**
