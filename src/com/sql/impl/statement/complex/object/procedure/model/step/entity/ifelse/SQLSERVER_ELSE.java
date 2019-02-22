@@ -1,4 +1,4 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.oracle;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse;
 
 import java.util.List;
 
@@ -9,21 +9,18 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.conditi
  * 
  * @author DougLei
  */
-public class ORACLE_IF extends LogicEntity{
-	
-	public ORACLE_IF(List<ConditionGroup> groupList) {
-		super(groupList, true);
+public class SQLSERVER_ELSE extends LogicEntity{
+
+	public SQLSERVER_ELSE(List<ConditionGroup> groupList) {
+		super(groupList, false);
 	}
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {
 		StringBuilder sb = buildSqlStringBuilder(sqlStatement);
-		sb.append("if ").append(conditionSqlStatement).append(" then").append(newline());
+		sb.append("else ").append(conditionSqlStatement).append(newline());
 		sb.append("begin").append(newline());
 		sb.append(sqlStatement).append(newline());
-		
-		if(isEnd){
-			sb.append("end if;").append(newline());
-		}
+		sb.append("end").append(newline());
 		return sb.toString();
 	}
 }

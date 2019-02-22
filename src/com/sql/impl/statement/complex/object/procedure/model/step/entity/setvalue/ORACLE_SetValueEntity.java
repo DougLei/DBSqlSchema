@@ -1,9 +1,8 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.setvalue.impl;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.setvalue;
 
 import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.SqlStatementInfoBuilderImpl;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.setvalue.SetValueEntity;
 import com.sql.util.StrUtils;
 
 /**

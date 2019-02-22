@@ -1,4 +1,4 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.oracle;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse;
 
 import java.util.List;
 

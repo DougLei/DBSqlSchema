@@ -7,8 +7,6 @@ import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.setvalue.impl.ORACLE_SetValueEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.setvalue.impl.SQLSERVER_SetValueEntity;
 import com.sql.statement.basic.model.function.Function;
 
 /**

@@ -1,4 +1,4 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.sqlserver;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse;
 
 import java.util.List;
 
@@ -9,15 +9,15 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.conditi
  * 
  * @author DougLei
  */
-public class SQLSERVER_ELSE extends LogicEntity{
+public class SQLSERVER_IF extends LogicEntity{
 
-	public SQLSERVER_ELSE(List<ConditionGroup> groupList) {
-		super(groupList, false);
+	public SQLSERVER_IF(List<ConditionGroup> groupList) {
+		super(groupList, true);
 	}
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {
 		StringBuilder sb = buildSqlStringBuilder(sqlStatement);
-		sb.append("else ").append(conditionSqlStatement).append(newline());
+		sb.append("if ").append(conditionSqlStatement).append(newline());
 		sb.append("begin").append(newline());
 		sb.append(sqlStatement).append(newline());
 		sb.append("end").append(newline());

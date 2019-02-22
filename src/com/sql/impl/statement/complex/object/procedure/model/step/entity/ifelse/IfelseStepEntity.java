@@ -9,12 +9,6 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.Abstrac
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.oracle.ORACLE_ELSE;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.oracle.ORACLE_IF;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.oracle.ORACLE_IFELSE;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.sqlserver.SQLSERVER_ELSE;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.sqlserver.SQLSERVER_IF;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse.sqlserver.SQLSERVER_IFELSE;
 import com.sql.statement.complex.object.procedure.model.step.StepType;
 
 /**
