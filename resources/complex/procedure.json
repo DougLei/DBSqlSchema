@@ -430,13 +430,18 @@
 			"id":"step12",
 			"type":"exec_proc",
 			"desc":"执行存储过程",
-			"inParam":[
+
+
+			"oracle":"t2('names',descs);",
+			"sqlserver":"exec t2 'd', @desc output",
+
+			"procedureName":"",
+			"parameter":[
 				{
-
+					"type":"value/variableName/function",
+					"value":"",
+					"inOut":"in"
 				}
-			],
-			"outParam":[
-
 			],
 			"condition":[
 				{
@@ -449,6 +454,8 @@
 				}
 			]
 		}
+
+		
 
 
 
