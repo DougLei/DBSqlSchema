@@ -431,15 +431,30 @@
 			"type":"exec_proc",
 			"desc":"执行存储过程",
 
-
 			"oracle":"t2('names',descs);",
 			"sqlserver":"exec t2 'd', @desc output",
 
 			"procedureName":"",
-			"parameter":[
+			"execParameter":[
 				{
-					"type":"value/variableName/function",
+					"type":"value/variable_name/function",
 					"value":"",
+					"variableName":"",
+					"valueFunction":{
+						"name":"",
+						"parameter":[
+							{
+								"type":"value",
+								"value":"",
+								"function":{
+
+								},
+								"sqlId":"",
+								"sqlJson":{
+								}
+							}
+						]
+					},
 					"inOut":"in"
 				}
 			],

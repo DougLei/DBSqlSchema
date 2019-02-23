@@ -2,6 +2,7 @@ package com.sql.impl.statement.complex.object.procedure.model;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.complex.object.datatype.DataType;
+import com.sql.impl.statement.complex.object.procedure.InOut;
 import com.sql.util.StrUtils;
 
 /**
@@ -112,23 +113,5 @@ public abstract class AbstractDataType {
 	}
 	public boolean isIN_OUT(){
 		return inOut == InOut.INOUT;
-	}
-	
-	/**
-	 * 
-	 * @author DougLei
-	 */
-	private enum InOut {
-		IN,
-		OUT,
-		INOUT;
-		
-		static InOut toValue(String str){
-			try {
-				return InOut.valueOf(str.trim().toUpperCase());
-			} catch (Exception e) {
-				throw new IllegalArgumentException("值[\""+str+"\"]错误，目前支持的值包括：[in, out, inout]");
-			}
-		}
 	}
 }
