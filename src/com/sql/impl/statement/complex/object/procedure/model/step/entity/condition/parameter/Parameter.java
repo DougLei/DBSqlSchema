@@ -7,6 +7,7 @@ import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareContext;
 import com.sql.statement.basic.model.function.Function;
+import com.sql.util.StrUtils;
 
 /**
  * 
@@ -47,20 +48,20 @@ public class Parameter {
 		return null;
 	}
 	
-	public void setDeclare(boolean isDeclare) {
-		this.isDeclare = isDeclare;
-	}
-	public void setDeclareJson(JSONObject declareEntityJson) {
-		this.declareEntityJson = declareEntityJson;
-	}
 	public void setType(String type) {
 		this.type = Type.toValue(type);
 	}
 	public void setValue(String value) {
 		this.value = value;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setDeclareInfo(boolean isDeclare, JSONObject declareEntityJson, String name) {
+		this.isDeclare = isDeclare;
+		this.declareEntityJson = declareEntityJson;
+		if(declareEntityJson != null && StrUtils.notEmpty(declareEntityJson.getString("name"))){
+			this.name = declareEntityJson.getString("name");
+		}else{
+			this.name = name;
+		}
 	}
 	public void setFunction(Function function) {
 		this.function = function;

@@ -31,8 +31,12 @@ public class ExecParameter {
 		
 		this.isDeclare = json.getBooleanValue("isDeclare");
 		this.declareEntityJson = json.getJSONObject("declare");
-		this.variableName = json.getString("variableName");
-		
+		if(declareEntityJson != null && StrUtils.notEmpty(declareEntityJson.getString("name"))){
+			this.variableName = declareEntityJson.getString("name");
+		}else{
+			this.variableName = json.getString("variableName");
+		}
+
 		this.valueFunction = FunctionImpl.newInstance(json.getJSONObject("valueFunction"));
 		
 		String inout = json.getString("inOut");
