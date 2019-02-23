@@ -440,6 +440,10 @@
 					"type":"value/variable_name/function",
 					"value":"",
 					"variableName":"",
+					"isDeclare":false,
+					"declare":{
+
+					},
 					"valueFunction":{
 						"name":"",
 						"parameter":[

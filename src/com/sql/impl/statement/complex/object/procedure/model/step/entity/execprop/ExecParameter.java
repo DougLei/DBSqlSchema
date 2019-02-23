@@ -4,6 +4,7 @@ import java.util.Arrays;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.impl.statement.complex.object.procedure.InOut;
+import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareContext;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.util.StrUtils;
 
@@ -14,14 +15,24 @@ import com.sql.util.StrUtils;
 public class ExecParameter {
 	private Type type;
 	private String value;
+	
+	private boolean isDeclare;
+	private JSONObject declareEntityJson;
 	private String variableName;
+	
 	private Function valueFunction;
+	
 	private InOut in;
 	
 	public ExecParameter(JSONObject json) {
 		this.type = Type.toValue(json.getString("type"));
+		
 		this.value = json.getString("value");
+		
+		this.isDeclare = json.getBooleanValue("isDeclare");
+		this.declareEntityJson = json.getJSONObject("declare");
 		this.variableName = json.getString("variableName");
+		
 		this.valueFunction = FunctionImpl.newInstance(json.getJSONObject("valueFunction"));
 		
 		String inout = json.getString("inOut");
@@ -33,6 +44,9 @@ public class ExecParameter {
 	}
 	
 	public String getParamSqlStatement() {
+		if(isDeclare){
+			DeclareContext.recordDeclare(declareEntityJson);
+		}
 		switch(type){
 			case VALUE:
 				return value;
