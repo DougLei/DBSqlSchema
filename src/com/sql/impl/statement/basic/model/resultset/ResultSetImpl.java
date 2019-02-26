@@ -40,4 +40,8 @@ public class ResultSetImpl extends BasicModelImpl implements ResultSet {
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
+
+	public String getResultSetColumnName() {
+		return getSqlStatement();
+	}
 }

@@ -20,9 +20,9 @@ import com.sql.statement.basic.select.SelectSqlStatementBuilder;
  * @author DougLei
  */
 public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder implements SelectSqlStatementBuilder {
-	protected StringBuilder selectSqlStatement = new StringBuilder(6000);
 	
 	public String buildSql() {
+		StringBuilder selectSqlStatement = new StringBuilder(6000);
 		Table table = getTable();
 		
 		selectSqlStatement.append("select ");
@@ -30,6 +30,7 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		
 		// 查询的列名
 		List<ResultSet> resultSetList = getResultSetList();
+		setResultSetColumnNames(resultSetList);
 		for(int i=0;i<resultSetList.size();i++){
 			selectSqlStatement.append(resultSetList.get(i).getSqlStatement());
 			if(i < resultSetList.size()-1){
@@ -38,41 +39,45 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		}
 		selectSqlStatement.append(newline());
 		
+		StringBuilder selectSqlBodyStatement = new StringBuilder(4000);
 		// from
-		selectSqlStatement.append("from ");
-		selectSqlStatement.append(table.getSqlStatement());
-		selectSqlStatement.append(newline());
+		selectSqlBodyStatement.append("from ");
+		selectSqlBodyStatement.append(table.getSqlStatement());
+		selectSqlBodyStatement.append(newline());
 		
 		// join
 		List<Join> joinList = getJoinList();
 		if(joinList != null && joinList.size() > 0){
 			for (Join join : joinList) {
-				selectSqlStatement.append(join.getSqlStatement());
-				selectSqlStatement.append(newline());
+				selectSqlBodyStatement.append(join.getSqlStatement());
+				selectSqlBodyStatement.append(newline());
 			}
 		}
 
 		// where
-		selectSqlStatement.append(getWhereSqlStatement());
+		selectSqlBodyStatement.append(getWhereSqlStatement());
 		
 		// group by
 		GroupBy groupBy = getGroupBy();
 		if(groupBy != null){
-			selectSqlStatement.append("group by ");
-			selectSqlStatement.append(groupBy.getSqlStatement());
-			selectSqlStatement.append(newline());
+			selectSqlBodyStatement.append("group by ");
+			selectSqlBodyStatement.append(groupBy.getSqlStatement());
+			selectSqlBodyStatement.append(newline());
 		}
 		
 		// having
-		selectSqlStatement.append(getHavingSqlStatement());
+		selectSqlBodyStatement.append(getHavingSqlStatement());
 		
 		// order by
 		OrderBy orderBy = getOrderBy();
 		if(orderBy != null){
-			selectSqlStatement.append("order by ");
-			selectSqlStatement.append(orderBy.getSqlStatement());
-			selectSqlStatement.append(newline());
+			selectSqlBodyStatement.append("order by ");
+			selectSqlBodyStatement.append(orderBy.getSqlStatement());
+			selectSqlBodyStatement.append(newline());
 		}
+		setBody(selectSqlBodyStatement);
+		selectSqlStatement.append(selectSqlBodyStatement);
+		
 		return selectSqlStatement.toString();
 	}
 
@@ -113,5 +118,28 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		table.setSubSqlJson(json.getJSONObject("subSqlJson"));
 		table.setAlias(json.getString("alias"));
 		return table;
+	}
+
+	private List<String> resultsetColumnNames;
+	public List<String> getResultSetColumnNames() {
+		buildSqlStatement();
+		return resultsetColumnNames;
+	}
+	private void setResultSetColumnNames(List<ResultSet> resultSetList){
+		if(resultsetColumnNames == null){
+			resultsetColumnNames = new ArrayList<String>(resultSetList.size());
+		}
+		for (ResultSet resultSet : resultSetList) {
+			resultsetColumnNames.add(resultSet.getResultSetColumnName());
+		}
+	}
+
+	private String body;
+	public String getBody() {
+		buildSqlStatement();
+		return body;
+	}
+	private void setBody(StringBuilder selectSqlBodyStatement){
+		body = selectSqlBodyStatement.toString();
 	}
 }

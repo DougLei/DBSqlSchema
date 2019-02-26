@@ -110,8 +110,15 @@
 			"desc":"给参数赋值",
 			"content":[
 				{
-					"type":"value",
-					"paramName":"",
+					"declare":[
+						{
+							"isDeclare":false,
+							"name":""
+						}
+					],
+
+					"type":"value/function/select_sql",
+					
 
 					"value":"",
 
@@ -430,9 +437,6 @@
 			"id":"step12",
 			"type":"exec_proc",
 			"desc":"执行存储过程",
-
-			"oracle":"t2('names',descs);",
-			"sqlserver":"exec t2 'd', @desc output",
 
 			"procedureName":"",
 			"execParameter":[

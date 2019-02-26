@@ -1,9 +1,9 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.setvalue;
 
-import com.sql.SqlStatementInfoBuilder;
-import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.SqlStatementInfoBuilderImpl;
-import com.sql.util.StrUtils;
+import java.util.List;
+
+import com.sql.statement.basic.select.SelectSqlStatementBuilder;
+import com.sql.statement.complex.select.CombinationSelectSqlStatementBuilder;
 
 /**
  * 
@@ -12,27 +12,33 @@ import com.sql.util.StrUtils;
 public class SQLSERVER_SetValueEntity extends SetValueEntity {
 
 	protected String getVALUESqlStatement() {
-		return "set @"+paramName+" =" + value;
+		return "set @"+paramName[0]+" =" + value;
 	}
 
 	protected String getFUNCTIONSqlStatement() {
-		return "set @"+paramName+" =" + valueFunction.getSqlStatement();
+		return "set @"+paramName[0]+" =" + valueFunction.getSqlStatement();
 	}
 
-	protected String getSELECT_SQLSqlStatement() {
-		StringBuilder sb = new StringBuilder(500);
-		if(StrUtils.notEmpty(selectSqlId)){
-			sb.append(SqlStatementBuilderContext.buildSqlStatement(selectSqlId));
-		}else{
-			SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-			infoBuilder.setJson(selectSqlJson);
-			sb.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
+	protected String getSIMPLE_SELECT_SQLSqlStatement(SelectSqlStatementBuilder builder) {
+		StringBuilder sb = new StringBuilder(builder.getBody().length() + builder.getResultSetColumnNames().size() * 50);
+		sb.append("select \n");
+		
+		List<String> columnNames = builder.getResultSetColumnNames();
+		int flag = columnNames.size()-1;
+		for (int i=0;i<columnNames.size();i++) {
+			if(i<paramName.length){
+				sb.append("@").append(paramName[i]).append(" =");
+			}
+			sb.append(columnNames.get(i));
+			if(i<flag){
+				sb.append(", ");
+			}
 		}
-		return "select @"+paramName+"=" + sb.substring(6);
+		return sb.append(builder.getBody()).toString();
 	}
-	
-	protected String getPROCEDURESqlStatement() {
-		// TODO 存储过程的方式赋值，完全没有实现，父类连存储过程的参数怎么传递的属性都没有编写
+
+	protected String getCOMBINATION_SELECT_SQLSqlStatement(CombinationSelectSqlStatementBuilder builder) {
+		// TODO
 		return null;
 	}
 }

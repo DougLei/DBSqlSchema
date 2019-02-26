@@ -55,4 +55,17 @@ public interface SelectSqlStatementBuilder {
 	 * @return
 	 */
 	OrderBy getOrderBy();
+	
+	// --------------------------------------------------------
+	/**
+	 * 获取最终的查询结果列名集合
+	 * @return
+	 */
+	List<String> getResultSetColumnNames();
+	/**
+	 * 获取查询语句的body
+	 * <p>从from开始</p>
+	 * @return
+	 */
+	String getBody();
 }

@@ -7,5 +7,10 @@ import com.sql.statement.BasicModel;
  * @author DougLei
  */
 public interface ResultSet extends BasicModel{
-	
+
+	/**
+	 * 获取查询结果集的列名
+	 * @return
+	 */
+	String getResultSetColumnName();
 }

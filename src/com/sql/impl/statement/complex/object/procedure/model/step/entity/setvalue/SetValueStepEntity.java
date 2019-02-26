@@ -14,8 +14,8 @@ public class SetValueStepEntity extends AbstractStepEntity {
 		return StepType.SET_VALUE;
 	}
 
-	public void addSetValueEntity(JSONObject json) {
-		SetValueEntity entity = SetValueEntity.getInstance(json);
+	public void addSetValueEntity(JSONObject setJson) {
+		SetValueEntity entity = SetValueEntity.getInstance(setJson);
 		if(entity != null){
 			addList(entity);
 		}
