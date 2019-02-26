@@ -1,6 +1,7 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.setvalue;
 
 import java.util.Arrays;
+import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -91,8 +92,6 @@ public abstract class SetValueEntity extends AbstractEntity{
 	
 	protected abstract String getVALUESqlStatement();
 	protected abstract String getFUNCTIONSqlStatement();
-	protected abstract String getSIMPLE_SELECT_SQLSqlStatement(SelectSqlStatementBuilder selectSqlStatementBuilder);
-	protected abstract String getCOMBINATION_SELECT_SQLSqlStatement(CombinationSelectSqlStatementBuilder combinationSelectSqlStatementBuilder);
 
 	/**
 	 * 
@@ -138,4 +137,45 @@ public abstract class SetValueEntity extends AbstractEntity{
 		}
 		return builder;
 	}
+	
+	private String getSIMPLE_SELECT_SQLSqlStatement(SelectSqlStatementBuilder builder){
+		StringBuilder sb = new StringBuilder(builder.getBody().length() + builder.getResultSetColumnNames().size() * 50);
+		sb.append("select \n");
+		
+		appendSetValueFromColumnName(builder.getResultSetColumnNames(), sb);
+		return sb.append(builder.getBody()).toString();
+	}
+	
+	private String getCOMBINATION_SELECT_SQLSqlStatement(CombinationSelectSqlStatementBuilder builder){
+		StringBuilder sb = new StringBuilder(builder.getWithBody().length() + builder.getBody().length() + builder.getResultSetColumnNames().size() * 50);
+		sb.append(builder.getWithBody());
+		sb.append("select \n");
+		
+		appendSetValueFromColumnName(builder.getResultSetColumnNames(), sb);
+		
+		sb.append(" from (\n");
+		sb.append(builder.getBody());
+		sb.append("\n)").append(" _subUnionQueryD_");
+		return sb.append(builder.getBody()).toString();
+	}
+	
+	private void appendSetValueFromColumnName(List<String> columnNames, StringBuilder sb){
+		int flag = columnNames.size()-1;
+		for (int i=0;i<columnNames.size();i++) {
+			if(i<paramName.length){
+				sb.append(getSQL_SetParamSql(paramName[i]));
+			}
+			sb.append(columnNames.get(i));
+			if(i<flag){
+				sb.append(", ");
+			}
+		}
+	}
+	
+	/**
+	 * 获取通过select sql语句赋值时，给参数赋值的语句
+	 * @param paramName
+	 * @return
+	 */
+	protected abstract String getSQL_SetParamSql(String paramName);
 }

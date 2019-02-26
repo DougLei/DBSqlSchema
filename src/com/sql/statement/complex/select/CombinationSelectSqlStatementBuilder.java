@@ -28,6 +28,11 @@ public interface CombinationSelectSqlStatementBuilder {
 	 */
 	String getWithBody();
 	/**
+	 * 是否组合查询
+	 * @return
+	 */
+	boolean isUnionQuery();
+	/**
 	 * 获取查询语句的body
 	 * <p>从from开始</p>
 	 * @return

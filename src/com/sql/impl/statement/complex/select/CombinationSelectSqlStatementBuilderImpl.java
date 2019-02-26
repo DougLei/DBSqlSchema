@@ -89,6 +89,9 @@ public class CombinationSelectSqlStatementBuilderImpl extends SqlStatementBuilde
 			json = array.getJSONObject(0);
 			sql.append(toSelectSql(recordResultSetColumnName, json));
 		}else{
+			if(recordResultSetColumnName){
+				isUnionQuery = true;
+			}
 			for(int i=0;i<array.size();i++){
 				json = array.getJSONObject(i);
 				if(i < array.size()-1 && StrUtils.isEmpty(json.getString("unionType"))){
@@ -155,5 +158,10 @@ public class CombinationSelectSqlStatementBuilderImpl extends SqlStatementBuilde
 	}
 	private void setBody(StringBuilder selectSqlBodyStatement){
 		body = selectSqlBodyStatement.toString();
+	}
+
+	private boolean isUnionQuery;
+	public boolean isUnionQuery() {
+		return isUnionQuery;
 	}
 }
