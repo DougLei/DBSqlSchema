@@ -117,7 +117,7 @@
 						}
 					],
 
-					"type":"value/function/select_sql",
+					"type":"value/function/select_sql/dynamic_sql",
 					
 
 					"value":"",
