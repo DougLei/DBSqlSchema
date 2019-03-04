@@ -96,6 +96,7 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 			json = jsonarray.getJSONObject(i);
 			rsi = new ResultSetImpl();
 			rsi.setColumnName(json.getString("columnName"));
+			rsi.setParamName(json.getString("paramName"));
 			rsi.setFunction(getFunction(json.getJSONObject("columnFunction")));
 			rsi.setAlias(json.getString("alias"));
 			

@@ -206,8 +206,7 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 						value.setType(json.getString("type"));
 						value.setSubSqlId(json.getString("subSqlId"));
 						value.setSubSqlJson(json.getJSONObject("subSqlJson"));
-						value.setValueArray(json.getJSONArray("value"));
-						value.setValueFunctionArray(json.getJSONArray("valueFunction"));
+						value.setValueGroupArray(json.getJSONArray("values"));
 						
 						where.setValue(value);
 						whereGroup.addWhere(where);

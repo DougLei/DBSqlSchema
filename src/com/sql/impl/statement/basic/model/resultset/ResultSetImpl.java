@@ -1,6 +1,7 @@
 package com.sql.impl.statement.basic.model.resultset;
 
 import com.sql.impl.statement.BasicModelImpl;
+import com.sql.impl.statement.util.NameUtil;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.resultset.ResultSet;
 import com.sql.util.StrUtils;
@@ -11,6 +12,7 @@ import com.sql.util.StrUtils;
  */
 public class ResultSetImpl extends BasicModelImpl implements ResultSet {
 	private String columnName;
+	private String paramName;
 	private String alias;
 	private Function function;
 	
@@ -20,7 +22,7 @@ public class ResultSetImpl extends BasicModelImpl implements ResultSet {
 			sqlStatement = function.getSqlStatement();
 		}
 		if(sqlStatement == null){
-			sqlStatement = columnName;
+			sqlStatement = NameUtil.getName(columnName, paramName);
 		}
 		
 		if(StrUtils.notEmpty(alias)){
@@ -36,6 +38,9 @@ public class ResultSetImpl extends BasicModelImpl implements ResultSet {
 	}
 	public void setColumnName(String columnName) {
 		this.columnName = columnName;
+	}
+	public void setParamName(String paramName) {
+		this.paramName = paramName;
 	}
 	public void setAlias(String alias) {
 		this.alias = alias;

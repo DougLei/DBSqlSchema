@@ -6,6 +6,7 @@
 		"resultSet":[
 			{
 				"columnName":"nike_name",
+				"paramName":"name",
 				"columnFunction":{
 					"name":"",
 					"parameters":[]
@@ -44,6 +45,7 @@
 					{
 						"onGroup":[
 							{
+								"leftParamName":"",
 								"leftColumnName":"name",
 								"leftFunction":{
 									"name":"",
@@ -89,11 +91,19 @@
 						"operator":"eq",
 						"value":{
 							"type":"value",
-							"value":["d"],
-							"valueFunction": [
+							"values":[
 								{
-									"name": "to_char",
-									"parameters": ["'test'", "varchar2(20)"]
+									"type":"value",
+									"value":""
+								},
+								{
+									"type":"parameter",
+									"paramName":""
+								},
+								{
+									"type":"function",
+									"function":{
+									}
 								}
 							],
 							"subSqlId": "",
