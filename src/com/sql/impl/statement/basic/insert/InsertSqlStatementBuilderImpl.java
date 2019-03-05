@@ -91,7 +91,7 @@ public class InsertSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		if(array != null && array.size() > 0){
 			for(int i=0;i<array.size();i++){
 				json = array.getJSONObject(i);
-				values.addValuesEntity(new ValuesEntity(json.getString("value"), getFunction(json.getJSONObject("valueFunction"))));
+				values.addValuesEntity(new ValuesEntity(json.getString("value"), json.getString("paramName"), getFunction(json.getJSONObject("valueFunction"))));
 			}
 		}
 		return values;

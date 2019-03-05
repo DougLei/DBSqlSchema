@@ -33,7 +33,6 @@ public class UpdateSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		
 		// where
 		updateSqlStatement.append(getWhereSqlStatement());
-		
 		return updateSqlStatement.toString();
 	}
 
@@ -59,6 +58,7 @@ public class UpdateSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 			set.setColumnName(json.getString("columnName"));
 			set.setValueType(json.getString("valueType"));
 			set.setValue(json.getString("value"));
+			set.setParamName(json.getString("paramName"));
 			set.setValueFunction(getFunction(json.getJSONObject("valueFunction")));
 			set.setSubSqlId(json.getString("subSqlId"));
 			set.setSubSqlJson(json.getJSONObject("subSqlJson"));

@@ -20,6 +20,7 @@ public class SetImpl extends BasicModelImpl implements Set {
 	private String columnName;
 	private Type valueType;
 	private String value;
+	private String paramName;
 	private Function valueFunction;
 	private String subSqlId;
 	private JSONObject subSqlJson;
@@ -29,9 +30,11 @@ public class SetImpl extends BasicModelImpl implements Set {
 		sb.append(columnName).append(" = ");
 		switch(valueType){
 			case VALUE:
-				if(valueFunction == null){
+				if(StrUtils.notEmpty(value)){
 					sb.append(value);
-				}else{
+				}else if(StrUtils.notEmpty(paramName)){
+					sb.append(paramName);
+				}else if(valueFunction != null){
 					sb.append(valueFunction.getSqlStatement());
 				}
 				break;
@@ -55,6 +58,9 @@ public class SetImpl extends BasicModelImpl implements Set {
 	}
 	public void setValue(String value) {
 		this.value = value;
+	}
+	public void setParamName(String paramName) {
+		this.paramName = paramName;
 	}
 	public void setValueFunction(Function valueFunction) {
 		this.valueFunction = valueFunction;
@@ -80,7 +86,6 @@ public class SetImpl extends BasicModelImpl implements Set {
 				throw new IllegalArgumentException("值[\""+str+"\"]错误，目前支持的值包括：["+Arrays.toString(Type.values())+"]");
 			}
 		}
-		
 		public String toString(){
 			return "{" + name() + "}";
 		}

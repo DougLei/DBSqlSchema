@@ -10,6 +10,7 @@
 				"valueType":"value",
 
 				"value":"xxxx",
+				"paramName":"xxxx",
 				"valueFunction":{
 					"name": "to_char",
 					"parameters": ["'test'", "varchar2(20)"]
