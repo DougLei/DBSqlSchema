@@ -3,6 +3,8 @@ package com.sql.impl.statement.basic.model.function;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.BasicModelImpl;
+import com.sql.impl.statement.basic.model.function.builtin.BuiltinFunctionContext;
+import com.sql.statement.basic.model.function.BuiltinFunction;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.util.StrUtils;
 
@@ -18,6 +20,12 @@ public class FunctionImpl extends BasicModelImpl implements Function {
 	public static Function newInstance(JSONObject function){
 		if(function != null && function.size() > 0){
 			String name = function.getString("name");
+			
+			BuiltinFunction bfFunction = BuiltinFunctionContext.getBuiltinFunctionNewInstance(name);
+			if(bfFunction != null){
+				return bfFunction.init(function);
+			}
+			
 			JSONArray paramJsonarray = function.getJSONArray("parameter");
 			if(StrUtils.notEmpty(name) && paramJsonarray!= null && paramJsonarray.size() > 0){
 				ParameterEntity[] parameters = new ParameterEntity[paramJsonarray.size()];

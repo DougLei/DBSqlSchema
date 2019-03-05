@@ -23,9 +23,21 @@ public class ParameterEntity {
 	private String sqlId;
 	private JSONObject sqlJson;
 	
+	public ParameterEntity() {
+	}
 	public ParameterEntity(JSONObject json) {
+		setConfJson(json);
+	}
+	
+	public ParameterEntity reload(JSONObject json){
+		setConfJson(json);
+		return this;
+	}
+	
+	private void setConfJson(JSONObject json){
 		this.type = Type.toValue(json.getString("type"));
 		this.value = json.getString("value");
+		this.paramName = json.getString("paramName");
 		this.function = FunctionImpl.newInstance(json.getJSONObject("function"));
 		this.sqlId = json.getString("sqlId");
 		this.sqlJson = json.getJSONObject("sqlJson");
