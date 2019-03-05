@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.impl.statement.complex.object.procedure.InOut;
 import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareContext;
+import com.sql.impl.statement.util.NameUtil;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.util.StrUtils;
 
@@ -18,7 +19,7 @@ public class ExecParameter {
 	
 	private boolean isDeclare;
 	private JSONObject declareEntityJson;
-	private String variableName;
+	private String paramName;
 	
 	private Function valueFunction;
 	
@@ -32,9 +33,9 @@ public class ExecParameter {
 		this.isDeclare = json.getBooleanValue("isDeclare");
 		this.declareEntityJson = json.getJSONObject("declare");
 		if(declareEntityJson != null && StrUtils.notEmpty(declareEntityJson.getString("name"))){
-			this.variableName = declareEntityJson.getString("name");
+			this.paramName = declareEntityJson.getString("name");
 		}else{
-			this.variableName = json.getString("variableName");
+			this.paramName = json.getString("paramName");
 		}
 
 		this.valueFunction = FunctionImpl.newInstance(json.getJSONObject("valueFunction"));
@@ -54,8 +55,8 @@ public class ExecParameter {
 		switch(type){
 			case VALUE:
 				return value;
-			case VARIABLE_NAME:
-				return variableName;
+			case PARAMETER:
+				return NameUtil.getName(null, paramName);
 			case FUNCTION:
 				return valueFunction.getSqlStatement();
 		}
@@ -67,12 +68,12 @@ public class ExecParameter {
 	 * @return
 	 */
 	public boolean isOutParameter() {
-		return in == InOut.OUT && type == Type.VARIABLE_NAME;
+		return in == InOut.OUT && type == Type.PARAMETER;
 	}
 	
 	private enum Type{
 		VALUE,
-		VARIABLE_NAME,
+		PARAMETER,
 		FUNCTION;
 		
 		static Type toValue(String str){

@@ -7,14 +7,18 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.setval
 public class ORACLE_SetValueEntity extends SetValueEntity {
 
 	protected String getVALUESqlStatement() {
-		return paramName[0] +":=" + value;
+		return paramNames[0] +":=" + value;
 	}
 
 	protected String getFUNCTIONSqlStatement() {
-		return paramName[0] +":=" + valueFunction.getSqlStatement();
+		return paramNames[0] +":=" + valueFunction.getSqlStatement();
 	}
 
 	protected String getSQL_SetParamSql(String paramName) {
 		return paramName+" :=";
+	}
+	
+	protected String getPARAMETERSqlStatement() {
+		return paramName;
 	}
 }

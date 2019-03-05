@@ -110,17 +110,18 @@
 			"desc":"给参数赋值",
 			"content":[
 				{
-					"declare":[
+					"parameter":[
 						{
 							"isDeclare":false,
 							"name":""
 						}
 					],
 
-					"type":"value/function/select_sq",
+					"type":"value/parameter/function/select_sql",
 					
 
 					"value":"",
+					"paramName":"",
 
 					"valueFunction":{
 						"name":"",
@@ -441,9 +442,9 @@
 			"procedureName":"",
 			"execParameter":[
 				{
-					"type":"value/variable_name/function",
+					"type":"value/parameter/function",
 					"value":"",
-					"variableName":"",
+					"paramName":"",
 					"isDeclare":false,
 					"declare":{
 

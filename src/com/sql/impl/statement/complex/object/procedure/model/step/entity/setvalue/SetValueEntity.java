@@ -24,9 +24,13 @@ import com.sql.util.StrUtils;
  */
 public abstract class SetValueEntity extends AbstractEntity{
 	private Type type;
-	protected String[] paramName;
+	
+	protected String[] paramNames;
 	
 	protected String value;
+	
+	protected String paramName;
+	
 	protected Function valueFunction;
 	
 	protected String selectSqlId;
@@ -35,19 +39,19 @@ public abstract class SetValueEntity extends AbstractEntity{
 	public static final SetValueEntity getInstance(JSONObject setJson) {
 		SetValueEntity entity = getSetValueEntity();
 		
-		JSONArray declareEntityJsonArray = setJson.getJSONArray("declare");
-		if(declareEntityJsonArray == null || declareEntityJsonArray.size() == 0){
-			throw new NullPointerException("给变量赋值时，declare属性配置的变量信息不能为空");
+		JSONArray parameterEntityJsonArray = setJson.getJSONArray("parameter");
+		if(parameterEntityJsonArray == null || parameterEntityJsonArray.size() == 0){
+			throw new NullPointerException("给变量赋值时，parameter属性配置的变量信息不能为空");
 		}
-		int size = declareEntityJsonArray.size();
-		entity.paramName = new String[size];
+		int size = parameterEntityJsonArray.size();
+		entity.paramNames = new String[size];
 		JSONObject json = null;
 		for(int i=0;i<size;i++){
-			json = declareEntityJsonArray.getJSONObject(i);
+			json = parameterEntityJsonArray.getJSONObject(i);
 			if(StrUtils.isEmpty(json.getString("name"))){
 				throw new NullPointerException("给变量赋值时，declare属性配置的变量name不能为空");
 			}
-			entity.paramName[i] = json.getString("name");
+			entity.paramNames[i] = json.getString("name");
 			if(json.getBooleanValue("isDeclare")){
 				DeclareContext.recordDeclare(json);
 			}
@@ -55,6 +59,8 @@ public abstract class SetValueEntity extends AbstractEntity{
 		
 		entity.type = Type.toValue(setJson.getString("type"));
 		entity.value = setJson.getString("value");
+		
+		entity.paramName = setJson.getString("paramName");
 		
 		entity.setValueFunction(setJson.getJSONObject("valueFunction"));
 		
@@ -82,6 +88,8 @@ public abstract class SetValueEntity extends AbstractEntity{
 		switch(type){
 			case VALUE:
 				return getVALUESqlStatement();
+			case PARAMETER:
+				return getPARAMETERSqlStatement();
 			case FUNCTION:
 				return getFUNCTIONSqlStatement();
 			case SELECT_SQL:
@@ -91,6 +99,7 @@ public abstract class SetValueEntity extends AbstractEntity{
 	}
 	
 	protected abstract String getVALUESqlStatement();
+	protected abstract String getPARAMETERSqlStatement();
 	protected abstract String getFUNCTIONSqlStatement();
 
 	/**
@@ -99,6 +108,7 @@ public abstract class SetValueEntity extends AbstractEntity{
 	 */
 	private enum Type {
 		VALUE,
+		PARAMETER,
 		FUNCTION,
 		SELECT_SQL;
 		
@@ -162,8 +172,8 @@ public abstract class SetValueEntity extends AbstractEntity{
 	private void appendSetValueFromColumnName(List<String> columnNames, StringBuilder sb){
 		int flag = columnNames.size()-1;
 		for (int i=0;i<columnNames.size();i++) {
-			if(i<paramName.length){
-				sb.append(getSQL_SetParamSql(paramName[i]));
+			if(i<paramNames.length){
+				sb.append(getSQL_SetParamSql(paramNames[i]));
 			}
 			sb.append(columnNames.get(i));
 			if(i<flag){
