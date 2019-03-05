@@ -23,10 +23,10 @@ public class BuiltinFunctionContext {
 		builtinFunctionCache.put(DatabaseType.ORACLE.getDatabaseType(), oracle);
 		
 		// ---------------------------------------------------------------------------------------------------------
-		sqlserver.put("append", SQLSERVER_Append.class);
+		sqlserver.put("_append", SQLSERVER_Append.class);
+		oracle.put("_append", ORACLE_Append.class);
 		
-		// ---------------------------------------------------------------------------------------------------------
-		oracle.put("append", ORACLE_Append.class);
+		
 	}
 	
 	/**
