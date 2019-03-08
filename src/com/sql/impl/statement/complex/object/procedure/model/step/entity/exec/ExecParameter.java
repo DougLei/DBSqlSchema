@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.impl.statement.complex.object.procedure.InOut;
 import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareContext;
+import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
 import com.sql.impl.statement.util.NameUtil;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.util.StrUtils;
@@ -64,11 +65,19 @@ public class ExecParameter {
 	}
 	
 	/**
+	 * 是否是参数类型
+	 * @return
+	 */
+	public boolean isParameter(){
+		return type == Type.PARAMETER;
+	}
+	
+	/**
 	 * 是否是输出参数
 	 * @return
 	 */
 	public boolean isOutParameter() {
-		return in == InOut.OUT && type == Type.PARAMETER;
+		return in == InOut.OUT && isParameter();
 	}
 	
 	private enum Type{
@@ -87,5 +96,28 @@ public class ExecParameter {
 		public String toString(){
 			return name();
 		}
+	}
+
+	/**
+	 * 获取参数的数据类型的sql语句
+	 * @return
+	 */
+	public String getDataTypeSql() {
+		if(isParameter()){
+			DeclareEntity declare = DeclareContext.getDeclareEntity(paramName);
+			if(declare != null){
+				StringBuilder sb = new StringBuilder(50);
+				sb.append(declare.getBaseDataType());
+				if(declare.getLength() > 0){
+					sb.append("(").append(declare.getLength());
+					if(declare.getPrecision() > -1){
+						sb.append(", ").append(declare.getPrecision());
+					}
+					sb.append(")");
+				}
+				return sb.toString();
+			}
+		}
+		throw new NullPointerException("没有获取到paramName为["+paramName+"]的DeclareEntity对象实例");
 	}
 }

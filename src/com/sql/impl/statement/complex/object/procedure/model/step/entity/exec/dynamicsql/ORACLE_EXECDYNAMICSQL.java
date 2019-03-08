@@ -32,5 +32,6 @@ public class ORACLE_EXECDYNAMICSQL extends AbstractExecDynamicSql{
 	}
 
 	protected void processExecuteDynamicSql() {
+		// TODO
 	}
 }

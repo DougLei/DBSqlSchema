@@ -33,6 +33,37 @@ public class SQLSERVER_EXECDYNAMICSQL extends AbstractExecDynamicSql{
 	}
 
 	protected void processExecuteDynamicSql() {
+		executeDynamicSql.append("exec sp_executesql ");
+		if(dynamicSqlEntity.isSqlStatement()){
+			executeDynamicSql.append("N'").append(dynamicSqlEntity.getDynamicSqlStatement()).append("'");
+		}else if(dynamicSqlEntity.isParameter()){
+			executeDynamicSql.append("@").append(dynamicSqlEntity.getDynamicSqlParamName());
+		}
 		
+		if(execParameterList != null && execParameterList.size() > 0){
+			int length = execParameterList.size();
+			StringBuilder paramSb = new StringBuilder(50* length );
+			
+			ExecParameter ep = null;
+			executeDynamicSql.append(",N'");
+			for(int i=0;i<length;i++){
+				ep = execParameterList.get(i);
+				
+				executeDynamicSql.append(ep.getParamSqlStatement());
+				executeDynamicSql.append(" ").append(ep.getDataTypeSql());
+				
+				paramSb.append(ep.getParamSqlStatement());
+				
+				if(ep.isOutParameter()){
+					executeDynamicSql.append(" output");
+					paramSb.append(" output");
+				}
+				if(i<length-1){
+					executeDynamicSql.append(", ");
+					paramSb.append(", ");
+				}
+			}
+			executeDynamicSql.append("', ").append(paramSb);
+		}
 	}
 }

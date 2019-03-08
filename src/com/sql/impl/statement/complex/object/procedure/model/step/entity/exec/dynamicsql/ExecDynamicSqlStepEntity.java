@@ -17,7 +17,18 @@ public class ExecDynamicSqlStepEntity extends AbstractExecStepEntity {
 	
 	public ExecDynamicSqlStepEntity(JSONObject dynamicSqlEntity, JSONArray execParameter, JSONArray condition) {
 		super(execParameter, condition);
+		validExecParameter();
 		this.dynamicSqlEntity = new DynamicSqlEntity(dynamicSqlEntity);
+	}
+
+	private void validExecParameter() {
+		if(execParameterList != null && execParameterList.size() > 0){
+			for(int i=0;i<execParameterList.size();i++){
+				if(!execParameterList.get(i).isParameter()){
+					throw new IllegalArgumentException("执行动态sql时，系统目前只支持解析parameter类型的execParameter参数配置");
+				}
+			}
+		}
 	}
 
 	public String getSqlStatement() {

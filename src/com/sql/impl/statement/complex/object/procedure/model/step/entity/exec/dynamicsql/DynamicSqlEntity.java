@@ -19,18 +19,14 @@ public class DynamicSqlEntity {
 	public boolean isSqlStatement(){
 		return StrUtils.notEmpty(dynamicSqlStatement);
 	}
-	
 	public boolean isParameter(){
 		return StrUtils.notEmpty(dynamicSqlParamName);
 	}
-	
-	public String getDynamicSql(){
-		if(isSqlStatement()){
-			return dynamicSqlStatement;
-		}
-		if(isParameter()){
-			return dynamicSqlParamName;
-		}
-		throw new NullPointerException("执行动态sql语句时，dynamicSql属性下的dynamicSqlStatement或dynamicSqlParamName参数，必须有一个不能为空");
+
+	public String getDynamicSqlStatement() {
+		return dynamicSqlStatement;
+	}
+	public String getDynamicSqlParamName() {
+		return dynamicSqlParamName;
 	}
 }

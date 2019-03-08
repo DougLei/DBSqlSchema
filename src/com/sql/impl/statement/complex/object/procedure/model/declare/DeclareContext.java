@@ -89,4 +89,17 @@ public class DeclareContext {
 		}
 		return null;
 	}
+
+	/**
+	 * 根据参数名，获取declareEntity对象
+	 * @param paramName
+	 * @return
+	 */
+	public static DeclareEntity getDeclareEntity(String paramName) {
+		Map<String, DeclareEntity> local = declareListLocal.get();
+		if(local != null){
+			return local.get(paramName);
+		}
+		return null;
+	}
 }
