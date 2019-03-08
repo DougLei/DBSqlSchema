@@ -1,8 +1,9 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.execprop;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.proc;
 
 import java.util.List;
 
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.ExecParameter;
 
 /**
  * 
@@ -21,10 +22,10 @@ public class ORACLE_EXECPROP extends AbstractExecProc{
 		if(conditionSqlStatement.length() > 0){
 			sb.append("if ").append(conditionSqlStatement).append(" then").append(newline());
 			sb.append("begin").append(newline());
-			sb.append("commit;").append(newline());
+			sb.append(executeProcedureSql).append(newline());
 			sb.append("end if;");
 		}else{
-			sb.append("commit;");
+			sb.append(executeProcedureSql);
 		}
 		sb.append(newline());
 		return sb.toString();

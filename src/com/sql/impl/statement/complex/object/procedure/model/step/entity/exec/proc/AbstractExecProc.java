@@ -1,9 +1,10 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.execprop;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.proc;
 
 import java.util.List;
 
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.ExecParameter;
 
 /**
  * 

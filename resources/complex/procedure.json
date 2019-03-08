@@ -477,6 +477,57 @@
 					"nextLogicOperator":"and"
 				}
 			]
+		},
+		
+		
+		
+		"step13":{
+			"id":"step13",
+			"type":"exec_dynamic_sql",
+			"desc":"执行动态sql",
+
+			"dynamicSql":{
+				"dynamicSqlStatement":"",
+				"dynamicSqlParamName":""
+			},
+			
+			"execParameter":[
+				{
+					"type":"value/parameter/function",
+					"value":"",
+					"paramName":"",
+					"isDeclare":false,
+					"declare":{
+
+					},
+					"valueFunction":{
+						"name":"",
+						"parameter":[
+							{
+								"type":"value",
+								"value":"",
+								"function":{
+
+								},
+								"sqlId":"",
+								"sqlJson":{
+								}
+							}
+						]
+					},
+					"inOut":"in"
+				}
+			],
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"leftType":"value/parameter/function"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			]
 		}
 
 		

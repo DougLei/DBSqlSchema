@@ -7,6 +7,7 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.CommitStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.CursorLoopStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.CursorOpStepEntityFactory;
+import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.ExecDynamicSqlStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.ExecPropStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.ForStepEntityFactory;
 import com.sql.impl.statement.complex.object.procedure.model.step.entityfactory.IfelseStepEntityFactory;
@@ -40,9 +41,9 @@ public enum StepType {
 	ROLLBACK(RollbackStepEntityFactory.newInstance()),
 	
 	EXEC_PROC(ExecPropStepEntityFactory.newInstance()),
-//	EXEC_DYNAMIC_SQL()
+	EXEC_DYNAMIC_SQL(ExecDynamicSqlStepEntityFactory.newInstance())
 	
-	// 行类型
+	// TODO 行类型
 	;
 	
 	private StepEntityFactory factory;

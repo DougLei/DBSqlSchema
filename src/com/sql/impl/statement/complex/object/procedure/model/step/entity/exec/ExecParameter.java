@@ -1,4 +1,4 @@
-package com.sql.impl.statement.complex.object.procedure.model.step.entity.execprop;
+package com.sql.impl.statement.complex.object.procedure.model.step.entity.exec;
 
 import java.util.Arrays;
 import com.alibaba.fastjson.JSONObject;
