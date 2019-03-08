@@ -16,7 +16,7 @@ public interface SqlStatementInfoBuilder {
 	 * 设置数据库类型
 	 * @param databaseType
 	 */
-	SqlStatementInfoBuilder setDatabaseType(DatabaseType databaseType);
+	SqlStatementInfoBuilder setDatabaseType(DatabaseType databaseType); 
 	
 	/**
 	 * 获取数据库类型
