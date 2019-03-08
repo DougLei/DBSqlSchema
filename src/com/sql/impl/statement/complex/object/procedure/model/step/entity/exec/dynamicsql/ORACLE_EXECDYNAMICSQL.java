@@ -43,8 +43,13 @@ public class ORACLE_EXECDYNAMICSQL extends AbstractExecDynamicSql{
 			executeDynamicSql.append(" using ");
 			
 			int length = execParameterList.size();
+			ExecParameter ep = null;
 			for(int i=0;i<length;i++){
-				executeDynamicSql.append(execParameterList.get(i).getParamSqlStatement());
+				ep = execParameterList.get(i);
+				
+				// TODO 这块还没完成，因为oracle调用不同的动态sql会影响是否要out标识，如果是select语句，在using前还需要 into xxx语法，将查询结果赋给相应的xxx变量
+				
+				executeDynamicSql.append(ep.getParamSqlStatement());
 				if(i<length-1){
 					executeDynamicSql.append(", ");
 				}

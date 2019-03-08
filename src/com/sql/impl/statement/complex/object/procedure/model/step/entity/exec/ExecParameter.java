@@ -79,6 +79,20 @@ public class ExecParameter {
 	public boolean isOutParameter() {
 		return in == InOut.OUT && isParameter();
 	}
+	/**
+	 * 是否是输入参数
+	 * @return
+	 */
+	public boolean isInParameter() {
+		return in == InOut.IN && isParameter();
+	}
+	/**
+	 * 是否是输入输出参数
+	 * @return
+	 */
+	public boolean isInOutParameter() {
+		return in == InOut.INOUT && isParameter();
+	}
 	
 	private enum Type{
 		VALUE,

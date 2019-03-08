@@ -41,11 +41,12 @@ public class SQLSERVER_EXECDYNAMICSQL extends AbstractExecDynamicSql{
 		}
 		
 		if(execParameterList != null && execParameterList.size() > 0){
+			executeDynamicSql.append(",N'");
+			
 			int length = execParameterList.size();
-			StringBuilder paramSb = new StringBuilder(50* length );
+			StringBuilder paramSb = new StringBuilder(50 * length);
 			
 			ExecParameter ep = null;
-			executeDynamicSql.append(",N'");
 			for(int i=0;i<length;i++){
 				ep = execParameterList.get(i);
 				
