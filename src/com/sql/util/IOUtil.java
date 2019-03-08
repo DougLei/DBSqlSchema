@@ -7,8 +7,6 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import com.sql.exception.DBSqlSchemaException;
-
 /**
  * 流工具类
  * @author DougLei
@@ -36,7 +34,7 @@ public class IOUtil {
 			}
 			return outputStream.toByteArray();
 		} catch (IOException e) {
-			throw new DBSqlSchemaException("读取inputStream ["+inputStreamName+"] 出现异常", e);
+			throw new IllegalArgumentException("读取inputStream ["+inputStreamName+"] 出现异常", e);
 		} finally{
 			CloseUtil.closeIO(inputStream, outputStream);
 		}
@@ -64,7 +62,7 @@ public class IOUtil {
 			}
 			return null;
 		} catch (IOException e) {
-			throw new DBSqlSchemaException("读取reader ["+readerName+"] 出现异常", e);
+			throw new IllegalArgumentException("读取reader ["+readerName+"] 出现异常", e);
 		} finally{
 			CloseUtil.closeIO(reader, writer);
 		}

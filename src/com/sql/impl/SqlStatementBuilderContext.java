@@ -9,7 +9,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementBuilder;
 import com.sql.SqlStatementInfoBuilder;
 import com.sql.enums.DatabaseType;
-import com.sql.exception.DBSqlSchemaException;
 import com.sql.impl.statement.complex.object.datatype.CustomDataTypeContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.StepContext;
 import com.sql.util.StrUtils;
@@ -28,7 +27,7 @@ public class SqlStatementBuilderContext {
 			if(localDatabaseType.get() == null){
 				localDatabaseType.set(databaseType);
 			}else if(localDatabaseType.get() != databaseType){
-				throw new DBSqlSchemaException("当前处理的是["+localDatabaseType.get()+"]数据库类型，无法同时处理["+databaseType+"]数据库类型");
+				throw new IllegalArgumentException("当前处理的是["+localDatabaseType.get()+"]数据库类型，无法同时处理["+databaseType+"]数据库类型");
 			}
 		}
 	}

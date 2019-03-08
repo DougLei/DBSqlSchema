@@ -32,6 +32,24 @@ public class ORACLE_EXECDYNAMICSQL extends AbstractExecDynamicSql{
 	}
 
 	protected void processExecuteDynamicSql() {
-		// TODO
+		executeDynamicSql.append("execute immediate ");
+		if(dynamicSqlEntity.isSqlStatement()){
+			executeDynamicSql.append("'").append(dynamicSqlEntity.getDynamicSqlStatement()).append("'");
+		}else if(dynamicSqlEntity.isParameter()){
+			executeDynamicSql.append(dynamicSqlEntity.getDynamicSqlParamName());
+		}
+		
+		if(execParameterList != null && execParameterList.size() > 0){
+			executeDynamicSql.append(" using ");
+			
+			int length = execParameterList.size();
+			for(int i=0;i<length;i++){
+				executeDynamicSql.append(execParameterList.get(i).getParamSqlStatement());
+				if(i<length-1){
+					executeDynamicSql.append(", ");
+				}
+			}
+		}
+		executeDynamicSql.append(";");
 	}
 }

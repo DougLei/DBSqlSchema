@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sql.exception.DBSqlSchemaException;
 import com.sql.impl.SqlStatementBuilderImpl;
 import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.impl.statement.basic.model.groupby.GroupByImpl;
@@ -200,7 +199,7 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 						
 						json = json.getJSONObject("value");
 						if(json == null || json.size() == 0){
-							throw new DBSqlSchemaException("where 子句中，value属性不能为空");
+							throw new IllegalArgumentException("where 子句中，value属性不能为空");
 						}
 						value = new ValueImpl();
 						value.setType(json.getString("type"));

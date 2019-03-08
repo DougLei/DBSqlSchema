@@ -13,4 +13,10 @@ public interface Value{
 	 * @return
 	 */
 	public String[] getSqlStatements();
+	
+	/**
+	 * 是否是null值
+	 * @return
+	 */
+	public boolean isNullValueType();
 }

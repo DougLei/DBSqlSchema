@@ -67,7 +67,12 @@ public class Parameter {
 		this.function = function;
 	}
 	
+	public boolean isNullValueType(){
+		return type == Type.NULL_VALUE;
+	}
+	
 	private enum Type{
+		NULL_VALUE,
 		VALUE,
 		PARAMETER,
 		FUNCTION;

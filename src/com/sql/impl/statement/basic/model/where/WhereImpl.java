@@ -25,9 +25,17 @@ public class WhereImpl extends BasicModelImpl implements Where {
 
 	protected String processSqlStatement() {
 		StringBuilder sb = new StringBuilder(100);
-		sb.append(processSqlStatement(columnFunction, columnName));
-		sb.append(" ");
-		sb.append(dataOperator.getSqlStatement(value.getSqlStatements()));
+		sb.append(processSqlStatement(columnFunction, columnName)).append(" ");
+		
+		if(value.isNullValueType()){
+			if(dataOperator == DataOperatorType.EQ){
+				sb.append("is null");
+			}else{
+				sb.append("is not null");
+			}
+		}else{
+			sb.append(dataOperator.getSqlStatement(value.getSqlStatements()));
+		}
 		return sb.toString();
 	}
 	

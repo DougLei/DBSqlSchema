@@ -68,7 +68,12 @@ public class ValueImpl implements Value {
 		}
 	}
 	
+	public boolean isNullValueType(){
+		return type == Type.NULL_VALUE;
+	}
+	
 	private enum Type {
+		NULL_VALUE, 
 		VALUE, 
 		SUB_QUERY; 
 		

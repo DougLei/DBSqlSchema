@@ -17,6 +17,13 @@ public class Condition {
 	private DataOperatorType dataOperator;
 	
 	public String getSqlStatement() {
+		if(rightParameter.isNullValueType()){
+			if(dataOperator == DataOperatorType.EQ){
+				return leftParameter.getSqlStatement() + " is null";
+			}else{
+				return leftParameter.getSqlStatement() + " is not null";
+			}
+		}
 		return leftParameter.getSqlStatement() + dataOperator.getSqlStatement() + rightParameter.getSqlStatement();
 	}
 	

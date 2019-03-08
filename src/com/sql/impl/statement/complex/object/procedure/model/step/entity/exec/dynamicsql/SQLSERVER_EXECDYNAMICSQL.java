@@ -63,7 +63,7 @@ public class SQLSERVER_EXECDYNAMICSQL extends AbstractExecDynamicSql{
 					paramSb.append(", ");
 				}
 			}
-			executeDynamicSql.append("', ").append(paramSb);
+			executeDynamicSql.append("', ").append(paramSb).append(";");
 		}
 	}
 }
