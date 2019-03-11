@@ -1,0 +1,532 @@
+{
+	"id":"prcedureTest",
+	"type":"procedure",
+	"description":"",
+	"content":{
+		"procedureName":"TEST_PROCEDURE",
+		"isCover":true,
+		"isTransaction":false,
+		"parameter":[
+			{
+				"name":"Ids",
+				"dataType":"varchar",
+				"length":2500
+			},
+			{
+				"name":"Message",
+				"dataType":"varchar",
+				"inOut":"out"
+			}
+		],
+		"declare":[
+			{
+				"name":"sex",
+				"dataType":"varchar",
+				"length":1,
+				"inOut":"in"
+			},
+			{
+				"name":"tmptbtype",
+				"dataType":"tmp_table",
+				"inOut":"in",
+				"custom":{
+					"typeName":"mytmptable",
+					"isCreateType":true,			
+					"column":[
+						{
+							"name":"name",
+							"dataType":"varchar",
+							"length":20
+						}
+					]
+				}
+			},
+			{
+				"name":"mc",
+				"dataType":"cursor",
+				"custom":{	
+					"sqlJson":{
+						"id":"testSelect",
+						"type":"select",
+						"description":"",
+						"content":{
+							"resultSet":[
+								{
+									"columnName":"nike_name",
+									"alias":"昵称"
+								}
+							],
+							"table":{
+								"type":"table",
+								"name":"sys_user",
+								"subSqlId":"",
+								"subSqlJson":{
+					
+								},
+								"alias":""
+							}
+						}
+					}
+				}
+			}
+		],
+		
+
+
+
+
+
+
+
+
+		"step1":{
+			"id":"step1",
+			"type":"sql",
+			"desc":"各种sql语句",
+			"content":[
+				{
+					"sqlId":"",
+					"sqlJson":{
+					}
+				}
+			]
+		},
+		"step2":{
+			"id":"step2",
+			"type":"set_value",
+			"desc":"给参数赋值",
+			"content":[
+				{
+					"parameter":[
+						{
+							"isDeclare":false,
+							"name":""
+						}
+					],
+
+					"type":"value/parameter/function/select_sql",
+					
+
+					"value":"",
+					"paramName":"",
+
+					"valueFunction":{
+						"name":"",
+						"parameter":[
+							{
+								"type":"value",
+								"value":"",
+								"function":{
+
+								},
+								"sqlId":"",
+								"sqlJson":{
+								}
+							}
+						]
+					},
+
+					"selectSqlId":"",
+					"selectSqlJson":{
+					}
+				}
+			]
+		},
+		
+		"step3":{
+			"id":"step3",
+			"type":"if_else",
+			"desc":"if_else判断",
+			"if1":{
+				"condition":[
+					{
+						"conditionGroup":[
+							{
+								"leftType":"value/parameter/function",
+								"leftValue":"",
+								"leftName":"nike_name",
+								"leftFunction":{
+									"name":"",
+									"parameters":[
+										{
+											"type":"value",
+											"value":"",
+											"sqlId":"",
+											"sqlJson":{
+											}
+										}
+									]
+								},
+								"operator":"eq",
+								"rightType":"value/parameter/function",
+								"rightValue":"",
+								"rightName":"nike_name",
+								"rightFunction":{
+									"name":"",
+									"parameters":[
+										{
+											"type":"value",
+											"value":"",
+											"sqlId":"",
+											"sqlJson":{
+											}
+										}
+									]
+								},
+								"nextLogicOperator":"and"
+							}
+						],
+						"nextLogicOperator":"and"
+					}
+				],
+				"content":[
+					{
+						"stepJson":{
+						}
+					}
+				]
+			},
+			"if2":{
+
+			}		
+		},
+		
+		"step4":{
+			"id":"step4",
+			"type":"while",
+			"desc":"while循环",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"leftIsDeclare":false,
+							"leftType":"value/parameter/function",
+							"leftValue":"",
+							"leftName":"nike_name",
+							"leftFunction":{
+								"name":"",
+								"parameters":[
+									{
+										"type":"value",
+										"value":"",
+										"sqlId":"",
+										"sqlJson":{
+										}
+									}
+								]
+							},
+							"operator":"eq",
+							"rightIsDeclare":false,
+							"rightType":"value/parameter/function",
+							"rightValue":"",
+							"rightName":"nike_name",
+							"rightFunction":{
+								"name":"",
+								"parameters":[
+									{
+										"type":"value",
+										"value":"",
+										"sqlId":"",
+										"sqlJson":{
+										}
+									}
+								]
+							},
+							"nextLogicOperator":"and"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			],
+			"content":[
+				{
+					"stepJson":{
+					}
+				}
+			]	
+		},
+
+		"step5":{
+			"id":"step5",
+			"type":"break",
+			"desc":"break",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"rightFunction":{
+								"name":""
+							},
+							"nextLogicOperator":"and"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			]
+		},
+
+		"step6":{
+			"id":"step6",
+			"type":"return",
+			"desc":"return",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"rightFunction":{
+								"name":""
+							},
+							"nextLogicOperator":"and"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			]
+		},
+
+		"step7":{
+			"id":"step7",
+			"type":"for",
+			"desc":"for循环--代码实现其实和while循环是一样的",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"leftIsDeclare":false,
+
+
+							"leftType":"value/parameter/function",
+							"leftValue":"",
+							"leftName":"nike_name",
+							"leftFunction":{
+								"name":"",
+								"parameters":[
+									{
+										"type":"value",
+										"value":"",
+										"sqlId":"",
+										"sqlJson":{
+										}
+									}
+								]
+							},
+							"operator":"eq",
+							"rightIsDeclare":false,
+							"rightType":"value/parameter/function",
+							"rightValue":"",
+							"rightName":"nike_name",
+							"rightFunction":{
+								"name":"",
+								"parameters":[
+									{
+										"type":"value",
+										"value":"",
+										"sqlId":"",
+										"sqlJson":{
+										}
+									}
+								]
+							},
+							"nextLogicOperator":"and"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			],
+			"content":[
+				{
+					"stepJson":{
+					}
+				}
+			]	
+		},
+
+
+
+		"step8":{
+			"id":"step8",
+			"type":"cursor_loop",
+			"desc":"游标循环",
+			"cursor":{
+				"name":"",
+				"declareCursor":{
+
+				},
+				"declareVariable":[
+					{
+						"name":"sex",
+						"dataType":"varchar",
+						"length":1
+					}
+				]
+			},
+			"content":[
+				{
+					"stepJson":{
+					}
+				}
+			]	
+		},
+
+		"step9":{
+			"id":"step9",
+			"type":"cursor_op",
+			"desc":"cursor_op",
+			"cursorName":"",
+			"opType":"fetch",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"leftType":"value/parameter/function"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			]	
+		},
+
+
+
+		"step10":{
+			"id":"step10",
+			"type":"commit",
+			"desc":"commit",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"leftType":"value/parameter/function"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			]
+		},
+		"step11":{
+			"id":"step11",
+			"type":"rollback",
+			"desc":"rollback",
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"leftType":"value/parameter/function"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			]	
+		},
+		
+		
+		
+		"step12":{
+			"id":"step12",
+			"type":"exec_proc",
+			"desc":"执行存储过程",
+
+			"procedureName":"",
+			"execParameter":[
+				{
+					"type":"value/parameter/function",
+					"value":"",
+					"paramName":"",
+					"isDeclare":false,
+					"declare":{
+
+					},
+					"valueFunction":{
+						"name":"",
+						"parameter":[
+							{
+								"type":"value",
+								"value":"",
+								"function":{
+
+								},
+								"sqlId":"",
+								"sqlJson":{
+								}
+							}
+						]
+					},
+					"inOut":"in"
+				}
+			],
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"leftType":"value/parameter/function"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			]
+		},
+		
+		
+		
+		"step13":{
+			"id":"step13",
+			"type":"exec_dynamic_sql",
+			"desc":"执行动态sql",
+
+			"dynamicSql":{
+				"dynamicSqlStatement":"",
+				"dynamicSqlParamName":""
+			},
+			
+			"execParameter":[
+				{
+					"type":"value/parameter/function",
+					"value":"",
+					"paramName":"",
+					"isDeclare":false,
+					"declare":{
+
+					},
+					"valueFunction":{
+						"name":"",
+						"parameter":[
+							{
+								"type":"value",
+								"value":"",
+								"function":{
+
+								},
+								"sqlId":"",
+								"sqlJson":{
+								}
+							}
+						]
+					},
+					"inOut":"in"
+				}
+			],
+			"condition":[
+				{
+					"conditionGroup":[
+						{
+							"leftType":"value/parameter/function"
+						}
+					],
+					"nextLogicOperator":"and"
+				}
+			]
+		}
+
+		
+
+
+
+
+
+
+
+
+
+		
+	}
+}
