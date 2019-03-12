@@ -20,54 +20,24 @@
 		],
 		"declare":[
 			{
-				"name":"sex",
-				"dataType":"varchar",
-				"length":1,
-				"inOut":"in"
-			},
-			{
-				"name":"tmptbtype",
+				"name":"tempTable",
 				"dataType":"tmp_table",
-				"inOut":"in",
 				"custom":{
 					"typeName":"mytmptable",
 					"isCreateType":true,			
 					"column":[
 						{
-							"name":"name",
+							"name":"ID",
 							"dataType":"varchar",
-							"length":20
+							"length":50
 						}
 					]
 				}
 			},
 			{
-				"name":"mc",
-				"dataType":"cursor",
-				"custom":{	
-					"sqlJson":{
-						"id":"testSelect",
-						"type":"select",
-						"description":"",
-						"content":{
-							"resultSet":[
-								{
-									"columnName":"nike_name",
-									"alias":"昵称"
-								}
-							],
-							"table":{
-								"type":"table",
-								"name":"sys_user",
-								"subSqlId":"",
-								"subSqlJson":{
-					
-								},
-								"alias":""
-							}
-						}
-					}
-				}
+				"name":"MATERIALNAME",
+				"dataType":"varchar",
+				"length":20
 			}
 		],
 		

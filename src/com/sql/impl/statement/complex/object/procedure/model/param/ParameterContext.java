@@ -40,7 +40,7 @@ public class ParameterContext {
 	public static ParameterEntity recordParameter(JSONObject parameterJson) {
 		Map<String, ParameterEntity> local = parameterListLocal.get();
 		
-		ParameterEntity parameter = new ParameterEntity(parameterJson.getString("name"), parameterJson.getString("dataType"), parameterJson.getIntValue("length"), parameterJson.get("precision"), parameterJson.getString("inOut"), parameterJson.getString("defaultValue"));
+		ParameterEntity parameter = new ParameterEntity(parameterJson);
 		if(!parameter.isBaseType()){
 			parameter.setCustomJson(parameterJson.getJSONObject("custom"));
 		}

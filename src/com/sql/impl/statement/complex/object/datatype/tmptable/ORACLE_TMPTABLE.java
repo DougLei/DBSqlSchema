@@ -18,11 +18,21 @@ public class ORACLE_TMPTABLE extends AbstractCustomDataType{
 	}
 
 	public String getAppendCustomSqlStatement(String name, JSONObject customJson) {
+		JSONArray array = customJson.getJSONArray("column");
+		if(array != null && array.size()>0){
+			StringBuilder sb = new StringBuilder(400);
+			sb.append("execute immediate 'create global temporary table ").append(name).append("(").append(newline());
+			appendColumnSql(array, sb);
+			sb.append(")").append(newline());
+			sb.append(OracleTmpTableLevel.toValue(customJson.getString("level")).getSqlStatement());
+			sb.append("';");
+			return sb.toString();
+		}
 		return null;
 	}
 
 	public boolean isSupportAppendCustomSqlStatement() {
-		return false;
+		return true;
 	}
 	
 	protected DataType getCustomDataType() {
@@ -30,29 +40,16 @@ public class ORACLE_TMPTABLE extends AbstractCustomDataType{
 	}
 
 	protected String getCreateTypeSql(JSONObject customJson) {
-		JSONArray array = customJson.getJSONArray("column");
-		if(array != null && array.size()>0){
-			StringBuilder sb = new StringBuilder(400);
-			sb.append("create global temporary table ").append(customJson.getString("typeName")).append("(").append(newline());
-			appendColumnSql(array, sb);
-			sb.append(")").append(newline());
-			sb.append(OracleTmpTableLevel.toValue(customJson.getString("level")).getSqlStatement());
-			return sb.toString();
-		}
 		return null;
 	}
 	
 	public boolean isSupportCreateType() {
-		return true;
+		return false;
 	}
 	
-	/**
-	 * 
-	 * @author DougLei
-	 */
 	private enum OracleTmpTableLevel {
-		SESSION("on commit preserve rows"),
-		TRANSACTION("on commit delete rows");
+		SESSION("on commit preserve rows"),// 会话结束，临时表中的数据就会消失
+		TRANSACTION("on commit delete rows");// 事务完成，临时表中的数据就会消失
 		
 		private String sqlStatement;
 		private OracleTmpTableLevel(String sqlStatement) {

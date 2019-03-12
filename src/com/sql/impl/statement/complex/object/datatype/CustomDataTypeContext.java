@@ -11,9 +11,7 @@ import java.util.Map;
  * @author DougLei
  */
 public class CustomDataTypeContext {
-	/**
-	 * 自定义的数据类型
-	 */
+	// 自定义的数据类型
 	private static final ThreadLocal<Map<String, List<String>>> customDataTypeCache = new ThreadLocal<Map<String,List<String>>>();
 	
 	public static void clear(){

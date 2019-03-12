@@ -17,6 +17,25 @@ public abstract class AbstractDataType {
 	private int precision;
 	private InOut inOut;
 	
+	protected String name;
+	protected String defaultValue;
+	
+	protected AbstractDataType(String name, String dataType, int length, Object precision, String inOut, String defaultValue) {
+		this.name = name.trim().toUpperCase();
+		setDataType(dataType);
+		setLength(length);
+		setPrecision(precision);
+		setInOut(inOut);
+		this.defaultValue = defaultValue;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+	
 	protected void setLength(int length) {
 		this.length = length;
 	}
@@ -56,6 +75,9 @@ public abstract class AbstractDataType {
 	}
 	
 	public void setCustomJson(JSONObject customJson) {
+		if(customJson != null){
+			customJson.put("isReadonly", true);
+		}
 		this.customJson = customJson;
 	}
 	
