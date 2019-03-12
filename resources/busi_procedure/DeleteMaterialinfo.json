@@ -3,9 +3,9 @@
 	"type":"procedure",
 	"description":"",
 	"content":{
-		"procedureName":"TEST_PROCEDURE",
+		"procedureName":"DeleteMaterialinfo",
 		"isCover":true,
-		"isTransaction":false,
+		"isTransaction":true,
 		"parameter":[
 			{
 				"name":"Ids",

@@ -28,7 +28,7 @@ public class SQLSERVER_TMPTABLE extends AbstractCustomDataType{
 		return null;
 	}
 	
-	public boolean isSupportAppendCustomSqlStatement() {
+	public boolean isSupportAppendCustom() {
 		return true;
 	}
 
@@ -42,5 +42,21 @@ public class SQLSERVER_TMPTABLE extends AbstractCustomDataType{
 	
 	public boolean isSupportCreateType() {
 		return false;
+	}
+	
+	public boolean isSupportDynamicCreateType() {
+		return false;
+	}
+
+	public String getDynamicCreateTypeSqlStatement(String name, JSONObject customJson) {
+		return null;
+	}
+
+	public String getDynamicDropTypeSqlStatement(String name, JSONObject customJson) {
+		return null;
+	}
+	
+	public String getDynamicCreateTypeName(String name) {
+		return null;
 	}
 }

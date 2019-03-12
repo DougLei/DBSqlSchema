@@ -35,7 +35,6 @@ public abstract class AbstractDataType {
 	public String getDefaultValue() {
 		return defaultValue;
 	}
-	
 	protected void setLength(int length) {
 		this.length = length;
 	}
@@ -81,6 +80,7 @@ public abstract class AbstractDataType {
 		this.customJson = customJson;
 	}
 	
+	// ---------------------------------------------------------------------------------------------------------
 	/**
 	 * 是否要创建类型
 	 * @return
@@ -91,7 +91,6 @@ public abstract class AbstractDataType {
 		}
 		return customJson.getBooleanValue("isCreateType");
 	}
-	
 	/**
 	 * 获取创建类型的sql语句
 	 * @return
@@ -103,30 +102,53 @@ public abstract class AbstractDataType {
 		return null;
 	}
 	
+	// ---------------------------------------------------------------------------------------------------------
 	/**
 	 * 是否支持追加自定义类型语句
 	 * @return
 	 */
-	public boolean isSupportAppendCustomSqlStatement() {
-		return dataType.isSupportAppendCustomSqlStatement();
+	public boolean isSupportAppendCustom() {
+		return dataType.isSupportAppendCustom();
 	}
-	
 	/**
 	 * 获取要追加的自定义类型语句
 	 * @return
 	 */
 	public String getAppendCustomSqlStatement() {
-		return getAppendCustomSqlStatement(null);
-	}
-	/**
-	 * 获取要追加的自定义类型语句
-	 * @param name 参数/属性名称
-	 * @return
-	 */
-	public String getAppendCustomSqlStatement(String name) {
 		return dataType.getAppendCustomSqlStatement(name, customJson);
 	}
-
+	
+	// ---------------------------------------------------------------------------------------------------------
+	/**
+	 * 是否支持动态创建类型的sql语句
+	 * @return
+	 */
+	public boolean isSupportDynamicCreateType() {
+		return dataType.isSupportDynamicCreateType();
+	}
+	/**
+	 * 获取动态创建类型的类型名称
+	 * @return
+	 */
+	public String getDynamicCreateTypeName() {
+		return dataType.getDynamicCreateTypeName(name);
+	}
+	/**
+	 * 获取动态创建类型的sql语句
+	 * @return
+	 */
+	public String getDynamicCreateTypeSqlStatement() {
+		return dataType.getDynamicCreateTypeSqlStatement(name, customJson);
+	}
+	/**
+	 * 获取动态删除类型的sql语句
+	 * @return
+	 */
+	public String getDynamicDropTypeSqlStatement() {
+		return dataType.getDynamicDropTypeSqlStatement(name, customJson);
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------
 	public boolean isIN(){
 		return inOut == InOut.IN;
 	}

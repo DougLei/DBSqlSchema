@@ -152,45 +152,7 @@ public enum DataType {
 		throw new IllegalArgumentException("DataType.calcPrecision出现异常");
 	}
 	
-	/**
-	 * 获取创建类型的sql语句
-	 * @param customJson
-	 * @return
-	 */
-	public String getCreateTypeSqlStatement(JSONObject customJson) {
-		if(isBaseType()){
-			throw new IllegalAccessError("基础数据库类型，无法获取创建类型的sql语句");
-		}
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
-			case SQLSERVER:
-				return sqlserverCustomDataType.getCreateTypeSqlStatement(customJson);
-			case ORACLE:
-				return oracleCustomDataType.getCreateTypeSqlStatement(customJson);
-		}
-		throw new IllegalArgumentException("DataType.getCreateTypeSqlStatement出现异常");
-	}
-	
-	/**
-	 * 获取要追加到整个sql语句中，要呈现的sql语句内容
-	 * @param name
-	 * @param customJson
-	 * @return
-	 */
-	public String getAppendCustomSqlStatement(String name, JSONObject customJson) {
-		if(isBaseType()){
-			throw new IllegalAccessError("基础数据库类型，无法获取创建类型的sql语句");
-		}
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
-			case SQLSERVER:
-				return sqlserverCustomDataType.getAppendCustomSqlStatement(name, customJson);
-			case ORACLE:
-				return oracleCustomDataType.getAppendCustomSqlStatement(name, customJson);
-		}
-		throw new IllegalArgumentException("DataType.getAppendCustomSqlStatement出现异常");
-	}
-	
+	// ---------------------------------------------------------------------------------------------------------
 	/**
 	 * 是否支持创建类型
 	 * @return
@@ -210,20 +172,138 @@ public enum DataType {
 	}
 	
 	/**
+	 * 获取创建类型的sql语句
+	 * @param customJson
+	 * @return
+	 */
+	public String getCreateTypeSqlStatement(JSONObject customJson) {
+		if(isBaseType()){
+			throw new IllegalAccessError("基础数据库类型，无法获取创建类型的sql语句");
+		}
+		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
+		switch(dbType){
+			case SQLSERVER:
+				return sqlserverCustomDataType.getCreateTypeSqlStatement(customJson);
+			case ORACLE:
+				return oracleCustomDataType.getCreateTypeSqlStatement(customJson);
+		}
+		throw new IllegalArgumentException("DataType.getCreateTypeSqlStatement出现异常");
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------
+	/**
 	 * 是否支持追加自定义的sql语句
 	 * @return
 	 */
-	public boolean isSupportAppendCustomSqlStatement() {
+	public boolean isSupportAppendCustom() {
 		if(!isBaseType()){
 			DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
 			switch(dbType){
 				case SQLSERVER:
-					return sqlserverCustomDataType.isSupportAppendCustomSqlStatement();
+					return sqlserverCustomDataType.isSupportAppendCustom();
 				case ORACLE:
-					return oracleCustomDataType.isSupportAppendCustomSqlStatement();
+					return oracleCustomDataType.isSupportAppendCustom();
 			}
 			throw new IllegalArgumentException("DataType.isSupportCreateType出现异常");
 		}
 		return true;
+	}
+	
+	/**
+	 * 获取要追加到整个sql语句中，要呈现的sql语句内容
+	 * @param name
+	 * @param customJson
+	 * @return
+	 */
+	public String getAppendCustomSqlStatement(String name, JSONObject customJson) {
+		if(isBaseType()){
+			throw new IllegalAccessError("基础数据库类型，无法获取追加类型的sql语句");
+		}
+		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
+		switch(dbType){
+			case SQLSERVER:
+				return sqlserverCustomDataType.getAppendCustomSqlStatement(name, customJson);
+			case ORACLE:
+				return oracleCustomDataType.getAppendCustomSqlStatement(name, customJson);
+		}
+		throw new IllegalArgumentException("DataType.getAppendCustomSqlStatement出现异常");
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------
+	/**
+	 * 是否支持动态创建类型的sql语句
+	 * @return
+	 */
+	public boolean isSupportDynamicCreateType() {
+		if(!isBaseType()){
+			DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
+			switch(dbType){
+			case SQLSERVER:
+				return sqlserverCustomDataType.isSupportDynamicCreateType();
+			case ORACLE:
+				return oracleCustomDataType.isSupportDynamicCreateType();
+			}
+			throw new IllegalArgumentException("DataType.isSupportDynamicCreateType出现异常");
+		}
+		return true;
+	}
+	
+	/**
+	 * 获取动态创建类型的类型名称
+	 * @param name
+	 * @return
+	 */
+	public String getDynamicCreateTypeName(String name) {
+		if(isBaseType()){
+			throw new IllegalAccessError("基础数据库类型，无法获取动态创建类型的类型名称");
+		}
+		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
+		switch(dbType){
+			case SQLSERVER:
+				return sqlserverCustomDataType.getDynamicCreateTypeName(name);
+			case ORACLE:
+				return oracleCustomDataType.getDynamicCreateTypeName(name);
+		}
+		throw new IllegalArgumentException("DataType.getDynamicCreateTypeSqlStatement出现异常");
+	}
+	
+	/**
+	 * 获取动态创建类型的sql语句
+	 * @param name
+	 * @param customJson
+	 * @return
+	 */
+	public String getDynamicCreateTypeSqlStatement(String name, JSONObject customJson) {
+		if(isBaseType()){
+			throw new IllegalAccessError("基础数据库类型，无法获取动态创建类型的sql语句");
+		}
+		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
+		switch(dbType){
+			case SQLSERVER:
+				return sqlserverCustomDataType.getDynamicCreateTypeSqlStatement(name, customJson);
+			case ORACLE:
+				return oracleCustomDataType.getDynamicCreateTypeSqlStatement(name, customJson);
+		}
+		throw new IllegalArgumentException("DataType.getDynamicCreateTypeSqlStatement出现异常");
+	}
+	
+	/**
+	 * 获取动态删除类型的sql语句
+	 * @param name
+	 * @param customJson
+	 * @return
+	 */
+	public String getDynamicDropTypeSqlStatement(String name, JSONObject customJson) {
+		if(isBaseType()){
+			throw new IllegalAccessError("基础数据库类型，无法获取动态drop类型的sql语句");
+		}
+		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
+		switch(dbType){
+			case SQLSERVER:
+				return sqlserverCustomDataType.getDynamicDropTypeSqlStatement(name, customJson);
+			case ORACLE:
+				return oracleCustomDataType.getDynamicDropTypeSqlStatement(name, customJson);
+		}
+		throw new IllegalArgumentException("DataType.getDynamicDropTypeSqlStatement出现异常");
 	}
 }

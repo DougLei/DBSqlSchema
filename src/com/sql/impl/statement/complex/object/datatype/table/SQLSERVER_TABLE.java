@@ -24,7 +24,7 @@ public class SQLSERVER_TABLE extends AbstractCustomDataType{
 		return "@" + name + " as "+customJson.getString("typeName") + readonly;
 	}
 
-	public boolean isSupportAppendCustomSqlStatement() {
+	public boolean isSupportAppendCustom() {
 		return true;
 	}
 	
@@ -48,5 +48,21 @@ public class SQLSERVER_TABLE extends AbstractCustomDataType{
 	
 	public boolean isSupportCreateType() {
 		return true;
+	}
+	
+	public boolean isSupportDynamicCreateType() {
+		return false;
+	}
+
+	public String getDynamicCreateTypeSqlStatement(String name, JSONObject customJson) {
+		return null;
+	}
+
+	public String getDynamicDropTypeSqlStatement(String name, JSONObject customJson) {
+		return null;
+	}
+	
+	public String getDynamicCreateTypeName(String name) {
+		return null;
 	}
 }

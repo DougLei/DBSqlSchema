@@ -34,7 +34,7 @@ public class SQLSERVER_CURSOR extends AbstractCustomDataType{
 		return false;
 	}
 
-	public boolean isSupportAppendCustomSqlStatement() {
+	public boolean isSupportAppendCustom() {
 		return true;
 	}
 
@@ -43,6 +43,22 @@ public class SQLSERVER_CURSOR extends AbstractCustomDataType{
 	}
 
 	protected String getCreateTypeSql(JSONObject customJson) {
+		return null;
+	}
+
+	public boolean isSupportDynamicCreateType() {
+		return false;
+	}
+
+	public String getDynamicCreateTypeSqlStatement(String name, JSONObject customJson) {
+		return null;
+	}
+
+	public String getDynamicDropTypeSqlStatement(String name, JSONObject customJson) {
+		return null;
+	}
+	
+	public String getDynamicCreateTypeName(String name) {
 		return null;
 	}
 }

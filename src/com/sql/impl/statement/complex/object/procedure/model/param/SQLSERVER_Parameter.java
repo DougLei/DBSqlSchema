@@ -1,6 +1,7 @@
 package com.sql.impl.statement.complex.object.procedure.model.param;
 
 import com.sql.impl.statement.complex.object.procedure.model.CreateTypeContext;
+import com.sql.impl.statement.complex.object.procedure.model.DynamicCreateTypeContext;
 import com.sql.util.StrUtils;
 
 /**
@@ -14,7 +15,7 @@ public class SQLSERVER_Parameter implements DBParameter{
 		if(isFirst){
 			sb.append("(\n");
 		}
-		if(parameter.isSupportAppendCustomSqlStatement()){
+		if(parameter.isSupportAppendCustom()){
 			sb.append("@").append(parameter.getName()).append(" ");
 			
 			if(parameter.isBaseType()){
@@ -42,7 +43,9 @@ public class SQLSERVER_Parameter implements DBParameter{
 		if(parameter.isCreateType()){
 			CreateTypeContext.recordCreateTypeSqlStatement(parameter.getCreateTypeSqlStatement());
 		}
-		
+		if(parameter.isSupportDynamicCreateType()){
+			DynamicCreateTypeContext.addDynamicCreateType(parameter.getName(), parameter.getDynamicCreateTypeName(), parameter.getDynamicCreateTypeSqlStatement(), parameter.getDynamicDropTypeSqlStatement());
+		}
 		return sb.toString();
 	}
 }

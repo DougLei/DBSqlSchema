@@ -1,5 +1,6 @@
 package com.sql.impl.statement.complex.object.procedure.model.declare;
 
+import com.sql.impl.statement.complex.object.procedure.model.DynamicCreateTypeContext;
 import com.sql.util.StrUtils;
 
 /**
@@ -10,7 +11,7 @@ public class ORACLE_Declare implements DBDeclare{
 
 	public String toDeclareSqlStatement(DeclareEntity declare) {
 		StringBuilder sb = new StringBuilder(50);
-		if(declare.isSupportAppendCustomSqlStatement()){
+		if(declare.isSupportAppendCustom()){
 			if(declare.isBaseType()){
 				sb.append(declare.getName()).append(" ");
 				sb.append(declare.getBaseDataType());
@@ -25,9 +26,12 @@ public class ORACLE_Declare implements DBDeclare{
 					sb.append(" :=").append(declare.getDefaultValue());
 				}
 			}else{
-				sb.append(declare.getAppendCustomSqlStatement(declare.getName()));
+				sb.append(declare.getAppendCustomSqlStatement());
 			}
 			sb.append(";");
+		}
+		if(declare.isSupportDynamicCreateType()){
+			DynamicCreateTypeContext.addDynamicCreateType(declare.getName(), declare.getDynamicCreateTypeName(), declare.getDynamicCreateTypeSqlStatement(), declare.getDynamicDropTypeSqlStatement());
 		}
 		return sb.toString();
 	}

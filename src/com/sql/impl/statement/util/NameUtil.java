@@ -2,6 +2,7 @@ package com.sql.impl.statement.util;
 
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
+import com.sql.impl.statement.complex.object.procedure.model.DynamicCreateTypeContext;
 import com.sql.util.StrUtils;
 
 /**
@@ -36,9 +37,9 @@ public class NameUtil {
 	public static String getParamName(String paramName, DatabaseType dbType){
 		switch(dbType){
 			case SQLSERVER:
-				return "@"+paramName;
+				return "@"+DynamicCreateTypeContext.getDynamicCreateTypeName(paramName);
 			case ORACLE:
-				return paramName;
+				return DynamicCreateTypeContext.getDynamicCreateTypeName(paramName);
 		}
 		return null;
 	}

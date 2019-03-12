@@ -24,7 +24,7 @@ public class ORACLE_TABLE extends AbstractCustomDataType{
 		return name + " " + customJson.getString("typeName");
 	}
 	
-	public boolean isSupportAppendCustomSqlStatement() {
+	public boolean isSupportAppendCustom() {
 		return true;
 	}
 
@@ -41,7 +41,7 @@ public class ORACLE_TABLE extends AbstractCustomDataType{
 			appendColumnSql(array, sb);
 			sb.append(");").append(newline());
 			
-			sb.append("create type ").append(typeName).append(" as table of ").append(typeName).append("_object");
+			sb.append("create type ").append(typeName).append(" as table of ").append(typeName).append("_object;");
 			return sb.toString();
 		}
 		return null;
@@ -49,5 +49,21 @@ public class ORACLE_TABLE extends AbstractCustomDataType{
 
 	public boolean isSupportCreateType() {
 		return true;
+	}
+	
+	public boolean isSupportDynamicCreateType() {
+		return false;
+	}
+
+	public String getDynamicCreateTypeSqlStatement(String name, JSONObject customJson) {
+		return null;
+	}
+
+	public String getDynamicDropTypeSqlStatement(String name, JSONObject customJson) {
+		return null;
+	}
+	
+	public String getDynamicCreateTypeName(String name) {
+		return null;
 	}
 }

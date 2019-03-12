@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderImpl;
 import com.sql.impl.statement.complex.object.procedure.model.CreateTypeContext;
+import com.sql.impl.statement.complex.object.procedure.model.DynamicCreateTypeContext;
 import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareContext;
 import com.sql.impl.statement.complex.object.procedure.model.param.ParameterContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.StepImpl;
@@ -78,11 +79,18 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 		append(DeclareContext.getDeclareSqlStatement());
 		append("begin");
 		
+		if(DynamicCreateTypeContext.includeDynamicCreateType()){
+			append(DynamicCreateTypeContext.getDynamicCreateTypeSqlStatement());
+		}
+		
 		boolean isTransaction = isTransaction();
 		if(isTransaction){
 			append(beginTransaction());
 		}
 		append(bodySqlStatement);
+		if(DynamicCreateTypeContext.includeDynamicCreateType()){
+			append(DynamicCreateTypeContext.getDynamicDropTypeSqlStatement());
+		}
 		if(isTransaction){
 			append(commit());
 		}
