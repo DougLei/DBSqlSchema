@@ -1,5 +1,5 @@
 {
-	"id":"prcedureTest",
+	"id":"id1",
 	"type":"procedure",
 	"description":"",
 	"content":{
@@ -40,27 +40,66 @@
 				"length":20
 			}
 		],
-		
-
-
-
-
-
-
-
-
 		"step1":{
 			"id":"step1",
 			"type":"sql",
-			"desc":"各种sql语句",
 			"content":[
 				{
-					"sqlId":"",
 					"sqlJson":{
+						"id": "id2",
+						"type": "insert",
+						"content": {
+							"paramName":"tempTable",
+							"column": [
+								"ID"
+							],
+							"values": {
+								"type": "sub_query",
+								"subSqlJson":{
+									"id":"id3",
+									"type":"select",
+									"content":{
+										"resultSet":[
+											{
+												"columnName":"value"
+											}
+										],
+										"table":{
+											"type":"function",
+											"function":{
+												"name":"F_Split",
+												"parameter":[
+													{
+														"type":"parameter",
+														"paramName":"Ids"
+													},
+													{
+														"type":"value",
+														"paramName":"','"
+													}
+												]
+											}
+										}
+									}
+								}
+							}
+						}
 					}
 				}
 			]
 		},
+
+
+
+
+
+
+
+
+
+
+
+
 		"step2":{
 			"id":"step2",
 			"type":"set_value",
