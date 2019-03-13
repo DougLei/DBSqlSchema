@@ -1,4 +1,7 @@
-package com.sql.impl.statement.basic.model.function.builtin.append;
+package com.sql.impl.statement.basic.model.function.builtin.append.db;
+
+import com.sql.impl.statement.basic.model.function.builtin.append.Append;
+
 
 /**
  * 

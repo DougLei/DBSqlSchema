@@ -1,7 +1,7 @@
 package com.sql.impl.statement.basic.model.resultset;
 
 import com.sql.impl.statement.BasicModelImpl;
-import com.sql.impl.statement.util.NameUtil;
+import com.sql.impl.statement.Tools;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.resultset.ResultSet;
 import com.sql.util.StrUtils;
@@ -22,7 +22,7 @@ public class ResultSetImpl extends BasicModelImpl implements ResultSet {
 			sqlStatement = function.getSqlStatement();
 		}
 		if(sqlStatement == null){
-			sqlStatement = NameUtil.getName(columnName, paramName);
+			sqlStatement = Tools.getName(columnName, paramName);
 		}
 		
 		if(StrUtils.notEmpty(alias)){

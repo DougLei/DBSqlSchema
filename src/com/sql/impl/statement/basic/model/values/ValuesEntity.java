@@ -1,6 +1,6 @@
 package com.sql.impl.statement.basic.model.values;
 
-import com.sql.impl.statement.util.NameUtil;
+import com.sql.impl.statement.Tools;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.util.StrUtils;
 
@@ -28,7 +28,7 @@ public class ValuesEntity {
 			sqlStatement = value;
 		}
 		if(sqlStatement == null){
-			sqlStatement = NameUtil.getName(null, paramName);
+			sqlStatement = Tools.getName(null, paramName);
 		}
 		return sqlStatement;
 	}

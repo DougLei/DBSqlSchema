@@ -5,12 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.values.Values;
-import com.sql.util.StrUtils;
 
 /**
  * 
@@ -42,13 +39,7 @@ public class ValuesImpl extends BasicModelImpl implements Values {
 				sb.append(")");
 				break;
 			case SUB_QUERY:
-				if(StrUtils.notEmpty(sqlId)){
-					sb.append(SqlStatementBuilderContext.buildSqlStatement(sqlId));
-				}else{
-					SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-					infoBuilder.setJson(sqlJson);
-					sb.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
-				}
+				sb.append(SqlStatementBuilderContext.getSqlStatement(sqlId, sqlJson));
 				break;
 		}
 		return sb.toString();

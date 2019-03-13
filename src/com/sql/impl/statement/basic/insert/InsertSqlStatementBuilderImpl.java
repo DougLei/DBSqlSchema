@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.sql.impl.statement.Tools;
 import com.sql.impl.statement.basic.AbstractSqlStatementBuilder;
 import com.sql.impl.statement.basic.model.values.ValuesEntity;
 import com.sql.impl.statement.basic.model.values.ValuesImpl;
-import com.sql.impl.statement.util.NameUtil;
 import com.sql.statement.basic.insert.InsertSqlStatementBuilder;
 import com.sql.statement.basic.model.values.Values;
 import com.sql.util.StrUtils;
@@ -57,7 +57,7 @@ public class InsertSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		
 		String paramName = content.getString("paramName");
 		if(StrUtils.notEmpty(paramName)){
-			return NameUtil.getName(null, paramName);
+			return Tools.getName(null, paramName);
 		}
 		
 		throw new NullPointerException("build insert sql时，tableName属性值和paramName属性值不能都为空");

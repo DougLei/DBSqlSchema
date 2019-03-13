@@ -4,12 +4,9 @@ import java.util.Arrays;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.statement.basic.model.where.Value;
 import com.sql.statement.basic.model.where.ValueGroup;
-import com.sql.util.StrUtils;
 
 /**
  * 
@@ -34,15 +31,7 @@ public class ValueImpl implements Value {
 				return sqlStatements;
 			case SUB_QUERY:
 				StringBuilder sb = new StringBuilder(2000);
-				sb.append(" ( ");
-				if(StrUtils.notEmpty(sqlId)){
-					sb.append(SqlStatementBuilderContext.buildSqlStatement(sqlId));
-				}else{
-					SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-					infoBuilder.setJson(sqlJson);
-					sb.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
-				}
-				sb.append(" ) ");
+				sb.append(" ( ").append(SqlStatementBuilderContext.getSqlStatement(sqlId, sqlJson)).append(" ) ");
 				return new String[]{sb.toString()};
 		}
 		return null;

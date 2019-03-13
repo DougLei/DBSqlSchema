@@ -1,11 +1,9 @@
 package com.sql.impl.statement.basic.model.table;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.impl.statement.BasicModelImpl;
-import com.sql.impl.statement.util.NameUtil;
+import com.sql.impl.statement.Tools;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.table.Table;
 import com.sql.statement.basic.model.table.TableType;
@@ -36,21 +34,13 @@ public class TableImpl extends BasicModelImpl implements Table {
 				sqlStatement = name;
 				break;
 			case PARAMETER:
-				sqlStatement = NameUtil.getName(null, paramName);
+				sqlStatement = Tools.getName(null, paramName);
 				break;
 			case FUNCTION:
 				sqlStatement = function.getSqlStatement();
 				break;
 			case SUB_QUERY:
-				sqlStatement = "( ";
-				if(StrUtils.notEmpty(sqlId)){
-					sqlStatement += SqlStatementBuilderContext.buildSqlStatement(sqlId);
-				}else{
-					SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-					infoBuilder.setJson(sqlJson);
-					sqlStatement += infoBuilder.createSqlStatementBuilder().buildSqlStatement();
-				}
-				sqlStatement += " )";
+				sqlStatement = "( " + SqlStatementBuilderContext.getSqlStatement(sqlId, sqlJson) + " )";
 				break;
 		}
 		

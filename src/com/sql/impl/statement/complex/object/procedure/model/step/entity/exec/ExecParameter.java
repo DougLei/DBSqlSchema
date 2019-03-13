@@ -2,11 +2,11 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.exec;
 
 import java.util.Arrays;
 import com.alibaba.fastjson.JSONObject;
+import com.sql.impl.statement.Tools;
 import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.impl.statement.complex.object.procedure.InOut;
 import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareContext;
 import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareEntity;
-import com.sql.impl.statement.util.NameUtil;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.util.StrUtils;
 
@@ -57,7 +57,7 @@ public class ExecParameter {
 			case VALUE:
 				return value;
 			case PARAMETER:
-				return NameUtil.getName(null, paramName);
+				return Tools.getName(null, paramName);
 			case FUNCTION:
 				return valueFunction.getSqlStatement();
 		}

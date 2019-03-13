@@ -1,10 +1,8 @@
 package com.sql.impl.statement.complex.object.view;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.SqlStatementBuilderImpl;
-import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.statement.complex.object.view.ViewSqlStatementBuilder;
 import com.sql.util.StrUtils;
 
@@ -35,13 +33,7 @@ public abstract class ViewSqlStatementBuilderImpl extends SqlStatementBuilderImp
 		
 		
 		JSONObject sql = content.getJSONObject("sql");
-		if(StrUtils.notEmpty(sql.getString("sqlId"))){
-			viewSqlStatement.append(SqlStatementBuilderContext.buildSqlStatement(sql.getString("sqlId")));
-		}else{
-			SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-			infoBuilder.setJson(sql.getJSONObject("sqlJson"));
-			viewSqlStatement.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
-		}
+		viewSqlStatement.append(SqlStatementBuilderContext.getSqlStatement(sql.getString("sqlId"), sql.getJSONObject("sqlJson")));
 		return viewSqlStatement.toString();
 	}
 

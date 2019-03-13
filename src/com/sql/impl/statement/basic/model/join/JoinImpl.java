@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.join.Join;
 import com.sql.statement.basic.model.join.JoinType;
@@ -42,15 +40,7 @@ public class JoinImpl extends BasicModelImpl implements Join {
 		if(tableType == TableType.TABLE){
 			sb.append(tableName);
 		}else if(tableType == TableType.SUB_QUERY){
-			sb.append("( ");
-			if(StrUtils.notEmpty(sqlId)){
-				sb.append(SqlStatementBuilderContext.buildSqlStatement(sqlId));
-			}else{
-				SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-				infoBuilder.setJson(sqlJson);
-				sb.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
-			}
-			sb.append(" )");
+			sb.append("( ").append(SqlStatementBuilderContext.getSqlStatement(sqlId, sqlJson)).append(" )");
 		}
 		
 		if(StrUtils.notEmpty(alias)){

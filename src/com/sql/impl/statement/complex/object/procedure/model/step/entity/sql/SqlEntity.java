@@ -1,11 +1,8 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.sql;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractEntity;
-import com.sql.util.StrUtils;
 
 /**
  * 
@@ -21,14 +18,7 @@ public class SqlEntity extends AbstractEntity{
 	}
 
 	public String getSqlStatement(){
-		StringBuilder sb = new StringBuilder(500);
-		if(StrUtils.notEmpty(sqlId)){
-			sb.append(SqlStatementBuilderContext.buildSqlStatement(sqlId));
-		}else{
-			SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-			infoBuilder.setJson(sqlJson);
-			sb.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
-		}
+		StringBuilder sb = new StringBuilder(SqlStatementBuilderContext.getSqlStatement(sqlId, sqlJson));
 		return sb.toString();
 	}
 }

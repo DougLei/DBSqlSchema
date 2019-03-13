@@ -5,8 +5,10 @@ import java.util.Map;
 
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.statement.basic.model.function.builtin.append.ORACLE_Append;
-import com.sql.impl.statement.basic.model.function.builtin.append.SQLSERVER_Append;
+import com.sql.impl.statement.basic.model.function.builtin.append.db.ORACLE_Append;
+import com.sql.impl.statement.basic.model.function.builtin.append.db.SQLSERVER_Append;
+import com.sql.impl.statement.basic.model.function.builtin.forxmlpath.db.ORACLE_ForXmlPath;
+import com.sql.impl.statement.basic.model.function.builtin.forxmlpath.db.SQLSERVER_ForXmlPath;
 import com.sql.statement.basic.model.function.BuiltinFunction;
 
 /**
@@ -26,7 +28,8 @@ public class BuiltinFunctionContext {
 		sqlserver.put("_append", SQLSERVER_Append.class);
 		oracle.put("_append", ORACLE_Append.class);
 		
-		
+		sqlserver.put("_forxmlpath", SQLSERVER_ForXmlPath.class);
+		oracle.put("_forxmlpath", ORACLE_ForXmlPath.class);
 	}
 	
 	/**

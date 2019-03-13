@@ -6,10 +6,8 @@ import java.util.List;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementBuilder;
-import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.SqlStatementBuilderImpl;
-import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.impl.statement.complex.select.model.WithImpl;
 import com.sql.statement.basic.select.SelectSqlStatementBuilder;
 import com.sql.statement.complex.select.CombinationSelectSqlStatementBuilder;
@@ -119,14 +117,7 @@ public class CombinationSelectSqlStatementBuilderImpl extends SqlStatementBuilde
 	 * @return
 	 */
 	private String toSelectSql(boolean recordResultSetColumnName, JSONObject json){
-		SqlStatementBuilder builder = null;
-		if(StrUtils.notEmpty(json.getString("sqlId"))){
-			builder = SqlStatementBuilderContext.getSqlStatementBuilder(json.getString("sqlId"));
-		}else{
-			SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-			infoBuilder.setJson(json.getJSONObject("sqlJson"));
-			builder = infoBuilder.createSqlStatementBuilder();
-		}
+		SqlStatementBuilder builder = SqlStatementBuilderContext.getSqlStatementBuilder(json.getString("sqlId"), json.getJSONObject("sqlJson"));
 		if(builder instanceof SelectSqlStatementBuilder){
 			setResultSetColumnNames(((SelectSqlStatementBuilder)builder).getResultSetColumnNames());
 		}

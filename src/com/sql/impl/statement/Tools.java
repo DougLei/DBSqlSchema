@@ -1,4 +1,4 @@
-package com.sql.impl.statement.util;
+package com.sql.impl.statement;
 
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
@@ -9,7 +9,7 @@ import com.sql.util.StrUtils;
  * 
  * @author DougLei
  */
-public class NameUtil {
+public class Tools {
 
 	/**
 	 * 按照从左往右的顺序(即优先级)，返回第一个不为空的名称

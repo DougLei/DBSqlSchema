@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sql.impl.statement.Tools;
 import com.sql.impl.statement.basic.model.function.FunctionImpl;
-import com.sql.impl.statement.util.NameUtil;
 import com.sql.statement.basic.model.where.ValueGroup;
 
 /**
@@ -37,7 +37,7 @@ public class ValueGroupImpl implements ValueGroup{
 				addValue(valueEntityJsonObject.getString("value"));
 				break;
 			case PARAMETER:
-				addValue(NameUtil.getName(null, valueEntityJsonObject.getString("paramName")));
+				addValue(Tools.getName(null, valueEntityJsonObject.getString("paramName")));
 				break;
 			case FUNCTION:
 				addValue(FunctionImpl.newInstance(valueEntityJsonObject.getJSONObject("function")).getSqlStatement());

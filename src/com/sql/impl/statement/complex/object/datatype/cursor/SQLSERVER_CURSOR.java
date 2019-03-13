@@ -1,12 +1,9 @@
 package com.sql.impl.statement.complex.object.datatype.cursor;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.impl.statement.complex.object.datatype.AbstractCustomDataType;
 import com.sql.impl.statement.complex.object.datatype.DataType;
-import com.sql.util.StrUtils;
 
 public class SQLSERVER_CURSOR extends AbstractCustomDataType{
 	private SQLSERVER_CURSOR(){}
@@ -18,15 +15,7 @@ public class SQLSERVER_CURSOR extends AbstractCustomDataType{
 	public String getAppendCustomSqlStatement(String name, JSONObject customJson) {
 		StringBuilder sb = new StringBuilder(500);
 		sb.append(name).append(" cursor for").append(newline());
-		sb.append("(");
-		if(StrUtils.isEmpty(customJson.getString("sqlId"))){
-			SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-			infoBuilder.setJson(customJson.getJSONObject("sqlJson"));
-			sb.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
-		}else{
-			sb.append(SqlStatementBuilderContext.buildSqlStatement(customJson.getString("sqlId")));
-		}
-		sb.append(")");
+		sb.append("(").append(SqlStatementBuilderContext.getSqlStatement(customJson.getString("sqlId"), customJson.getJSONObject("sqlJson"))).append(")");
 		return sb.toString();
 	}
 

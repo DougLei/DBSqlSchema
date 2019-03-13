@@ -111,75 +111,79 @@
 										"name":"STUFF",
 										"parameter":[
 											{
-												"type":"sql",
-												"sqlJson":{
-													"id":"id5",
-													"type":"select",
-													"content":{
-														"resultSet":[
-															{
-																"function":{
-																	"name":"_append",
-																	"parameters":[
-																		{
-																			"type":"value",
-																			"value":"','"
-																		},
-																		{
-																			"type":"value",
-																			"value":"MATERIALNAME"
-																		}
-																	]
+												"type":"function",
+												"function":{
+													"name":"_forxmlpath",
+													"rootNodeName":"''",
+													"sqlJson":{
+														"id":"id5",
+														"type":"select",
+														"content":{
+															"resultSet":[
+																{
+																	"function":{
+																		"name":"_append",
+																		"parameters":[
+																			{
+																				"type":"value",
+																				"value":"','"
+																			},
+																			{
+																				"type":"value",
+																				"value":"MATERIALNAME"
+																			}
+																		]
+																	}
 																}
-															}
-														],
-														"table":{
-															"type":"table",
-															"name":"MDM_MATERIALINFO",
-															"alias":"t"
-														},
-														"where":[
-															{
-																"whereGroup":[
-																	{
-																		"columnName":"ENABLED",
-																		"operator":"eq",
-																		"value":{
-																			"type":"value",
-																			"values":[
-																				{
-																					"type":"value",
-																					"value":"1"
-																				}
-																			]
+															],
+															"table":{
+																"type":"table",
+																"name":"MDM_MATERIALINFO",
+																"alias":"t"
+															},
+															"where":[
+																{
+																	"whereGroup":[
+																		{
+																			"columnName":"ENABLED",
+																			"operator":"eq",
+																			"value":{
+																				"type":"value",
+																				"values":[
+																					{
+																						"type":"value",
+																						"value":"1"
+																					}
+																				]
+																			},
+																			"nextLogicOperator":"and"
 																		},
-																		"nextLogicOperator":"and"
-																	},
-																	{
-																		"columnName":"ID",
-																		"operator":"in",
-																		"value":{
-																			"type":"sub_query",
-																			"sqlJson":{
-																				"id":"selectIdFromTemplate",
-																				"type":"select",
-																				"content":{
-																					"resultSet":[
-																						{
-																							"columnName":"ID"
+																		{
+																			"columnName":"ID",
+																			"operator":"in",
+																			"value":{
+																				"type":"sub_query",
+																				"sqlJson":{
+																					"id":"selectIdFromTemplate",
+																					"type":"select",
+																					"content":{
+																						"resultSet":[
+																							{
+																								"columnName":"ID"
+																							}
+																						],
+																						"table":{
+																							"type":"parameter",
+																							"paramName":"tempTable"
 																						}
-																					],
-																					"table":{
-																						"type":"parameter",
-																						"paramName":"tempTable"
 																					}
 																				}
 																			}
 																		}
-																	}
-																]
-															}
-														]
+																	]
+																}
+															]
+														}
 													}
 												}
 											},

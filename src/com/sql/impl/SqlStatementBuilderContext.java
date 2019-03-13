@@ -80,7 +80,7 @@ public class SqlStatementBuilderContext {
 				for(int i=0;i<array.size();i++){
 					json = array.getJSONObject(i);
 					if(StrUtils.isEmpty(json.get("id"))){
-						throw new NullPointerException("配置内容(json)的属性[id]值不能为空");
+						json.put("id", StrUtils.getIdentity());
 					}
 					if(builderId.equals(json.getString("id"))){
 						SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
@@ -140,5 +140,32 @@ public class SqlStatementBuilderContext {
 		DatabaseType dbType = getDatabaseType();
 		String dbImplInstance = dbImplInstancePackage + ".db." + dbType.getDatabaseTypeUpperCase() + (StrUtils.isEmpty(dbImplInstancePackageSuffix)?"":("_" + dbImplInstancePackageSuffix));
 		return ReflectUtil.newInstance(dbImplInstance);
+	}
+	
+	// ---------------------------------------------------------------------
+	/**
+	 * 获取sql语句builder实例
+	 * @param sqlId
+	 * @param sqlJson
+	 * @return
+	 */
+	public static SqlStatementBuilder getSqlStatementBuilder(String sqlId, JSONObject sqlJson){
+		if(StrUtils.notEmpty(sqlId)){
+			return SqlStatementBuilderContext.getSqlStatementBuilder(sqlId);
+		}else{
+			SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
+			infoBuilder.setJson(sqlJson);
+			return infoBuilder.createSqlStatementBuilder();
+		}
+	}
+	
+	/**
+	 * 获取sql语句
+	 * @param sqlId
+	 * @param sqlJson
+	 * @return
+	 */
+	public static String getSqlStatement(String sqlId, JSONObject sqlJson){
+		return getSqlStatementBuilder(sqlId, sqlJson).buildSqlStatement();
 	}
 }

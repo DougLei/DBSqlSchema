@@ -1,10 +1,8 @@
 package com.sql.impl.statement.basic.model.function;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.SqlStatementInfoBuilderImpl;
-import com.sql.impl.statement.util.NameUtil;
+import com.sql.impl.statement.Tools;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.util.StrUtils;
 
@@ -48,20 +46,12 @@ public class ParameterEntity {
 			case VALUE:
 				return value;
 			case PARAMETER:
-				return NameUtil.getName(null, paramName);
+				return Tools.getName(null, paramName);
 			case FUNCTION:
 				return function.getSqlStatement();
 			case SQL:
 				StringBuilder sb = new StringBuilder(200);
-				sb.append("( ");
-				if(StrUtils.notEmpty(sqlId)){
-					sb.append(SqlStatementBuilderContext.buildSqlStatement(sqlId));
-				}else{
-					SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-					infoBuilder.setJson(sqlJson);
-					sb.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
-				}
-				sb.append(" )");
+				sb.append("( ").append(SqlStatementBuilderContext.getSqlStatement(sqlId, sqlJson)).append(" )");
 				return sb.toString();
 		}
 		throw new IllegalArgumentException("function type值异常");

@@ -6,10 +6,8 @@ import java.util.List;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementBuilder;
-import com.sql.SqlStatementInfoBuilder;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractEntity;
@@ -126,26 +124,13 @@ public abstract class SetValueEntity extends AbstractEntity{
 	}
 	
 	private String getSELECT_SQLSqlStatement(){
-		SqlStatementBuilder builder = getSelectSqlStatementBuilder();
+		SqlStatementBuilder builder = SqlStatementBuilderContext.getSqlStatementBuilder(sqlId, sqlJson);
 		if(builder instanceof SelectSqlStatementBuilder){
 			return getSIMPLE_SELECT_SQLSqlStatement((SelectSqlStatementBuilder) builder);
 		}else if(builder instanceof CombinationSelectSqlStatementBuilder){
 			return getCOMBINATION_SELECT_SQLSqlStatement((CombinationSelectSqlStatementBuilder) builder);
 		}
 		throw new IllegalArgumentException("在存储过程set value时，通过语句给变量赋值，语句类型目前只支持[select、combination_select]");
-	}
-	
-	private SqlStatementBuilder getSelectSqlStatementBuilder(){
-		SqlStatementBuilder builder = null;
-		if(StrUtils.notEmpty(sqlId)){
-			builder = SqlStatementBuilderContext.getSqlStatementBuilder(sqlId);
-		}else{
-			SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-			infoBuilder.setJson(sqlJson);
-			builder = infoBuilder.createSqlStatementBuilder();
-			builder.buildSqlStatement();
-		}
-		return builder;
 	}
 	
 	private String getSIMPLE_SELECT_SQLSqlStatement(SelectSqlStatementBuilder builder){

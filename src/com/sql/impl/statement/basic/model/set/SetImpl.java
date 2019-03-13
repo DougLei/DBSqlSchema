@@ -3,9 +3,7 @@ package com.sql.impl.statement.basic.model.set;
 import java.util.Arrays;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
-import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.set.Set;
@@ -39,15 +37,7 @@ public class SetImpl extends BasicModelImpl implements Set {
 				}
 				break;
 			case SUB_QUERY:
-				sb.append("(");
-				if(StrUtils.notEmpty(sqlId)){
-					sb.append(SqlStatementBuilderContext.buildSqlStatement(sqlId));
-				}else{
-					SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-					infoBuilder.setJson(sqlJson);
-					sb.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
-				}
-				sb.append(")");
+				sb.append("(").append(SqlStatementBuilderContext.getSqlStatement(sqlId, sqlJson)).append(")");
 				break;
 		}
 		return sb.toString();
