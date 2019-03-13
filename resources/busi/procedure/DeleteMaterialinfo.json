@@ -274,50 +274,52 @@
 				"content":[
 					{
 						"stepJson":{
-							"id":"x2",
-							"type":"set_value",
-							"content":[
-								{
-									"parameter":[
-										{
-											"isDeclare":false,
-											"name":"Message"
-										}
-									],
-									"type":"value",
-									"value":"'success:删除成功'"
-								}
-							]
+							"step5":{
+								"type":"set_value",
+								"content":[
+									{
+										"parameter":[
+											{
+												"isDeclare":false,
+												"name":"Message"
+											}
+										],
+										"type":"value",
+										"value":"'success:删除成功'"
+									}
+								]
+							}
 						}
 					},
 					{
 						"stepJson":{
-							"id":"x3",
-							"type":"sql",
-							"content":[
-								{
-									"sqlJson":{
-										"type": "delete",
-										"content": {
-											"tableName": "MDM_MATERIALINFO",
-											"where":[
-												{
-													"whereGroup":[
-														{
-															"columnName":"ID",
-															"operator":"in",
-															"value":{
-																"type":"sub_query",
-																"sqlId": "selectIdFromTemplate"
+							"step6":{
+								"type":"sql",
+								"content":[
+									{
+										"sqlJson":{
+											"type": "delete",
+											"content": {
+												"tableName": "MDM_MATERIALINFO",
+												"where":[
+													{
+														"whereGroup":[
+															{
+																"columnName":"ID",
+																"operator":"in",
+																"value":{
+																	"type":"sub_query",
+																	"sqlId": "selectIdFromTemplate"
+																}
 															}
-														}
-													]
-												}
-											]
+														]
+													}
+												]
+											}
 										}
 									}
-								}
-							]
+								]
+							}
 						}
 					}
 				]
