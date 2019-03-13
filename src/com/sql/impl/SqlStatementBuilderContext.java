@@ -11,6 +11,7 @@ import com.sql.SqlStatementInfoBuilder;
 import com.sql.enums.DatabaseType;
 import com.sql.impl.statement.complex.object.datatype.CustomDataTypeContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.StepContext;
+import com.sql.util.ReflectUtil;
 import com.sql.util.StrUtils;
 
 /**
@@ -126,5 +127,18 @@ public class SqlStatementBuilderContext {
 		
 		CustomDataTypeContext.clear();
 		StepContext.clear();
+	}
+	
+	// ---------------------------------------------------------------------
+	/**
+	 * 获取各个数据库实现类的实例
+	 * @param dbImplInstancePackage
+	 * @param dbImplInstancePackageSuffix
+	 * @return
+	 */
+	public static Object getDBImplInstance(String dbImplInstancePackage, String dbImplInstancePackageSuffix){
+		DatabaseType dbType = getDatabaseType();
+		String dbImplInstance = dbImplInstancePackage + ".db." + dbType.getDatabaseTypeUpperCase() + (StrUtils.isEmpty(dbImplInstancePackageSuffix)?"":("_" + dbImplInstancePackageSuffix));
+		return ReflectUtil.newInstance(dbImplInstance);
 	}
 }

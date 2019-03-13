@@ -31,10 +31,10 @@ public abstract class SetValueEntity extends AbstractEntity{
 	
 	protected String paramName;
 	
-	protected Function valueFunction;
+	protected Function function;
 	
-	protected String selectSqlId;
-	protected JSONObject selectSqlJson;
+	protected String sqlId;
+	protected JSONObject sqlJson;
 	
 	public static final SetValueEntity getInstance(JSONObject setJson) {
 		SetValueEntity entity = getSetValueEntity();
@@ -62,10 +62,10 @@ public abstract class SetValueEntity extends AbstractEntity{
 		
 		entity.paramName = setJson.getString("paramName");
 		
-		entity.setValueFunction(setJson.getJSONObject("valueFunction"));
+		entity.setFunction(setJson.getJSONObject("function"));
 		
-		entity.selectSqlId = setJson.getString("selectSqlId");
-		entity.selectSqlJson = setJson.getJSONObject("selectSqlJson");
+		entity.sqlId = setJson.getString("sqlId");
+		entity.sqlJson = setJson.getJSONObject("sqlJson");
 		return entity;
 	}
 	
@@ -80,8 +80,8 @@ public abstract class SetValueEntity extends AbstractEntity{
 		return null;
 	}
 
-	private void setValueFunction(JSONObject function){
-		this.valueFunction = FunctionImpl.newInstance(function);
+	private void setFunction(JSONObject function){
+		this.function = FunctionImpl.newInstance(function);
 	}
 
 	public String getSqlStatement(){
@@ -137,11 +137,11 @@ public abstract class SetValueEntity extends AbstractEntity{
 	
 	private SqlStatementBuilder getSelectSqlStatementBuilder(){
 		SqlStatementBuilder builder = null;
-		if(StrUtils.notEmpty(selectSqlId)){
-			builder = SqlStatementBuilderContext.getSqlStatementBuilder(selectSqlId);
+		if(StrUtils.notEmpty(sqlId)){
+			builder = SqlStatementBuilderContext.getSqlStatementBuilder(sqlId);
 		}else{
 			SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-			infoBuilder.setJson(selectSqlJson);
+			infoBuilder.setJson(sqlJson);
 			builder = infoBuilder.createSqlStatementBuilder();
 			builder.buildSqlStatement();
 		}

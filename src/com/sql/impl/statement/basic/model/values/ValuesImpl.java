@@ -21,8 +21,8 @@ public class ValuesImpl extends BasicModelImpl implements Values {
 	private ValuesType type;
 	private List<ValuesEntity> valuesEntities;
 	
-	private String subSqlId;
-	private JSONObject subSqlJson;
+	private String sqlId;
+	private JSONObject sqlJson;
 	
 	protected String processSqlStatement() {
 		StringBuilder sb = new StringBuilder(800);
@@ -42,11 +42,11 @@ public class ValuesImpl extends BasicModelImpl implements Values {
 				sb.append(")");
 				break;
 			case SUB_QUERY:
-				if(StrUtils.notEmpty(subSqlId)){
-					sb.append(SqlStatementBuilderContext.buildSqlStatement(subSqlId));
+				if(StrUtils.notEmpty(sqlId)){
+					sb.append(SqlStatementBuilderContext.buildSqlStatement(sqlId));
 				}else{
 					SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-					infoBuilder.setJson(subSqlJson);
+					infoBuilder.setJson(sqlJson);
 					sb.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
 				}
 				break;
@@ -63,11 +63,11 @@ public class ValuesImpl extends BasicModelImpl implements Values {
 	public void setType(String type) {
 		this.type = ValuesType.toValue(type);
 	}
-	public void setSubSqlId(String subSqlId) {
-		this.subSqlId = subSqlId;
+	public void setSqlId(String sqlId) {
+		this.sqlId = sqlId;
 	}
-	public void setSubSqlJson(JSONObject subSqlJson) {
-		this.subSqlJson = subSqlJson;
+	public void setSqlJson(JSONObject sqlJson) {
+		this.sqlJson = sqlJson;
 	}
 	
 	// insert into values 后的类型

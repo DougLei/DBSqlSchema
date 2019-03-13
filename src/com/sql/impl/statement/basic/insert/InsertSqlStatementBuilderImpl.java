@@ -91,8 +91,8 @@ public class InsertSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		
 		ValuesImpl values = new ValuesImpl();
 		values.setType(json.getString("type"));
-		values.setSubSqlId(json.getString("subSqlId"));
-		values.setSubSqlJson(json.getJSONObject("subSqlJson"));
+		values.setSqlId(json.getString("sqlId"));
+		values.setSqlJson(json.getJSONObject("sqlJson"));
 		
 		JSONArray array = json.getJSONArray("value");
 		if(array != null && array.size() > 0){

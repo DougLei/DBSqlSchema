@@ -22,8 +22,8 @@ public class SetImpl extends BasicModelImpl implements Set {
 	private String value;
 	private String paramName;
 	private Function valueFunction;
-	private String subSqlId;
-	private JSONObject subSqlJson;
+	private String sqlId;
+	private JSONObject sqlJson;
 	
 	protected String processSqlStatement() {
 		StringBuilder sb = new StringBuilder(300);
@@ -40,11 +40,11 @@ public class SetImpl extends BasicModelImpl implements Set {
 				break;
 			case SUB_QUERY:
 				sb.append("(");
-				if(StrUtils.notEmpty(subSqlId)){
-					sb.append(SqlStatementBuilderContext.buildSqlStatement(subSqlId));
+				if(StrUtils.notEmpty(sqlId)){
+					sb.append(SqlStatementBuilderContext.buildSqlStatement(sqlId));
 				}else{
 					SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-					infoBuilder.setJson(subSqlJson);
+					infoBuilder.setJson(sqlJson);
 					sb.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
 				}
 				sb.append(")");
@@ -68,11 +68,11 @@ public class SetImpl extends BasicModelImpl implements Set {
 	public void setValueType(String valueType) {
 		this.valueType = Type.toValue(valueType);
 	}
-	public void setSubSqlId(String subSqlId) {
-		this.subSqlId = subSqlId;
+	public void setSqlId(String sqlId) {
+		this.sqlId = sqlId;
 	}
-	public void setSubSqlJson(JSONObject subSqlJson) {
-		this.subSqlJson = subSqlJson;
+	public void setSqlJson(JSONObject sqlJson) {
+		this.sqlJson = sqlJson;
 	}
 	
 	private enum Type {

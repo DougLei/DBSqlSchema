@@ -5,6 +5,7 @@ import com.sql.SqlStatementInfoBuilder;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.SqlStatementInfoBuilderImpl;
 import com.sql.impl.statement.BasicModelImpl;
+import com.sql.impl.statement.util.NameUtil;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.table.Table;
 import com.sql.statement.basic.model.table.TableType;
@@ -15,33 +16,44 @@ import com.sql.util.StrUtils;
  * @author DougLei
  */
 public class TableImpl extends BasicModelImpl implements Table {
-												
+	private TableType type;
+	
 	private String name;
 	private String alias;
-	private TableType tableType;
+	
+	private String paramName;
 	
 	private Function function;
 	
-	private String subSqlId;
-	private JSONObject subSqlJson;
+	private String sqlId;
+	private JSONObject sqlJson;
 	
 	public String processSqlStatement() {
 		String sqlStatement = null;
-		if(tableType == TableType.TABLE){
-			sqlStatement = name;
-		}else if(tableType == TableType.FUNCTION){
-			sqlStatement = function.getSqlStatement();
-		}else if(tableType == TableType.SUB_QUERY){
-			sqlStatement = "( ";
-			if(StrUtils.notEmpty(subSqlId)){
-				sqlStatement += SqlStatementBuilderContext.buildSqlStatement(subSqlId);
-			}else{
-				SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-				infoBuilder.setJson(subSqlJson);
-				sqlStatement += infoBuilder.createSqlStatementBuilder().buildSqlStatement();
-			}
-			sqlStatement += " )";
+		
+		switch(type){
+			case TABLE:
+				sqlStatement = name;
+				break;
+			case PARAMETER:
+				sqlStatement = NameUtil.getName(null, paramName);
+				break;
+			case FUNCTION:
+				sqlStatement = function.getSqlStatement();
+				break;
+			case SUB_QUERY:
+				sqlStatement = "( ";
+				if(StrUtils.notEmpty(sqlId)){
+					sqlStatement += SqlStatementBuilderContext.buildSqlStatement(sqlId);
+				}else{
+					SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
+					infoBuilder.setJson(sqlJson);
+					sqlStatement += infoBuilder.createSqlStatementBuilder().buildSqlStatement();
+				}
+				sqlStatement += " )";
+				break;
 		}
+		
 		if(StrUtils.notEmpty(alias)){
 			sqlStatement += " " + alias;
 		}
@@ -51,19 +63,26 @@ public class TableImpl extends BasicModelImpl implements Table {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setSubSqlId(String subSqlId) {
-		this.subSqlId = subSqlId;
+	public void setParamName(String paramName) {
+		this.paramName = paramName;
 	}
-	public void setSubSqlJson(JSONObject subSqlJson) {
-		this.subSqlJson = subSqlJson;
+	public void setSqlId(String sqlId) {
+		this.sqlId = sqlId;
+	}
+	public void setSqlJson(JSONObject sqlJson) {
+		this.sqlJson = sqlJson;
 	}
 	public void setAlias(Object alias) {
 		this.alias = StrUtils.isEmpty(alias)?null:alias.toString();
 	}
-	public void setTableType(String tableType) {
-		this.tableType = TableType.toValue(tableType);
+	public void setType(String type) {
+		this.type = TableType.toValue(type);
 	}
 	public void setFunction(Function function) {
 		this.function = function;
+	}
+
+	public boolean isDefaultTable() {
+		return false;
 	}
 }

@@ -11,7 +11,7 @@ public class ORACLE_SetValueEntity extends SetValueEntity {
 	}
 
 	protected String getFUNCTIONSqlStatement() {
-		return paramNames[0] +":=" + valueFunction.getSqlStatement();
+		return paramNames[0] +":=" + function.getSqlStatement();
 	}
 
 	protected String getSQL_SetParamSql(String paramName) {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.basic.AbstractSqlStatementBuilder;
 import com.sql.impl.statement.basic.model.resultset.ResultSetImpl;
 import com.sql.impl.statement.basic.model.table.TableImpl;
@@ -23,7 +24,6 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 	
 	public String buildSql() {
 		StringBuilder selectSqlStatement = new StringBuilder(6000);
-		Table table = getTable();
 		
 		selectSqlStatement.append("select ");
 		selectSqlStatement.append(newline());
@@ -42,42 +42,47 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		StringBuilder selectSqlBodyStatement = new StringBuilder(4000);
 		// from
 		selectSqlBodyStatement.append("from ");
-		selectSqlBodyStatement.append(table.getSqlStatement());
-		selectSqlBodyStatement.append(newline());
 		
-		// join
-		List<Join> joinList = getJoinList();
-		if(joinList != null && joinList.size() > 0){
-			for (Join join : joinList) {
-				selectSqlBodyStatement.append(join.getSqlStatement());
+		Table table = getTable();
+		selectSqlBodyStatement.append(table.getSqlStatement());
+		if(!table.isDefaultTable()){
+			selectSqlBodyStatement.append(table.getSqlStatement());
+			selectSqlBodyStatement.append(newline());
+			
+			// join
+			List<Join> joinList = getJoinList();
+			if(joinList != null && joinList.size() > 0){
+				for (Join join : joinList) {
+					selectSqlBodyStatement.append(join.getSqlStatement());
+					selectSqlBodyStatement.append(newline());
+				}
+			}
+
+			// where
+			selectSqlBodyStatement.append(getWhereSqlStatement());
+			
+			// group by
+			GroupBy groupBy = getGroupBy();
+			if(groupBy != null){
+				selectSqlBodyStatement.append("group by ");
+				selectSqlBodyStatement.append(groupBy.getSqlStatement());
 				selectSqlBodyStatement.append(newline());
 			}
+			
+			// having
+			selectSqlBodyStatement.append(getHavingSqlStatement());
+			
+			// order by
+			OrderBy orderBy = getOrderBy();
+			if(orderBy != null){
+				selectSqlBodyStatement.append("order by ");
+				selectSqlBodyStatement.append(orderBy.getSqlStatement());
+				selectSqlBodyStatement.append(newline());
+			}
+			setBody(selectSqlBodyStatement);
+			selectSqlStatement.append(selectSqlBodyStatement);
+			
 		}
-
-		// where
-		selectSqlBodyStatement.append(getWhereSqlStatement());
-		
-		// group by
-		GroupBy groupBy = getGroupBy();
-		if(groupBy != null){
-			selectSqlBodyStatement.append("group by ");
-			selectSqlBodyStatement.append(groupBy.getSqlStatement());
-			selectSqlBodyStatement.append(newline());
-		}
-		
-		// having
-		selectSqlBodyStatement.append(getHavingSqlStatement());
-		
-		// order by
-		OrderBy orderBy = getOrderBy();
-		if(orderBy != null){
-			selectSqlBodyStatement.append("order by ");
-			selectSqlBodyStatement.append(orderBy.getSqlStatement());
-			selectSqlBodyStatement.append(newline());
-		}
-		setBody(selectSqlBodyStatement);
-		selectSqlStatement.append(selectSqlBodyStatement);
-		
 		return selectSqlStatement.toString();
 	}
 
@@ -97,7 +102,7 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 			rsi = new ResultSetImpl();
 			rsi.setColumnName(json.getString("columnName"));
 			rsi.setParamName(json.getString("paramName"));
-			rsi.setFunction(getFunction(json.getJSONObject("columnFunction")));
+			rsi.setFunction(getFunction(json.getJSONObject("function")));
 			rsi.setAlias(json.getString("alias"));
 			
 			rs.add(rsi);
@@ -108,15 +113,16 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 	public Table getTable() {
 		JSONObject json = content.getJSONObject("table");
 		if(json == null || json.size() == 0){
-			throw new NullPointerException("select类型的语句，必须有table节点属性");
+			return (Table) SqlStatementBuilderContext.getDBImplInstance("com.sql.impl.statement.basic.model.table", "TableImpl");
 		}
 		
 		TableImpl table = new TableImpl();
-		table.setTableType(json.getString("type"));
+		table.setType(json.getString("type"));
 		table.setName(json.getString("name"));
+		table.setParamName(json.getString("paramName"));
 		table.setFunction(getFunction(json.getJSONObject("function")));
-		table.setSubSqlId(json.getString("subSqlId"));
-		table.setSubSqlJson(json.getJSONObject("subSqlJson"));
+		table.setSqlId(json.getString("sqlId"));
+		table.setSqlJson(json.getJSONObject("sqlJson"));
 		table.setAlias(json.getString("alias"));
 		return table;
 	}

@@ -12,10 +12,12 @@ public enum DatabaseType {
 	ORACLE("oracle", "Oracle");
 	
 	private String databaseType;
+	private String databaseTypeUpperCase;
 	private String productName;
 	
 	private DatabaseType(String databaseType, String productName) {
 		this.databaseType = databaseType;
+		this.databaseTypeUpperCase = databaseType.toUpperCase();
 		this.productName = productName;
 	}
 	
@@ -30,11 +32,14 @@ public enum DatabaseType {
 	public String getDatabaseType() {
 		return databaseType;
 	}
+	public String getDatabaseTypeUpperCase() {
+		return databaseTypeUpperCase;
+	}
 	public String getProductName() {
 		return productName;
 	}
 
 	public String toString(){
-		return "数据库产品名称: ["+productName+"], 数据库类型: ["+databaseType+"]";
+		return name();
 	}
 }

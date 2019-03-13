@@ -7,18 +7,11 @@ import java.util.Arrays;
  * @author DougLei
  */
 public enum TableType {
-	TABLE("table"), // 表
-	FUNCTION("function"), // 函数
-	SUB_QUERY("sub_query"); // 子查询
+	TABLE, // 表
+	PARAMETER, // 参数
+	FUNCTION, // 函数
+	SUB_QUERY; // 子查询
 	
-	private String type;
-	private TableType(String type) {
-		this.type = type;
-	}
-	public String getType() {
-		return type;
-	}
-
 	public static TableType toValue(String str){
 		try {
 			return TableType.valueOf(str.trim().toUpperCase());
@@ -28,6 +21,6 @@ public enum TableType {
 	}
 	
 	public String toString(){
-		return "{" + type + "}";
+		return name();
 	}
 }

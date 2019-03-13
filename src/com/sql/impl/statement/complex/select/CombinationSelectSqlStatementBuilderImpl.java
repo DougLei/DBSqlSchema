@@ -120,11 +120,11 @@ public class CombinationSelectSqlStatementBuilderImpl extends SqlStatementBuilde
 	 */
 	private String toSelectSql(boolean recordResultSetColumnName, JSONObject json){
 		SqlStatementBuilder builder = null;
-		if(StrUtils.notEmpty(json.getString("selectSqlId"))){
-			builder = SqlStatementBuilderContext.getSqlStatementBuilder(json.getString("selectSqlId"));
+		if(StrUtils.notEmpty(json.getString("sqlId"))){
+			builder = SqlStatementBuilderContext.getSqlStatementBuilder(json.getString("sqlId"));
 		}else{
 			SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-			infoBuilder.setJson(json.getJSONObject("selectSqlJson"));
+			infoBuilder.setJson(json.getJSONObject("sqlJson"));
 			builder = infoBuilder.createSqlStatementBuilder();
 		}
 		if(builder instanceof SelectSqlStatementBuilder){

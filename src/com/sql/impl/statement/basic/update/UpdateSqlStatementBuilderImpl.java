@@ -60,8 +60,8 @@ public class UpdateSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 			set.setValue(json.getString("value"));
 			set.setParamName(json.getString("paramName"));
 			set.setValueFunction(getFunction(json.getJSONObject("valueFunction")));
-			set.setSubSqlId(json.getString("subSqlId"));
-			set.setSubSqlJson(json.getJSONObject("subSqlJson"));
+			set.setSqlId(json.getString("sqlId"));
+			set.setSqlJson(json.getJSONObject("sqlJson"));
 			
 			sets.add(set);
 		}

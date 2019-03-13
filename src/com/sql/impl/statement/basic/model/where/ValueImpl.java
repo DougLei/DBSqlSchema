@@ -21,8 +21,8 @@ public class ValueImpl implements Value {
 	
 	private ValueGroup valueGroup;
 	
-	private String subSqlId;
-	private JSONObject subSqlJson;
+	private String sqlId;
+	private JSONObject sqlJson;
 	
 	public String[] getSqlStatements() {
 		switch(type){
@@ -35,11 +35,11 @@ public class ValueImpl implements Value {
 			case SUB_QUERY:
 				StringBuilder sb = new StringBuilder(2000);
 				sb.append(" ( ");
-				if(StrUtils.notEmpty(subSqlId)){
-					sb.append(SqlStatementBuilderContext.buildSqlStatement(subSqlId));
+				if(StrUtils.notEmpty(sqlId)){
+					sb.append(SqlStatementBuilderContext.buildSqlStatement(sqlId));
 				}else{
 					SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-					infoBuilder.setJson(subSqlJson);
+					infoBuilder.setJson(sqlJson);
 					sb.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
 				}
 				sb.append(" ) ");
@@ -51,11 +51,11 @@ public class ValueImpl implements Value {
 	public void setType(String type) {
 		this.type = Type.toValue(type);
 	}
-	public void setSubSqlId(String subSqlId) {
-		this.subSqlId = subSqlId;
+	public void setSqlId(String sqlId) {
+		this.sqlId = sqlId;
 	}
-	public void setSubSqlJson(JSONObject subSqlJson) {
-		this.subSqlJson = subSqlJson;
+	public void setSqlJson(JSONObject sqlJson) {
+		this.sqlJson = sqlJson;
 	}
 	public void setValueGroupArray(JSONArray valueGroupJsonarray) {
 		if(valueGroupJsonarray != null && valueGroupJsonarray.size() > 0){

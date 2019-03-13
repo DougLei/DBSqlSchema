@@ -203,8 +203,8 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 						}
 						value = new ValueImpl();
 						value.setType(json.getString("type"));
-						value.setSubSqlId(json.getString("subSqlId"));
-						value.setSubSqlJson(json.getJSONObject("subSqlJson"));
+						value.setSqlId(json.getString("sqlId"));
+						value.setSqlJson(json.getJSONObject("sqlJson"));
 						value.setValueGroupArray(json.getJSONArray("values"));
 						
 						where.setValue(value);

@@ -8,4 +8,9 @@ import com.sql.statement.BasicModel;
  */
 public interface Table extends BasicModel{
 
+	/**
+	 * 是否是默认的表
+	 * @return
+	 */
+	boolean isDefaultTable();
 }

@@ -12,7 +12,7 @@ public class SQLSERVER_SetValueEntity extends SetValueEntity {
 	}
 
 	protected String getFUNCTIONSqlStatement() {
-		return "set @"+paramNames[0]+" =" + valueFunction.getSqlStatement();
+		return "set @"+paramNames[0]+" =" + function.getSqlStatement();
 	}
 
 	protected String getSQL_SetParamSql(String paramName) {

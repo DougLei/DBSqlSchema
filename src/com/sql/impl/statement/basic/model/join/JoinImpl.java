@@ -26,8 +26,8 @@ public class JoinImpl extends BasicModelImpl implements Join {
 	private String alias;
 	private List<OnGroup> onGroups;
 	
-	private String subSqlId;
-	private JSONObject subSqlJson;
+	private String sqlId;
+	private JSONObject sqlJson;
 	
 	public void addOnGroup(OnGroup onGroup) {
 		if(onGroups == null){
@@ -43,11 +43,11 @@ public class JoinImpl extends BasicModelImpl implements Join {
 			sb.append(tableName);
 		}else if(tableType == TableType.SUB_QUERY){
 			sb.append("( ");
-			if(StrUtils.notEmpty(subSqlId)){
-				sb.append(SqlStatementBuilderContext.buildSqlStatement(subSqlId));
+			if(StrUtils.notEmpty(sqlId)){
+				sb.append(SqlStatementBuilderContext.buildSqlStatement(sqlId));
 			}else{
 				SqlStatementInfoBuilder infoBuilder = new SqlStatementInfoBuilderImpl();
-				infoBuilder.setJson(subSqlJson);
+				infoBuilder.setJson(sqlJson);
 				sb.append(infoBuilder.createSqlStatementBuilder().buildSqlStatement());
 			}
 			sb.append(" )");
@@ -83,10 +83,10 @@ public class JoinImpl extends BasicModelImpl implements Join {
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
-	public void setSubSqlId(String subSqlId) {
-		this.subSqlId = subSqlId;
+	public void setSqlId(String sqlId) {
+		this.sqlId = sqlId;
 	}
-	public void setSubSqlJson(JSONObject subSqlJson) {
-		this.subSqlJson = subSqlJson;
+	public void setSqlJson(JSONObject sqlJson) {
+		this.sqlJson = sqlJson;
 	}
 }
