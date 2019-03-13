@@ -118,26 +118,82 @@
 													"content":{
 														"resultSet":[
 															{
-																"columnName":"value"
+																"function":{
+																	"name":"_append",
+																	"parameters":[
+																		{
+																			"type":"value",
+																			"value":"','"
+																		},
+																		{
+																			"type":"value",
+																			"value":"MATERIALNAME"
+																		}
+																	]
+																}
 															}
 														],
 														"table":{
-															
-														}
+															"type":"table",
+															"name":"MDM_MATERIALINFO",
+															"alias":"t"
+														},
+														"where":[
+															{
+																"whereGroup":[
+																	{
+																		"columnName":"ENABLED",
+																		"operator":"eq",
+																		"value":{
+																			"type":"value",
+																			"values":[
+																				{
+																					"type":"value",
+																					"value":"1"
+																				}
+																			]
+																		},
+																		"nextLogicOperator":"and"
+																	},
+																	{
+																		"columnName":"ID",
+																		"operator":"in",
+																		"value":{
+																			"type":"sub_query",
+																			"sqlJson":{
+																				"id":"selectIdFromTemplate",
+																				"type":"select",
+																				"content":{
+																					"resultSet":[
+																						{
+																							"columnName":"ID"
+																						}
+																					],
+																					"table":{
+																						"type":"parameter",
+																						"paramName":"tempTable"
+																					}
+																				}
+																			}
+																		}
+																	}
+																]
+															}
+														]
 													}
 												}
 											},
 											{
 												"type":"value",
-												"paramName":"1"
+												"value":"1"
 											},
 											{
 												"type":"value",
-												"paramName":"1"
+												"value":"1"
 											},
 											{
 												"type":"value",
-												"paramName":"''"
+												"value":"''"
 											}
 										]
 									}
@@ -193,7 +249,7 @@
 											"parameters":[
 												{
 													"type":"value",
-													"paramName":"'error:'"
+													"value":"'error:'"
 												},
 												{
 													"type":"parameter",
@@ -201,7 +257,7 @@
 												},
 												{
 													"type":"value",
-													"paramName":"'在启用中，无法删除'"
+													"value":"'在启用中，无法删除'"
 												}
 											]
 										}
@@ -251,20 +307,7 @@
 																"operator":"in",
 																"value":{
 																	"type":"sub_query",
-																	"sqlJson": {
-																		"type":"select",
-																		"content":{
-																			"resultSet":[
-																				{
-																					"columnName":"ID"
-																				}
-																			],
-																			"table":{
-																				"type":"parameter",
-																				"paramName":"tempTable"
-																			}
-																		}
-																	}
+																	"sqlId": "selectIdFromTemplate"
 																}
 															}
 														]
