@@ -101,7 +101,7 @@
 						}
 					],
 					"type":"select_sql",
-					"selectSqlJson":{
+					"sqlJson":{
 						"id":"id4",
 						"type":"select",
 						"content":{
@@ -236,38 +236,36 @@
 				"content":[
 					{
 						"stepJson":{
-							"step4":{
-								"id":"step4",
-								"type":"set_value",
-								"content":[
-									{
-										"parameter":[
-											{
-												"isDeclare":false,
-												"name":"Message"
-											}
-										],
-										"type":"function",
-										"function":{
-											"name":"_append",
-											"parameters":[
-												{
-													"type":"value",
-													"value":"'error:'"
-												},
-												{
-													"type":"parameter",
-													"paramName":"MATERIALNAME"
-												},
-												{
-													"type":"value",
-													"value":"'在启用中，无法删除'"
-												}
-											]
+							"id":"x1",
+							"type":"set_value",
+							"content":[
+								{
+									"parameter":[
+										{
+											"isDeclare":false,
+											"name":"Message"
 										}
+									],
+									"type":"function",
+									"function":{
+										"name":"_append",
+										"parameters":[
+											{
+												"type":"value",
+												"value":"'error:'"
+											},
+											{
+												"type":"parameter",
+												"paramName":"MATERIALNAME"
+											},
+											{
+												"type":"value",
+												"value":"'在启用中，无法删除'"
+											}
+										]
 									}
-								]
-							}
+								}
+							]
 						}
 					}
 				]
@@ -276,52 +274,50 @@
 				"content":[
 					{
 						"stepJson":{
-							"step5":{
-								"type":"set_value",
-								"content":[
-									{
-										"parameter":[
-											{
-												"isDeclare":false,
-												"name":"Message"
-											}
-										],
-										"type":"value",
-										"value":"'success:删除成功'"
-									}
-								]
-							}
+							"id":"x2",
+							"type":"set_value",
+							"content":[
+								{
+									"parameter":[
+										{
+											"isDeclare":false,
+											"name":"Message"
+										}
+									],
+									"type":"value",
+									"value":"'success:删除成功'"
+								}
+							]
 						}
 					},
 					{
 						"stepJson":{
-							"step6":{
-								"type":"sql",
-								"content":[
-									{
-										"sqlJson":{
-											"type": "delete",
-											"content": {
-												"tableName": "MDM_MATERIALINFO",
-												"where":[
-													{
-														"whereGroup":[
-															{
-																"columnName":"ID",
-																"operator":"in",
-																"value":{
-																	"type":"sub_query",
-																	"sqlId": "selectIdFromTemplate"
-																}
+							"id":"x3",
+							"type":"sql",
+							"content":[
+								{
+									"sqlJson":{
+										"type": "delete",
+										"content": {
+											"tableName": "MDM_MATERIALINFO",
+											"where":[
+												{
+													"whereGroup":[
+														{
+															"columnName":"ID",
+															"operator":"in",
+															"value":{
+																"type":"sub_query",
+																"sqlId": "selectIdFromTemplate"
 															}
-														]
-													}
-												]
-											}
+														}
+													]
+												}
+											]
 										}
 									}
-								]
-							}
+								}
+							]
 						}
 					}
 				]

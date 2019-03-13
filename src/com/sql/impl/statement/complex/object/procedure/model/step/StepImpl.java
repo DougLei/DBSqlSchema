@@ -38,7 +38,7 @@ public class StepImpl extends BasicModelImpl implements Step {
 			setId(id.toString().trim());
 		}
 		if(type == null){
-			setType(stepIndex, json.remove("type"));
+			setType(stepIndex, json.remove("type"), json);
 		}
 		if(desc == null){
 			setDesc(json.remove("desc"));
@@ -58,9 +58,9 @@ public class StepImpl extends BasicModelImpl implements Step {
 		}
 	}
 	
-	private void setType(int stepIndex, Object type) {
+	private void setType(int stepIndex, Object type, JSONObject json) {
 		if(StrUtils.isEmpty(type)){
-			throw new NullPointerException("[step"+stepIndex+"] 的type属性值不能为空");
+			throw new NullPointerException("[step"+stepIndex+"] 的type属性值不能为空 :["+ json.toJSONString() + "]");
 		}
 		this.type = StepType.toValue(type.toString());
 	}

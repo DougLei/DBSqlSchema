@@ -1,6 +1,5 @@
 package com.sql.statement.basic.model.where;
 
-import java.util.Arrays;
 
 /**
  * 逻辑操作类型
@@ -19,7 +18,7 @@ public enum LogicOperatorType {
 		try {
 			return LogicOperatorType.valueOf(str.trim().toUpperCase());
 		} catch (Exception e) {
-			throw new IllegalArgumentException("值[\""+str+"\"]错误，目前支持的值包括：["+Arrays.toString(LogicOperatorType.values())+"]");
+			return AND;
 		}
 	}
 	
