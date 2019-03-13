@@ -94,7 +94,7 @@ public class SqlStatementInfoBuilderImpl implements SqlStatementInfoBuilder{
 				throw new NullPointerException("配置内容(json)不能为空");
 			}
 			if(StrUtils.isEmpty(json.get("id"))){
-				throw new NullPointerException("配置内容(json)的属性[id]值不能为空");
+				json.put("id", StrUtils.getIdentity());
 			}
 			if(StrUtils.isEmpty(json.get("type"))){
 				throw new NullPointerException("配置内容(json)的属性[type]值不能为空");

@@ -1,6 +1,7 @@
 package com.sql.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.UUID;
 
 import com.sql.enums.Encoding;
 
@@ -56,6 +57,15 @@ public class StrUtils {
 			return true;
 		}
 		return false;
+	}
+	
+	// --------------------------------------------------------------------------------------------------
+	/**
+	 * 获取唯一标识id
+	 * @return
+	 */
+	public static String getIdentity(){
+		return UUID.randomUUID().toString().replace("-", "");
 	}
 	
 	// --------------------------------------------------------------------------------------------------

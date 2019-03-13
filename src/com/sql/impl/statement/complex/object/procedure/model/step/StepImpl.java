@@ -33,7 +33,7 @@ public class StepImpl extends BasicModelImpl implements Step {
 		if(id == null){
 			Object id = null;
 			if(StrUtils.isEmpty((id = json.remove("id")))){
-				throw new NullPointerException("[step"+stepIndex+"] 的id属性值不能为空");
+				id = StrUtils.getIdentity();
 			}
 			setId(id.toString().trim());
 		}
