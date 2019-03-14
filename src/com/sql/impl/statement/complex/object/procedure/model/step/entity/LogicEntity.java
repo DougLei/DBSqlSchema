@@ -12,7 +12,7 @@ public abstract class LogicEntity{
 
 	protected String conditionSqlStatement;
 	public LogicEntity(List<ConditionGroup> groupList, boolean validGroupListIsNull) {
-		if(validGroupListIsNull && groupList == null || groupList.size() == 0){
+		if(validGroupListIsNull && (groupList == null || groupList.size() == 0)){
 			throw new NullPointerException("条件不能为空");
 		}
 		

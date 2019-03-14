@@ -79,10 +79,10 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 				selectSqlBodyStatement.append(orderBy.getSqlStatement());
 				selectSqlBodyStatement.append(newline());
 			}
-			setBody(selectSqlBodyStatement);
 			selectSqlStatement.append(selectSqlBodyStatement);
 			
 		}
+		setBody(selectSqlBodyStatement);
 		return selectSqlStatement.toString();
 	}
 

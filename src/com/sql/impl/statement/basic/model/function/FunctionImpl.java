@@ -26,7 +26,7 @@ public class FunctionImpl extends BasicModelImpl implements Function {
 				return bfFunction.init(function);
 			}
 			
-			JSONArray paramJsonarray = function.getJSONArray("parameter");
+			JSONArray paramJsonarray = function.getJSONArray("parameters");
 			if(StrUtils.notEmpty(name) && paramJsonarray!= null && paramJsonarray.size() > 0){
 				ParameterEntity[] parameters = new ParameterEntity[paramJsonarray.size()];
 				for(int i=0;i<paramJsonarray.size();i++){

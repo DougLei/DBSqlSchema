@@ -2,6 +2,7 @@ package com.sql.impl.statement.complex.object.procedure.model;
 
 import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
+import com.sql.util.StrUtils;
 
 /**
  * 在存储过程中使用的自定义类型，需要先创建出来，这里存储的是创建语句，最后要在创建存储过程语句之前先执行这些创建类型的语句
@@ -26,13 +27,15 @@ public class CreateTypeContext {
 	 * @param sql
 	 */
 	public static void recordCreateTypeSqlStatement(String sql){
-		StringBuilder sb = createTypeSqlStatementLocal.get();
-		if(sb == null){
-			sb = new StringBuilder(1000);
-			createTypeSqlStatementLocal.set(sb);
+		if(StrUtils.notEmpty(sql)){
+			StringBuilder sb = createTypeSqlStatementLocal.get();
+			if(sb == null){
+				sb = new StringBuilder(1000);
+				createTypeSqlStatementLocal.set(sb);
+			}
+			sb.append(sql).append("\n");
+			sb.append(linkNextSqlStatementToken());
 		}
-		sb.append(sql).append("\n");
-		sb.append(linkNextSqlStatementToken());
 	}
 	
 	private static String linkNextSqlStatementToken() {

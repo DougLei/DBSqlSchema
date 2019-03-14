@@ -3,8 +3,7 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.condit
 import java.util.Arrays;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.enums.DatabaseType;
-import com.sql.impl.SqlStatementBuilderContext;
+import com.sql.impl.statement.Tools;
 import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareContext;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.util.StrUtils;
@@ -30,20 +29,9 @@ public class Parameter {
 			case VALUE:
 				return value;
 			case PARAMETER:
-				return getParameter();
+				return Tools.getName(null, name);
 			case FUNCTION:
 				return function.getSqlStatement();
-		}
-		return null;
-	}
-	
-	private String getParameter() {
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
-			case SQLSERVER:
-				return "@"+name;
-			case ORACLE:
-				return name;
 		}
 		return null;
 	}

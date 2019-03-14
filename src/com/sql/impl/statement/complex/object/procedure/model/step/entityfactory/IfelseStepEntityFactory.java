@@ -24,6 +24,7 @@ public class IfelseStepEntityFactory implements StepEntityFactory {
 		JSONObject json = null;
 		while((json = stepContent.getJSONObject("if"+index)) != null){
 			ifStepEntity.addConditionEntity(new ConditionEntity(json.getJSONArray("condition"), json.getJSONArray("content")));
+			index++;
 		}
 		return ifStepEntity;
 	}

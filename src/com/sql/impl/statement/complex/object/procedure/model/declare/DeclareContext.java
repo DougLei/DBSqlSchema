@@ -40,6 +40,7 @@ public class DeclareContext {
 		DeclareEntity declareEntity = new DeclareEntity(declareJson);
 		if(local == null){
 			local = new HashMap<String, DeclareEntity>(20);
+			declareListLocal.set(local);
 		}else{
 			if(local.containsKey(declareEntity.getName())){
 				throw new IllegalArgumentException("存储过程中declare 同名的变量名：["+declareEntity.getName()+"]，请修改");

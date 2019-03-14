@@ -9,7 +9,6 @@ import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.procedure.model.CreateTypeContext;
 
-
 /**
  * 
  * @author DougLei
@@ -47,6 +46,7 @@ public class ParameterContext {
 		
 		if(local == null){
 			local = new HashMap<String, ParameterEntity>(20);
+			parameterListLocal.set(local);
 		}else{
 			if(local.containsKey(parameter.getName())){
 				throw new IllegalArgumentException("存储过程中parameter 同名的参数名：["+parameter.getName()+"]，请修改");

@@ -37,7 +37,7 @@ public abstract class SetValueEntity extends AbstractEntity{
 	public static final SetValueEntity getInstance(JSONObject setJson) {
 		SetValueEntity entity = getSetValueEntity();
 		
-		JSONArray parameterEntityJsonArray = setJson.getJSONArray("parameter");
+		JSONArray parameterEntityJsonArray = setJson.getJSONArray("parameters");
 		if(parameterEntityJsonArray == null || parameterEntityJsonArray.size() == 0){
 			throw new NullPointerException("给变量赋值时，parameter属性配置的变量信息不能为空");
 		}

@@ -204,7 +204,7 @@ public enum DataType {
 				case ORACLE:
 					return oracleCustomDataType.isSupportAppendCustom();
 			}
-			throw new IllegalArgumentException("DataType.isSupportCreateType出现异常");
+			throw new IllegalArgumentException("DataType.isSupportAppendCustom出现异常");
 		}
 		return true;
 	}
@@ -245,7 +245,7 @@ public enum DataType {
 			}
 			throw new IllegalArgumentException("DataType.isSupportDynamicCreateType出现异常");
 		}
-		return true;
+		return false;
 	}
 	
 	/**
@@ -255,7 +255,7 @@ public enum DataType {
 	 */
 	public String getDynamicCreateTypeName(String name) {
 		if(isBaseType()){
-			throw new IllegalAccessError("基础数据库类型，无法获取动态创建类型的类型名称");
+			throw new IllegalAccessError("基础数据类型，无法获取动态创建类型的类型名称");
 		}
 		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
 		switch(dbType){

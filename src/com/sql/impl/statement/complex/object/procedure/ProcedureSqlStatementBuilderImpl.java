@@ -118,7 +118,7 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 	 * @return 
 	 */
 	protected void processParameter(){
-		JSONArray array = content.getJSONArray("parameter");
+		JSONArray array = content.getJSONArray("parameters");
 		if(array != null && array.size() > 0){
 			for(int i=0;i<array.size();i++){
 				ParameterContext.recordParameter(array.getJSONObject(i));
@@ -131,7 +131,7 @@ public abstract class ProcedureSqlStatementBuilderImpl extends SqlStatementBuild
 	 * @return
 	 */
 	protected void processDeclare() {
-		JSONArray array = content.getJSONArray("declare");
+		JSONArray array = content.getJSONArray("declares");
 		if(array != null && array.size() > 0){
 			for(int i=0;i<array.size();i++){
 				DeclareContext.recordDeclare(array.getJSONObject(i));

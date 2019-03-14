@@ -6,7 +6,7 @@
 		"procedureName":"DeleteMaterialinfo",
 		"isCover":true,
 		"isTransaction":true,
-		"parameter":[
+		"parameters":[
 			{
 				"name":"Ids",
 				"dataType":"varchar",
@@ -18,7 +18,7 @@
 				"inOut":"out"
 			}
 		],
-		"declare":[
+		"declares":[
 			{
 				"name":"tempTable",
 				"dataType":"tmp_table",
@@ -69,14 +69,14 @@
 											"type":"function",
 											"function":{
 												"name":"F_Split",
-												"parameter":[
+												"parameters":[
 													{
 														"type":"parameter",
 														"paramName":"Ids"
 													},
 													{
 														"type":"value",
-														"paramName":"','"
+														"value":"','"
 													}
 												]
 											}
@@ -94,7 +94,7 @@
 			"type":"set_value",
 			"content":[
 				{
-					"parameter":[
+					"parameters":[
 						{
 							"isDeclare":false,
 							"name":"MATERIALNAME"
@@ -109,7 +109,7 @@
 								{
 									"function":{
 										"name":"STUFF",
-										"parameter":[
+										"parameters":[
 											{
 												"type":"function",
 												"function":{
@@ -240,7 +240,7 @@
 							"type":"set_value",
 							"content":[
 								{
-									"parameter":[
+									"parameters":[
 										{
 											"isDeclare":false,
 											"name":"Message"
@@ -274,52 +274,62 @@
 				"content":[
 					{
 						"stepJson":{
-							"step5":{
-								"type":"set_value",
-								"content":[
-									{
-										"parameter":[
-											{
-												"isDeclare":false,
-												"name":"Message"
-											}
-										],
-										"type":"value",
-										"value":"'success:删除成功'"
-									}
-								]
-							}
+							"type":"set_value",
+							"content":[
+								{
+									"parameters":[
+										{
+											"isDeclare":false,
+											"name":"Message"
+										}
+									],
+									"type":"value",
+									"value":"'success:删除成功'"
+								}
+							]
 						}
 					},
 					{
 						"stepJson":{
-							"step6":{
-								"type":"sql",
-								"content":[
-									{
-										"sqlJson":{
-											"type": "delete",
-											"content": {
-												"tableName": "MDM_MATERIALINFO",
-												"where":[
-													{
-														"whereGroup":[
-															{
-																"columnName":"ID",
-																"operator":"in",
-																"value":{
-																	"type":"sub_query",
-																	"sqlId": "selectIdFromTemplate"
+							"type":"sql",
+							"content":[
+								{
+									"sqlJson":{
+										"type": "delete",
+										"content": {
+											"tableName": "MDM_MATERIALINFO",
+											"where":[
+												{
+													"whereGroup":[
+														{
+															"columnName":"ID",
+															"operator":"in",
+															"value":{
+																"type":"sub_query",
+																"sqlJson":{
+																	"id":"selectIdFromTemplate2",
+																	"type":"select",
+																	"content":{
+																		"resultSet":[
+																			{
+																				"columnName":"ID"
+																			}
+																		],
+																		"table":{
+																			"type":"parameter",
+																			"paramName":"tempTable"
+																		}
+																	}
 																}
 															}
-														]
-													}
-												]
-											}
+														}
+													]
+												}
+											]
 										}
 									}
-								]
-							}
+								}
+							]
 						}
 					}
 				]
