@@ -36,8 +36,6 @@ public class InsertSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 			insertSqlStatement.append(")");
 		}
 		insertSqlStatement.append(newline());
-		insertSqlStatement.append("values ");
-		insertSqlStatement.append(newline());
 		
 		Values values = getValues();
 		insertSqlStatement.append(values.getSqlStatement());
@@ -54,12 +52,10 @@ public class InsertSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		if(StrUtils.notEmpty(tableName)){
 			return tableName;
 		}
-		
 		String paramName = content.getString("paramName");
 		if(StrUtils.notEmpty(paramName)){
 			return Tools.getName(null, paramName);
 		}
-		
 		throw new NullPointerException("build insert sql时，tableName属性值和paramName属性值不能都为空");
 	}
 	

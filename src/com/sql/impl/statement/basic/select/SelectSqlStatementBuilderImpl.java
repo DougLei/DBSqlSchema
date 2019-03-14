@@ -45,8 +45,9 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		
 		Table table = getTable();
 		selectSqlBodyStatement.append(table.getSqlStatement());
-		if(!table.isDefaultTable()){
-			selectSqlBodyStatement.append(table.getSqlStatement());
+		if(table.isDefaultTable()){
+			setBody("");
+		}else{
 			selectSqlBodyStatement.append(newline());
 			
 			// join
@@ -79,10 +80,10 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 				selectSqlBodyStatement.append(orderBy.getSqlStatement());
 				selectSqlBodyStatement.append(newline());
 			}
-			selectSqlStatement.append(selectSqlBodyStatement);
 			
+			setBody(selectSqlBodyStatement.toString());
+			selectSqlStatement.append(selectSqlBodyStatement);
 		}
-		setBody(selectSqlBodyStatement);
 		return selectSqlStatement.toString();
 	}
 
@@ -146,7 +147,7 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		buildSqlStatement();
 		return body;
 	}
-	private void setBody(StringBuilder selectSqlBodyStatement){
-		body = selectSqlBodyStatement.toString();
+	private void setBody(String selectSqlBodyStatement){
+		body = selectSqlBodyStatement;
 	}
 }

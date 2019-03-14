@@ -17,7 +17,7 @@ public class ORACLE_ELSE extends LogicEntity{
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {
 		StringBuilder sb = buildSqlStringBuilder(sqlStatement);
-		sb.append("else ").append(conditionSqlStatement).append(newline());
+		sb.append("else ").append(newline());
 		sb.append("begin").append(newline());
 		sb.append(sqlStatement).append(newline());
 		sb.append("end if;").append(newline());

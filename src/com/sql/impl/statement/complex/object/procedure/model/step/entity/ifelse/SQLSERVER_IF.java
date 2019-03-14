@@ -17,7 +17,7 @@ public class SQLSERVER_IF extends LogicEntity{
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {
 		StringBuilder sb = buildSqlStringBuilder(sqlStatement);
-		sb.append("if ").append(conditionSqlStatement).append(newline());
+		sb.append("if (").append(conditionSqlStatement).append(")").append(newline());
 		sb.append("begin").append(newline());
 		sb.append(sqlStatement).append(newline());
 		sb.append("end").append(newline());

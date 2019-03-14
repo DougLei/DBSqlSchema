@@ -18,14 +18,14 @@ public class ValueGroupImpl implements ValueGroup{
 	private List<String> values;
 	
 	public int size() {
-		if(values != null && values.size()>0){
+		if(values != null && values.size() > 0){
 			return values.size();
 		}
 		throw new IllegalArgumentException("where value参数值配置错误");
 	}
 
 	public String getValue(int index) {
-		if(values != null && (values.size()-1)<index){
+		if(values != null && values.size() > index){
 			return values.get(index);
 		}
 		throw new IllegalArgumentException("where value参数值配置错误");

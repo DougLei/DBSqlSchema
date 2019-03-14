@@ -23,25 +23,26 @@ public class ValuesImpl extends BasicModelImpl implements Values {
 	
 	protected String processSqlStatement() {
 		StringBuilder sb = new StringBuilder(800);
+		sb.append("(");
 		switch(type){
 			case VALUE:
 				if(valuesEntities == null || valuesEntities.size() == 0){
 					throw new NullPointerException("build insert sql时，values属性中的value数组属性不能为空");
 				}
 				
-				sb.append("(");
+				sb.append("values \n");
 				for(int i=0;i<valuesEntities.size();i++){
 					sb.append(valuesEntities.get(i).getSqlStatement());
 					if(i<valuesEntities.size()-1){
 						sb.append(", ");
 					}
 				}
-				sb.append(")");
 				break;
 			case SUB_QUERY:
 				sb.append(SqlStatementBuilderContext.getSqlStatement(sqlId, sqlJson));
 				break;
 		}
+		sb.append(")");
 		return sb.toString();
 	}
 

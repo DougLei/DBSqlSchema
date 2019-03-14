@@ -32,7 +32,7 @@ public class ResultSetImpl extends BasicModelImpl implements ResultSet {
 	}
 
 	public void setFunction(Function function) {
-		if(function == null){
+		if(function != null){
 			this.function = function;
 		}
 	}
