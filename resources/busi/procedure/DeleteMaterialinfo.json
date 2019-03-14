@@ -306,21 +306,7 @@
 															"operator":"in",
 															"value":{
 																"type":"sub_query",
-																"sqlJson":{
-																	"id":"selectIdFromTemplate2",
-																	"type":"select",
-																	"content":{
-																		"resultSet":[
-																			{
-																				"columnName":"ID"
-																			}
-																		],
-																		"table":{
-																			"type":"parameter",
-																			"paramName":"tempTable"
-																		}
-																	}
-																}
+																"sqlId":"selectIdFromTemplate"
 															}
 														}
 													]
