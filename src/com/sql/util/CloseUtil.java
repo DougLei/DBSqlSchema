@@ -22,7 +22,6 @@ public class CloseUtil {
 	 */
 	public static void closeIO(Object... ios){
 		if(ios == null || ios.length == 0){
-			Log4jUtil.debug("要关闭的IO对象为null");
 			return;
 		}
 		for (Object io : ios) {
@@ -36,7 +35,6 @@ public class CloseUtil {
 	 */
 	public static void closeDBConn(Object... dbconns){
 		if(dbconns == null || dbconns.length == 0){
-			Log4jUtil.debug("要关闭的dbconn对象为null");
 			return;
 		}
 		for (Object dbconn : dbconns) {
@@ -50,12 +48,10 @@ public class CloseUtil {
 	 */
 	private static void closeIO(Object io){
 		if(io == null){
-			Log4jUtil.debug("要关闭的IO对象为null");
 			return;
 		}
 
 		String ioClass = io.getClass().toString();
-		Log4jUtil.debug("要关闭的IO对象为:{}", ioClass);
 		try {
 			if(ioClass.contains("Writer")){
 				Writer writer = (Writer) io;
@@ -72,10 +68,9 @@ public class CloseUtil {
 				InputStream in = (InputStream) io;
 				in.close();
 			}else{
-				Log4jUtil.debug("没有匹配到要关闭的类型:{}", ioClass);
 			}
 		} catch (IOException e) {
-			Log4jUtil.debug("方法在关闭IO对象出现异常信息:{}", ExceptionUtil.getErrMsg(e));
+			e.printStackTrace();
 		}finally{
 			io = null;
 		}
@@ -87,12 +82,10 @@ public class CloseUtil {
 	 */
 	private static void closeDBConn(Object dbconn){
 		if(dbconn == null){
-			Log4jUtil.debug("要关闭的dbconn对象为null");
 			return;
 		}
 
 		String dbconnClass = dbconn.getClass().toString();
-		Log4jUtil.debug("要关闭的dbconn对象为:{}", dbconnClass);
 		try {
 			if(dbconnClass.contains("Connection")){
 				Connection conn = (Connection) dbconn;
@@ -104,10 +97,9 @@ public class CloseUtil {
 				ResultSet rs = (ResultSet) dbconn;
 				rs.close();
 			}else{
-				Log4jUtil.debug("没有匹配到要关闭的类型:{}", dbconnClass);
 			}
 		} catch (SQLException e) {
-			Log4jUtil.debug("方法在关闭dbconn对象出现异常信息:{}", ExceptionUtil.getErrMsg(e));
+			e.printStackTrace();
 		} finally{
 			dbconn = null;
 		}
