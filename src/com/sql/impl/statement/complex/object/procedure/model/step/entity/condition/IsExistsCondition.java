@@ -22,15 +22,10 @@ public class IsExistsCondition {
 		String sql = SqlStatementBuilderContext.getSqlStatement(sqlId, sqlJson);
 		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
-				sql = "exists ( " + sql + " )";
-				break;
+				return (isInversion?"not ":"") + "exists ( " + sql + " )";
 			case ORACLE:
-				sql = "ifexists ( '" + sql + "' )";
-				break;
+				return "ifexists( '" + sql + "' )" + (isInversion?"=0":">0");
 		}
-		if(isInversion){
-			sql = "not " + sql;
-		}
-		return sql;
+		return null;
 	}
 }
