@@ -1,7 +1,7 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.proc;
 
 import com.alibaba.fastjson.JSONArray;
-import com.sql.enums.DatabaseType;
+import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.AbstractExecStepEntity;
@@ -14,8 +14,8 @@ import com.sql.statement.complex.object.procedure.model.step.StepType;
 public class ExecProcStepEntity extends AbstractExecStepEntity {
 	private String procedureName;
 	
-	public ExecProcStepEntity(String procedureName, JSONArray execParameter, JSONArray condition) {
-		super(execParameter, condition);
+	public ExecProcStepEntity(String procedureName, JSONObject isExistsCondition, JSONArray execParameter, JSONArray condition) {
+		super(isExistsCondition, execParameter, condition);
 		this.procedureName = procedureName;
 	}
 
@@ -27,12 +27,11 @@ public class ExecProcStepEntity extends AbstractExecStepEntity {
 	}
 
 	private LogicEntity getExecProcEntity() {
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
-				return new SQLSERVER_EXECPROP(conditionEntity.getConditionGroupList(), procedureName, execParameterList);
+				return new SQLSERVER_EXECPROP(conditionEntity, procedureName, execParameterList);
 			case ORACLE:
-				return new ORACLE_EXECPROP(conditionEntity.getConditionGroupList(), procedureName, execParameterList);
+				return new ORACLE_EXECPROP(conditionEntity, procedureName, execParameterList);
 		}
 		return null;
 	}

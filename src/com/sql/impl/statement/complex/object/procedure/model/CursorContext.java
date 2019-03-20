@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 
 /**
@@ -48,8 +47,7 @@ public class CursorContext {
 	}
 
 	private static ICursorOp getDBCursorOp() {
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
 				return new ICursorOp() {
 					public String getCursorFetchSql(Cursor cursor) {

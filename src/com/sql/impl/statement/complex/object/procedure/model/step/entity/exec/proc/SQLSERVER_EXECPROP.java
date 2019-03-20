@@ -2,7 +2,7 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.p
 
 import java.util.List;
 
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.ExecParameter;
 
 /**
@@ -11,8 +11,8 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.Ex
  */
 public class SQLSERVER_EXECPROP extends AbstractExecProc{
 
-	public SQLSERVER_EXECPROP(List<ConditionGroup> groupList, String procedureName, List<ExecParameter> execParameterList) {
-		super(groupList, procedureName, execParameterList);
+	public SQLSERVER_EXECPROP(ConditionEntity condition, String procedureName, List<ExecParameter> execParameterList) {
+		super(condition, procedureName, execParameterList);
 	}
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {

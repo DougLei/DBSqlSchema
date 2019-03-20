@@ -1,14 +1,11 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.commit;
 
-import java.util.List;
-
 import com.alibaba.fastjson.JSONArray;
-import com.sql.enums.DatabaseType;
+import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractStepEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
 import com.sql.statement.complex.object.procedure.model.step.StepType;
 
 /**
@@ -19,25 +16,24 @@ public class CommitStepEntity extends AbstractStepEntity {
 
 	private ConditionEntity conditionEntity;
 	
-	public CommitStepEntity(JSONArray condition) {
-		conditionEntity = new ConditionEntity(condition, null);
+	public CommitStepEntity(JSONObject isExistsCondition, JSONArray condition) {
+		conditionEntity = new ConditionEntity(isExistsCondition, condition, null);
 	}
 
 	public String getSqlStatement() {
 		StringBuilder sb = new StringBuilder(300);
-		sb.append(getCommitEntity(conditionEntity.getConditionGroupList()).getSqlStatement(false, null));
+		sb.append(getCommitEntity().getSqlStatement(false, null));
 		sb.append(newline());
 		return sb.toString();
 	}
 
 	
-	private LogicEntity getCommitEntity(List<ConditionGroup> conditionGroupList) {
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+	private LogicEntity getCommitEntity() {
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
-				return new SQLSERVER_COMMIT(conditionGroupList);
+				return new SQLSERVER_COMMIT(conditionEntity);
 			case ORACLE:
-				return new ORACLE_COMMIT(conditionGroupList);
+				return new ORACLE_COMMIT(conditionEntity);
 		}
 		return null;
 	}

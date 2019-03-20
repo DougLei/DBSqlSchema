@@ -19,7 +19,7 @@ public class ForStepEntityFactory implements StepEntityFactory {
 	
 	public StepEntity buildEntity(JSONObject stepContent) {
 		ForStepEntity forStepEntity = new ForStepEntity();
-		forStepEntity.setConditionEntity(new ConditionEntity(stepContent.getJSONArray("condition"), stepContent.getJSONArray("content")));
+		forStepEntity.setConditionEntity(new ConditionEntity(stepContent.getJSONObject("isExistsCondition"), stepContent.getJSONArray("condition"), stepContent.getJSONArray("content")));
 		return forStepEntity;
 	}
 }

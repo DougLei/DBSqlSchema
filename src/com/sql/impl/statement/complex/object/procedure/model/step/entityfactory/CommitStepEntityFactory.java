@@ -17,6 +17,6 @@ public class CommitStepEntityFactory implements StepEntityFactory {
 	}
 	
 	public StepEntity buildEntity(JSONObject stepContent) {
-		return new CommitStepEntity(stepContent.getJSONArray("condition"));
+		return new CommitStepEntity(stepContent.getJSONObject("isExistsCondition"), stepContent.getJSONArray("condition"));
 	}
 }

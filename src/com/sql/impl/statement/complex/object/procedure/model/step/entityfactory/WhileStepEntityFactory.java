@@ -19,7 +19,7 @@ public class WhileStepEntityFactory implements StepEntityFactory {
 	
 	public StepEntity buildEntity(JSONObject stepContent) {
 		WhileStepEntity whileStepEntity = new WhileStepEntity();
-		whileStepEntity.setConditionEntity(new ConditionEntity(stepContent.getJSONArray("condition"), stepContent.getJSONArray("content")));
+		whileStepEntity.setConditionEntity(new ConditionEntity(stepContent.getJSONObject("isExistsCondition"), stepContent.getJSONArray("condition"), stepContent.getJSONArray("content")));
 		return whileStepEntity;
 	}
 }

@@ -1,9 +1,7 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.break_;
 
-import java.util.List;
-
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 
 /**
  * 
@@ -11,8 +9,8 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.conditi
  */
 public class ORACLE_BREAK extends LogicEntity{
 
-	public ORACLE_BREAK(List<ConditionGroup> groupList) {
-		super(groupList, true);
+	public ORACLE_BREAK(ConditionEntity condition) {
+		super(condition, true);
 	}
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {

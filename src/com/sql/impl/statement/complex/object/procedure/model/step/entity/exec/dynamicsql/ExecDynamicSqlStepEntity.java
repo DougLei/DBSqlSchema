@@ -2,7 +2,6 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.d
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.AbstractExecStepEntity;
@@ -15,8 +14,8 @@ import com.sql.statement.complex.object.procedure.model.step.StepType;
 public class ExecDynamicSqlStepEntity extends AbstractExecStepEntity {
 	private DynamicSqlEntity dynamicSqlEntity;
 	
-	public ExecDynamicSqlStepEntity(JSONObject dynamicSqlEntity, JSONArray execParameter, JSONArray condition) {
-		super(execParameter, condition);
+	public ExecDynamicSqlStepEntity(JSONObject dynamicSqlEntity, JSONObject isExistsCondition, JSONArray execParameter, JSONArray condition) {
+		super(isExistsCondition, execParameter, condition);
 		validExecParameter();
 		this.dynamicSqlEntity = new DynamicSqlEntity(dynamicSqlEntity);
 	}
@@ -39,12 +38,11 @@ public class ExecDynamicSqlStepEntity extends AbstractExecStepEntity {
 	}
 
 	private LogicEntity getExecDynamicSqlEntity() {
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
-				return new SQLSERVER_EXECDYNAMICSQL(dynamicSqlEntity, conditionEntity.getConditionGroupList(), execParameterList);
+				return new SQLSERVER_EXECDYNAMICSQL(dynamicSqlEntity, conditionEntity, execParameterList);
 			case ORACLE:
-				return new ORACLE_EXECDYNAMICSQL(dynamicSqlEntity, conditionEntity.getConditionGroupList(), execParameterList);
+				return new ORACLE_EXECDYNAMICSQL(dynamicSqlEntity, conditionEntity, execParameterList);
 		}
 		return null;
 	}

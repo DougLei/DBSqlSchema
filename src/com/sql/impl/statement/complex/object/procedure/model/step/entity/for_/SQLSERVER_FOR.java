@@ -1,8 +1,6 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.for_;
 
-import java.util.List;
-
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.while_.SQLSERVER_WHILE;
 
 /**
@@ -11,7 +9,7 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.while_.
  */
 public class SQLSERVER_FOR extends SQLSERVER_WHILE{
 
-	public SQLSERVER_FOR(List<ConditionGroup> groupList) {
-		super(groupList);
+	public SQLSERVER_FOR(ConditionEntity condition) {
+		super(condition);
 	}
 }

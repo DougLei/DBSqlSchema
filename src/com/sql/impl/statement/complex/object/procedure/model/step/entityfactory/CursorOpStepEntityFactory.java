@@ -21,7 +21,7 @@ public class CursorOpStepEntityFactory implements StepEntityFactory {
 		CursorOpStepEntity cursorOpStepEntity = new CursorOpStepEntity();
 		cursorOpStepEntity.setCursorName(stepContent.getString("cursorName"));
 		cursorOpStepEntity.setOpType(stepContent.getString("opType"));
-		cursorOpStepEntity.setConditionEntity(new ConditionEntity(stepContent.getJSONArray("condition"), stepContent.getJSONArray("content")));
+		cursorOpStepEntity.setConditionEntity(new ConditionEntity(stepContent.getJSONObject("isExistsCondition"), stepContent.getJSONArray("condition"), stepContent.getJSONArray("content")));
 		return cursorOpStepEntity;
 	}
 }

@@ -1,6 +1,5 @@
 package com.sql.impl.statement.complex.object.procedure.model;
 
-import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.util.StrUtils;
 
@@ -39,8 +38,7 @@ public class CreateTypeContext {
 	}
 	
 	private static String linkNextSqlStatementToken() {
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
 				return "\ngo\n";
 			case ORACLE:

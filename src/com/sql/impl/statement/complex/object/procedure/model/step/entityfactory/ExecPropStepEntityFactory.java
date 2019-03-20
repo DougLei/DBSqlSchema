@@ -17,6 +17,6 @@ public class ExecPropStepEntityFactory implements StepEntityFactory {
 	}
 	
 	public StepEntity buildEntity(JSONObject stepContent) {
-		return new ExecDynamicSqlStepEntity(stepContent.getJSONObject("dynamicSql"), stepContent.getJSONArray("execParameter"), stepContent.getJSONArray("condition"));
+		return new ExecDynamicSqlStepEntity(stepContent.getJSONObject("dynamicSql"), stepContent.getJSONObject("isExistsCondition"), stepContent.getJSONArray("execParameter"), stepContent.getJSONArray("condition"));
 	}
 }

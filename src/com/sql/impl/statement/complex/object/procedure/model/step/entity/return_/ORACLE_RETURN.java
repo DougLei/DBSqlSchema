@@ -1,9 +1,7 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.return_;
 
-import java.util.List;
-
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 import com.sql.util.StrUtils;
 
 /**
@@ -12,8 +10,8 @@ import com.sql.util.StrUtils;
  */
 public class ORACLE_RETURN extends LogicEntity{
 
-	public ORACLE_RETURN(List<ConditionGroup> groupList) {
-		super(groupList, true);
+	public ORACLE_RETURN(ConditionEntity condition) {
+		super(condition, true);
 	}
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {

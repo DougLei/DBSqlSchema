@@ -2,7 +2,9 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity;
 
 import java.util.List;
 
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.IsExistsCondition;
 
 /**
  * 
@@ -11,12 +13,17 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.conditi
 public abstract class LogicEntity{
 
 	protected String conditionSqlStatement;
-	public LogicEntity(List<ConditionGroup> groupList, boolean validGroupListIsNull) {
-		if(validGroupListIsNull && (groupList == null || groupList.size() == 0)){
+	public LogicEntity(ConditionEntity condition, boolean validGroupListIsNull) {
+		IsExistsCondition isExistsCondition = condition.getIsExistsCondition();
+		List<ConditionGroup> groupList = condition.getConditionGroupList();
+		
+		if(validGroupListIsNull && isExistsCondition == null && (groupList == null || groupList.size() == 0)){
 			throw new NullPointerException("条件不能为空");
 		}
 		
-		if(groupList != null && groupList.size() > 0){
+		if(isExistsCondition != null){
+			conditionSqlStatement = isExistsCondition.getSqlStatement();
+		}else if(groupList != null && groupList.size() > 0){
 			StringBuilder sb = new StringBuilder();
 			for(int i=0;i<groupList.size();i++){
 				sb.append(groupList.get(i).getSqlStatement());

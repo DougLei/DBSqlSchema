@@ -1,15 +1,11 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.return_;
 
-import java.util.List;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractStepEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
 import com.sql.statement.complex.object.procedure.model.step.StepType;
 
 /**
@@ -20,24 +16,23 @@ public class ReturnStepEntity extends AbstractStepEntity {
 
 	private ConditionEntity conditionEntity;
 	
-	public ReturnStepEntity(JSONArray condition, JSONObject returnEntity) {
-		conditionEntity = new ConditionEntity(condition, null);
+	public ReturnStepEntity(JSONObject isExistsCondition, JSONArray condition) {
+		conditionEntity = new ConditionEntity(isExistsCondition, condition, null);
 	}
 
 	public String getSqlStatement() {
 		StringBuilder sb = new StringBuilder(300);
-		sb.append(getReturnEntity(conditionEntity.getConditionGroupList()).getSqlStatement(false, null));
+		sb.append(getReturnEntity().getSqlStatement(false, null));
 		sb.append(newline());
 		return sb.toString();
 	}
 
-	private LogicEntity getReturnEntity(List<ConditionGroup> conditionGroupList) {
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+	private LogicEntity getReturnEntity() {
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
-				return new SQLSERVER_RETURN(conditionGroupList);
+				return new SQLSERVER_RETURN(conditionEntity);
 			case ORACLE:
-				return new ORACLE_RETURN(conditionGroupList);
+				return new ORACLE_RETURN(conditionEntity);
 		}
 		return null;
 	}

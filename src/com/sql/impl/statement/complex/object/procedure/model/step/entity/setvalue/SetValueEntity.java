@@ -6,7 +6,6 @@ import java.util.List;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.SqlStatementBuilder;
-import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.impl.statement.complex.object.procedure.model.declare.DeclareContext;
@@ -68,8 +67,7 @@ public abstract class SetValueEntity extends AbstractEntity{
 	}
 	
 	private static SetValueEntity getSetValueEntity() {
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
 				return new SQLSERVER_SetValueEntity();
 			case ORACLE:

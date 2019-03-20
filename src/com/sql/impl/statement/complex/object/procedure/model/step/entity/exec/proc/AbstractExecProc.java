@@ -3,7 +3,7 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.p
 import java.util.List;
 
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.ExecParameter;
 
 /**
@@ -14,8 +14,8 @@ public abstract class AbstractExecProc extends LogicEntity{
 	protected String procedureName;
 	protected List<ExecParameter> execParameterList;
 	
-	public AbstractExecProc(List<ConditionGroup> groupList, String procedureName, List<ExecParameter> execParameterList) {
-		super(groupList, false);
+	public AbstractExecProc(ConditionEntity condition, String procedureName, List<ExecParameter> execParameterList) {
+		super(condition, false);
 		this.procedureName = procedureName;
 		this.execParameterList = execParameterList;
 	}

@@ -1,9 +1,7 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.ifelse;
 
-import java.util.List;
-
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 
 /**
  * 
@@ -11,8 +9,8 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.conditi
  */
 public class ORACLE_IF extends LogicEntity{
 	
-	public ORACLE_IF(List<ConditionGroup> groupList) {
-		super(groupList, true);
+	public ORACLE_IF(ConditionEntity condition) {
+		super(condition, true);
 	}
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {

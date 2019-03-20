@@ -17,6 +17,6 @@ public class RollbackStepEntityFactory implements StepEntityFactory {
 	}
 	
 	public StepEntity buildEntity(JSONObject stepContent) {
-		return new RollbackStepEntity(stepContent.getJSONArray("condition"));
+		return new RollbackStepEntity(stepContent.getJSONObject("isExistsCondition"), stepContent.getJSONArray("condition"));
 	}
 }

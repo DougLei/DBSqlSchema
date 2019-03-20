@@ -12,11 +12,28 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.Abstrac
  * @author DougLei
  */
 public class ConditionEntity extends AbstractContent{
+	private IsExistsCondition isExistsCondition;
 	private List<ConditionGroup> groupList;
 	
-	public ConditionEntity(JSONArray condition, JSONArray content) {
+	public ConditionEntity(JSONObject isExistsCondition, JSONArray condition, JSONArray content) {
 		super(content);
-		processCondition(condition);
+		if(!processIsExistsCondition(isExistsCondition)){
+			processCondition(condition);
+		}
+	}
+
+	/**
+	 * 处理is exists条件值
+	 * @param isExistsConditionJson
+	 * @return 如果配置了is exists条件返回true，否则返回false
+	 *         如果配置了is exists条件，则后续的condition条件，即使配置了也无效
+	 */
+	private boolean processIsExistsCondition(JSONObject isExistsConditionJson) {
+		if(isExistsConditionJson != null && isExistsConditionJson.size() > 0){
+			isExistsCondition = new IsExistsCondition(isExistsConditionJson);
+			return true;
+		}
+		return false;
 	}
 
 	private void processCondition(JSONArray condition) {
@@ -41,6 +58,9 @@ public class ConditionEntity extends AbstractContent{
 		}
 	}
 	
+	public IsExistsCondition getIsExistsCondition() {
+		return isExistsCondition;
+	}
 	public List<ConditionGroup> getConditionGroupList() {
 		return groupList;
 	}

@@ -2,7 +2,6 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.cursor
 
 import java.util.List;
 
-import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractStepEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
@@ -23,8 +22,7 @@ public class CursorLoopStepEntity extends AbstractStepEntity {
 	}
 	
 	private LogicEntity getCursorLoopEntity(String cursorName, List<String> variableNameList) {
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
 				return new SQLSERVER_CURSORLOOP(cursorName, variableNameList);
 			case ORACLE:

@@ -1,10 +1,8 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.cursorop;
 
-import java.util.List;
-
 import com.sql.impl.statement.complex.object.procedure.model.CursorContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 
 /**
  * 
@@ -14,8 +12,8 @@ public abstract class AbstractCursorOp extends LogicEntity{
 	protected String cursorName;
 	protected CursorOpType opType;
 	
-	public AbstractCursorOp(List<ConditionGroup> groupList, String cursorName, CursorOpType opType) {
-		super(groupList, false);
+	public AbstractCursorOp(ConditionEntity condition, String cursorName, CursorOpType opType) {
+		super(condition, false);
 		this.cursorName = cursorName;
 		this.opType = opType;
 	}

@@ -17,6 +17,6 @@ public class ReturnStepEntityFactory implements StepEntityFactory {
 	}
 	
 	public StepEntity buildEntity(JSONObject stepContent) {
-		return new ReturnStepEntity(stepContent.getJSONArray("condition"), stepContent.getJSONObject("returnValue"));
+		return new ReturnStepEntity(stepContent.getJSONObject("isExistsCondition"), stepContent.getJSONArray("condition"));
 	}
 }

@@ -17,6 +17,6 @@ public class BreakStepEntityFactory implements StepEntityFactory {
 	}
 	
 	public StepEntity buildEntity(JSONObject stepContent) {
-		return new BreakStepEntity(stepContent.getJSONArray("condition"));
+		return new BreakStepEntity(stepContent.getJSONObject("isExistsCondition"), stepContent.getJSONArray("condition"));
 	}
 }

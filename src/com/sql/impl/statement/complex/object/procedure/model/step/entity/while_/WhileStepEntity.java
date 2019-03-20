@@ -1,13 +1,9 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.while_;
 
-import java.util.List;
-
-import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractStepEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
 import com.sql.statement.complex.object.procedure.model.step.StepType;
 
 /**
@@ -19,18 +15,17 @@ public class WhileStepEntity extends AbstractStepEntity {
 	
 	public String getSqlStatement() {
 		StringBuilder sb = new StringBuilder(5000);
-		sb.append(getWhileEntity(conditionEntity.getConditionGroupList()).getSqlStatement(true, conditionEntity.getContent()));
+		sb.append(getWhileEntity().getSqlStatement(true, conditionEntity.getContent()));
 		sb.append(newline());
 		return sb.toString();
 	}
 	
-	private LogicEntity getWhileEntity(List<ConditionGroup> conditionGroupList) {
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+	private LogicEntity getWhileEntity() {
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
-				return new SQLSERVER_WHILE(conditionGroupList);
+				return new SQLSERVER_WHILE(conditionEntity);
 			case ORACLE:
-				return new ORACLE_WHILE(conditionGroupList);
+				return new ORACLE_WHILE(conditionEntity);
 		}
 		return null;
 	}

@@ -157,6 +157,13 @@
 		"step2":{
 			"type":"if_else",
 			"if1":{
+				"isExistsCondition":{
+					"isInversion":false,
+					"sqlId":"",
+					"sqlJson":{
+
+					}
+				},
 				"condition":[
 					{
 						"conditionGroup":[

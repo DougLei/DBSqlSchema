@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.procedure.model.CreateTypeContext;
 
@@ -81,8 +80,7 @@ public class DeclareContext {
 	}
 
 	private static DBDeclare getDBDeclare() {
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
 				return new SQLSERVER_Declare();
 			case ORACLE:

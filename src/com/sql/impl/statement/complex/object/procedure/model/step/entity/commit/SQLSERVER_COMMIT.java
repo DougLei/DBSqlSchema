@@ -1,9 +1,7 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.commit;
 
-import java.util.List;
-
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 
 /**
  * 
@@ -11,8 +9,8 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.conditi
  */
 public class SQLSERVER_COMMIT extends LogicEntity{
 
-	public SQLSERVER_COMMIT(List<ConditionGroup> groupList) {
-		super(groupList, true);
+	public SQLSERVER_COMMIT(ConditionEntity condition) {
+		super(condition, true);
 	}
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {

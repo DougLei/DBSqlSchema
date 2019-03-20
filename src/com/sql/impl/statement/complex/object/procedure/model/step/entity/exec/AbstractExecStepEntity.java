@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.AbstractStepEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 
@@ -15,9 +16,9 @@ public abstract class AbstractExecStepEntity extends AbstractStepEntity{
 	protected ConditionEntity conditionEntity;
 	protected List<ExecParameter> execParameterList;
 	
-	public AbstractExecStepEntity(JSONArray execParameter, JSONArray condition) {
+	public AbstractExecStepEntity(JSONObject isExistsCondition, JSONArray execParameter, JSONArray condition) {
 		setExecParameterList(execParameter);
-		conditionEntity = new ConditionEntity(condition, null);
+		conditionEntity = new ConditionEntity(isExistsCondition, condition, null);
 	}
 	
 	private void setExecParameterList(JSONArray execParameter) {

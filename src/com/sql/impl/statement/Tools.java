@@ -22,8 +22,7 @@ public class Tools {
 			return columnName;
 		}
 		if(StrUtils.notEmpty(paramName)){
-			DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-			return getParamName(paramName, dbType);
+			return getParamName(paramName, SqlStatementBuilderContext.getDatabaseType());
 		}
 		return null;
 	}

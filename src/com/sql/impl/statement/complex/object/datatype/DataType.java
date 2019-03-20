@@ -1,7 +1,6 @@
 package com.sql.impl.statement.complex.object.datatype;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.complex.object.datatype.base.BaseDataType;
 import com.sql.impl.statement.complex.object.datatype.base.oracle.ORACLE_BLOB;
@@ -104,8 +103,7 @@ public enum DataType {
 		if(!isBaseType()){
 			throw new IllegalAccessError("非基础数据库类型，无法获取的dataType值");
 		}
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
 				return sqlserverDataType.getSqlStatement();
 			case ORACLE:
@@ -123,8 +121,7 @@ public enum DataType {
 		if(!isBaseType()){
 			throw new IllegalAccessError("非基础数据库类型，无法计算的length值");
 		}
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
 				return sqlserverDataType.calcLength(length);
 			case ORACLE:
@@ -142,8 +139,7 @@ public enum DataType {
 		if(!isBaseType()){
 			throw new IllegalAccessError("非基础数据库类型，无法计算的precision值");
 		}
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
 				return sqlserverDataType.calcPrecision(precision);
 			case ORACLE:
@@ -159,8 +155,7 @@ public enum DataType {
 	 */
 	public boolean isSupportCreateType() {
 		if(!isBaseType()){
-			DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-			switch(dbType){
+			switch(SqlStatementBuilderContext.getDatabaseType()){
 				case SQLSERVER:
 					return sqlserverCustomDataType.isSupportCreateType();
 				case ORACLE:
@@ -180,8 +175,7 @@ public enum DataType {
 		if(isBaseType()){
 			throw new IllegalAccessError("基础数据库类型，无法获取创建类型的sql语句");
 		}
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
 				return sqlserverCustomDataType.getCreateTypeSqlStatement(customJson);
 			case ORACLE:
@@ -197,8 +191,7 @@ public enum DataType {
 	 */
 	public boolean isSupportAppendCustom() {
 		if(!isBaseType()){
-			DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-			switch(dbType){
+			switch(SqlStatementBuilderContext.getDatabaseType()){
 				case SQLSERVER:
 					return sqlserverCustomDataType.isSupportAppendCustom();
 				case ORACLE:
@@ -219,8 +212,7 @@ public enum DataType {
 		if(isBaseType()){
 			throw new IllegalAccessError("基础数据库类型，无法获取追加类型的sql语句");
 		}
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
 				return sqlserverCustomDataType.getAppendCustomSqlStatement(name, customJson);
 			case ORACLE:
@@ -236,12 +228,11 @@ public enum DataType {
 	 */
 	public boolean isSupportDynamicCreateType() {
 		if(!isBaseType()){
-			DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-			switch(dbType){
-			case SQLSERVER:
-				return sqlserverCustomDataType.isSupportDynamicCreateType();
-			case ORACLE:
-				return oracleCustomDataType.isSupportDynamicCreateType();
+			switch(SqlStatementBuilderContext.getDatabaseType()){
+				case SQLSERVER:
+					return sqlserverCustomDataType.isSupportDynamicCreateType();
+				case ORACLE:
+					return oracleCustomDataType.isSupportDynamicCreateType();
 			}
 			throw new IllegalArgumentException("DataType.isSupportDynamicCreateType出现异常");
 		}
@@ -257,8 +248,7 @@ public enum DataType {
 		if(isBaseType()){
 			throw new IllegalAccessError("基础数据类型，无法获取动态创建类型的类型名称");
 		}
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
 				return sqlserverCustomDataType.getDynamicCreateTypeName(name);
 			case ORACLE:
@@ -277,8 +267,7 @@ public enum DataType {
 		if(isBaseType()){
 			throw new IllegalAccessError("基础数据库类型，无法获取动态创建类型的sql语句");
 		}
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
 				return sqlserverCustomDataType.getDynamicCreateTypeSqlStatement(name, customJson);
 			case ORACLE:
@@ -297,8 +286,7 @@ public enum DataType {
 		if(isBaseType()){
 			throw new IllegalAccessError("基础数据库类型，无法获取动态drop类型的sql语句");
 		}
-		DatabaseType dbType = SqlStatementBuilderContext.getDatabaseType();
-		switch(dbType){
+		switch(SqlStatementBuilderContext.getDatabaseType()){
 			case SQLSERVER:
 				return sqlserverCustomDataType.getDynamicDropTypeSqlStatement(name, customJson);
 			case ORACLE:

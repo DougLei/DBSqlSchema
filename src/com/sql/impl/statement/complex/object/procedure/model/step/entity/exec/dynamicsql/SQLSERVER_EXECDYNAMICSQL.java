@@ -2,7 +2,7 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.d
 
 import java.util.List;
 
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.ExecParameter;
 
 
@@ -12,8 +12,8 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.Ex
  */
 public class SQLSERVER_EXECDYNAMICSQL extends AbstractExecDynamicSql{
 
-	public SQLSERVER_EXECDYNAMICSQL(DynamicSqlEntity dynamicSqlEntity, List<ConditionGroup> groupList, List<ExecParameter> execParameterList) {
-		super(dynamicSqlEntity, groupList, execParameterList);
+	public SQLSERVER_EXECDYNAMICSQL(DynamicSqlEntity dynamicSqlEntity, ConditionEntity condition, List<ExecParameter> execParameterList) {
+		super(dynamicSqlEntity, condition, execParameterList);
 	}
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {

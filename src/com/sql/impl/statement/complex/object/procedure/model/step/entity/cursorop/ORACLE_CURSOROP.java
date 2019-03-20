@@ -1,8 +1,6 @@
 package com.sql.impl.statement.complex.object.procedure.model.step.entity.cursorop;
 
-import java.util.List;
-
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 
 /**
  * 
@@ -10,8 +8,8 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.conditi
  */
 public class ORACLE_CURSOROP extends AbstractCursorOp{
 	
-	public ORACLE_CURSOROP(List<ConditionGroup> groupList, String cursorName, CursorOpType opType) {
-		super(groupList, cursorName, opType);
+	public ORACLE_CURSOROP(ConditionEntity condition, String cursorName, CursorOpType opType) {
+		super(condition, cursorName, opType);
 	}
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {

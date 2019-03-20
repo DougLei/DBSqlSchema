@@ -3,7 +3,7 @@ package com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.d
 import java.util.List;
 
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.LogicEntity;
-import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionGroup;
+import com.sql.impl.statement.complex.object.procedure.model.step.entity.condition.ConditionEntity;
 import com.sql.impl.statement.complex.object.procedure.model.step.entity.exec.ExecParameter;
 
 /**
@@ -14,8 +14,8 @@ public abstract class AbstractExecDynamicSql extends LogicEntity{
 	protected DynamicSqlEntity dynamicSqlEntity;
 	protected List<ExecParameter> execParameterList;
 	
-	public AbstractExecDynamicSql(DynamicSqlEntity dynamicSqlEntity, List<ConditionGroup> groupList, List<ExecParameter> execParameterList) {
-		super(groupList, false);
+	public AbstractExecDynamicSql(DynamicSqlEntity dynamicSqlEntity, ConditionEntity condition, List<ExecParameter> execParameterList) {
+		super(condition, false);
 		this.dynamicSqlEntity = dynamicSqlEntity;
 		this.execParameterList = execParameterList;
 	}
