@@ -20,11 +20,10 @@ public class OrderByColumnEntity {
 	
 	public String getSqlStatement(){
 		String sqlStatement = null;
-		if(function != null){
-			sqlStatement = function.getSqlStatement();
-		}
-		if(sqlStatement == null){
+		if(function == null){
 			sqlStatement = columnName;
+		}else{
+			sqlStatement = function.getSqlStatement();
 		}
 		if(sqlStatement != null){
 			sqlStatement += " " + sort.getSqlStatement();

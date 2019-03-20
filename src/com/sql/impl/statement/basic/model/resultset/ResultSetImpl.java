@@ -1,7 +1,9 @@
 package com.sql.impl.statement.basic.model.resultset;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.BasicModelImpl;
 import com.sql.impl.statement.Tools;
+import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.resultset.ResultSet;
 import com.sql.util.StrUtils;
@@ -16,6 +18,13 @@ public class ResultSetImpl extends BasicModelImpl implements ResultSet {
 	private String alias;
 	private Function function;
 	
+	public ResultSetImpl(JSONObject json) {
+		this.columnName = json.getString("columnName");
+		this.paramName = json.getString("paramName");
+		this.function = FunctionImpl.newInstance(json.getJSONObject("function"));
+		this.alias = json.getString("alias");
+	}
+	
 	public String processSqlStatement() {
 		String sqlStatement = null;
 		if(function != null){
@@ -29,21 +38,6 @@ public class ResultSetImpl extends BasicModelImpl implements ResultSet {
 			sqlStatement += " " + alias;
 		}
 		return sqlStatement;
-	}
-
-	public void setFunction(Function function) {
-		if(function != null){
-			this.function = function;
-		}
-	}
-	public void setColumnName(String columnName) {
-		this.columnName = columnName;
-	}
-	public void setParamName(String paramName) {
-		this.paramName = paramName;
-	}
-	public void setAlias(String alias) {
-		this.alias = alias;
 	}
 
 	public String getResultSetColumnName() {

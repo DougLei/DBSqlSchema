@@ -97,16 +97,9 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		List<ResultSet> rs = new ArrayList<ResultSet>(jsonarray.size());
 		
 		JSONObject json = null;
-		ResultSetImpl rsi = null;
 		for(int i=0;i<jsonarray.size();i++){
 			json = jsonarray.getJSONObject(i);
-			rsi = new ResultSetImpl();
-			rsi.setColumnName(json.getString("columnName"));
-			rsi.setParamName(json.getString("paramName"));
-			rsi.setFunction(getFunction(json.getJSONObject("function")));
-			rsi.setAlias(json.getString("alias"));
-			
-			rs.add(rsi);
+			rs.add(new ResultSetImpl(json));
 		}
 		return rs;
 	}
@@ -116,16 +109,7 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		if(json == null || json.size() == 0){
 			return (Table) SqlStatementBuilderContext.getDBImplInstance("com.sql.impl.statement.basic.model.table", "TableImpl");
 		}
-		
-		TableImpl table = new TableImpl();
-		table.setType(json.getString("type"));
-		table.setName(json.getString("name"));
-		table.setParamName(json.getString("paramName"));
-		table.setFunction(getFunction(json.getJSONObject("function")));
-		table.setSqlId(json.getString("sqlId"));
-		table.setSqlJson(json.getJSONObject("sqlJson"));
-		table.setAlias(json.getString("alias"));
-		return table;
+		return new TableImpl(json);
 	}
 
 	private List<String> resultsetColumnNames;

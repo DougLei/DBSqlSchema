@@ -142,14 +142,7 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 	public OrderBy getOrderBy() {
 		JSONArray jsonarray = content.getJSONArray("orderBy");
 		if(jsonarray != null && jsonarray.size() > 0){
-			OrderByImpl orderBy = new OrderByImpl();
-			
-			JSONObject json = null;
-			for(int i=0;i<jsonarray.size();i++){
-				json = jsonarray.getJSONObject(i);
-				orderBy.addOrderByColumn(json.getString("columnName"), getFunction(json.getJSONObject("columnFunction")), json.getString("sort"));
-			}
-			return orderBy;
+			return new OrderByImpl(jsonarray);
 		}
 		return null;
 	}

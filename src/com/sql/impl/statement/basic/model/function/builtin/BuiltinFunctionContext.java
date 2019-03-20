@@ -9,6 +9,7 @@ import com.sql.impl.statement.basic.model.function.builtin.append.db.ORACLE_Appe
 import com.sql.impl.statement.basic.model.function.builtin.append.db.SQLSERVER_Append;
 import com.sql.impl.statement.basic.model.function.builtin.forxmlpath.db.ORACLE_ForXmlPath;
 import com.sql.impl.statement.basic.model.function.builtin.forxmlpath.db.SQLSERVER_ForXmlPath;
+import com.sql.impl.statement.basic.model.function.builtin.rownumberover.RowNumberOver;
 import com.sql.statement.basic.model.function.BuiltinFunction;
 
 /**
@@ -30,6 +31,9 @@ public class BuiltinFunctionContext {
 		
 		sqlserver.put("_forxmlpath", SQLSERVER_ForXmlPath.class);
 		oracle.put("_forxmlpath", ORACLE_ForXmlPath.class);
+		
+		sqlserver.put("_rownumberover", RowNumberOver.class);
+		oracle.put("_rownumberover", RowNumberOver.class);
 	}
 	
 	/**

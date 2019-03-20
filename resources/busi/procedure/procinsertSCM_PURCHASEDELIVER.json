@@ -13,6 +13,16 @@
 				"length":2500
 			},
 			{
+				"name":"purchasedeptid",
+				"dataType":"varchar",
+				"length":50
+			},
+			{
+				"name":"purchasemanid",
+				"dataType":"varchar",
+				"length":50
+			},
+			{
 				"name":"Message",
 				"dataType":"varchar",
 				"inOut":"out"
@@ -30,14 +40,32 @@
 							"name":"ID",
 							"dataType":"varchar",
 							"length":50
+						},
+						{
+							"name":"R",
+							"dataType":"integer",
+							"length":50
 						}
 					]
 				}
 			},
 			{
-				"name":"MATERIALNAME",
+				"name":"DELIVERCODE",
 				"dataType":"varchar",
-				"length":20
+				"length":50
+			},
+			{
+				"name":"PURCHASEID",
+				"dataType":"varchar",
+				"length":50
+			},
+			{
+				"name":"R",
+				"dataType":"integer"
+			},
+			{
+				"name":"NUM",
+				"dataType":"integer"
 			}
 		],
 
@@ -47,26 +75,37 @@
 			"content":[
 				{
 					"sqlJson":{
-						"id": "id2",
 						"type": "insert",
 						"content": {
 							"paramName":"tempTable",
 							"column": [
-								"ID"
+								"ID","R"
 							],
 							"values": {
 								"type": "sub_query",
 								"sqlJson":{
-									"id":"id3",
 									"type":"select",
 									"content":{
 										"resultSet":[
 											{
-												"columnName":"value"
+												"columnName":"T.value"
+											},
+											{
+												"function":{
+													"name":"_rownumberover",
+													"orderBy":[
+														{
+															"columnName":"T.value",
+															"sort":"asc"
+														}
+													]
+												},
+												"alias":"R"
 											}
 										],
 										"table":{
 											"type":"function",
+											"alias":"T",
 											"function":{
 												"name":"F_Split",
 												"parameters":[
@@ -80,7 +119,33 @@
 													}
 												]
 											}
-										}
+										},
+										"join":[
+											{
+												"type":"left",
+												"tableType":"table",
+												"alias":"R",
+												"on":[
+													{
+														"onGroup":[
+															{
+																"columnName":"T.value",
+																"operator":"eq",
+																"value":{
+																	"type":"value",
+																	"values":[
+																		{
+																			"type":"value",
+																			"value":"R.ID"
+																		}
+																	]
+																}
+															}
+														]
+													}
+												]
+											}
+										]
 									}
 								}
 							}
@@ -90,7 +155,122 @@
 			]
 		},
 		"step2":{
-			"id":"step2",
+			"type":"if_else",
+			"if1":{
+				"condition":[
+					{
+						"conditionGroup":[
+							{
+								"leftType":"function",
+								"leftFunction":{
+									"name":"count",
+									"parameters":[
+										{
+											"type":"parameter",
+											"paramName":"MATERIALNAME"
+										}
+									]
+								},
+								"operator":"gt",
+								"rightType":"value",
+								"rightValue":"0"
+							}
+						]
+					}
+				],
+				"content":[
+					{
+						"stepJson":{
+							"id":"x1",
+							"type":"set_value",
+							"content":[
+								{
+									"parameters":[
+										{
+											"isDeclare":false,
+											"name":"Message"
+										}
+									],
+									"type":"function",
+									"function":{
+										"name":"_append",
+										"parameters":[
+											{
+												"type":"value",
+												"value":"'error:'"
+											},
+											{
+												"type":"parameter",
+												"paramName":"MATERIALNAME"
+											},
+											{
+												"type":"value",
+												"value":"'在启用中，无法删除'"
+											}
+										]
+									}
+								}
+							]
+						}
+					}
+				]
+			},
+			"if2":{
+				"content":[
+					{
+						"stepJson":{
+							"type":"set_value",
+							"content":[
+								{
+									"parameters":[
+										{
+											"isDeclare":false,
+											"name":"Message"
+										}
+									],
+									"type":"value",
+									"value":"'success:删除成功'"
+								}
+							]
+						}
+					},
+					{
+						"stepJson":{
+							"type":"sql",
+							"content":[
+								{
+									"sqlJson":{
+										"type": "delete",
+										"content": {
+											"tableName": "MDM_MATERIALINFO",
+											"where":[
+												{
+													"whereGroup":[
+														{
+															"columnName":"ID",
+															"operator":"in",
+															"value":{
+																"type":"sub_query",
+																"sqlId":"selectIdFromTemplate"
+															}
+														}
+													]
+												}
+											]
+										}
+									}
+								}
+							]
+						}
+					}
+				]
+			}		
+		},
+
+
+
+
+		"stepx":{
 			"type":"set_value",
 			"content":[
 				{

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.BasicModelImpl;
 import com.sql.impl.statement.Tools;
+import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.table.Table;
 import com.sql.statement.basic.model.table.TableType;
@@ -25,6 +26,16 @@ public class TableImpl extends BasicModelImpl implements Table {
 	
 	private String sqlId;
 	private JSONObject sqlJson;
+	
+	public TableImpl(JSONObject json) {
+		this.type = TableType.toValue(json.getString("type"));
+		this.name = json.getString("name");
+		this.paramName = json.getString("paramName");
+		this.function = FunctionImpl.newInstance(json.getJSONObject("function"));
+		this.sqlId = json.getString("sqlId");
+		this.sqlJson = json.getJSONObject("sqlJson");
+		this.alias = StrUtils.isEmpty(json.getString("alias"))?null:json.getString("alias").toString();
+	}
 	
 	public String processSqlStatement() {
 		String sqlStatement = null;
@@ -48,28 +59,6 @@ public class TableImpl extends BasicModelImpl implements Table {
 			sqlStatement += " " + alias;
 		}
 		return sqlStatement;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	public void setParamName(String paramName) {
-		this.paramName = paramName;
-	}
-	public void setSqlId(String sqlId) {
-		this.sqlId = sqlId;
-	}
-	public void setSqlJson(JSONObject sqlJson) {
-		this.sqlJson = sqlJson;
-	}
-	public void setAlias(Object alias) {
-		this.alias = StrUtils.isEmpty(alias)?null:alias.toString();
-	}
-	public void setType(String type) {
-		this.type = TableType.toValue(type);
-	}
-	public void setFunction(Function function) {
-		this.function = function;
 	}
 
 	public boolean isDefaultTable() {
