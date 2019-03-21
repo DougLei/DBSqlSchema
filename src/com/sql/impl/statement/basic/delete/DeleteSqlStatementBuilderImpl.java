@@ -13,7 +13,7 @@ public class DeleteSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 	
 	protected String buildSql() {
 		deleteSqlStatement.append("delete from ");
-		deleteSqlStatement.append(getTableName());
+		deleteSqlStatement.append(getTable());
 		
 		// where
 		deleteSqlStatement.append(getWhereSqlStatement());
@@ -25,10 +25,10 @@ public class DeleteSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 	 * 获取表名
 	 * @return
 	 */
-	public String getTableName() {
-		String tableName = content.getString("tableName");
+	public String getTable() {
+		String tableName = content.getString("name");
 		if(StrUtils.isEmpty(tableName )){
-			throw new NullPointerException("build delete sql时，tableName属性值不能为空");
+			throw new NullPointerException("build delete sql时，name属性值不能为空");
 		}
 		return tableName;
 	}

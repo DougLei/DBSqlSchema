@@ -10,7 +10,7 @@ public interface DeleteSqlStatementBuilder {
 	 * 获取表名
 	 * @return
 	 */
-	String getTableName();
+	String getTable();
 	
 	/**
 	 * 获取where 语句

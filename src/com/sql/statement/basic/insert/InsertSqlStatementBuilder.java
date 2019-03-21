@@ -14,7 +14,7 @@ public interface InsertSqlStatementBuilder {
 	 * 获取表名
 	 * @return
 	 */
-	String getTableName();
+	String getTable();
 	
 	/**
 	 * 获取要插入的列名集合

@@ -13,7 +13,7 @@ public interface UpdateSqlStatementBuilder {
 	 * 获取表名
 	 * @return
 	 */
-	String getTableName();
+	String getTable();
 	
 	/**
 	 * 获取set 语句对象集合

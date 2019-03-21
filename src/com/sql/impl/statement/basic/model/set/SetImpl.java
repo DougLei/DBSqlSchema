@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.BasicModelImpl;
+import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.set.Set;
 import com.sql.util.StrUtils;
@@ -22,6 +23,16 @@ public class SetImpl extends BasicModelImpl implements Set {
 	private Function valueFunction;
 	private String sqlId;
 	private JSONObject sqlJson;
+	
+	public SetImpl(JSONObject json) {
+		this.columnName = json.getString("columnName");
+		this.valueType = Type.toValue(json.getString("valueType"));
+		this.value = json.getString("value");
+		this.paramName = json.getString("paramName");
+		this.valueFunction = FunctionImpl.newInstance(json.getJSONObject("valueFunction"));
+		this.sqlId = json.getString("sqlId");
+		this.sqlJson = json.getJSONObject("sqlJson");
+	}
 	
 	protected String processSqlStatement() {
 		StringBuilder sb = new StringBuilder(300);
@@ -41,28 +52,6 @@ public class SetImpl extends BasicModelImpl implements Set {
 				break;
 		}
 		return sb.toString();
-	}
-	
-	public void setColumnName(String columnName) {
-		this.columnName = columnName;
-	}
-	public void setValue(String value) {
-		this.value = value;
-	}
-	public void setParamName(String paramName) {
-		this.paramName = paramName;
-	}
-	public void setValueFunction(Function valueFunction) {
-		this.valueFunction = valueFunction;
-	}
-	public void setValueType(String valueType) {
-		this.valueType = Type.toValue(valueType);
-	}
-	public void setSqlId(String sqlId) {
-		this.sqlId = sqlId;
-	}
-	public void setSqlJson(JSONObject sqlJson) {
-		this.sqlJson = sqlJson;
 	}
 	
 	private enum Type {

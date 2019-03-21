@@ -3,7 +3,10 @@ package com.sql.impl.statement.basic.model.groupby;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.BasicModelImpl;
+import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.groupby.GroupBy;
 
@@ -15,7 +18,15 @@ public class GroupByImpl extends BasicModelImpl implements GroupBy {
 
 	private List<GroupByColumnEntity> groupByColumnList;
 	
-	public void addGroupByColumn(String columnName, Function function){
+	public GroupByImpl(JSONArray jsonarray) {
+		JSONObject json = null;
+		for(int i=0;i<jsonarray.size();i++){
+			json = jsonarray.getJSONObject(i);
+			addGroupByColumn(json.getString("columnName"), FunctionImpl.newInstance(json.getJSONObject("function")));
+		}
+	}
+
+	private void addGroupByColumn(String columnName, Function function){
 		if(groupByColumnList == null){
 			groupByColumnList = new ArrayList<GroupByColumnEntity>();
 		}

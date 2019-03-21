@@ -22,7 +22,7 @@ public class InsertSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 	
 	protected String buildSql() {
 		insertSqlStatement.append("insert into ");
-		insertSqlStatement.append(getTableName());
+		insertSqlStatement.append(getTable());
 		
 		List<String> columnNames = getColumnNames();
 		if(columnNames != null && columnNames.size() > 0){
@@ -47,8 +47,8 @@ public class InsertSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 	 * 获取表名
 	 * @return
 	 */
-	public String getTableName() {
-		String tableName = content.getString("tableName");
+	public String getTable() {
+		String tableName = content.getString("name");
 		if(StrUtils.notEmpty(tableName)){
 			return tableName;
 		}
@@ -56,7 +56,7 @@ public class InsertSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		if(StrUtils.notEmpty(paramName)){
 			return Tools.getName(null, paramName);
 		}
-		throw new NullPointerException("build insert sql时，tableName属性值和paramName属性值不能都为空");
+		throw new NullPointerException("build insert sql时，name属性值和paramName属性值不能都为空");
 	}
 	
 	/**
@@ -85,16 +85,11 @@ public class InsertSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 			throw new NullPointerException("build insert sql时，values属性值不能为空");
 		}
 		
-		ValuesImpl values = new ValuesImpl();
-		values.setType(json.getString("type"));
-		values.setSqlId(json.getString("sqlId"));
-		values.setSqlJson(json.getJSONObject("sqlJson"));
-		
+		Values values = new ValuesImpl(json);
 		JSONArray array = json.getJSONArray("value");
 		if(array != null && array.size() > 0){
 			for(int i=0;i<array.size();i++){
-				json = array.getJSONObject(i);
-				values.addValuesEntity(new ValuesEntity(json.getString("value"), json.getString("paramName"), getFunction(json.getJSONObject("valueFunction"))));
+				values.addValuesEntity(new ValuesEntity(array.getJSONObject(i)));
 			}
 		}
 		return values;

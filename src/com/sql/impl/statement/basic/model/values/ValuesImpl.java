@@ -21,6 +21,12 @@ public class ValuesImpl extends BasicModelImpl implements Values {
 	private String sqlId;
 	private JSONObject sqlJson;
 	
+	public ValuesImpl(JSONObject json) {
+		this.type = ValuesType.toValue(json.getString("type"));
+		this.sqlId = json.getString("sqlId");
+		this.sqlJson = json.getJSONObject("sqlJson");
+	}
+	
 	protected String processSqlStatement() {
 		StringBuilder sb = new StringBuilder(800);
 		sb.append("(");
@@ -51,15 +57,6 @@ public class ValuesImpl extends BasicModelImpl implements Values {
 			valuesEntities = new ArrayList<ValuesEntity>();
 		}
 		valuesEntities.add(valuesEntity);
-	}
-	public void setType(String type) {
-		this.type = ValuesType.toValue(type);
-	}
-	public void setSqlId(String sqlId) {
-		this.sqlId = sqlId;
-	}
-	public void setSqlJson(JSONObject sqlJson) {
-		this.sqlJson = sqlJson;
 	}
 	
 	// insert into values 后的类型

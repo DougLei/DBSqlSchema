@@ -3,6 +3,7 @@ package com.sql.impl.statement.basic.model.where;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.BasicModelImpl;
 import com.sql.statement.basic.model.where.LogicOperatorType;
 import com.sql.statement.basic.model.where.Where;
@@ -14,6 +15,17 @@ public class WhereGroupImpl extends BasicModelImpl implements WhereGroup {
 	private int whereGroupCount = 1;
 	private LogicOperatorType nextLogicOperator;
 	private List<Where> wheres;
+	
+	public WhereGroupImpl(JSONObject json, int size) {
+		this.nextLogicOperator = LogicOperatorType.toValue(json.getString("nextLogicOperator"));
+		setWhereGroupCount(size);
+	}
+	private void setWhereGroupCount(int whereGroupCount) {
+		if(whereGroupCount < 1){
+			whereGroupCount = 1;
+		}
+		this.whereGroupCount = whereGroupCount;
+	}
 	
 	public String getNextLogicOperator() {
 		return nextLogicOperator.getSqlStatement();
@@ -44,15 +56,5 @@ public class WhereGroupImpl extends BasicModelImpl implements WhereGroup {
 			wheres = new ArrayList<Where>();
 		}
 		wheres.add(where);
-	}
-	
-	public void setNextLogicOperator(String nextLogicOperator) {
-		this.nextLogicOperator = LogicOperatorType.toValue(nextLogicOperator);
-	}
-	public void setWhereGroupCount(int whereGroupCount) {
-		if(whereGroupCount < 1){
-			whereGroupCount = 1;
-		}
-		this.whereGroupCount = whereGroupCount;
 	}
 }

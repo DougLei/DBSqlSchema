@@ -1,6 +1,8 @@
 package com.sql.impl.statement.basic.model.where;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.BasicModelImpl;
+import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.where.DataOperatorType;
 import com.sql.statement.basic.model.where.LogicOperatorType;
@@ -19,6 +21,19 @@ public class WhereImpl extends BasicModelImpl implements Where {
 	private Value value;
 	private Function columnFunction;
 	
+	public WhereImpl(JSONObject json) {
+		this.columnName = json.getString("columnName");
+		this.columnFunction = FunctionImpl.newInstance(json.getJSONObject("columnFunction"));
+		this.dataOperator = DataOperatorType.toValue(json.getString("operator"));
+		this.nextLogicOperator = LogicOperatorType.toValue(json.getString("nextLogicOperator"));
+		
+		JSONObject valueJson = json.getJSONObject("value");
+		if(valueJson == null || valueJson.size() == 0){
+			throw new IllegalArgumentException("where 子句中，value属性不能为空");
+		}
+		this.value = new ValueImpl(valueJson);
+	}
+
 	public String getNextLogicOperator() {
 		return nextLogicOperator.getSqlStatement();
 	}
@@ -48,23 +63,5 @@ public class WhereImpl extends BasicModelImpl implements Where {
 			sqlStatement = columnName;
 		}
 		return sqlStatement;
-	}
-	
-	public void setDataOperator(String dataOperator) {
-		this.dataOperator = DataOperatorType.toValue(dataOperator);
-	}
-	public void setNextLogicOperator(String nextLogicOperator) {
-		this.nextLogicOperator = LogicOperatorType.toValue(nextLogicOperator);
-	}
-	public void setColumnName(String columnName) {
-		this.columnName = columnName;
-	}
-	public void setValue(Value value) {
-		this.value = value;
-	}
-	public void setColumnFunction(Function function) {
-		if(columnFunction == null){
-			columnFunction = function;
-		}
 	}
 }

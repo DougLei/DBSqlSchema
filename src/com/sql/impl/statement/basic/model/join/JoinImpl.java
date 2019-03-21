@@ -27,6 +27,15 @@ public class JoinImpl extends BasicModelImpl implements Join {
 	private String sqlId;
 	private JSONObject sqlJson;
 	
+	public JoinImpl(JSONObject json) {
+		this.joinType = JoinType.toValue(json.getString("type"));
+		this.tableType = TableType.toValue(json.getString("tableType"));
+		this.tableName = json.getString("tableName");
+		this.alias = json.getString("alias");
+		this.sqlId = json.getString("sqlId");
+		this.sqlJson = json.getJSONObject("sqlJson");
+	}
+
 	public void addOnGroup(OnGroup onGroup) {
 		if(onGroups == null){
 			onGroups = new ArrayList<OnGroup>();
@@ -59,25 +68,6 @@ public class JoinImpl extends BasicModelImpl implements Join {
 			sb.append(")");
 		}
 		return sb.toString();
-	}
-	
-	public void setJoinType(String joinType) {
-		this.joinType = JoinType.toValue(joinType);
-	}
-	public void setTableType(String tableType) {
-		this.tableType = TableType.toValue(tableType);
-	}
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
-	}
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
-	public void setSqlId(String sqlId) {
-		this.sqlId = sqlId;
-	}
-	public void setSqlJson(JSONObject sqlJson) {
-		this.sqlJson = sqlJson;
 	}
 	
 	/**

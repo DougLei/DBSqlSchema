@@ -1,6 +1,8 @@
 package com.sql.impl.statement.basic.model.join;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.BasicModelImpl;
+import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.join.On;
 import com.sql.statement.basic.model.where.DataOperatorType;
@@ -19,6 +21,15 @@ public class OnImpl extends BasicModelImpl implements On {
 	private Function leftFunction;
 	private Function rightFunction;
 	
+	public OnImpl(JSONObject json) {
+		this.leftColumnName = json.getString("leftColumnName");
+		this.leftFunction = FunctionImpl.newInstance(json.getJSONObject("leftFunction"));
+		this.dataOperator = DataOperatorType.toValue(json.getString("operator"));
+		this.rightColumnName = json.getString("rightColumnName");
+		this.rightFunction = FunctionImpl.newInstance(json.getJSONObject("rightFunction"));
+		this.nextLogicOperator = LogicOperatorType.toValue(json.getString("nextLogicOperator"));
+	}
+
 	public String getNextLogicOperator() {
 		return nextLogicOperator.getSqlStatement();
 	}
@@ -42,29 +53,5 @@ public class OnImpl extends BasicModelImpl implements On {
 			sqlStatement = columnName;
 		}
 		return sqlStatement;
-	}
-
-	
-	public void setDataOperator(String dataOperator) {
-		this.dataOperator = DataOperatorType.toValue(dataOperator);
-	}
-	public void setNextLogicOperator(String nextLogicOperator) {
-		this.nextLogicOperator = LogicOperatorType.toValue(nextLogicOperator);
-	}
-	public void setLeftColumnName(String leftColumnName) {
-		this.leftColumnName = leftColumnName;
-	}
-	public void setRightColumnName(String rightColumnName) {
-		this.rightColumnName = rightColumnName;
-	}
-	public void setLeftFunction(Function function) {
-		if(leftFunction == null){
-			leftFunction = function;
-		}
-	}
-	public void setRightFunction(Function function) {
-		if(rightFunction == null){
-			rightFunction = function;
-		}
 	}
 }

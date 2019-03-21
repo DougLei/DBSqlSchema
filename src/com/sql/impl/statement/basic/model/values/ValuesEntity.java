@@ -1,6 +1,8 @@
 package com.sql.impl.statement.basic.model.values;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.Tools;
+import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.util.StrUtils;
 
@@ -13,12 +15,12 @@ public class ValuesEntity {
 	protected String paramName;
 	protected Function function;
 	
-	public ValuesEntity(String value, String paramName, Function function) {
-		this.value = StrUtils.isEmpty(value)?null:value;
-		this.paramName = StrUtils.isEmpty(paramName)?null:paramName;
-		this.function = function;
+	public ValuesEntity(JSONObject json) {
+		this.value = StrUtils.isEmpty(json.getString("value"))?null:json.getString("value");
+		this.paramName = StrUtils.isEmpty(json.getString("paramName"))?null:json.getString("paramName");
+		this.function = FunctionImpl.newInstance(json.getJSONObject("valueFunction"));
 	}
-	
+
 	public String getSqlStatement(){
 		String sqlStatement = null;
 		if(function != null){

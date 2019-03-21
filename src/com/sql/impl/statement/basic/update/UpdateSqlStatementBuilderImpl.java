@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.statement.basic.AbstractSqlStatementBuilder;
 import com.sql.impl.statement.basic.model.set.SetImpl;
 import com.sql.statement.basic.model.set.Set;
@@ -20,7 +19,7 @@ public class UpdateSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 	
 	protected String buildSql() {
 		updateSqlStatement.append("update ");
-		updateSqlStatement.append(getTableName());
+		updateSqlStatement.append(getTable());
 		
 		List<Set> sets = getSetList();
 		updateSqlStatement.append(newline()).append("set ");
@@ -36,10 +35,10 @@ public class UpdateSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 		return updateSqlStatement.toString();
 	}
 
-	public String getTableName() {
-		String tableName = content.getString("tableName");
+	public String getTable() {
+		String tableName = content.getString("name");
 		if(StrUtils.isEmpty(tableName )){
-			throw new NullPointerException("build update sql时，tableName属性值不能为空");
+			throw new NullPointerException("build update sql时，name属性值不能为空");
 		}
 		return tableName;
 	}
@@ -50,20 +49,8 @@ public class UpdateSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 			throw new NullPointerException("build update sql时，set属性值不能为空");
 		}
 		List<Set> sets = new ArrayList<Set>(setJsonarray.size());
-		JSONObject json = null;
-		SetImpl set = null;
 		for(int i=0;i<setJsonarray.size();i++){
-			json = setJsonarray.getJSONObject(i);
-			set = new SetImpl();
-			set.setColumnName(json.getString("columnName"));
-			set.setValueType(json.getString("valueType"));
-			set.setValue(json.getString("value"));
-			set.setParamName(json.getString("paramName"));
-			set.setValueFunction(getFunction(json.getJSONObject("valueFunction")));
-			set.setSqlId(json.getString("sqlId"));
-			set.setSqlJson(json.getJSONObject("sqlJson"));
-			
-			sets.add(set);
+			sets.add(new SetImpl(setJsonarray.getJSONObject(i)));
 		}
 		return sets;
 	}

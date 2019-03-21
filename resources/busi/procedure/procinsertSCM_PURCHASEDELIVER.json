@@ -158,9 +158,61 @@
 			"type":"if_else",
 			"if1":{
 				"isExistsCondition":{
-					"isInversion":false,
 					"sqlJson":{
-						
+						"type":"select",
+						"content":{
+							"resultSet":[
+								{
+									"columnName":"ID"
+								}
+							],
+							"table":{
+								"type":"table",
+								"name":"SCM_PURCHASE"
+							},
+							"where":[
+								{
+									"whereGroup":[
+										{
+											"columnName":"RECORDSTATUS",
+											"operator":"eq",
+											"value":{
+												"type":"value",
+												"values":[
+													{
+														"type":"value",
+														"value":"9"
+													}
+												]
+											},
+											"nextLogicOperator":"and"
+										},
+										{
+											"columnName":"ID",
+											"operator":"in",
+											"value":{
+												"type":"sub_query",
+												"sqlJson":{
+													"id":"selectIdFromTemplate",
+													"type":"select",
+													"content":{
+														"resultSet":[
+															{
+																"columnName":"ID"
+															}
+														],
+														"table":{
+															"type":"parameter",
+															"paramName":"tempTable"
+														}
+													}
+												}
+											}
+										}
+									]
+								}
+							]
+						}
 					}
 				},
 				"content":[
@@ -175,24 +227,8 @@
 											"name":"Message"
 										}
 									],
-									"type":"function",
-									"function":{
-										"name":"_append",
-										"parameters":[
-											{
-												"type":"value",
-												"value":"'error:'"
-											},
-											{
-												"type":"parameter",
-												"paramName":"MATERIALNAME"
-											},
-											{
-												"type":"value",
-												"value":"'在启用中，无法删除'"
-											}
-										]
-									}
+									"type":"value",
+									"value":"'warning:选中行的领出记录下，存在记录状态为【起草】记录，请重新选择。'"
 								}
 							]
 						}
@@ -200,241 +236,37 @@
 				]
 			},
 			"if2":{
-				"content":[
-					{
-						"stepJson":{
-							"type":"set_value",
-							"content":[
-								{
-									"parameters":[
-										{
-											"isDeclare":false,
-											"name":"Message"
-										}
-									],
-									"type":"value",
-									"value":"'success:删除成功'"
-								}
-							]
-						}
-					},
-					{
-						"stepJson":{
-							"type":"sql",
-							"content":[
-								{
-									"sqlJson":{
-										"type": "delete",
-										"content": {
-											"tableName": "MDM_MATERIALINFO",
-											"where":[
-												{
-													"whereGroup":[
-														{
-															"columnName":"ID",
-															"operator":"in",
-															"value":{
-																"type":"sub_query",
-																"sqlId":"selectIdFromTemplate"
-															}
-														}
-													]
-												}
-											]
-										}
-									}
-								}
-							]
-						}
-					}
-				]
-			}		
-		},
-
-
-
-
-		"stepx":{
-			"type":"set_value",
-			"content":[
-				{
-					"parameters":[
-						{
-							"isDeclare":false,
-							"name":"MATERIALNAME"
-						}
-					],
-					"type":"select_sql",
+				"isExistsCondition":{
+					"isInversion":true,
 					"sqlJson":{
-						"id":"id4",
 						"type":"select",
 						"content":{
 							"resultSet":[
 								{
-									"function":{
-										"name":"STUFF",
-										"parameters":[
-											{
-												"type":"function",
-												"function":{
-													"name":"_forxmlpath",
-													"rootNodeName":"''",
-													"sqlJson":{
-														"id":"id5",
-														"type":"select",
-														"content":{
-															"resultSet":[
-																{
-																	"function":{
-																		"name":"_append",
-																		"parameters":[
-																			{
-																				"type":"value",
-																				"value":"','"
-																			},
-																			{
-																				"type":"value",
-																				"value":"MATERIALNAME"
-																			}
-																		]
-																	}
-																}
-															],
-															"table":{
-																"type":"table",
-																"name":"MDM_MATERIALINFO",
-																"alias":"t"
-															},
-															"where":[
-																{
-																	"whereGroup":[
-																		{
-																			"columnName":"ENABLED",
-																			"operator":"eq",
-																			"value":{
-																				"type":"value",
-																				"values":[
-																					{
-																						"type":"value",
-																						"value":"1"
-																					}
-																				]
-																			},
-																			"nextLogicOperator":"and"
-																		},
-																		{
-																			"columnName":"ID",
-																			"operator":"in",
-																			"value":{
-																				"type":"sub_query",
-																				"sqlJson":{
-																					"id":"selectIdFromTemplate",
-																					"type":"select",
-																					"content":{
-																						"resultSet":[
-																							{
-																								"columnName":"ID"
-																							}
-																						],
-																						"table":{
-																							"type":"parameter",
-																							"paramName":"tempTable"
-																						}
-																					}
-																				}
-																			}
-																		}
-																	]
-																}
-															]
-														}
-													}
-												}
-											},
-											{
-												"type":"value",
-												"value":"1"
-											},
-											{
-												"type":"value",
-												"value":"1"
-											},
-											{
-												"type":"value",
-												"value":"''"
-											}
-										]
-									}
+									"columnName":"1"
 								}
-							]
-						}
-					}
-				}
-			]
-		},
-		"step3":{
-			"id":"step3",
-			"type":"if_else",
-			"if1":{
-				"condition":[
-					{
-						"conditionGroup":[
-							{
-								"leftType":"function",
-								"leftFunction":{
-									"name":"count",
-									"parameters":[
+							],
+							"table":{
+								"type":"table",
+								"name":"SCM_PURCHASEDETAILS"
+							},
+							"where":[
+								{
+									"whereGroup":[
 										{
-											"type":"parameter",
-											"paramName":"MATERIALNAME"
+											"columnName":"PURCHASEID",
+											"operator":"in",
+											"value":{
+												"type":"sub_query",
+												"sqlId":"selectIdFromTemplate"
+											}
 										}
 									]
-								},
-								"operator":"gt",
-								"rightType":"value",
-								"rightValue":"0"
-							}
-						]
-					}
-				],
-				"content":[
-					{
-						"stepJson":{
-							"id":"x1",
-							"type":"set_value",
-							"content":[
-								{
-									"parameters":[
-										{
-											"isDeclare":false,
-											"name":"Message"
-										}
-									],
-									"type":"function",
-									"function":{
-										"name":"_append",
-										"parameters":[
-											{
-												"type":"value",
-												"value":"'error:'"
-											},
-											{
-												"type":"parameter",
-												"paramName":"MATERIALNAME"
-											},
-											{
-												"type":"value",
-												"value":"'在启用中，无法删除'"
-											}
-										]
-									}
 								}
 							]
 						}
 					}
-				]
-			},
-			"if2":{
+				},
 				"content":[
 					{
 						"stepJson":{
@@ -448,42 +280,125 @@
 										}
 									],
 									"type":"value",
-									"value":"'success:删除成功'"
+									"value":"'warning:子表无数据，不能确认！'"
 								}
 							]
 						}
 					},
 					{
 						"stepJson":{
-							"type":"sql",
+							"type":"return"
+						}
+					}
+				]
+			},		
+			"if3":{
+				"isExistsCondition":{
+					"sqlJson":{
+						"type":"select",
+						"content":{
+							"resultSet":[
+								{
+									"columnName":"1"
+								}
+							],
+							"table":{
+								"type":"table",
+								"name":"SCM_PURCHASEDETAILS"
+							},
+							"where":[
+								{
+									"whereGroup":[
+										{
+											"columnName":"PURCHASEID",
+											"operator":"in",
+											"value":{
+												"type":"sub_query",
+												"sqlId":"selectIdFromTemplate"
+											}
+										}
+									]
+								}
+							],
+							"groupBy":[
+								{
+									"columnName":"MATERIALID"
+								},
+								{
+									"columnName":"PURCHASEID"
+								}
+							],
+							"having":[
+								{
+									"havingGroup":[
+										{
+											"columnFunction":{
+												"name":"count",
+												"parameters":[
+													{
+														"type":"value",
+														"value":"MATERIALID"
+													}
+												]
+											},
+											"operator":"gt",
+											"value":{
+												"type":"value",
+												"value":"1"
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				},
+				"content":[
+					{
+						"stepJson":{
+							"type":"set_value",
 							"content":[
 								{
-									"sqlJson":{
-										"type": "delete",
-										"content": {
-											"tableName": "MDM_MATERIALINFO",
-											"where":[
-												{
-													"whereGroup":[
-														{
-															"columnName":"ID",
-															"operator":"in",
-															"value":{
-																"type":"sub_query",
-																"sqlId":"selectIdFromTemplate"
-															}
-														}
-													]
-												}
-											]
+									"parameters":[
+										{
+											"isDeclare":false,
+											"name":"Message"
 										}
-									}
+									],
+									"type":"value",
+									"value":"'warning:子表有重复数据，不能确认！'"
+								}
+							]
+						}
+					},
+					{
+						"stepJson":{
+							"type":"return"
+						}
+					}
+				]
+			},
+			"if4":{
+				"content":[
+					{
+						"stepJson":{
+							"type":"set_value",
+							"content":[
+								{
+									"parameters":[
+										{
+											"isDeclare":false,
+											"name":"Message"
+										}
+									],
+									"type":"value",
+									"value":"'warning:子表有重复数据，不能确认！'"
 								}
 							]
 						}
 					}
 				]
-			}		
+			}
 		}
 	}
 }

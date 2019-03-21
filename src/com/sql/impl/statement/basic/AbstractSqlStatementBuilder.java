@@ -6,18 +6,16 @@ import java.util.List;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sql.impl.SqlStatementBuilderImpl;
-import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.impl.statement.basic.model.groupby.GroupByImpl;
 import com.sql.impl.statement.basic.model.join.JoinImpl;
 import com.sql.impl.statement.basic.model.join.OnGroupImpl;
 import com.sql.impl.statement.basic.model.join.OnImpl;
 import com.sql.impl.statement.basic.model.orderby.OrderByImpl;
-import com.sql.impl.statement.basic.model.where.ValueImpl;
 import com.sql.impl.statement.basic.model.where.WhereGroupImpl;
 import com.sql.impl.statement.basic.model.where.WhereImpl;
-import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.groupby.GroupBy;
 import com.sql.statement.basic.model.join.Join;
+import com.sql.statement.basic.model.join.OnGroup;
 import com.sql.statement.basic.model.orderby.OrderBy;
 import com.sql.statement.basic.model.where.WhereGroup;
 
@@ -43,15 +41,6 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 		return null;
 	}
 	
-	/**
-	 * 获取function属性对象
-	 * @param function
-	 * @return
-	 */
-	protected Function getFunction(JSONObject function){
-		return FunctionImpl.newInstance(function);
-	}
-	
 	// ------------------------------------------------
 	public List<Join> getJoinList() {
 		JSONArray jsonarray = content.getJSONArray("join");
@@ -59,40 +48,24 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 			List<Join> joinList = new ArrayList<Join>(jsonarray.size());
 			
 			JSONObject json = null;
-			JoinImpl ji = null;
+			Join ji = null;
 			JSONArray onGroups = null;
-			OnGroupImpl onGroup = null;
+			OnGroup onGroup = null;
 			JSONArray ons = null;
-			OnImpl on = null;
 			for(int i=0;i<jsonarray.size();i++){
 				json = jsonarray.getJSONObject(i);
-				ji = new JoinImpl();
-				ji.setJoinType(json.getString("type"));
-				ji.setTableType(json.getString("tableType"));
-				ji.setTableName(json.getString("tableName"));
-				ji.setAlias(json.getString("alias"));
+				ji = new JoinImpl(json);
 				
 				onGroups = json.getJSONArray("on");
 				if(onGroups != null && onGroups.size() > 0){
 					for(int j=0;j<onGroups.size();j++){
 						json = onGroups.getJSONObject(j);
-						onGroup = new OnGroupImpl();
-						onGroup.setNextLogicOperator(json.getString("nextLogicOperator"));
-						onGroup.setOnGroupCount(onGroups.size());
+						onGroup = new OnGroupImpl(json, onGroups.size());
 						
 						ons = json.getJSONArray("onGroup");
 						if(ons != null && ons.size() > 0){
 							for(int k=0;k<ons.size();k++){
-								json = ons.getJSONObject(k);
-								on = new OnImpl();
-								on.setLeftColumnName(json.getString("leftColumnName"));
-								on.setLeftFunction(getFunction(json.getJSONObject("leftFunction")));
-								on.setDataOperator(json.getString("operator"));
-								on.setRightColumnName(json.getString("rightColumnName"));
-								on.setRightFunction(getFunction(json.getJSONObject("rightFunction")));
-								on.setNextLogicOperator(json.getString("nextLogicOperator"));
-								
-								onGroup.addOn(on);
+								onGroup.addOn(new OnImpl(ons.getJSONObject(k)));
 							}
 						}
 						ji.addOnGroup(onGroup);
@@ -118,14 +91,7 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 	public GroupBy getGroupBy() {
 		JSONArray jsonarray = content.getJSONArray("groupBy");
 		if(jsonarray != null && jsonarray.size() > 0){
-			GroupByImpl groupBy = new GroupByImpl();
-			
-			JSONObject json = null;
-			for(int i=0;i<jsonarray.size();i++){
-				json = jsonarray.getJSONObject(i);
-				groupBy.addGroupByColumn(json.getString("columnName"), getFunction(json.getJSONObject("columnFunction")));
-			}
-			return groupBy;
+			return new GroupByImpl(jsonarray);
 		}
 		return null;
 	}
@@ -172,36 +138,14 @@ public abstract class AbstractSqlStatementBuilder extends SqlStatementBuilderImp
 			JSONObject json = null;
 			WhereGroupImpl whereGroup = null;
 			JSONArray wheres = null;
-			WhereImpl where = null;
-			ValueImpl value = null;
 			for(int i=0;i<size;i++){
 				json = jsonarray.getJSONObject(i);
-				whereGroup = new WhereGroupImpl();
-				whereGroup.setNextLogicOperator(json.getString("nextLogicOperator"));
-				whereGroup.setWhereGroupCount(size);
+				whereGroup = new WhereGroupImpl(json, size);
 				
 				wheres = json.getJSONArray(groupName);
 				if(wheres != null && wheres.size() > 0){
 					for(int j=0;j<wheres.size();j++){
-						json = wheres.getJSONObject(j);
-						where = new WhereImpl();
-						where.setColumnName(json.getString("columnName"));
-						where.setColumnFunction(getFunction(json.getJSONObject("columnFunction")));
-						where.setDataOperator(json.getString("operator"));
-						where.setNextLogicOperator(json.getString("nextLogicOperator"));
-						
-						json = json.getJSONObject("value");
-						if(json == null || json.size() == 0){
-							throw new IllegalArgumentException("where 子句中，value属性不能为空");
-						}
-						value = new ValueImpl();
-						value.setType(json.getString("type"));
-						value.setSqlId(json.getString("sqlId"));
-						value.setSqlJson(json.getJSONObject("sqlJson"));
-						value.setValueGroupArray(json.getJSONArray("values"));
-						
-						where.setValue(value);
-						whereGroup.addWhere(where);
+						whereGroup.addWhere(new WhereImpl(wheres.getJSONObject(j)));
 					}
 				}
 				whereGroupList.add(whereGroup);

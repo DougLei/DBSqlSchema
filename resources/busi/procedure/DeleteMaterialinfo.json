@@ -297,7 +297,7 @@
 									"sqlJson":{
 										"type": "delete",
 										"content": {
-											"tableName": "MDM_MATERIALINFO",
+											"name": "MDM_MATERIALINFO",
 											"where":[
 												{
 													"whereGroup":[

@@ -21,6 +21,26 @@ public class ValueImpl implements Value {
 	private String sqlId;
 	private JSONObject sqlJson;
 	
+	public ValueImpl(JSONObject json) {
+		this.type = Type.toValue(json.getString("type"));
+		this.sqlId = json.getString("sqlId");
+		this.sqlJson = json.getJSONObject("sqlJson");
+		setValueGroupArray(json.getJSONArray("values"));
+	}
+	private void setValueGroupArray(JSONArray valueGroupJsonarray) {
+		if(valueGroupJsonarray != null && valueGroupJsonarray.size() > 0){
+			if(valueGroup == null){
+				valueGroup = new ValueGroupImpl();
+			}
+			for(int i=0;i<valueGroupJsonarray.size();i++){
+				valueGroup.setValueEntity(valueGroupJsonarray.getJSONObject(i));
+			}
+		}
+	}
+	
+	
+	
+
 	public String[] getSqlStatements() {
 		switch(type){
 			case VALUE:
@@ -35,26 +55,6 @@ public class ValueImpl implements Value {
 				return new String[]{sb.toString()};
 		}
 		return null;
-	}
-	
-	public void setType(String type) {
-		this.type = Type.toValue(type);
-	}
-	public void setSqlId(String sqlId) {
-		this.sqlId = sqlId;
-	}
-	public void setSqlJson(JSONObject sqlJson) {
-		this.sqlJson = sqlJson;
-	}
-	public void setValueGroupArray(JSONArray valueGroupJsonarray) {
-		if(valueGroupJsonarray != null && valueGroupJsonarray.size() > 0){
-			if(valueGroup == null){
-				valueGroup = new ValueGroupImpl();
-			}
-			for(int i=0;i<valueGroupJsonarray.size();i++){
-				valueGroup.setValueEntity(valueGroupJsonarray.getJSONObject(i));
-			}
-		}
 	}
 	
 	public boolean isNullValueType(){

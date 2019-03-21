@@ -52,20 +52,10 @@ public class CombinationSelectSqlStatementBuilderImpl extends SqlStatementBuilde
 		if(array != null && array.size() > 0){
 			List<With> withList = new ArrayList<With>(array.size());
 			
-			String alias = null;
 			JSONObject json = null;
-			WithImpl with = null;
 			for(int i=0;i<array.size();i++){
 				json = array.getJSONObject(i);
-				alias = json.getString("alias");
-				if(StrUtils.isEmpty(alias)){
-					throw new NullPointerException("with 子句的alias属性不能为空");
-				}
-				
-				with = new WithImpl(alias);
-				with.setSqlStatement(processSelectSql(false, json.getJSONArray("selectSql"), null));
-				
-				withList.add(with);
+				withList.add(new WithImpl(json).setSqlStatement(processSelectSql(false, json.getJSONArray("selectSql"), null)));
 			}
 			return withList;
 		}
