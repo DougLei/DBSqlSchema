@@ -24,7 +24,8 @@ public class IsExistsCondition {
 			case SQLSERVER:
 				return (isInversion?"not ":"") + "exists ( " + sql + " )";
 			case ORACLE:
-				return "ifexists( '" + sql + "' )" + (isInversion?"=0":">0");
+				// oracle特殊语法：  q'/中间是字符串内容，即使包括'也是算做字符串的一部分，而不是关键字/'，例如: select q'/I'm Douglei/' from dual
+				return "ifexists_function( q'/" + sql + "/' )" + (isInversion?"=0":"=1");
 		}
 		return null;
 	}

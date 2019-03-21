@@ -159,36 +159,13 @@
 			"if1":{
 				"isExistsCondition":{
 					"isInversion":false,
-					"sqlId":"",
 					"sqlJson":{
-
+						
 					}
 				},
-				"condition":[
-					{
-						"conditionGroup":[
-							{
-								"leftType":"function",
-								"leftFunction":{
-									"name":"count",
-									"parameters":[
-										{
-											"type":"parameter",
-											"paramName":"MATERIALNAME"
-										}
-									]
-								},
-								"operator":"gt",
-								"rightType":"value",
-								"rightValue":"0"
-							}
-						]
-					}
-				],
 				"content":[
 					{
 						"stepJson":{
-							"id":"x1",
 							"type":"set_value",
 							"content":[
 								{
