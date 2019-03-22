@@ -11,17 +11,17 @@ public class SQLSERVER_DateToChar extends DateToChar {
 	protected String getDateStyle() {
 		switch(dateStyleCode){
 			case 1:
-				return "120"; // yyyy-MM-dd HH24:mi:ss
+				return "120"; 
 			case 2:
-				return "121"; // yyyy-MM-dd HH24:mi:ss.ff3
+				return "121";
 			case 3:
-				return "111"; // yyyy/MM/dd
+				return "111";
 			case 4:
-				return "108"; // HH24:mi:ss
+				return "108";
 			case 5:
-				return "114"; // HH24:mi:ss:ff3
+				return "114";
 			case 6:
-				return "112"; // yyyyMMdd
+				return "112";
 		}
 		throw new IllegalArgumentException("目前系统只支持部分日期格式化的样式，如不满足需求，请联系系统开发人员");
 	}
