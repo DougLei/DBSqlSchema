@@ -19,7 +19,7 @@ public abstract class CurrentDate implements BuiltinFunction{
 			case SQLSERVER:
 				return "getdate()";
 			case ORACLE:
-				return "sysdate";
+				return "systimestamp";
 		}
 		return null;
 	}

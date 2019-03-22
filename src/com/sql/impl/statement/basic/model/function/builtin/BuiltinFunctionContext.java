@@ -7,9 +7,9 @@ import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.basic.model.function.builtin.append.db.ORACLE_Append;
 import com.sql.impl.statement.basic.model.function.builtin.append.db.SQLSERVER_Append;
-import com.sql.impl.statement.basic.model.function.builtin.convertdatatype.db.ORACLE_ConvertDataType;
-import com.sql.impl.statement.basic.model.function.builtin.convertdatatype.db.SQLSERVER_ConvertDataType;
 import com.sql.impl.statement.basic.model.function.builtin.currentdate.CurrentDate;
+import com.sql.impl.statement.basic.model.function.builtin.datetochar.db.ORACLE_DateToChar;
+import com.sql.impl.statement.basic.model.function.builtin.datetochar.db.SQLSERVER_DateToChar;
 import com.sql.impl.statement.basic.model.function.builtin.forxmlpath.db.ORACLE_ForXmlPath;
 import com.sql.impl.statement.basic.model.function.builtin.forxmlpath.db.SQLSERVER_ForXmlPath;
 import com.sql.impl.statement.basic.model.function.builtin.guid.Guid;
@@ -49,8 +49,8 @@ public class BuiltinFunctionContext {
 		sqlserver.put("_current_date", CurrentDate.class);
 		oracle.put("_current_date", CurrentDate.class);
 		
-		sqlserver.put("_convert_data_type", SQLSERVER_ConvertDataType.class);
-		oracle.put("_convert_data_type", ORACLE_ConvertDataType.class);
+		sqlserver.put("_datetochar", SQLSERVER_DateToChar.class);
+		oracle.put("_datetochar", ORACLE_DateToChar.class);
 		
 		sqlserver.put("_length", Length.class);
 		oracle.put("_length", Length.class);
