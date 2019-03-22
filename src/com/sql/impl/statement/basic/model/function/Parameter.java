@@ -10,7 +10,7 @@ import com.sql.util.StrUtils;
  * 
  * @author DougLei
  */
-public class ParameterEntity {
+public class Parameter {
 	private Type type;
 	
 	private String paramName;
@@ -21,13 +21,13 @@ public class ParameterEntity {
 	private String sqlId;
 	private JSONObject sqlJson;
 	
-	public ParameterEntity() {
+	public Parameter() {
 	}
-	public ParameterEntity(JSONObject json) {
+	public Parameter(JSONObject json) {
 		setConfJson(json);
 	}
 	
-	public ParameterEntity reload(JSONObject json){
+	public Parameter reload(JSONObject json){
 		setConfJson(json);
 		return this;
 	}
@@ -57,6 +57,7 @@ public class ParameterEntity {
 		throw new IllegalArgumentException("function type值异常");
 	}
 	
+	// -----------------------------------------------------------------------------------------------
 	private enum Type{
 		VALUE,
 		PARAMETER,

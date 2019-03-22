@@ -20,13 +20,27 @@ public abstract class AbstractDataType {
 	protected String name;
 	protected String defaultValue;
 	
-	protected AbstractDataType(String name, String dataType, int length, Object precision, String inOut, String defaultValue) {
-		this.name = name.trim().toUpperCase();
-		setDataType(dataType);
-		setLength(length);
-		setPrecision(precision);
-		setInOut(inOut);
-		this.defaultValue = defaultValue;
+	protected AbstractDataType(JSONObject json) {
+		this.name = json.getString("name").trim().toUpperCase();
+		this.dataType = DataType.toValue(json.getString("dataType"));
+		this.length = json.getIntValue("length");
+		setPrecision(json.get("precision"));
+		setInOut(json.getString("inOut"));
+		this.defaultValue = json.getString("defaultValue");
+	}
+	private void setPrecision(Object precision) {
+		if(StrUtils.isEmpty(precision)){
+			precision = -1;
+		}else{
+			this.precision = Integer.valueOf(precision.toString());
+		}
+	}
+	private void setInOut(String inOut) {
+		if(StrUtils.isEmpty(inOut)){
+			this.inOut = InOut.IN;
+		}else{
+			this.inOut = InOut.toValue(inOut);
+		}
 	}
 	
 	public String getName() {
@@ -34,27 +48,6 @@ public abstract class AbstractDataType {
 	}
 	public String getDefaultValue() {
 		return defaultValue;
-	}
-	protected void setLength(int length) {
-		this.length = length;
-	}
-	protected void setPrecision(Object precision) {
-		if(StrUtils.isEmpty(precision)){
-			precision = -1;
-		}else{
-			this.precision = Integer.valueOf(precision.toString());
-		}
-	}
-
-	protected void setDataType(String dataType){
-		this.dataType = DataType.toValue(dataType);
-	}
-	protected void setInOut(String inOut) {
-		if(StrUtils.isEmpty(inOut)){
-			this.inOut = InOut.IN;
-		}else{
-			this.inOut = InOut.toValue(inOut);
-		}
 	}
 	
 	public String getBaseDataType() {

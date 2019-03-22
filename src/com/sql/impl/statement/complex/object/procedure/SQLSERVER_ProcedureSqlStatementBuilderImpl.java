@@ -23,12 +23,12 @@ public class SQLSERVER_ProcedureSqlStatementBuilderImpl extends ProcedureSqlStat
 	}
 	
 //	protected String processParameter() {
-//		List<ParameterEntity> parameterEntityList = getParameterEntityList();
+//		List<Parameter> parameterEntityList = getParameterEntityList();
 //		if(parameterEntityList != null && parameterEntityList.size() > 0){
 //			int size = parameterEntityList.size();
 //			StringBuilder sb = new StringBuilder(size*50);
 //			
-//			ParameterEntity parameter = null;
+//			Parameter parameter = null;
 //			for(int i=0;i<size;i++){
 //				parameter = parameterEntityList.get(i);
 //				if(parameter.isSupportAppendCustomSqlStatement()){

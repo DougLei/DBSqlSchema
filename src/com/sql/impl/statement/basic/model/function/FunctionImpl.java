@@ -15,7 +15,7 @@ import com.sql.util.StrUtils;
 public class FunctionImpl extends BasicModelImpl implements Function {
 	/**函数名*/
 	private String name;
-	private ParameterEntity[] parameters;
+	private Parameter[] parameters;
 	
 	public static Function newInstance(JSONObject function){
 		if(function != null && function.size() > 0){
@@ -28,9 +28,9 @@ public class FunctionImpl extends BasicModelImpl implements Function {
 			
 			JSONArray paramJsonarray = function.getJSONArray("parameters");
 			if(StrUtils.notEmpty(name) && paramJsonarray!= null && paramJsonarray.size() > 0){
-				ParameterEntity[] parameters = new ParameterEntity[paramJsonarray.size()];
+				Parameter[] parameters = new Parameter[paramJsonarray.size()];
 				for(int i=0;i<paramJsonarray.size();i++){
-					parameters[i] = new ParameterEntity(paramJsonarray.getJSONObject(i));
+					parameters[i] = new Parameter(paramJsonarray.getJSONObject(i));
 				}
 				return new FunctionImpl(name, parameters);
 			}
@@ -38,7 +38,7 @@ public class FunctionImpl extends BasicModelImpl implements Function {
 		return null;
 	}
 	
-	private FunctionImpl(String name, ParameterEntity[] parameters) {
+	private FunctionImpl(String name, Parameter[] parameters) {
 		this.name = name;
 		this.parameters = parameters;
 	}

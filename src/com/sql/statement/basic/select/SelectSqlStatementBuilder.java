@@ -15,6 +15,12 @@ import com.sql.statement.basic.model.table.Table;
 public interface SelectSqlStatementBuilder {
 	
 	/**
+	 * 是否去重
+	 * @return
+	 */
+	boolean isDistinct();
+	
+	/**
 	 * 获取select 结果列对象集合
 	 * @return
 	 */

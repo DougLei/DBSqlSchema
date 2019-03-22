@@ -92,7 +92,7 @@
 											},
 											{
 												"function":{
-													"name":"_rownumberover",
+													"name":"_row_number_over",
 													"orderBy":[
 														{
 															"columnName":"T.value",
@@ -295,61 +295,64 @@
 			"if3":{
 				"isExistsCondition":{
 					"sqlJson":{
-						"type":"select",
-						"content":{
-							"resultSet":[
-								{
-									"columnName":"1"
-								}
-							],
-							"table":{
-								"type":"table",
-								"name":"SCM_PURCHASEDETAILS"
-							},
-							"where":[
-								{
-									"whereGroup":[
-										{
-											"columnName":"PURCHASEID",
-											"operator":"in",
-											"value":{
-												"type":"sub_query",
-												"sqlId":"selectIdFromTemplate"
-											}
-										}
-									]
-								}
-							],
-							"groupBy":[
-								{
-									"columnName":"MATERIALID"
+						"type":"sql",
+						"sqlJson":{
+							"type":"select",
+							"content":{
+								"resultSet":[
+									{
+										"columnName":"1"
+									}
+								],
+								"table":{
+									"type":"table",
+									"name":"SCM_PURCHASEDETAILS"
 								},
-								{
-									"columnName":"PURCHASEID"
-								}
-							],
-							"having":[
-								{
-									"havingGroup":[
-										{
-											"columnFunction":{
-												"name":"count",
-												"parameters":[
-													{
-														"type":"value",
-														"value":"MATERIALID"
-													}
-												]
-											},
-											"operator":"gt",
-											"value":{
-												"type":"value",
-												"value":"1"
+								"where":[
+									{
+										"whereGroup":[
+											{
+												"columnName":"PURCHASEID",
+												"operator":"in",
+												"value":{
+													"type":"sub_query",
+													"sqlId":"selectIdFromTemplate"
+												}
 											}
-										}
-									]
-								}
-							]
+										]
+									}
+								],
+								"groupBy":[
+									{
+										"columnName":"MATERIALID"
+									},
+									{
+										"columnName":"PURCHASEID"
+									}
+								],
+								"having":[
+									{
+										"havingGroup":[
+											{
+												"columnFunction":{
+													"name":"count",
+													"parameters":[
+														{
+															"type":"value",
+															"value":"MATERIALID"
+														}
+													]
+												},
+												"operator":"gt",
+												"value":{
+													"type":"value",
+													"value":"1"
+												}
+											}
+										]
+									}
+								]
+							}
 						}
 					}
 				},
@@ -388,11 +391,121 @@
 									"parameters":[
 										{
 											"isDeclare":false,
-											"name":"Message"
+											"name":"R"
 										}
 									],
 									"type":"value",
-									"value":"'warning:子表有重复数据，不能确认！'"
+									"value":"1"
+								},
+								{
+									"parameters":[
+										{
+											"isDeclare":false,
+											"name":"NUM"
+										}
+									],
+									"type":"value",
+									"value":"0"
+								},
+								{
+									"parameters":[
+										{
+											"isDeclare":false,
+											"name":"NUM"
+										}
+									],
+									"type":"select_sql",
+									"sqlJson":{
+										"type":"select",
+										"content":{
+											"isDistinct":false,
+											"resultSet":[
+												{
+													"function":{
+														"name":"count",
+														"parameters":[
+															{
+																"type":"value",
+																"value":"*"
+															}
+														]
+													}
+												}
+											],
+											"table":{
+												"type":"parameter",
+												"name":"tempTable"
+											}
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"stepJson":{
+							"type":"while",
+							"condition":[
+								{
+									"conditionGroup":[
+										{
+											"leftType":"parameter",
+											"leftName":"R",
+											"operator":"le",
+											"rightType":"parameter",
+											"rightValue":"NUM"
+										}
+									]
+								}
+							],
+							"content":[
+								{
+									"stepJson":{
+										"type":"set_value",
+										"content":[
+											{
+												"parameters":[
+													{
+														"isDeclare":false,
+														"name":"PURCHASEID"
+													}
+												],
+												"type":"function",
+												"function":{
+													"name":"_guid"
+												}
+											},
+											{
+												"parameters":[
+													{
+														"isDeclare":true,
+														"name":"EightYear",
+														"dataType":"varchar",
+														"length":8
+													}
+												],
+												"type":"function",
+												"function":{
+													"name":"_convert_data_type",
+													"sourceParameter":{
+														"type":"value",
+														"value":"*"
+													},
+													"targetDataType":{
+														
+													},
+													"style":{},
+
+													"parameters":[
+														{
+															"type":"value",
+															"value":"*"
+														}
+													]
+												}
+											}
+										]
+									}
 								}
 							]
 						}

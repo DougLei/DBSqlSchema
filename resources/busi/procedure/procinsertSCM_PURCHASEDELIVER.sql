@@ -44,7 +44,7 @@ BEGIN
 	SELECT @NUM = COUNT(*) FROM @tempTable 
 	while(@R<=@NUM)
 	BEGIN
-		SELECT  @PURCHASEID = NEWID()
+		SET @PURCHASEID = NEWID()
 		declare @EightYear varchar(8) /*年月日*/
 		declare @ShunXuHao varchar(10)/*流水号*/
 		select @EightYear=convert(varchar(8),getdate(),112)

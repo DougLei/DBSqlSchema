@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author DougLei
  */
 public interface BuiltinFunction extends Function{
+	
 	BuiltinFunction init(JSONObject confJson);
 	
 	/**

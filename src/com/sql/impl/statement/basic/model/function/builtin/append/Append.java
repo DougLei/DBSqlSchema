@@ -2,7 +2,7 @@ package com.sql.impl.statement.basic.model.function.builtin.append;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sql.impl.statement.basic.model.function.ParameterEntity;
+import com.sql.impl.statement.basic.model.function.Parameter;
 import com.sql.statement.basic.model.function.BuiltinFunction;
 
 /**
@@ -16,7 +16,7 @@ public abstract class Append implements BuiltinFunction{
 	public BuiltinFunction init(JSONObject confJson) {
 		JSONArray parameterJsonArray = confJson.getJSONArray("parameters");
 		if(parameterJsonArray != null && parameterJsonArray.size() > 0){
-			ParameterEntity pe = new ParameterEntity();
+			Parameter pe = new Parameter();
 			
 			int size = parameterJsonArray.size();
 			parameters = new String[size];

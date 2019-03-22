@@ -113,7 +113,7 @@
 											{
 												"type":"function",
 												"function":{
-													"name":"_forxmlpath",
+													"name":"_for_xml_path",
 													"rootNodeName":"''",
 													"sqlJson":{
 														"id":"id5",

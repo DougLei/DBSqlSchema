@@ -41,6 +41,6 @@ public abstract class ForXmlPath implements BuiltinFunction{
 	protected abstract String installSqlStatement(String sqlContent);
 	
 	public String getFunctionName() {
-		return "_forxmlpath";
+		return "_for_xml_path";
 	}
 }

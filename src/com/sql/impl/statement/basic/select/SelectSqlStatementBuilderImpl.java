@@ -25,7 +25,7 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 	public String buildSql() {
 		StringBuilder selectSqlStatement = new StringBuilder(6000);
 		
-		selectSqlStatement.append("select ");
+		selectSqlStatement.append("select ").append(isDistinct()?"distinct ":"");
 		selectSqlStatement.append(newline());
 		
 		// 查询的列名
@@ -88,6 +88,10 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 	}
 
 	// ---------------------------------------------------------------------------------------
+	
+	public boolean isDistinct() {
+		return content.getBooleanValue("isDistinct");
+	}
 	
 	public List<ResultSet> getResultSetList() {
 		JSONArray jsonarray = content.getJSONArray("resultSet");

@@ -48,7 +48,7 @@ public abstract class RowNumberOver implements BuiltinFunction{
 	
 	
 	public String getFunctionName() {
-		return "_rownumberover";
+		return "_row_number_over";
 	}
 	
 	// --------------------------------------------------------------------
