@@ -11,6 +11,7 @@ import com.sql.impl.statement.basic.model.function.builtin.currentdate.CurrentDa
 import com.sql.impl.statement.basic.model.function.builtin.forxmlpath.db.ORACLE_ForXmlPath;
 import com.sql.impl.statement.basic.model.function.builtin.forxmlpath.db.SQLSERVER_ForXmlPath;
 import com.sql.impl.statement.basic.model.function.builtin.guid.Guid;
+import com.sql.impl.statement.basic.model.function.builtin.isnull.IsNull;
 import com.sql.impl.statement.basic.model.function.builtin.length.Length;
 import com.sql.impl.statement.basic.model.function.builtin.rownumberover.RowNumberOver;
 import com.sql.impl.statement.basic.model.function.builtin.substring.db.ORACLE_Substring;
@@ -54,6 +55,9 @@ public class BuiltinFunctionContext {
 		
 		sqlserver.put("_substring", SQLSERVER_Substring.class);
 		oracle.put("_substring", ORACLE_Substring.class);
+		
+		sqlserver.put("_isnull", IsNull.class);
+		oracle.put("_isnull", IsNull.class);
 	}
 	
 	/**
