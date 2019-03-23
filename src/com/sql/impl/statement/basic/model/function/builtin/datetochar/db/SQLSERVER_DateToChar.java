@@ -22,8 +22,9 @@ public class SQLSERVER_DateToChar extends DateToChar {
 				return "114";
 			case 6:
 				return "112";
+			default:
+				return "121";
 		}
-		throw new IllegalArgumentException("目前系统只支持部分日期格式化的样式，如不满足需求，请联系系统开发人员");
 	}
 
 	protected int getDateStyleLength() {
@@ -40,8 +41,9 @@ public class SQLSERVER_DateToChar extends DateToChar {
 				return 12;
 			case 6:
 				return 8;
+			default:
+				return 23;
 		}
-	throw new IllegalArgumentException("目前系统只支持部分日期格式化的样式，如不满足需求，请联系系统开发人员");
 	}
 	
 	public String getSqlStatement() {

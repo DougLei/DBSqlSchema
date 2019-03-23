@@ -5,7 +5,7 @@ import com.sql.impl.statement.basic.model.function.Parameter;
 import com.sql.statement.basic.model.function.BuiltinFunction;
 
 /**
- * 转换数据类型
+ * 日期类型转换到字符串类型
  * @author DougLei
  */
 public abstract class DateToChar implements BuiltinFunction{

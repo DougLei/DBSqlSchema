@@ -22,8 +22,9 @@ public class ORACLE_DateToChar extends DateToChar {
 				return "HH24:mi:ss:ff3";
 			case 6:
 				return "yyyyMMdd";
+			default:
+				return "yyyy-MM-dd HH24:mi:ss.ff3";
 		}
-		throw new IllegalArgumentException("目前系统只支持部分日期格式化的样式，如不满足需求，请联系系统开发人员");
 	}
 
 	protected int getDateStyleLength() {
