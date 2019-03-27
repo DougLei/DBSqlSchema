@@ -10,7 +10,7 @@ import com.sql.impl.statement.complex.object.procedure.model.step.entity.conditi
 public class ORACLE_COMMIT extends LogicEntity{
 
 	public ORACLE_COMMIT(ConditionEntity condition) {
-		super(condition, true);
+		super(condition, false);
 	}
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {

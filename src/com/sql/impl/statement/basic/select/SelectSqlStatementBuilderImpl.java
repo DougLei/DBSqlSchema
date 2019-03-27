@@ -109,7 +109,7 @@ public class SelectSqlStatementBuilderImpl extends AbstractSqlStatementBuilder i
 	}
 
 	public Table getTable() {
-		JSONObject json = content.getJSONObject("name");
+		JSONObject json = content.getJSONObject("table");
 		if(json == null || json.size() == 0){
 			return (Table) SqlStatementBuilderContext.getDBImplInstance("com.sql.impl.statement.basic.model.table", "TableImpl");
 		}

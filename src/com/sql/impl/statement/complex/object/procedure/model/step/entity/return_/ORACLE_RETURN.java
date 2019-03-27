@@ -11,7 +11,7 @@ import com.sql.util.StrUtils;
 public class ORACLE_RETURN extends LogicEntity{
 
 	public ORACLE_RETURN(ConditionEntity condition) {
-		super(condition, true);
+		super(condition, false);
 	}
 
 	public String getSqlStatement(boolean isEnd, String sqlStatement) {
