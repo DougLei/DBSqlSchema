@@ -8,7 +8,7 @@ import com.sql.statement.basic.model.function.BuiltinFunction;
  * 
  * @author DougLei
  */
-public abstract class Guid implements BuiltinFunction{
+public class Guid implements BuiltinFunction{
 	
 	public BuiltinFunction init(JSONObject confJson) {
 		return this;
@@ -23,7 +23,6 @@ public abstract class Guid implements BuiltinFunction{
 		}
 		return null;
 	}
-	
 	
 	public String getFunctionName() {
 		return "_guid";

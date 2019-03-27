@@ -8,7 +8,7 @@ import com.sql.statement.basic.model.function.BuiltinFunction;
  * 
  * @author DougLei
  */
-public abstract class CurrentDate implements BuiltinFunction{
+public class CurrentDate implements BuiltinFunction{
 	
 	public BuiltinFunction init(JSONObject confJson) {
 		return this;

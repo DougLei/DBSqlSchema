@@ -9,7 +9,7 @@ import com.sql.statement.basic.model.function.BuiltinFunction;
  * 
  * @author DougLei
  */
-public abstract class Length implements BuiltinFunction{
+public class Length implements BuiltinFunction{
 	private Parameter parameter;
 	
 	public BuiltinFunction init(JSONObject confJson) {

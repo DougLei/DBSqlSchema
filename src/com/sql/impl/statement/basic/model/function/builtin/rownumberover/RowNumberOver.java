@@ -15,7 +15,7 @@ import com.sql.statement.basic.model.orderby.OrderBy;
  * 
  * @author DougLei
  */
-public abstract class RowNumberOver implements BuiltinFunction{
+public class RowNumberOver implements BuiltinFunction{
 	private RowNumberOver_Partition partition;
 	private RowNumberOver_OrderBy orderby;
 	

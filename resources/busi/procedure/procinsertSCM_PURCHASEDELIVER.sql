@@ -51,6 +51,8 @@ BEGIN
 		
 		select @ShunXuHao=max(right(DELIVERCODE,3)) from SCM_PURCHASEDELIVER
 			where substring(isnull(DELIVERCODE,''),5,8)=@EightYear
+
+
 		if(@ShunXuHao is null) set @ShunXuHao='001'
 		else
 		begin
@@ -61,6 +63,7 @@ BEGIN
 			end
 		end
 		set @DELIVERCODE='CGDH'+@EightYear+@ShunXuHao
+
 		INSERT INTO SCM_PURCHASEDELIVER
 		(DELIVERCODE,DATAFROM,REFCODE,SUPPLIERID,PURCHASEDEPTID,DELIVERTIME,
 		PURCHASEMANID,SORTCODE,REMARK,DELETEFLAG,RECORDSTATUS,

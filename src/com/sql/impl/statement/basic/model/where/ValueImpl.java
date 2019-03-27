@@ -37,9 +37,6 @@ public class ValueImpl implements Value {
 			}
 		}
 	}
-	
-	
-	
 
 	public String[] getSqlStatements() {
 		switch(type){

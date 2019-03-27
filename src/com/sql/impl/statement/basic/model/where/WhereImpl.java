@@ -14,7 +14,6 @@ import com.sql.statement.basic.model.where.Where;
  * @author DougLei
  */
 public class WhereImpl extends BasicModelImpl implements Where {
-
 	private LogicOperatorType nextLogicOperator;
 	private DataOperatorType dataOperator;
 	private String columnName;

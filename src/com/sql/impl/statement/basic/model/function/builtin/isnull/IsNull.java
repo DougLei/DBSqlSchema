@@ -9,7 +9,7 @@ import com.sql.statement.basic.model.function.BuiltinFunction;
  * 
  * @author DougLei
  */
-public abstract class IsNull implements BuiltinFunction{
+public class IsNull implements BuiltinFunction{
 	private Parameter parameter;
 	private Parameter defaultParameter;
 	
