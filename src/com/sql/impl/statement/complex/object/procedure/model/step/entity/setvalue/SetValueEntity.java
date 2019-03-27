@@ -136,7 +136,7 @@ public abstract class SetValueEntity extends AbstractEntity{
 		sb.append("select \n");
 		
 		appendSetValueFromColumnName(builder.getResultSetColumnNames(), sb);
-		return sb.append(builder.getBody()).toString();
+		return sb.append(" ").append(builder.getBody()).toString();
 	}
 	
 	private String getCOMBINATION_SELECT_SQLSqlStatement(CombinationSelectSqlStatementBuilder builder){

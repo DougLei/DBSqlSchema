@@ -48,7 +48,7 @@ public class IfelseStepEntity extends AbstractStepEntity {
 		
 		if(conditionEntityList.size() > 0){
 			ConditionEntity else1 = conditionEntityList.remove(0);
-			if(else1.getConditionGroupList() != null && else1.getConditionGroupList().size() > 0){
+			if(else1.getIsExistsCondition() != null || (else1.getConditionGroupList() != null && else1.getConditionGroupList().size() > 0)){
 				sb.append(getELSEIFEntity(else1).getSqlStatement(true, else1.getContent()));
 			}else{
 				sb.append(getELSEEntity(else1).getSqlStatement(true, else1.getContent()));
