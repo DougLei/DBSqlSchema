@@ -21,10 +21,6 @@ public class BuiltinFunctionContext {
 		
 	}
 	
-	public static void main(String[] args) {
-		
-	}
-	
 	/**
 	 * 是否是内置函数
 	 * @param name
