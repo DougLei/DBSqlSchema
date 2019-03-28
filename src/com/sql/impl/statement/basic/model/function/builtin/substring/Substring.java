@@ -31,8 +31,4 @@ public abstract class Substring implements BuiltinFunction{
 		}
 		this.subLength = subLength;
 	}
-
-	public String getFunctionName() {
-		return "_substring";
-	}
 }

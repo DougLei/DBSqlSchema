@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="docs/jar-libs/fastjson-1.2.12.jar"/>
+	<classpathentry kind="lib" path="docs/jar-libs/jtools-0.0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

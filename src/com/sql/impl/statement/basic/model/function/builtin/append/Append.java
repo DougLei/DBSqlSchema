@@ -47,8 +47,4 @@ public abstract class Append implements BuiltinFunction{
 	 * @return
 	 */
 	protected abstract String appendParameter(String parameter, boolean isLastParameter);
-
-	public String getFunctionName() {
-		return "_append";
-	}
 }

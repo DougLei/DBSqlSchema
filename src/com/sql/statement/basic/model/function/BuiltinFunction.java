@@ -9,11 +9,10 @@ import com.alibaba.fastjson.JSONObject;
  */
 public interface BuiltinFunction extends Function{
 	
-	BuiltinFunction init(JSONObject confJson);
-	
 	/**
-	 * 获取函数名
+	 * 初始化内置函数
+	 * @param confJson
 	 * @return
 	 */
-	String getFunctionName();
+	BuiltinFunction init(JSONObject confJson);
 }

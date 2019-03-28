@@ -20,8 +20,4 @@ public abstract class DateToChar implements BuiltinFunction{
 	
 	protected abstract String getDateStyle();
 	protected abstract int getDateStyleLength();
-	
-	public String getFunctionName() {
-		return "_datetochar";
-	}
 }

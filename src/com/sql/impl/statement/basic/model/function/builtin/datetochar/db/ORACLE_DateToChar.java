@@ -1,11 +1,14 @@
 package com.sql.impl.statement.basic.model.function.builtin.datetochar.db;
 
+import com.sql.enums.DatabaseType;
 import com.sql.impl.statement.basic.model.function.builtin.datetochar.DateToChar;
+import com.sql.statement.basic.model.function.BuiltinFunctionAnnotation;
 
 /**
  * 
  * @author DougLei
  */
+@BuiltinFunctionAnnotation(supportDtabaseType = {DatabaseType.ORACLE}, functionName = "_datetochar")
 public class ORACLE_DateToChar extends DateToChar {
 
 	protected String getDateStyle() {

@@ -5,9 +5,11 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.sql.enums.DatabaseType;
 import com.sql.impl.statement.basic.model.function.FunctionImpl;
 import com.sql.impl.statement.basic.model.orderby.OrderByImpl;
 import com.sql.statement.basic.model.function.BuiltinFunction;
+import com.sql.statement.basic.model.function.BuiltinFunctionAnnotation;
 import com.sql.statement.basic.model.function.Function;
 import com.sql.statement.basic.model.orderby.OrderBy;
 
@@ -15,6 +17,7 @@ import com.sql.statement.basic.model.orderby.OrderBy;
  * 
  * @author DougLei
  */
+@BuiltinFunctionAnnotation(supportDtabaseType = {DatabaseType.ORACLE, DatabaseType.SQLSERVER}, functionName = "_row_number_over")
 public class RowNumberOver implements BuiltinFunction{
 	private RowNumberOver_Partition partition;
 	private RowNumberOver_OrderBy orderby;
@@ -44,11 +47,6 @@ public class RowNumberOver implements BuiltinFunction{
 		}
 		sb.append(")");
 		return sb.toString();
-	}
-	
-	
-	public String getFunctionName() {
-		return "_row_number_over";
 	}
 	
 	// --------------------------------------------------------------------

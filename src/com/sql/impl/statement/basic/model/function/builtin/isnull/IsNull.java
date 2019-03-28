@@ -1,14 +1,17 @@
 package com.sql.impl.statement.basic.model.function.builtin.isnull;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sql.enums.DatabaseType;
 import com.sql.impl.SqlStatementBuilderContext;
 import com.sql.impl.statement.basic.model.function.Parameter;
 import com.sql.statement.basic.model.function.BuiltinFunction;
+import com.sql.statement.basic.model.function.BuiltinFunctionAnnotation;
 
 /**
  * 
  * @author DougLei
  */
+@BuiltinFunctionAnnotation(supportDtabaseType = {DatabaseType.ORACLE, DatabaseType.SQLSERVER}, functionName = "_isnull")
 public class IsNull implements BuiltinFunction{
 	private Parameter parameter;
 	private Parameter defaultParameter;
@@ -28,10 +31,5 @@ public class IsNull implements BuiltinFunction{
 				return "nvl" + sql;
 		}
 		return null;
-	}
-	
-	
-	public String getFunctionName() {
-		return "_isnull";
 	}
 }
