@@ -20,4 +20,14 @@ public abstract class DateToChar implements BuiltinFunction{
 	
 	protected abstract String getDateStyle();
 	protected abstract int getDateStyleLength();
+	
+	
+	/*
+		1: yyyy-MM-dd HH:mi:ss (24h)
+		2: yyyy-MM-dd HH:mi:ss.SSS (24h)
+		3: yyyy/MM/dd
+		4: HH:mi:ss (24h)
+		5: HH:mi:ss:SSS (24h)
+		6: yyyyMMdd
+	 */
 }
