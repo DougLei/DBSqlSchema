@@ -12,10 +12,18 @@ import com.sql.statement.basic.model.function.BuiltinFunctionAnnotation;
 public class ORACLE_Substring extends Substring{
 
 	public String getSqlStatement() {
-		if(subLength == 0){
-			return "substr("+parameterSqlStatement+", "+subIndex+")";
+		if(subIndex != -1 && subLength != -1){
+			if(subLength == 0){
+				return "substr("+parameterSqlStatement+", "+subIndex+")";
+			}else{
+				return "substr("+parameterSqlStatement+", "+subIndex+", " + subLength+")";
+			}
 		}else{
-			return "substr("+parameterSqlStatement+", "+subIndex+", " + subLength+")";
+			if(subLengthParam == null){
+				return "substr("+parameterSqlStatement+", "+subIndexParam+")";
+			}else{
+				return "substr("+parameterSqlStatement+", "+subIndexParam+", " + subLengthParam+")";
+			}
 		}
 	}
 }

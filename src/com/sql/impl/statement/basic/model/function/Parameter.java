@@ -13,8 +13,8 @@ import com.sql.util.StrUtils;
 public class Parameter {
 	private Type type;
 	
-	private String paramName;
 	private String value;
+	private String paramName;
 	
 	private Function function;
 	

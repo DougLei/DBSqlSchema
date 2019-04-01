@@ -12,15 +12,19 @@ import com.sql.statement.basic.model.function.BuiltinFunctionAnnotation;
 public class SQLSERVER_Substring extends Substring{
 
 	public String getSqlStatement() {
-		if(subIndex > 0){
-			return "substring("+ parameterSqlStatement+", " + subIndex+", "+ subLength +")";
-		}else{
-			String right = "right("+ parameterSqlStatement+", " + Math.abs(subIndex) + ")";
-			if(subLength == 0){
-				return right;
+		if(subIndex != -1 && subLength != -1){
+			if(subIndex > 0){
+				return "substring("+ parameterSqlStatement+", " + subIndex+", "+ subLength +")";
 			}else{
-				return "left("+right+", "+subLength+")";
+				String right = "right("+ parameterSqlStatement+", " + Math.abs(subIndex) + ")";
+				if(subLength == 0){
+					return right;
+				}else{
+					return "left("+right+", "+subLength+")";
+				}
 			}
+		}else{
+			return "substring("+ parameterSqlStatement+", " + subIndexParam+", "+ subLengthParam +")";
 		}
 	}
 }
