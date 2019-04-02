@@ -11,10 +11,6 @@ import com.sql.statement.basic.model.function.BuiltinFunctionAnnotation;
 @BuiltinFunctionAnnotation(supportDtabaseType = {DatabaseType.SQLSERVER}, functionName = "_for_xml_path")
 public class SQLSERVER_ForXmlPath extends ForXmlPath{
 
-	protected void reInitRootNodeName() {
-		rootNodeName = "''";
-	}
-
 	protected String installSqlStatement(String sqlContent) {
 		return sqlContent + " for xml path("+rootNodeName+")";
 	}

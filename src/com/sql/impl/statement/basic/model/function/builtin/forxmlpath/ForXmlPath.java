@@ -20,7 +20,7 @@ public abstract class ForXmlPath implements BuiltinFunction{
 		sqlJson = confJson.getJSONObject("sqlJson");
 		rootNodeName = confJson.getString("rootNodeName");
 		if(StrUtils.isEmpty(rootNodeName)){
-			reInitRootNodeName();
+			rootNodeName = "'ROW'";
 		}
 		return this;
 	}
@@ -29,10 +29,6 @@ public abstract class ForXmlPath implements BuiltinFunction{
 		return installSqlStatement(SqlStatementBuilderContext.getSqlStatement(sqlId, sqlJson));
 	}
 	
-	/**
-	 * 重新初始化rootNodeName属性值
-	 */
-	protected abstract void reInitRootNodeName();
 	/**
 	 * 组装sql语句
 	 * @param sqlContent 主体的sql语句，子类实现如何用函数包裹起来

@@ -11,12 +11,7 @@ import com.sql.statement.basic.model.function.BuiltinFunctionAnnotation;
 @BuiltinFunctionAnnotation(supportDtabaseType = {DatabaseType.ORACLE}, functionName = "_for_xml_path")
 public class ORACLE_ForXmlPath extends ForXmlPath{
 
-	protected void reInitRootNodeName() {
-		// TODO Auto-generated method stub
-	}
-
 	protected String installSqlStatement(String sqlContent) {
-		// TODO Auto-generated method stub
-		return null;
+		return "select for_xml_path(q'/" + sqlContent +"/', " + rootNodeName + ") from dual;";
 	}
 }
