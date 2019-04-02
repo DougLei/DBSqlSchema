@@ -12,6 +12,6 @@ import com.sql.statement.basic.model.function.BuiltinFunctionAnnotation;
 public class ORACLE_ForXmlPath extends ForXmlPath{
 
 	protected String installSqlStatement(String sqlContent) {
-		return "select for_xml_path(q'/" + sqlContent +"/', " + rootNodeName + ") from dual;";
+		return "select for_xml_path(q'/" + sqlContent +"/', " + rootNodeName + ") from dual";
 	}
 }
