@@ -29,16 +29,20 @@ public class CombinationSelectSqlStatementBuilderImpl extends SqlStatementBuilde
 		if(withList != null){
 			withSqlBodyStatement.append("with ");
 			withSqlBodyStatement.append(newline());
-			for (With with : withList) {
-				withSqlBodyStatement.append(with.getSqlStatement());
+			int loopCount = withList.size();
+			for(int i=0;i<loopCount;i++){
+				withSqlBodyStatement.append(withList.get(i).getSqlStatement());
 				withSqlBodyStatement.append(newline());
+				if(loopCount>1 && i<(loopCount-1)){
+					withSqlBodyStatement.append(", ");
+				}
 			}
 		}
 		setWithBody(withSqlBodyStatement);
 		
-		JSONArray array = content.getJSONArray("selectSql");
+		JSONArray array = content.getJSONArray("sqlJson");
 		if(array == null || array.size() == 0){
-			throw new NullPointerException("组合查询select sql语句的selectSql属性值不能为空");
+			throw new NullPointerException("组合查询select sql语句的sqlJson属性值不能为空");
 		}
 		processSelectSql(true, array, selectSqlBodyStatement);
 		setBody(selectSqlBodyStatement);
@@ -55,7 +59,7 @@ public class CombinationSelectSqlStatementBuilderImpl extends SqlStatementBuilde
 			JSONObject json = null;
 			for(int i=0;i<array.size();i++){
 				json = array.getJSONObject(i);
-				withList.add(new WithImpl(json).setSqlStatement(processSelectSql(false, json.getJSONArray("selectSql"), null)));
+				withList.add(new WithImpl(json).setSqlStatement(processSelectSql(false, json.getJSONArray("sql"), null)));
 			}
 			return withList;
 		}
@@ -65,24 +69,24 @@ public class CombinationSelectSqlStatementBuilderImpl extends SqlStatementBuilde
 	/**
 	 * 处理sql语句
 	 * @param recordResultSetColumnName 是否记录查询结果集列名
-	 * @param array
+	 * @param sqlArray
 	 * @param sql
 	 */
-	private StringBuilder processSelectSql(boolean recordResultSetColumnName, JSONArray array, StringBuilder sql){
+	private StringBuilder processSelectSql(boolean recordResultSetColumnName, JSONArray sqlArray, StringBuilder sql){
 		if(sql == null){
 			sql = new StringBuilder(3000);
 		}
 		JSONObject json = null;
-		if(array.size() == 1){
-			json = array.getJSONObject(0);
+		if(sqlArray.size() == 1){
+			json = sqlArray.getJSONObject(0);
 			sql.append(toSelectSql(recordResultSetColumnName, json));
 		}else{
 			if(recordResultSetColumnName){
 				isUnionQuery = true;
 			}
-			for(int i=0;i<array.size();i++){
-				json = array.getJSONObject(i);
-				if(i < array.size()-1 && StrUtils.isEmpty(json.getString("unionType"))){
+			for(int i=0;i<sqlArray.size();i++){
+				json = sqlArray.getJSONObject(i);
+				if(i < sqlArray.size()-1 && StrUtils.isEmpty(json.getString("unionType"))){
 					throw new NullPointerException("组合查询，第"+(i+1)+"个select sql语句配置的unionType属性值不能为空");
 				}
 				
@@ -91,7 +95,7 @@ public class CombinationSelectSqlStatementBuilderImpl extends SqlStatementBuilde
 				}else{
 					sql.append(toSelectSql(false, json));
 				}
-				if(i < array.size()-1){
+				if(i < sqlArray.size()-1){
 					sql.append(UnionType.toValue(json.getString("unionType")).getSqlStatement());
 					sql.append(newline());
 				}
